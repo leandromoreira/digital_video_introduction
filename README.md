@@ -1,3 +1,5 @@
+[![license](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)
+
 # Introduction
 
 Please make sure you run `./setup.sh` first.
