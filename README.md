@@ -11,32 +11,32 @@ Please make sure you run `./setup.sh` first.
 To see some details:
 
 ```
-./s/mediainfo.sh /files/v/small_bunny_1080p_30fps.mp4
+./s/mediainfo /files/v/small_bunny_1080p_30fps.mp4
 ```
 
 To see full details:
 
 ```
-./s/mediainfo.sh --Details=1 /files/v/small_bunny_1080p_30fps.mp4
+./s/mediainfo --Details=1 /files/v/small_bunny_1080p_30fps.mp4
 ```
 
 To see only the frame, slice types:
 
 ```
-./s/mediainfo.sh --Details=1 /files/v/small_bunny_1080p_30fps.mp4 | grep slice_type
+./s/mediainfo --Details=1 /files/v/small_bunny_1080p_30fps.mp4 | grep slice_type
 ```
 ## Transmuxing
 
 From `mp4` to `ts`:
 
 ```
-./s/ffmpeg.sh -i /files/v/small_bunny_1080p_30fps.mp4  /files/v/small_bunny_1080p_30fps.ts
+./s/ffmpeg -i /files/v/small_bunny_1080p_30fps.mp4  /files/v/small_bunny_1080p_30fps.ts
 ```
 
 From `mp4` to `ts` explicitly telling to copy audio and video codec:
 
 ```
-./s/ffmpeg.sh -i /files/v/small_bunny_1080p_30fps.mp4 -c:a copy -c:v copy  /files/v/small_bunny_1080p_30fps.ts
+./s/ffmpeg -i /files/v/small_bunny_1080p_30fps.mp4 -c:a copy -c:v copy  /files/v/small_bunny_1080p_30fps.ts
 ```
 
 ## Transcoding
@@ -44,25 +44,25 @@ From `mp4` to `ts` explicitly telling to copy audio and video codec:
 From `h264` to `vp9`:
 
 ```
-./s/ffmpeg.sh -i /files/v/small_bunny_1080p_30fps.mp4 -c:v libvpx-vp9 -c:a libvorbis /files/v/small_bunny_1080p_30fps_vp9.webm
+./s/ffmpeg -i /files/v/small_bunny_1080p_30fps.mp4 -c:v libvpx-vp9 -c:a libvorbis /files/v/small_bunny_1080p_30fps_vp9.webm
 ```
 
 From `h264` to `h265`:
 
 ```
-./s/ffmpeg.sh -i /files/v/small_bunny_1080p_30fps.mp4 -c:v libx265 /files/v/small_bunny_1080p_30fps_h265.mp4
+./s/ffmpeg -i /files/v/small_bunny_1080p_30fps.mp4 -c:v libx265 /files/v/small_bunny_1080p_30fps_h265.mp4
 ```
 
 From `h264` to `h264` with I-frame at each second (for a 30FPS video):
 
 ```
-./s/ffmpeg.sh -i /files/v/small_bunny_1080p_30fps.mp4 -c:v libx264 -x264-params keyint=30:min-keyint=30:no-scenecut=1 -c:a copy /files/v/small_bunny_1080p_30fps_h264_keyframe_each_second.mp4
+./s/ffmpeg -i /files/v/small_bunny_1080p_30fps.mp4 -c:v libx264 -x264-params keyint=30:min-keyint=30:no-scenecut=1 -c:a copy /files/v/small_bunny_1080p_30fps_h264_keyframe_each_second.mp4
 ```
 
 Count how many `I-slice` (keyframes) were inserted:
 
 ```
-./s/mediainfo.sh --Details=1 /files/v/small_bunny_1080p_30fps_h264_keyframe_each_second.mp4 | grep "slice_type I" | wc -l
+./s/mediainfo --Details=1 /files/v/small_bunny_1080p_30fps_h264_keyframe_each_second.mp4 | grep "slice_type I" | wc -l
 ```
 
 ## Transrating
@@ -70,13 +70,13 @@ Count how many `I-slice` (keyframes) were inserted:
 CBR from `1928 kbps` to `964 kbps`:
 
 ```
-./s/ffmpeg.sh -i /files/v/small_bunny_1080p_30fps.mp4 -b:v 964K -minrate 964K -maxrate 964K -bufsize 2000K  /files/v/small_bunny_1080p_30fps_transrating_964.mp4
+./s/ffmpeg -i /files/v/small_bunny_1080p_30fps.mp4 -b:v 964K -minrate 964K -maxrate 964K -bufsize 2000K  /files/v/small_bunny_1080p_30fps_transrating_964.mp4
 ```
 
 Constrained VBR or ABR from `1928 kbps` to `max=3856 kbps ,min=964 kbps`:
 
 ```
-./s/ffmpeg.sh -i /files/v/small_bunny_1080p_30fps.mp4 -minrate 964K -maxrate 3856K -bufsize 2000K  /files/v/small_bunny_1080p_30fps_transrating_964_3856.mp4
+./s/ffmpeg -i /files/v/small_bunny_1080p_30fps.mp4 -minrate 964K -maxrate 3856K -bufsize 2000K  /files/v/small_bunny_1080p_30fps_transrating_964_3856.mp4
 ```
 
 ## Transsizing
@@ -84,7 +84,7 @@ Constrained VBR or ABR from `1928 kbps` to `max=3856 kbps ,min=964 kbps`:
 From `1080p` to `480p`:
 
 ```
-./s/ffmpeg.sh -i /files/v/small_bunny_1080p_30fps.mp4 -vf scale=480:-1 /files/v/small_bunny_1080p_30fps_transsizing_480.mp4
+./s/ffmpeg -i /files/v/small_bunny_1080p_30fps.mp4 -vf scale=480:-1 /files/v/small_bunny_1080p_30fps_transsizing_480.mp4
 ```
 
 ## Adaptive bitrate streaming
@@ -93,13 +93,13 @@ From `1080p` to `480p`:
 
 ### A VOD stream with 1s chunk size
 ```
-./s/ffmpeg.sh -i /files/v/small_bunny_1080p_30fps_h264_keyframe_each_second.mp4 -c:a copy -c:v libx264 -x264-params keyint=30:min-keyint=30:no-scenecut=1 -hls_playlist_type vod -hls_time 1 /files/v/playlist_keyframe_each_second.m3u8
+./s/ffmpeg -i /files/v/small_bunny_1080p_30fps_h264_keyframe_each_second.mp4 -c:a copy -c:v libx264 -x264-params keyint=30:min-keyint=30:no-scenecut=1 -hls_playlist_type vod -hls_time 1 /files/v/playlist_keyframe_each_second.m3u8
 ```
 
 ### Playlists for 720p(2628kbs), 480p(480p1128kbs) and 240p(264kbs) streams
 
 ```
-./s/ffmpeg.sh -i /files/v/small_bunny_1080p_30fps_h264_keyframe_each_second.mp4 \
+./s/ffmpeg -i /files/v/small_bunny_1080p_30fps_h264_keyframe_each_second.mp4 \
              -c:a copy -c:v libx264 -x264-params keyint=30:min-keyint=30:no-scenecut=1 \
              -b:v 2500k -s 1280x720 -profile:v high -hls_time 1 -hls_playlist_type vod /files/v/720p2628kbs.m3u8 \
              -c:a copy -c:v libx264 -x264-params keyint=30:min-keyint=30:no-scenecut=1 \
@@ -128,15 +128,15 @@ You can learn more about [vmaf](http://techblog.netflix.com/2016/06/toward-pract
 
 ```
 # generating a 2 seconds example video
-./s/ffmpeg.sh -y -i /files/v/bunny_1080p_30fps.mp4 -ss 00:01:24 -t 00:00:02  /files/v/smallest_bunny_1080p_30fps.mp4
+./s/ffmpeg -y -i /files/v/bunny_1080p_30fps.mp4 -ss 00:01:24 -t 00:00:02  /files/v/smallest_bunny_1080p_30fps.mp4
 
 # generate a transcoded video (600kbps vp9)
-./s/ffmpeg.sh -i /files/v/smallest_bunny_1080p_30fps.mp4 -c:v libvpx-vp9 -b:v 600K -c:a libvorbis /files/v/smallest_bunny_1080p_30fps_vp9.webm
+./s/ffmpeg -i /files/v/smallest_bunny_1080p_30fps.mp4 -c:v libvpx-vp9 -b:v 600K -c:a libvorbis /files/v/smallest_bunny_1080p_30fps_vp9.webm
 
 # extract the yuv (yuv420p) color space from them
-./s/ffmpeg.sh -i /files/v/smallest_bunny_1080p_30fps.mp4 -c:v rawvideo -pix_fmt yuv420p /files/v/smallest_bunny_1080p_30fps.yuv
-./s/ffmpeg.sh -i /files/v/smallest_bunny_1080p_30fps_vp9.webm -c:v rawvideo -pix_fmt yuv420p /files/v/smallest_bunny_1080p_30fps_vp9.yuv
+./s/ffmpeg -i /files/v/smallest_bunny_1080p_30fps.mp4 -c:v rawvideo -pix_fmt yuv420p /files/v/smallest_bunny_1080p_30fps.yuv
+./s/ffmpeg -i /files/v/smallest_bunny_1080p_30fps_vp9.webm -c:v rawvideo -pix_fmt yuv420p /files/v/smallest_bunny_1080p_30fps_vp9.yuv
 
 # run vmaf original h264 vs transcoded vp9
-./s/vmaf.sh run_vmaf yuv420p 1080 720 /files/v/smallest_bunny_1080p_30fps.yuv /files/v/smallest_bunny_1080p_30fps_vp9.yuv --out-fmt json
+./s/vmaf run_vmaf yuv420p 1080 720 /files/v/smallest_bunny_1080p_30fps.yuv /files/v/smallest_bunny_1080p_30fps_vp9.yuv --out-fmt json
 ```
