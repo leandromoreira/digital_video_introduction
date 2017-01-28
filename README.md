@@ -121,3 +121,22 @@ cat <<EOF > v/variant.m3u8
 240p264kbs.m3u8
 EOF
 ```
+
+## Video quality perception
+
+You can learn more about [vmaf](http://techblog.netflix.com/2016/06/toward-practical-perceptual-video.html) and [general video quality perception](https://leandromoreira.com.br/2016/10/09/how-to-measure-video-quality-perception/).
+
+```
+# generating a 2 seconds example video
+./s/ffmpeg.sh -y -i /files/v/bunny_1080p_30fps.mp4 -ss 00:01:24 -t 00:00:02  /files/v/smallest_bunny_1080p_30fps.mp4
+
+# generate a transcoded video (600kbps vp9)
+./s/ffmpeg.sh -i /files/v/smallest_bunny_1080p_30fps.mp4 -c:v libvpx-vp9 -b:v 600K -c:a libvorbis /files/v/smallest_bunny_1080p_30fps_vp9.webm
+
+# extract the yuv (yuv420p) color space from them
+./s/ffmpeg.sh -i /files/v/smallest_bunny_1080p_30fps.mp4 -c:v rawvideo -pix_fmt yuv420p /files/v/smallest_bunny_1080p_30fps.yuv
+./s/ffmpeg.sh -i /files/v/smallest_bunny_1080p_30fps_vp9.webm -c:v rawvideo -pix_fmt yuv420p /files/v/smallest_bunny_1080p_30fps_vp9.yuv
+
+# run vmaf original h264 vs transcoded vp9
+./s/vmaf.sh run_vmaf yuv420p 1080 720 /files/v/smallest_bunny_1080p_30fps.yuv /files/v/smallest_bunny_1080p_30fps_vp9.yuv --out-fmt json
+```
