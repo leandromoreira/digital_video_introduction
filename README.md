@@ -44,7 +44,7 @@ From `mp4` to `ts` explicitly telling to copy audio and video codec:
 From `h264` to `vp9`:
 
 ```
-./s/ffmpeg.sh -i /files/v/small_bunny_1080p_30fps.mp4 -c:v libvpx-vp9 -c:a libvorbis /files/v/small_bunny_1080p_30fps_vp9.mp4
+./s/ffmpeg.sh -i /files/v/small_bunny_1080p_30fps.mp4 -c:v libvpx-vp9 -c:a libvorbis /files/v/small_bunny_1080p_30fps_vp9.webm
 ```
 
 From `h264` to `h265`:
