@@ -87,6 +87,14 @@ From `1080p` to `480p`:
 ./s/ffmpeg -i /files/v/small_bunny_1080p_30fps.mp4 -vf scale=480:-1 /files/v/small_bunny_1080p_30fps_transsizing_480.mp4
 ```
 
+## Audio sampling
+
+From `original` to `8kHz`
+
+```
+./s/ffmpeg -i /files/v/small_bunny_1080p_30fps.mp4 -ar 8000 /files/v/small_bunny_1080p_30fps_8khz.mp4
+```
+
 ## Adaptive bitrate streaming
 
 [HLS](https://tools.ietf.org/html/draft-pantos-http-live-streaming-20) streaming:
