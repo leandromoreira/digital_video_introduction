@@ -89,11 +89,21 @@ From `1080p` to `480p`:
 
 ## Audio sampling
 
-From `original` to `8kHz`
+From `original` to `8kHz`:
 
 ```
 ./s/ffmpeg -i /files/v/small_bunny_1080p_30fps.mp4 -ar 8000 /files/v/small_bunny_1080p_30fps_8khz.mp4
 ```
+
+## Audio bit depth
+
+From `original` to `8 bits`:
+
+```
+./s/ffmpeg -i /files/v/small_bunny_1080p_30fps.mp4 -sample_fmt:0:0 u8p /files/v/small_bunny_1080p_30fps_8bits.mp4 -y
+```
+
+> Technically speaking, bit depth is only meaningful when applied to pure PCM devices. Non-PCM formats, such as lossy compression systems like MP3, have bit depths that are not defined in the same sense as PCM. In lossy audio compression, where bits are allocated to other types of information, the bits actually allocated to individual samples are allowed to fluctuate within the constraints imposed by the allocation algorithm.
 
 ## Adaptive bitrate streaming
 
