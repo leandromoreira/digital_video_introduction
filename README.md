@@ -103,6 +103,24 @@ Joining `audio` with `video`:
 ./s/ffmpeg -i /files/v/small_bunny_audio.aac -i /files/v/small_bunny_1080p_30fps.mp4 /files/v/small_bunny_1080p_30fps_muxed.mp4
 ```
 
+# Generate images from video
+
+Get `images` from `1s video`:
+
+```
+./ffmpeg -y -i /files/v/bunny_1080p_30fps.mp4 -ss 00:01:24 -t 00:00:01  /files/v/smallest_bunny_1080p_30fps_%3d.jpg
+```
+
+# Generate video from images
+
+```
+# from one image
+./s/ffmpeg -loop 1 -i /files/v/smallest_bunny_1080p_30fps_001.jpg -c:v libx264 -pix_fmt yuv420p -t 10 /files/v/smallest_bunny_1080p_30fps_frame_001.mp4
+
+# from multiple images (repeating 10s)
+./s/ffmpeg -loop 1 -i /files/v/smallest_bunny_1080p_30fps_%03d.jpg -c:v libx264 -pix_fmt yuv420p -t 10 /files/v/smallest_bunny_1080p_30fps_from_images.mp4
+```
+
 ## Audio sampling
 
 From `original` to `8kHz`:
