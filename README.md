@@ -95,7 +95,7 @@ Extracting `audio` from `container`:
 ./s/ffmpeg -i /files/v/small_bunny_1080p_30fps.mp4 -vn -c:a copy /files/v/small_bunny_audio.aac
 ```
 
-# Muxing
+## Muxing
 
 Joining `audio` with `video`:
 
@@ -103,7 +103,7 @@ Joining `audio` with `video`:
 ./s/ffmpeg -i /files/v/small_bunny_audio.aac -i /files/v/small_bunny_1080p_30fps.mp4 /files/v/small_bunny_1080p_30fps_muxed.mp4
 ```
 
-# Generate images from video
+## Generate images from video
 
 Get `images` from `1s video`:
 
@@ -111,7 +111,7 @@ Get `images` from `1s video`:
 ./ffmpeg -y -i /files/v/bunny_1080p_30fps.mp4 -ss 00:01:24 -t 00:00:01  /files/v/smallest_bunny_1080p_30fps_%3d.jpg
 ```
 
-# Generate video from images
+## Generate video from images
 
 ```
 # from one image
