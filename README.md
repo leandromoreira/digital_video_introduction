@@ -87,6 +87,22 @@ From `1080p` to `480p`:
 ./s/ffmpeg -i /files/v/small_bunny_1080p_30fps.mp4 -vf scale=480:-1 /files/v/small_bunny_1080p_30fps_transsizing_480.mp4
 ```
 
+## Demuxing
+
+Extracting `audio` from `container`:
+
+```
+./s/ffmpeg -i /files/v/small_bunny_1080p_30fps.mp4 -vn -c:a copy /files/v/small_bunny_audio.aac
+```
+
+# Muxing
+
+Joining `audio` with `video`:
+
+```
+./s/ffmpeg -i /files/v/small_bunny_audio.aac -i /files/v/small_bunny_1080p_30fps.mp4 /files/v/small_bunny_1080p_30fps_muxed.mp4
+```
+
 ## Audio sampling
 
 From `original` to `8kHz`:
