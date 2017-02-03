@@ -2,7 +2,9 @@
 
 # WIP
 
-This repo will be used to provide a gentle introduction to video technology, although it's aimed to software developers / engineering we want to make it easy for anyone to learn. Also, feel free to send PRs.
+This repo will be used to provide a gentle introduction to video technology, although it's aimed to software developers / engineering we want to make it easy for anyone to learn.
+
+The idea is to introduce some video subjects with easy to understand text (at least for developers), visual element and practical examples where is possible. Also, feel free to send PRs.
 
 # Basic video/image terminology
 
