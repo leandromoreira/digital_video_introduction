@@ -29,4 +29,4 @@ And each color intensity requires a certain amount of bits, this quantity is kno
 
 # How to use jupyter
 
-Make sure you have **docker installed** and just run `./s/start_jupyter.sh` and follow the instructions on the command line.
+Make sure you have **docker installed** and just run `./s/start_jupyter.sh` and follow the instructions on the terminal.
