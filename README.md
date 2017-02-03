@@ -22,4 +22,9 @@ And each color intensity requires a certain amount of bits, this quantity is kno
 
 > #### Heads up
 > You can [play around with image and colors](/image_as_3d_array.ipynb) with python.
->
+
+
+
+# How to use jupyter
+
+Make sure you have **docker installed** and just run `./s/start_jupyter.sh` and follow the instructions on the command line.
