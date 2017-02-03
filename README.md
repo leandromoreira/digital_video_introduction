@@ -23,7 +23,7 @@ For instance, look at this picture, you can see that it has a lots of red and fe
 And each color intensity requires a certain amount of bits, this quantity is know as **bit depth**. Let's say we spend **8 bits** (accepting values from 0 to 255) per channel, therefore we have a **color depth** of **24 (8 * 3) bits** and you can also infer that we could use 2 to the power of 24 different colors. We could also create a **gray image** and really only spend **8 bits** total, per pixel.
 
 > #### Heads up
-> You can [play around with image and colors](/image_as_3d_array.ipynb) with python.
+> You can [play around with image and colors](/image_as_3d_array.ipynb) with [jupyter](#how-to-use-jupyter) (python numpy matplotlib and etc).
 
 
 
