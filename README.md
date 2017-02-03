@@ -1,194 +1,27 @@
 [![license](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)
 
-# Introduction
+# WIP
 
-Please make sure you run `./setup.sh` first.
+This repo will be used to provide a gentle introduction to video technology, although it's aimed to software developers / engineering we want to make it easy for anyone to learn. Also, feel free to send PRs.
 
-# General commands
+# Basic video/image terminology
 
-## Inspect stream
+An **image** can be thought as a 2D matrix and if we think about colors, we can extrapolate this idea, now the image can be seen as a **3D matrix**. The lines and rows are the 2D part and the **additional dimension** is used to provide **color info**, there are tree planes, the first one **red**, the second **green** and the last the **blue** color.
 
-To see some details:
+![an image is a 3d matrix RGB](/i/image_3d_matrix_rgb.png "An image is a 3D matrix")
 
-```
-./s/mediainfo /files/v/small_bunny_1080p_30fps.mp4
-```
+Each point in this matrix, called **pixel** (picture element), will hold the **intensity** (usually a numeric value) of that given color. A **total red color** means 0 of green, 0 of blue and max of red, the **pink color** can be formed with (using 0 to 255 as the possible range) with **Red=255, Green=192 and Blue=203**.
 
-To see full details:
+For instance, look at this picture, you can see that it has a lots of red and few blue colors therefore the **red color** will be the one that **contributes more** (the brightest parts) to the final color while the **blue color** contribution can be mostly **only seen in Mario's eyes** and part of Mario's clothes.
 
-```
-./s/mediainfo --Details=1 /files/v/small_bunny_1080p_30fps.mp4
-```
+![RGB channels intensity](/i/rgb_channels_intensity.png "RGB channels intensity")
 
-To see only the frame, slice types:
+And each color intensity requires a certain amount of bits, this quantity is know as **bit depth**. Let's say we spend **8 bits** (accepting values from 0 to 255) per channel, therefore we have a **color depth** of **24 (8 * 3) bits** and you can also infer that we could use 2 to the power of 24 different colors.
 
-```
-./s/mediainfo --Details=1 /files/v/small_bunny_1080p_30fps.mp4 | grep slice_type
-```
-## Transmuxing
+We could also create a **gray image** and really only spend **8 bits** total.
 
-From `mp4` to `ts`:
 
-```
-./s/ffmpeg -i /files/v/small_bunny_1080p_30fps.mp4  /files/v/small_bunny_1080p_30fps.ts
-```
+resolution, aspect ratio, pixel aspect ratio, video, interlaced, progressive, bitrate, CBR, VBR, ABR
 
-From `mp4` to `ts` explicitly telling to copy audio and video codec:
 
-```
-./s/ffmpeg -i /files/v/small_bunny_1080p_30fps.mp4 -c:a copy -c:v copy  /files/v/small_bunny_1080p_30fps.ts
-```
-
-## Transcoding
-
-From `h264` to `vp9`:
-
-```
-./s/ffmpeg -i /files/v/small_bunny_1080p_30fps.mp4 -c:v libvpx-vp9 -c:a libvorbis /files/v/small_bunny_1080p_30fps_vp9.webm
-```
-
-From `h264` to `h265`:
-
-```
-./s/ffmpeg -i /files/v/small_bunny_1080p_30fps.mp4 -c:v libx265 /files/v/small_bunny_1080p_30fps_h265.mp4
-```
-
-From `h264` to `h264` with I-frame at each second (for a 30FPS video):
-
-```
-./s/ffmpeg -i /files/v/small_bunny_1080p_30fps.mp4 -c:v libx264 -x264-params keyint=30:min-keyint=30:no-scenecut=1 -c:a copy /files/v/small_bunny_1080p_30fps_h264_keyframe_each_second.mp4
-```
-
-Count how many `I-slice` (keyframes) were inserted:
-
-```
-./s/mediainfo --Details=1 /files/v/small_bunny_1080p_30fps_h264_keyframe_each_second.mp4 | grep "slice_type I" | wc -l
-```
-
-## Transrating
-
-CBR from `1928 kbps` to `964 kbps`:
-
-```
-./s/ffmpeg -i /files/v/small_bunny_1080p_30fps.mp4 -b:v 964K -minrate 964K -maxrate 964K -bufsize 2000K  /files/v/small_bunny_1080p_30fps_transrating_964.mp4
-```
-
-Constrained VBR or ABR from `1928 kbps` to `max=3856 kbps ,min=964 kbps`:
-
-```
-./s/ffmpeg -i /files/v/small_bunny_1080p_30fps.mp4 -minrate 964K -maxrate 3856K -bufsize 2000K  /files/v/small_bunny_1080p_30fps_transrating_964_3856.mp4
-```
-
-## Transsizing
-
-From `1080p` to `480p`:
-
-```
-./s/ffmpeg -i /files/v/small_bunny_1080p_30fps.mp4 -vf scale=480:-1 /files/v/small_bunny_1080p_30fps_transsizing_480.mp4
-```
-
-## Demuxing
-
-Extracting `audio` from `container`:
-
-```
-./s/ffmpeg -i /files/v/small_bunny_1080p_30fps.mp4 -vn -c:a copy /files/v/small_bunny_audio.aac
-```
-
-## Muxing
-
-Joining `audio` with `video`:
-
-```
-./s/ffmpeg -i /files/v/small_bunny_audio.aac -i /files/v/small_bunny_1080p_30fps.mp4 /files/v/small_bunny_1080p_30fps_muxed.mp4
-```
-
-## Generate images from video
-
-Get `images` from `1s video`:
-
-```
-./ffmpeg -y -i /files/v/bunny_1080p_30fps.mp4 -ss 00:01:24 -t 00:00:01  /files/v/smallest_bunny_1080p_30fps_%3d.jpg
-```
-
-## Generate video from images
-
-```
-# from one image
-./s/ffmpeg -loop 1 -i /files/v/smallest_bunny_1080p_30fps_001.jpg -c:v libx264 -pix_fmt yuv420p -t 10 /files/v/smallest_bunny_1080p_30fps_frame_001.mp4
-
-# from multiple images (repeating 10s)
-./s/ffmpeg -loop 1 -i /files/v/smallest_bunny_1080p_30fps_%03d.jpg -c:v libx264 -pix_fmt yuv420p -t 10 /files/v/smallest_bunny_1080p_30fps_from_images.mp4
-```
-
-## Audio sampling
-
-From `original` to `8kHz`:
-
-```
-./s/ffmpeg -i /files/v/small_bunny_1080p_30fps.mp4 -ar 8000 /files/v/small_bunny_1080p_30fps_8khz.mp4
-```
-
-## Audio bit depth
-
-From `original` to `8 bits`:
-
-```
-./s/ffmpeg -i /files/v/small_bunny_1080p_30fps.mp4 -sample_fmt:0:1 u8p /files/v/small_bunny_1080p_30fps_8bits.mp4 -y
-```
-
-> Technically speaking, bit depth is only meaningful when applied to pure PCM devices. Non-PCM formats, such as lossy compression systems like MP3, have bit depths that are not defined in the same sense as PCM. In lossy audio compression, where bits are allocated to other types of information, the bits actually allocated to individual samples are allowed to fluctuate within the constraints imposed by the allocation algorithm.
-
-## Adaptive bitrate streaming
-
-[HLS](https://tools.ietf.org/html/draft-pantos-http-live-streaming-20) streaming:
-
-### A VOD stream with 1s chunk size
-```
-./s/ffmpeg -i /files/v/small_bunny_1080p_30fps_h264_keyframe_each_second.mp4 -c:a copy -c:v libx264 -x264-params keyint=30:min-keyint=30:no-scenecut=1 -hls_playlist_type vod -hls_time 1 /files/v/playlist_keyframe_each_second.m3u8
-```
-
-### Playlists for 720p(2628kbs), 480p(480p1128kbs) and 240p(264kbs) streams
-
-```
-./s/ffmpeg -i /files/v/small_bunny_1080p_30fps_h264_keyframe_each_second.mp4 \
-             -c:a copy -c:v libx264 -x264-params keyint=30:min-keyint=30:no-scenecut=1 \
-             -b:v 2500k -s 1280x720 -profile:v high -hls_time 1 -hls_playlist_type vod /files/v/720p2628kbs.m3u8 \
-             -c:a copy -c:v libx264 -x264-params keyint=30:min-keyint=30:no-scenecut=1 \
-             -b:v 1000k -s 854x480 -profile:v high -hls_time 1 -hls_playlist_type vod /files/v/480p1128kbs.m3u8 \
-             -c:a copy -c:v libx264 -x264-params keyint=30:min-keyint=30:no-scenecut=1 \
-             -b:v 200k -s 426x240 -profile:v high -hls_time 1 -hls_playlist_type vod /files/v/240p264kbs.m3u8
-```
-
-### The variant playlist
-```
-cat <<EOF > v/variant.m3u8
-#EXTM3U
-#EXT-X-VERSION:6
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=2500000,CODECS="avc1.640028,mp4a.40.2",RESOLUTION=1280x720
-720p2628kbs.m3u8
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1000000,CODECS="avc1.4d001f,mp4a.40.2",RESOLUTION=854x480
-480p1128kbs.m3u8
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=200000,CODECS="avc1.42001f,mp4a.40.2",RESOLUTION=426x240
-240p264kbs.m3u8
-EOF
-```
-
-## Video quality perception
-
-You can learn more about [vmaf](http://techblog.netflix.com/2016/06/toward-practical-perceptual-video.html) and [general video quality perception](https://leandromoreira.com.br/2016/10/09/how-to-measure-video-quality-perception/).
-
-```
-# generating a 2 seconds example video
-./s/ffmpeg -y -i /files/v/bunny_1080p_30fps.mp4 -ss 00:01:24 -t 00:00:02  /files/v/smallest_bunny_1080p_30fps.mp4
-
-# generate a transcoded video (600kbps vp9)
-./s/ffmpeg -i /files/v/smallest_bunny_1080p_30fps.mp4 -c:v libvpx-vp9 -b:v 600K -c:a libvorbis /files/v/smallest_bunny_1080p_30fps_vp9.webm
-
-# extract the yuv (yuv420p) color space from them
-./s/ffmpeg -i /files/v/smallest_bunny_1080p_30fps.mp4 -c:v rawvideo -pix_fmt yuv420p /files/v/smallest_bunny_1080p_30fps.yuv
-./s/ffmpeg -i /files/v/smallest_bunny_1080p_30fps_vp9.webm -c:v rawvideo -pix_fmt yuv420p /files/v/smallest_bunny_1080p_30fps_vp9.yuv
-
-# run vmaf original h264 vs transcoded vp9
-./s/vmaf run_vmaf yuv420p 1080 720 /files/v/smallest_bunny_1080p_30fps.yuv /files/v/smallest_bunny_1080p_30fps_vp9.yuv --out-fmt json
-```
+You can think of a video being a series of `images` (the quantity of  pictures per second would be the **frame rate** or **FPS(frames per second)**.
