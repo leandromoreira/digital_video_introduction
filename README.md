@@ -35,16 +35,24 @@ An image has also another property such as **resolution** which is the number of
 
 Another property we can see while working with images or video is **aspect ratio** which is simple describes the proportional relationship between width and height of an image or pixel.
 
-When people says this movie or picture is **16x9** they usually are referring to the **Display Aspect Ratio (DAR)** and we also can have different shapes of a pixel, we call this **Pixel Aspect Ratio**.
+When people says this movie or picture is **16x9** they usually are referring to the **Display Aspect Ratio (DAR)** and we also can have different shapes of a pixel, we call this **Pixel Aspect Ratio (PAR)**.
 
 ![display aspect ratio](/i/DAR.png "display aspect ratio")
 
 ![pixel aspect ratio](/i/PAR.png "pixel aspect ratio")
 
-Finally we can define a **video** as a succession of *N* frames, being its frame rate or frames per second(FPS).
+> ### DVD is DAR 4:3
+> Although the real resolution of a DVD is 704x480 it still keeps a 4:3 aspect ratio because it has a PAR of 10:11 (704x10/480x11)
+
+Finally we can define a **video** as a **succession of *n* frames** in **time** which can be seen as another dimension, *n* is the frame rate or frames per second(FPS).
 
 ![video](/i/video.png "video")
 
+The amount of bits per second needed to show a video is its **bit rate**. For example, a video with 30 frames per second, 24 bits per pixel, resolution of 480x240 will need **82,944,000 bits per second** or 82.944 Mbps (30x480x240x24) if we don't employ any kind of compression.
+
+When the **bit rate** is constant it's called constant bit rate (**CBR**) but it also can vary then called variable bit rate (**VBR**).
+
+![constrained vbr](/i/vbr.png "constrained vbr")
 
 # How to use jupyter
 
