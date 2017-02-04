@@ -16,7 +16,7 @@ If we chose to represent these colors using the [primary colors (red, green and 
 
 Each point in this matrix, we'll call it **a pixel** (picture element), will hold the **intensity** (usually a numeric value) of that given color. A **total red color** means 0 of green, 0 of blue and max of red, the **pink color** can be formed with (using 0 to 255 as the possible range) with **Red=255, Green=192 and Blue=203**.
 
-> #### Heads up
+> #### Other ways to encode a color image
 > There are much more models to represent an image with colors. We could use a indexed palette where we'd spend only a byte for each pixel instead of 3, comparing it to RGB model. In this model instead of a 3D matrix we'd use a 2D matrix, saving memory but having much less color options.
 > ![NES palette](/i/nes-color-palette.png "NES palette")
 
@@ -26,8 +26,8 @@ For instance, look at the first Super Mario's picture down bellow, you can see t
 
 And each color intensity requires a certain amount of bits, this quantity is know as **bit depth**. Let's say we spend **8 bits** (accepting values from 0 to 255) per color (plane), therefore we have a **color depth** of **24 (8 * 3) bits** and you can also infer that we could use 2 to the power of 24 different colors.
 
-> #### Heads up
-> You can [play around with image and colors](/image_as_3d_array.ipynb) with [jupyter](#how-to-use-jupyter) (python numpy matplotlib and etc).
+> #### Play around with image and color
+> You can [play around with image and colors](/image_as_3d_array.ipynb) using [jupyter](#how-to-use-jupyter) (python, numpy, matplotlib and etc).
 
 
 
