@@ -26,9 +26,24 @@ For instance, look at the first Super Mario's picture down bellow, you can see t
 
 And each color intensity requires a certain amount of bits, this quantity is know as **bit depth**. Let's say we spend **8 bits** (accepting values from 0 to 255) per color (plane), therefore we have a **color depth** of **24 (8 * 3) bits** and you can also infer that we could use 2 to the power of 24 different colors.
 
+An image has also another property such as **resolution** which is the number of pixels in each dimension. It is often presented as width × height,  for example the **4×4** image bellow.
+
+![image resolution](/i/resolution.png "image resolution")
+
 > #### Play around with image and color
 > You can [play around with image and colors](/image_as_3d_array.ipynb) using [jupyter](#how-to-use-jupyter) (python, numpy, matplotlib and etc).
 
+Another property we can see while working with images or video is **aspect ratio** which is simple describes the proportional relationship between width and height of an image or pixel.
+
+When people says this movie or picture is **16x9** they usually are referring to the **Display Aspect Ratio (DAR)** and we also can have different shapes of a pixel, we call this **Pixel Aspect Ratio**.
+
+![display aspect ratio](/i/DAR.png "display aspect ratio")
+
+![pixel aspect ratio](/i/PAR.png "pixel aspect ratio")
+
+Finally we can define a **video** as a succession of *N* frames, being its frame rate or frames per second(FPS).
+
+![video](/i/video.png "video")
 
 
 # How to use jupyter
