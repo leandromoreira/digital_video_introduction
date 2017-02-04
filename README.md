@@ -18,7 +18,7 @@ Each point in this matrix, we'll call it **a pixel** (picture element), will hol
 
 > #### Heads up
 > There are much more models to represent an image with colors. We could use a indexed palette where we'd spend only a byte for each pixel instead of 3, comparing it to RGB model. In this model instead of a 3D matrix we'd use a 2D matrix, saving memory but having much less color options.
-> ![NES palette](/i/nes-color-palette.jpg "NES palette")
+> ![NES palette](/i/nes-color-palette.png "NES palette")
 
 For instance, look at the first Super Mario's picture down bellow, you can see that it has a lots of red and few blue colors therefore the **red color** will be the one that **contributes more** (the brightest parts) to the final color while the **blue color** contribution can be mostly **only seen in Mario's eyes** and part of his clothes.
 
