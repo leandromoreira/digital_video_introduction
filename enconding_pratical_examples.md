@@ -192,3 +192,12 @@ You can learn more about [vmaf](http://techblog.netflix.com/2016/06/toward-pract
 # run vmaf original h264 vs transcoded vp9
 ./s/vmaf run_vmaf yuv420p 1080 720 /files/v/smallest_bunny_1080p_30fps.yuv /files/v/smallest_bunny_1080p_30fps_vp9.yuv --out-fmt json
 ```
+
+## FFMpeg as a library
+
+There are some documentations, examples and tutorials:
+
+* http://dranger.com/ffmpeg/tutorial01.html
+* https://github.com/leandromoreira/player-ffmpeg
+* https://github.com/FFmpeg/FFmpeg/tree/master/doc/examples
+* https://www.ffmpeg.org/doxygen/3.2/index.html
