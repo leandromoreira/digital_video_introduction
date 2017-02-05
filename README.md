@@ -6,6 +6,19 @@ This repo will be used to provide a gentle introduction to video technology, alt
 
 The idea is to introduce some video subjects with an ease to understand text (at least for developers), visual element and practical examples where is possible. Also, feel free to send error corrections, suggestions, grammar fixes, PRs and etc.
 
+# Index
+
+* [Basic video/image terminology](#basic-videoimage-terminology)
+* [Image capture](#image-capture)
+* [Redundancy removal](#b)
+* [How does a video codec work?](#b)
+* [The whys about H265 better than H264](#b)
+* [Adaptive bitrate streaming](#b)
+* [The whys about configuring an encoder](#b)
+* [Quick intro to audio codec](#b)
+* [How to use jupyter](#b)
+* [References](#b)
+
 # Basic video/image terminology
 
 An **image** can be thought as a **2D matrix** and if we think about **colors**, we can extrapolate this idea seeing this image as a **3D matrix** where the **additional dimensions** are used to provide **color info**.
@@ -20,11 +33,11 @@ Each point in this matrix, we'll call it **a pixel** (picture element), will hol
 > There are much more models to represent an image with colors. We could use a indexed palette where we'd spend only a byte for each pixel instead of 3, comparing it to RGB model. In this model instead of a 3D matrix we'd use a 2D matrix, saving memory but having much less color options.
 > ![NES palette](/i/nes-color-palette.png "NES palette")
 
-For instance, look at the first Super Mario's picture down bellow, you can see that it has a lots of red and few blue colors therefore the **red color** will be the one that **contributes more** (the brightest parts) to the final color while the **blue color** contribution can be mostly **only seen in Mario's eyes** and part of his clothes.
+For instance, look at the first Super Mario's picture down bellow, we can see that it has a lots of red and few blue colors therefore the **red color** will be the one that **contributes more** (the brightest parts) to the final color while the **blue color** contribution can be mostly **only seen in Mario's eyes** and part of his clothes.
 
 ![RGB channels intensity](/i/rgb_channels_intensity.png "RGB channels intensity")
 
-And each color intensity requires a certain amount of bits, this quantity is know as **bit depth**. Let's say we spend **8 bits** (accepting values from 0 to 255) per color (plane), therefore we have a **color depth** of **24 (8 * 3) bits** and you can also infer that we could use 2 to the power of 24 different colors.
+And each color intensity requires a certain amount of bits, this quantity is know as **bit depth**. Let's say we spend **8 bits** (accepting values from 0 to 255) per color (plane), therefore we have a **color depth** of **24 (8 * 3) bits** and we can also infer that we could use 2 to the power of 24 different colors.
 
 An image has also another property such as **resolution** which is the number of pixels in each dimension. It is often presented as width × height,  for example the **4×4** image bellow.
 
@@ -56,11 +69,13 @@ When the **bit rate** is constant it's called constant bit rate (**CBR**) but it
 
 In the early days engineering come up with a technique for doubling the perceived frame rate of a video display **without consuming extra bandwidth**, this technique is known as **interlaced video**. It basically sends half of the screen in 1 "frame" and the next "frame" they send the other half.
 
-Today we use mostly **progressive scan technique** to build our images, progressive is a way of displaying, storing, or transmitting moving images in which all the lines of each frame are drawn in sequence.
+Today screens render mostly using **progressive scan technique**, progressive is a way of displaying, storing, or transmitting moving images in which all the lines of each frame are drawn in sequence.
 
 ![interlaced vs progressive](/i/interlaced_vs_progressive.png "interlaced vs progressive")
 
-Now you have an idea about what is an **image**, how its **colors** are arranged, how many **bits per second** do we spend to show a video with a given **resolution** using a given **frame rate** and many other terms such as interlaced, PAR and others.
+Now we have an idea about what is an **image**, how its **colors** are arranged, how many **bits per second** do we spend to show a video, if it's constant (CBR)  or variable (VBR), with a given **resolution** using a given **frame rate** and many other terms such as interlaced, PAR and others.
+
+# Image capture
 
 # How to use jupyter
 
