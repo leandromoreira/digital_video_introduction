@@ -54,6 +54,14 @@ When the **bit rate** is constant it's called constant bit rate (**CBR**) but it
 
 ![constrained vbr](/i/vbr.png "constrained vbr")
 
+In the early days engineering come up with a technique for doubling the perceived frame rate of a video display **without consuming extra bandwidth**, this technique is known as **interlaced video**. It basically sends half of the screen in 1 "frame" and the next "frame" they send the other half.
+
+Today we use mostly **progressive scan technique** to build our images, progressive is a way of displaying, storing, or transmitting moving images in which all the lines of each frame are drawn in sequence.
+
+![interlaced vs progressive](/i/interlaced_vs_progressive.png "interlaced vs progressive")
+
+Now you have an idea about what is an **image**, how its **colors** are arranged, how many **bits per second** do we spend to show a video with a given **resolution** using a given **frame rate** and many other terms such as interlaced, PAR and others.
+
 # How to use jupyter
 
 Make sure you have **docker installed** and just run `./s/start_jupyter.sh` and follow the instructions on the terminal.
