@@ -84,6 +84,10 @@ Make sure you have **docker installed** and just run `./s/start_jupyter.sh` and 
 # References
 
 * https://www.coursera.org/learn/digital/
+* https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/ref=sr_1_1?s=books&ie=UTF8&qid=1486395327&sr=1-1
+* https://www.amazon.com/Practical-Guide-Video-Audio-Compression/dp/0240806301/ref=sr_1_3?s=books&ie=UTF8&qid=1486396914&sr=1-3&keywords=A+PRACTICAL+GUIDE+TO+VIDEO+AUDIO
+* https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.6-20160331-draft.pdf
+* https://www.amazon.com/Video-Encoding-Numbers-Eliminate-Guesswork/dp/0998453005/ref=sr_1_1?s=books&ie=UTF8&qid=1486396940&sr=1-1&keywords=jan+ozer
 * http://www.cambridgeincolour.com/tutorials/camera-sensors.htm
 * https://en.wikipedia.org/wiki/Intra-frame_coding
 * https://en.wikipedia.org/wiki/Inter_frame
@@ -114,7 +118,6 @@ Make sure you have **docker installed** and just run `./s/start_jupyter.sh` and 
 * http://x265.org/hevc-h265/
 * http://www.compression.ru/video/codec_comparison/h264_2012/mpeg4_avc_h264_video_codecs_comparison.pdf
 * http://vanseodesign.com/web-design/color-luminance/
-* https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.6-20160331-draft.pdf
 * https://en.wikipedia.org/wiki/AOMedia_Video_1
 * http://www.hkvstar.com
 * http://www.hometheatersound.com/
@@ -148,4 +151,3 @@ Make sure you have **docker installed** and just run `./s/start_jupyter.sh` and 
 * https://xiph.org/video/vid2.shtml
 * http://web.ece.ucdavis.edu/cerl/ReliableJPEG/Cung/jpeg.html
 * https://en.wikipedia.org/wiki/Pixel_aspect_ratio
-* https://www.coursera.org/learn/digital/
