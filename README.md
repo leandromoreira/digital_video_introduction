@@ -88,6 +88,7 @@ Make sure you have **docker installed** and just run `./s/start_jupyter.sh` and 
 * https://www.amazon.com/Practical-Guide-Video-Audio-Compression/dp/0240806301/ref=sr_1_3?s=books&ie=UTF8&qid=1486396914&sr=1-3&keywords=A+PRACTICAL+GUIDE+TO+VIDEO+AUDIO
 * https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.6-20160331-draft.pdf
 * https://www.amazon.com/Video-Encoding-Numbers-Eliminate-Guesswork/dp/0998453005/ref=sr_1_1?s=books&ie=UTF8&qid=1486396940&sr=1-1&keywords=jan+ozer
+* https://arxiv.org/pdf/1702.00817v1.pdf
 * http://www.cambridgeincolour.com/tutorials/camera-sensors.htm
 * https://en.wikipedia.org/wiki/Intra-frame_coding
 * https://en.wikipedia.org/wiki/Inter_frame
