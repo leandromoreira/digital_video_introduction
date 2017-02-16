@@ -10,14 +10,14 @@ The idea is to introduce some video subjects with an ease to understand text (at
 
 * [Basic video/image terminology](#basic-videoimage-terminology)
 * [Image capture](#image-capture)
-* [Redundancy removal](#b)
-* [How does a video codec work?](#b)
-* [The whys about H265 better than H264](#b)
-* [Adaptive bitrate streaming](#b)
-* [The whys about configuring an encoder](#b)
-* [Quick intro to audio codec](#b)
-* [How to use jupyter](#b)
-* [References](#b)
+* [Redundancy removal](#redundancy-removal)
+* [How does a video codec work?](#how-does-a-video-codec-work)
+* [The whys about H265 better than H264](#how-h265-can-achieve-better-compression-ratio-than-h264)
+* [Adaptive bitrate streaming](#adaptive-streaming)
+* [The whys about configuring an encoder](#encoding-parameters-the-whys)
+* [Quick intro to audio codec](#audio-codec)
+* [How to use jupyter](#how-to-use-jupyter)
+* [References](#references)
 
 # Basic video/image terminology
 
