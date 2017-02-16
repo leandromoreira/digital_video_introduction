@@ -146,9 +146,11 @@ Let's continue to encode our stream **eat**, now we take the second symbol **a**
 
 ![final arithmetic range](/i/arithimetic_range.png "final arithmetic range")
 
-We just need to pick a number within the last subrange **0.354 to 0.372**, let's chose **0.36** but we could chose any number within this subrange. With **only** this number we'll be able to recovery our original stream **eat**.
+We just need to pick a number within the last subrange **0.354 to 0.372**, let's chose **0.36** but we could chose any number within this subrange. With **only** this number we'll be able to recovery our original stream **eat**. If you think about it, it's like if we were drawing a line within ranges of ranges to encode our stream.
 
-The reverse process is equally easy, with our number **0.36** and our original range we can run the same process but now using this number to reveal the stream encoded behind this number.
+![final range traverse](/i/range_show.png "final range traverse")
+
+The **reverse process** (A.K.A. decoding) is equally easy, with our number **0.36** and our original range we can run the same process but now using this number to reveal the stream encoded behind this number.
 
 With the first range we notice that our number fits at the **e** slice therefore it's our first symbol, now we split this subrange again, doing the same process as before, and we'll notice that **0.36** fits the symbol **a** and after we repeat the process we came to the last symbol **t** (forming our original encoded stream *eat*).
 
