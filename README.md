@@ -99,7 +99,7 @@ Now we have an idea about what is an **image**, how its **colors** are arranged,
 
 ## 5th step - entropy coding
 
-After we quantized the data we still can compress it in a lossless way. There are many ways (algorithms) to compress data. We're going to briefly experience some of them for a deeper understanding you can read the amazing book [Understanding Compression: Data Compression for Modern Developers](https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/).
+After we quantized the data we still can compress it in a lossless way. There are many ways (algorithms) to compress data. We're going to briefly experience some of them, for a deeper understanding you can read the amazing book [Understanding Compression: Data Compression for Modern Developers](https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/).
 
 ### Delta coding:
 
@@ -107,7 +107,7 @@ I love the simplicity of this method (it's amazing), let's say we need to compre
 
 ### VLC coding:
 
-Let's suppose we have a stream with the symbols: **a**, **e**, **r** and **t** and their probability (from 0 to 1) is represented by the this table.
+Let's suppose we have a stream with the symbols: **a**, **e**, **r** and **t** and their probability (from 0 to 1) is represented by this table.
 
 |             | a   | e   | r    | t   |
 |-------------|-----|-----|------|-----|
@@ -124,21 +124,21 @@ Let's compress the stream **eat**, assuming we would spend 8 bits for each symbo
 
 The first step is to encode the symbol **e** which is `10` and the second symbol is **a** which is added (not in the mathematical way) `[10][0]` and finally the third symbol **t** which makes our final compressed bitstream to be `[10][0][1110]` or `1001110` which only requires **7 bits** (3.4 less space than the original).
 
-Notice that each code must be a unique prefixed code [Huffman can help you to find these numbers](https://en.wikipedia.org/wiki/Huffman_coding). Though it has some issues there are [video codecs that still offers](https://en.wikipedia.org/wiki/Context-adaptive_variable-length_coding) this method and it's the chose algorithm for many application.
+Notice that each code must be a unique prefixed code [Huffman can help you to find these numbers](https://en.wikipedia.org/wiki/Huffman_coding). Though it has some issues there are [video codecs that still offers](https://en.wikipedia.org/wiki/Context-adaptive_variable-length_coding) this method and it's the  algorithm for many application which requires compression.
 
 ### Arithmetic coding:
 
-Let's suppose we have a stream with the symbols: **a**, **e**, **r**, **s** and **t** and their probability is represented by the this table.
+Let's suppose we have a stream with the symbols: **a**, **e**, **r**, **s** and **t** and their probability is represented by this table.
 
 |             | a   | e   | r    | s    | t   |
 |-------------|-----|-----|------|------|-----|
 | probability | 0.3 | 0.3 | 0.15 | 0.05 | 0.2 |
 
-With this table in mind we can build a range containing all the possible symbols sorted by the most frequents.
+With this table in mind we can build ranges containing all the possible symbols sorted by the most frequents.
 
 ![initial arithmetic range](/i/range.png "initial arithmetic range")
 
-Now let's encode the stream **eat**, we pick the first symbol **e** which is located within the subrange **0.3 to 0.6** (but not included) and we take this subrange and split it again using the same proportions used before but within the original range.
+Now let's encode the stream **eat**, we pick the first symbol **e** which is located within the subrange **0.3 to 0.6** (but not included) and we take this subrange and split it again using the same proportions used before but within this new range.
 
 ![second sub range](/i/second_subrange.png "second sub range")
 
@@ -146,7 +146,7 @@ Let's continue to encode our stream **eat**, now we take the second symbol **a**
 
 ![final arithmetic range](/i/arithimetic_range.png "final arithmetic range")
 
-We just pick a number within the last subrange **0.354 to 0.372**, let's chose **0.36** but we could chose any number within this subrange. With **only** this number we'll be able to recovery our original stream **eat**.
+We just need to pick a number within the last subrange **0.354 to 0.372**, let's chose **0.36** but we could chose any number within this subrange. With **only** this number we'll be able to recovery our original stream **eat**.
 
 The reverse process is equally easy, with our number **0.36** and our original range we can run the same process but now using this number to reveal the stream encoded behind this number.
 
@@ -154,7 +154,7 @@ With the first range we notice that our number fits at the **e** slice therefore
 
 Pretty neat isn't? People are damm smart to come up with such solution, some [video codec uses](https://en.wikipedia.org/wiki/Context-adaptive_binary_arithmetic_coding) (or at least offers as an option) this technique.
 
-The idea is to lossless compress the quantized bitstream, for sure there are tons of details (reasons, trade offs, more CPU to obtain more compression and etc) and funny aspects of compression that [you should learn more](https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/) as a developer.
+The idea is to lossless compress the quantized bitstream, for sure there are tons of details (reasons, trade-offs and etc) and funny aspects of compression that [you should learn more](https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/) as a developer.
 
 ## 6th step - bitstream format
 
