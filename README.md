@@ -99,7 +99,7 @@ Now we have an idea about what is an **image**, how its **colors** are arranged,
 
 ## 5th step - entropy coding
 
-After we quantized the data we still can compress it in a lossless way. There are many ways (algorithms) to compress data and their trade-offs that we're going to briefly experience some of them.
+After we quantized the data we still can compress it in a lossless way. There are many ways (algorithms) to compress data. We're going to briefly experience some of them for a deeper understanding you can read the amazing book [Understanding Compression: Data Compression for Modern Developers](https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/).
 
 ### Delta coding:
 
