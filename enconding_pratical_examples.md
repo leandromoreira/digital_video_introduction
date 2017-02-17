@@ -72,7 +72,7 @@ From `h264` to `h264` with I-frame at each second (for a 30FPS video):
 ```
 ./s/ffmpeg -i /files/v/small_bunny_1080p_30fps.mp4 -c:v libx264 -x264-params keyint=30:min-keyint=30:no-scenecut=1 -c:a copy /files/v/small_bunny_1080p_30fps_h264_keyframe_each_one_second.mp4
 ```
-From `h264` to `h264` with I-frame at each two seconds (for a 30FPS video) plus 16 b-frames:
+From `h264` to `h264` with I-frame at each two seconds (for a 30FPS video):
 
 ```
 ./s/ffmpeg -i /files/v/small_bunny_1080p_30fps.mp4 -c:v libx264 -x264-params keyint=60:min-keyint=60:no-scenecut=1 -c:a copy /files/v/small_bunny_1080p_30fps_h264_keyframe_each_two_seconds.mp4
