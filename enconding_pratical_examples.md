@@ -65,7 +65,7 @@ Count how many `I-slice` (keyframes) were inserted:
 ./s/mediainfo --Details=1 /files/v/small_bunny_1080p_30fps_h264_keyframe_each_second.mp4 | grep "slice_type I" | wc -l
 ```
 
-## 1 I-Frames per second vs 2 I-Frames per second
+## 1 I-Frames per second vs 0.5 I-Frames per second
 
 From `h264` to `h264` with I-frame at each second (for a 30FPS video):
 
