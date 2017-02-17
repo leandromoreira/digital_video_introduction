@@ -112,11 +112,13 @@ Now we have an idea about what is an **image**, how its **colors** are arranged,
 
 ## 5th step - entropy coding
 
-After we quantized the data we still can compress it in a lossless way. There are many ways (algorithms) to compress data. We're going to briefly experience some of them, for a deeper understanding you can read the amazing book [Understanding Compression: Data Compression for Modern Developers](https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/).
+After we quantized the data (image blocks/slices/frames) we still can compress it in a lossless way. There are many ways (algorithms) to compress data. We're going to briefly experience some of them, for a deeper understanding you can read the amazing book [Understanding Compression: Data Compression for Modern Developers](https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/).
 
 ### Delta coding:
 
 I love the simplicity of this method (it's amazing), let's say we need to compress the following numbers `[0,1,2,3,4,5,6,7]` and if we just decrease the current number to its previous and we'll get the `[0,1,1,1,1,1,1,1]` array which is highly compressible.
+
+Both encoder and decoder **must know** the rule of delta formation.
 
 ### VLC coding:
 
@@ -138,6 +140,8 @@ Let's compress the stream **eat**, assuming we would spend 8 bits for each symbo
 The first step is to encode the symbol **e** which is `10` and the second symbol is **a** which is added (not in the mathematical way) `[10][0]` and finally the third symbol **t** which makes our final compressed bitstream to be `[10][0][1110]` or `1001110` which only requires **7 bits** (3.4 times less space than the original).
 
 Notice that each code must be a unique prefixed code [Huffman can help you to find these numbers](https://en.wikipedia.org/wiki/Huffman_coding). Though it has some issues there are [video codecs that still offers](https://en.wikipedia.org/wiki/Context-adaptive_variable-length_coding) this method and it's the  algorithm for many application which requires compression.
+
+Both encoder and decoder **must know** the symbol table with its code therefore you need to send the table too.
 
 ### Arithmetic coding:
 
@@ -167,9 +171,11 @@ The **reverse process** (A.K.A. decoding) is equally easy, with our number **0.3
 
 With the first range we notice that our number fits at the **e** slice therefore it's our first symbol, now we split this subrange again, doing the same process as before, and we'll notice that **0.36** fits the symbol **a** and after we repeat the process we came to the last symbol **t** (forming our original encoded stream *eat*).
 
+Both encoder and decoder **must know** the symbol probability table, therefore you need to send the table.
+
 Pretty neat isn't? People are damm smart to come up with such solution, some [video codec uses](https://en.wikipedia.org/wiki/Context-adaptive_binary_arithmetic_coding) (or at least offers as an option) this technique.
 
-The idea is to lossless compress the quantized bitstream, for sure there are tons of details (reasons, trade-offs and etc) and funny aspects of compression that [you should learn more](https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/) as a developer.
+The idea is to lossless compress the quantized bitstream, for sure this article is missing tons of details, reasons, trade-offs and etc. But [you should learn more](https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/) as a developer.
 
 ## 6th step - bitstream format
 
@@ -237,6 +243,7 @@ Make sure you have **docker installed** and just run `./s/start_jupyter.sh` and 
 * https://www.vcodex.com/h264avc-intra-precition/
 * http://bbb3d.renderfarming.net/download.html
 * http://www.slideshare.net/vcodex/a-short-history-of-video-coding
+* https://sites.google.com/site/linuxencoding/x264-ffmpeg-mapping
 * https://www.encoding.com/http-live-streaming-hls/
 * https://en.wikipedia.org/wiki/Adaptive_bitrate_streaming
 * http://www.adobe.com/devnet/adobe-media-server/articles/h264_encoding.html
