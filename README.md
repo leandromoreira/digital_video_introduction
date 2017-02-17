@@ -177,6 +177,9 @@ Pretty neat isn't? People are damm smart to come up with such solution, some [vi
 
 The idea is to lossless compress the quantized bitstream, for sure this article is missing tons of details, reasons, trade-offs and etc. But [you should learn more](https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/) as a developer.
 
+> ### Hands-on: CABAC vs CAVLC
+> You can [generate two streams, one with CABAC and the other with CAVLC](https://github.com/leandromoreira/introduction_video_technology/blob/master/enconding_pratical_examples.md#cabac-vs-cavlc) and compare the time it took to generate each of them as well as the final size.
+
 ## 6th step - bitstream format
 
 # How H265 can achieve better compression ratio than H264
