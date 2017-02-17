@@ -223,6 +223,7 @@ Make sure you have **docker installed** and just run `./s/start_jupyter.sh` and 
 * https://leandromoreira.com.br/2016/10/09/how-to-measure-video-quality-perception/
 * https://www.linkedin.com/pulse/brief-history-video-codecs-yoav-nativ
 * http://www.slideshare.net/vcodex/a-short-history-of-video-coding
+* https://en.wikibooks.org/wiki/MeGUI/x264_Settings
 * http://www.slideshare.net/vcodex/introduction-to-video-compression-13394338
 * https://www.lifewire.com/cmos-image-sensor-493271
 * https://www.youtube.com/watch?v=9vgtJJ2wwMA
