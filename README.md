@@ -8,10 +8,13 @@ The idea is to introduce some video subjects with an ease to understand text (at
 
 # Index
 
+- [WIP](#wip)
+- [Index](#index)
 - [Basic video/image terminology](#basic-videoimage-terminology)
       - [Other ways to encode a color image](#other-ways-to-encode-a-color-image)
       - [Play around with image and color](#play-around-with-image-and-color)
-    + [DVD is DAR 4:3](#dvd-is-dar-43)
+      - [DVD is DAR 4:3](#dvd-is-dar-43)
+    + [Hands-on: Check video properties](#hands-on-check-video-properties)
 - [Image capture](#image-capture)
 - [Redundancy removal](#redundancy-removal)
 - [How does a video codec work?](#how-does-a-video-codec-work)
@@ -24,6 +27,7 @@ The idea is to introduce some video subjects with an ease to understand text (at
     + [Delta coding:](#delta-coding)
     + [VLC coding:](#vlc-coding)
     + [Arithmetic coding:](#arithmetic-coding)
+    + [Hands-on: CABAC vs CAVLC](#hands-on-cabac-vs-cavlc)
   * [6th step - bitstream format](#6th-step---bitstream-format)
 - [How H265 can achieve better compression ratio than H264](#how-h265-can-achieve-better-compression-ratio-than-h264)
 - [Adaptive streaming](#adaptive-streaming)
@@ -67,7 +71,7 @@ When people says this movie or picture is **16x9** they usually are referring to
 
 ![pixel aspect ratio](/i/PAR.png "pixel aspect ratio")
 
-> ### DVD is DAR 4:3
+> #### DVD is DAR 4:3
 > Although the real resolution of a DVD is 704x480 it still keeps a 4:3 aspect ratio because it has a PAR of 10:11 (704x10/480x11)
 
 Finally we can define a **video** as a **succession of *n* frames** in **time** which can be seen as another dimension, *n* is the frame rate or frames per second(FPS).
@@ -87,6 +91,9 @@ Today screens render mostly using **progressive scan technique**, progressive is
 ![interlaced vs progressive](/i/interlaced_vs_progressive.png "interlaced vs progressive")
 
 Now we have an idea about what is an **image**, how its **colors** are arranged, how many **bits per second** do we spend to show a video, if it's constant (CBR)  or variable (VBR), with a given **resolution** using a given **frame rate** and many other terms such as interlaced, PAR and others.
+
+> ### Hands-on: Check video properties
+> You can [check most of explained properties with ffmpeg or mediainfo.](https://github.com/leandromoreira/introduction_video_technology/blob/master/enconding_pratical_examples.md#inspect-stream)
 
 # Image capture
 
