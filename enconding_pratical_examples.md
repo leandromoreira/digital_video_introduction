@@ -97,6 +97,22 @@ You can check if that's true:
 
 ```
 
+## No B-frames at all
+
+Generates a video with 0 B-frames.
+
+```
+./s/ffmpeg -i /files/v/small_bunny_1080p_30fps.mp4 -c:v libx264 -x264-params keyint=30:min-keyint=30:no-scenecut=1:bframes=0 -c:a copy /files/v/small_bunny_1080p_30fps_zero_b_frames.mp4
+```
+
+Check if that's right and also compare the size.
+
+```
+./s/mediainfo --Details=1 /files/v/small_bunny_1080p_30fps_zero_b_frames.mp4 | grep "slice_type B" | wc -l
+
+ls -lah v/
+```
+
 ## CABAC vs CAVLC
 
 Generates `h264` using CAVLC (faster, less cpu intensive, less compression):
