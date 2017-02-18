@@ -1,14 +1,24 @@
 [![license](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)
 
-# WIP
+# Intro
 
-This repo will be used to provide a gentle introduction to video technology, although it's aimed to software developers / engineering we want to make it easy for anyone to learn.
+This text will be used to provide a gentle introduction to video technology, although it's aimed to software developers / engineering we want to make it easy for anyone to learn.
 
 The idea is to introduce some video subjects with an ease to understand text (at least for developers), visual element and practical examples where is possible. Also, feel free to send error corrections, suggestions, grammar fixes, PRs and etc.
 
+There will be hands-on sections which requires you to:
+
+```bash
+git clone https://github.com/leandromoreira/introduction_video_technology.git
+cd introduction_video_technology
+./setup.sh
+```
+Any hands-on should be ran from the folder you cloned this repository.
+
+
 # Index
 
-- [WIP](#wip)
+- [Intro](#intro)
 - [Index](#index)
 - [Basic video/image terminology](#basic-videoimage-terminology)
       - [Other ways to encode a color image](#other-ways-to-encode-a-color-image)
