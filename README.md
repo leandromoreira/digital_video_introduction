@@ -14,7 +14,7 @@ The idea is to introduce some video subjects with an ease to understand text (at
       - [Other ways to encode a color image](#other-ways-to-encode-a-color-image)
       - [Play around with image and color](#play-around-with-image-and-color)
       - [DVD is DAR 4:3](#dvd-is-dar-43)
-    + [Hands-on: Check video properties](#hands-on-check-video-properties)
+      - [Hands-on: Check video properties](#hands-on-check-video-properties)
 - [Image capture](#image-capture)
 - [Redundancy removal](#redundancy-removal)
 - [How does a video codec work?](#how-does-a-video-codec-work)
@@ -92,7 +92,7 @@ Today screens render mostly using **progressive scan technique**, progressive is
 
 Now we have an idea about what is an **image**, how its **colors** are arranged, how many **bits per second** do we spend to show a video, if it's constant (CBR)  or variable (VBR), with a given **resolution** using a given **frame rate** and many other terms such as interlaced, PAR and others.
 
-> ### Hands-on: Check video properties
+> #### Hands-on: Check video properties
 > You can [check most of explained properties with ffmpeg or mediainfo.](https://github.com/leandromoreira/introduction_video_technology/blob/master/enconding_pratical_examples.md#inspect-stream)
 
 # Image capture
