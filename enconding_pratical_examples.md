@@ -78,6 +78,25 @@ From `h264` to `h264` with I-frame at each two seconds (for a 30FPS video):
 ./s/ffmpeg -i /files/v/small_bunny_1080p_30fps.mp4 -c:v libx264 -x264-params keyint=60:min-keyint=60:no-scenecut=1 -c:a copy /files/v/small_bunny_1080p_30fps_h264_keyframe_each_two_seconds.mp4
 ```
 
+## 1 I-frame and the rest P-Frames
+
+Generates a video with a `single I frame` and the `rest are P frames`.
+
+```
+./s/ffmpeg -i /files/v/small_bunny_1080p_30fps.mp4 -c:v libx264 -x264-params keyint=300:min-keyint=300:no-scenecut=1:bframes=0 -c:a copy /files/v/small_bunny_1080p_30fps_single_I_rest_P.mp4
+```
+
+You can check if that's true:
+
+```
+./s/mediainfo --Details=1 /files/v/small_bunny_1080p_30fps_single_I_rest_P.mp4 | grep "slice_type I" | wc -l
+
+./s/mediainfo --Details=1 /files/v/small_bunny_1080p_30fps_single_I_rest_P.mp4 | grep "slice_type P" | wc -l
+
+./s/mediainfo --Details=1 /files/v/small_bunny_1080p_30fps_single_I_rest_P.mp4 | grep "slice_type B" | wc -l
+
+```
+
 ## CABAC vs CAVLC
 
 Generates `h264` using CAVLC (faster, less cpu intensive, less compression):
