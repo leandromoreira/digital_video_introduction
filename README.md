@@ -4,17 +4,16 @@
 
 This text will be used to provide a gentle introduction to video technology, although it's aimed to software developers / engineering we want to make it easy for anyone to learn.
 
-The idea is to introduce some video subjects with an ease to understand text (at least for developers), visual element and practical examples where is possible. Also, feel free to send error corrections, suggestions, grammar fixes, PRs and etc.
+The idea is to introduce some video subjects with an ease to understand text (at least for developers), visual element and practical examples where is possible. Also, feel free to send error corrections, suggestions, grammar fixes, and etc via PRs.
 
-There will be hands-on sections which requires you to:
+There will be hands-on sections which requires you to have docker installed and this repo cloned.
 
 ```bash
 git clone https://github.com/leandromoreira/introduction_video_technology.git
 cd introduction_video_technology
 ./setup.sh
 ```
-Any hands-on should be ran from the folder you cloned this repository.
-
+All the hands-on should be performed from the folder you cloned this repository.
 
 # Index
 
@@ -72,6 +71,8 @@ An image has also another property such as **resolution** which is the number of
 
 > #### Play around with image and color
 > You can [play around with image and colors](/image_as_3d_array.ipynb) using [jupyter](#how-to-use-jupyter) (python, numpy, matplotlib and etc).
+>
+> You also can learn [how image filters (edge detection, sharpen, blur...) work](/filters_are_easy.ipynb).
 
 Another property we can see while working with images or video is **aspect ratio** which is simple describes the proportional relationship between width and height of an image or pixel.
 
@@ -288,6 +289,7 @@ Make sure you have **docker installed** and just run `./s/start_jupyter.sh` and 
 * https://www.youtube.com/watch?v=LWxu4rkZBLw
 * http://www.csc.villanova.edu/~rschumey/csc4800/dct.html
 * https://en.wikipedia.org/wiki/File:H.264_block_diagram_with_quality_score.jpg
+* https://softwaredevelopmentperestroika.wordpress.com/2014/02/11/image-processing-with-python-numpy-scipy-image-convolution/
 * http://stackoverflow.com/a/24890903
 * https://xiph.org/video/vid1.shtml
 * https://xiph.org/video/vid2.shtml
