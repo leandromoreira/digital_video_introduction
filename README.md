@@ -13,7 +13,7 @@ git clone https://github.com/leandromoreira/introduction_video_technology.git
 cd introduction_video_technology
 ./setup.sh
 ```
-All the hands-on should be performed from the folder you cloned this repository.
+All the hands-on should be performed from the folder you cloned this repository, for the **jupyter examples** you must start the server `./s/start_jupyter.sh` and follow the instructions.
 
 # Index
 
@@ -21,13 +21,15 @@ All the hands-on should be performed from the folder you cloned this repository.
 - [Index](#index)
 - [Basic video/image terminology](#basic-videoimage-terminology)
       - [Other ways to encode a color image](#other-ways-to-encode-a-color-image)
-      - [Play around with image and color](#play-around-with-image-and-color)
+      - [Jupyter: play around with image and color](#jupyter-play-around-with-image-and-color)
       - [DVD is DAR 4:3](#dvd-is-dar-43)
       - [Hands-on: Check video properties](#hands-on-check-video-properties)
 - [Image capture](#image-capture)
 - [Redundancy removal](#redundancy-removal)
 - [How does a video codec work?](#how-does-a-video-codec-work)
   * [A little bit of the past and present](#a-little-bit-of-the-past-and-present)
+    + [Past](#past)
+    + [Present (AV1 vs HEVC)](#present-av1-vs-hevc)
   * [1st step - picture partitioning](#1st-step---picture-partitioning)
   * [2nd step - predictions](#2nd-step---predictions)
   * [3rd step - transform](#3rd-step---transform)
@@ -69,7 +71,7 @@ An image has also another property such as **resolution** which is the number of
 
 ![image resolution](/i/resolution.png "image resolution")
 
-> #### Play around with image and color
+> #### Jupyter: play around with image and color
 > You can [play around with image and colors](/image_as_3d_array.ipynb) using [jupyter](#how-to-use-jupyter) (python, numpy, matplotlib and etc).
 >
 > You also can learn [how image filters (edge detection, sharpen, blur...) work](/filters_are_easy.ipynb).
@@ -119,6 +121,10 @@ Now we have an idea about what is an **image**, how its **colors** are arranged,
 [WIP]
 
 ## A little bit of the past and present
+
+### Past
+
+### Present (AV1 vs HEVC)
 
 ## 1st step - picture partitioning
 
