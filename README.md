@@ -247,6 +247,11 @@ The richest content is here, where all the info we saw in this text was extracte
 * http://iphome.hhi.de/wiegand/assets/pdfs/2012_12_IEEE-HEVC-Overview.pdf
 * https://medium.com/@mbebenita/av1-bitstream-analyzer-d25f1c27072b#.d5a89oxz8
 * https://arxiv.org/pdf/1702.00817v1.pdf
+* https://people.xiph.org/~xiphmont/demo/daala/demo1.shtml
+* https://people.xiph.org/~jm/daala/revisiting/
+* https://people.xiph.org/~tterribe/pubs/lca2012/auckland/intro_to_video1.pdf
+* https://xiph.org/video/vid1.shtml
+* https://xiph.org/video/vid2.shtml
 * https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/ref=sr_1_1?s=books&ie=UTF8&qid=1486395327&sr=1-1
 * https://www.amazon.com/Practical-Guide-Video-Audio-Compression/dp/0240806301/ref=sr_1_3?s=books&ie=UTF8&qid=1486396914&sr=1-3&keywords=A+PRACTICAL+GUIDE+TO+VIDEO+AUDIO
 * https://www.amazon.com/Video-Encoding-Numbers-Eliminate-Guesswork/dp/0998453005/ref=sr_1_1?s=books&ie=UTF8&qid=1486396940&sr=1-1&keywords=jan+ozer
@@ -273,7 +278,6 @@ The richest content is here, where all the info we saw in this text was extracte
 * https://www.youtube.com/watch?v=9vgtJJ2wwMA
 * https://developer.android.com/guide/topics/media/media-formats.html
 * https://www.encoding.com/android/
-* http://www.nintendo.com/switch/
 * https://developer.apple.com/library/content/technotes/tn2224/_index.html
 * http://www.lighterra.com/papers/videoencodingh264/
 * http://www.slideshare.net/ManoharKuse/hevc-intra-coding
@@ -283,8 +287,6 @@ The richest content is here, where all the info we saw in this text was extracte
 * http://www.compression.ru/video/codec_comparison/h264_2012/mpeg4_avc_h264_video_codecs_comparison.pdf
 * http://vanseodesign.com/web-design/color-luminance/
 * https://en.wikipedia.org/wiki/AOMedia_Video_1
-* http://www.hkvstar.com
-* http://www.hometheatersound.com/
 * https://www.vcodex.com/h264avc-intra-precition/
 * http://bbb3d.renderfarming.net/download.html
 * http://www.slideshare.net/vcodex/a-short-history-of-video-coding
@@ -295,17 +297,14 @@ The richest content is here, where all the info we saw in this text was extracte
 * https://www.youtube.com/watch?v=Lto-ajuqW3w&list=PLzH6n4zXuckpKAj1_88VS-8Z6yn9zX_P6
 * https://www.youtube.com/watch?v=LFXN9PiOGtY
 * https://github.com/leandromoreira/encoding101
-* https://people.xiph.org/~jm/daala/revisiting/
 * https://cardinalpeak.com/blog/the-h-264-sequence-parameter-set/
 * https://cardinalpeak.com/blog/worlds-smallest-h-264-encoder/
-* https://people.xiph.org/~tterribe/pubs/lca2012/auckland/intro_to_video1.pdf
 * https://tools.ietf.org/html/draft-fuldseth-netvc-thor-03
 * https://prezi.com/8m7thtvl4ywr/mp3-and-aac-explained/
 * http://www.slideshare.net/MadhawaKasun/audio-compression-23398426
 * http://techblog.netflix.com/2016/08/a-large-scale-comparison-of-x264-x265.html
 * http://yumichan.net/video-processing/video-compression/introduction-to-h264-nal-unit/
 * http://www.springer.com/cda/content/document/cda_downloaddocument/9783642147029-c1.pdf
-* http://iphome.hhi.de/wiegand/assets/pdfs/2012_12_IEEE-HEVC-Overview.pdf
 * http://www.red.com/learn/red-101/video-chroma-subsampling
 * http://www.streamingmedia.com/Articles/Editorial/Featured-Articles/A-Progress-Report-The-Alliance-for-Open-Media-and-the-AV1-Codec-110383.aspx
 * http://www.explainthatstuff.com/digitalcameras.html
@@ -314,7 +313,7 @@ The richest content is here, where all the info we saw in this text was extracte
 * https://en.wikipedia.org/wiki/File:H.264_block_diagram_with_quality_score.jpg
 * https://softwaredevelopmentperestroika.wordpress.com/2014/02/11/image-processing-with-python-numpy-scipy-image-convolution/
 * http://stackoverflow.com/a/24890903
-* https://xiph.org/video/vid1.shtml
-* https://xiph.org/video/vid2.shtml
+* http://www.hkvstar.com
+* http://www.hometheatersound.com/
 * http://web.ece.ucdavis.edu/cerl/ReliableJPEG/Cung/jpeg.html
 * https://en.wikipedia.org/wiki/Pixel_aspect_ratio
