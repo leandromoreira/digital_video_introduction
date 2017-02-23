@@ -62,9 +62,12 @@ Each point in this matrix, we'll call it **a pixel** (picture element), will hol
 >
 > ![NES palette](/i/nes-color-palette.png "NES palette")
 
-For instance, look at the first Super Mario's picture down bellow, we can see that it has a lots of red and few blue colors therefore the **red color** will be the one that **contributes more** (the brightest parts) to the final color while the **blue color** contribution can be mostly **only seen in Mario's eyes** and part of his clothes.
+For instance, look at the picture down bellow, the first face is full colored, the rest is the red, green and blue (but in gray tones) planes.
 
 ![RGB channels intensity](/i/rgb_channels_intensity.png "RGB channels intensity")
+
+We can see that the **red color** will be the one that **contributes more** (the brightest parts in the second face) to the final color while the **blue color** contribution can be mostly **only seen in Mario's eyes** (last face) and part of his clothes.
+
 
 And each color intensity requires a certain amount of bits, this quantity is know as **bit depth**. Let's say we spend **8 bits** (accepting values from 0 to 255) per color (plane), therefore we have a **color depth** of **24 (8 * 3) bits** and we can also infer that we could use 2 to the power of 24 different colors.
 
@@ -128,6 +131,8 @@ Now we have an idea about what is an **image**, how its **colors** are arranged,
 ### Present (AV1 vs HEVC)
 
 ## 1st step - picture partitioning
+
+Each picture is partitioned in several images units
 
 ## 2nd step - predictions
 
@@ -200,14 +205,16 @@ Both encoder and decoder **must know** the symbol probability table, therefore y
 
 Pretty neat isn't? People are damm smart to come up with such solution, some [video codec uses](https://en.wikipedia.org/wiki/Context-adaptive_binary_arithmetic_coding) (or at least offers as an option) this technique.
 
-The idea is to lossless compress the quantized bitstream, for sure this article is missing tons of details, reasons, trade-offs and etc. But [you should learn more](https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/) as a developer.
+The idea is to lossless compress the quantized bitstream, for sure this article is missing tons of details, reasons, trade-offs and etc. But [you should learn more](https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/) as a developer. Newer codecs are trying to use different [entropy coding algorithms like ANS.](https://en.wikipedia.org/wiki/Asymmetric_Numeral_Systems)
 
 > ### Hands-on: CABAC vs CAVLC
 > You can [generate two streams, one with CABAC and other with CAVLC](https://github.com/leandromoreira/introduction_video_technology/blob/master/enconding_pratical_examples.md#cabac-vs-cavlc) and **compare the time** it took to generate each of them as well as **the final size**.
 
 ## 6th step - bitstream format
 
-After we did all these steps we need to pack all these bits and its meanings. We need to explicitly inform the encoder about the decisions done by encoder, things like bit depth, color space, resolution, predictions info, profile, level, frame rate and etc.
+After we did all these steps we need to **pack all these compressed frames and its meanings**. We need to explicitly inform to the decoder about the decisions done by the encoder, things like: bit depth, color space, resolution, predictions info, profile, level, frame rate and etc.
+
+We're going to, superficially, study the H264 bitstream in order to have an idea
 
 > ### Hands-on: Inspect the H264 bitstream
 > We can [generate a single frame video](https://github.com/leandromoreira/introduction_video_technology/blob/master/enconding_pratical_examples.md#generate-a-single-frame-video) and use  [mediainfo](https://en.wikipedia.org/wiki/MediaInfo) to inspect its H264 bitstream. In fact, you can even see the [source code that parses h264 (AVC)](https://github.com/MediaArea/MediaInfoLib/blob/master/Source/MediaInfo/Video/File_Avc.cpp) bitstream.
