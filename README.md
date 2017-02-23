@@ -59,6 +59,7 @@ Each point in this matrix, we'll call it **a pixel** (picture element), will hol
 
 > #### Other ways to encode a color image
 > There are much more models to represent an image with colors. We could use a indexed palette where we'd spend only a byte for each pixel instead of 3, comparing it to RGB model. In this model instead of a 3D matrix we'd use a 2D matrix, saving memory but having much less color options.
+>
 > ![NES palette](/i/nes-color-palette.png "NES palette")
 
 For instance, look at the first Super Mario's picture down bellow, we can see that it has a lots of red and few blue colors therefore the **red color** will be the one that **contributes more** (the brightest parts) to the final color while the **blue color** contribution can be mostly **only seen in Mario's eyes** and part of his clothes.
@@ -71,10 +72,10 @@ An image has also another property such as **resolution** which is the number of
 
 ![image resolution](/i/resolution.png "image resolution")
 
-> #### Jupyter: play around with image and color
+> #### Hands-on: play around with image and color
 > You can [play around with image and colors](/image_as_3d_array.ipynb) using [jupyter](#how-to-use-jupyter) (python, numpy, matplotlib and etc).
 >
-> You also can learn [how image filters (edge detection, sharpen, blur...) work](/filters_are_easy.ipynb).
+> You can also learn [how image filters (edge detection, sharpen, blur...) work](/filters_are_easy.ipynb).
 
 Another property we can see while working with images or video is **aspect ratio** which is simple describes the proportional relationship between width and height of an image or pixel.
 
@@ -206,6 +207,17 @@ The idea is to lossless compress the quantized bitstream, for sure this article 
 
 ## 6th step - bitstream format
 
+After we did all these steps we need to pack all these bits and its meanings. We need to explicitly inform the encoder about the decisions done by encoder, things like bit depth, color space, resolution, predictions info, profile, level, frame rate and etc.
+
+> ### Hands-on: Inspect the H264 bitstream
+> We can [generate a single frame video](https://github.com/leandromoreira/introduction_video_technology/blob/master/enconding_pratical_examples.md#generate-a-single-frame-video) and use  [mediainfo](https://en.wikipedia.org/wiki/MediaInfo) to inspect its H264 bitstream. In fact, you can even see the [source code that parses h264 (AVC)](https://github.com/MediaArea/MediaInfoLib/blob/master/Source/MediaInfo/Video/File_Avc.cpp) bitstream.
+>
+> ![mediainfo details h264 bitstream](/i/mediainfo_details_1.png "mediainfo details h264 bitstream")
+>
+> We can also use the [Intel Video Pro Analyzer](https://software.intel.com/en-us/intel-video-pro-analyzer) which is paid but there is a free trial version which limits you to only the first 10 frames but that's okay for learning purposes.
+>
+> ![intel video pro analyzer details h264 bitstream](/i/intel-video-pro-analyzer.png "intel video pro analyzer details h264 bitstream")
+
 # How H265 can achieve better compression ratio than H264
 
 [WIP]
@@ -228,12 +240,16 @@ Make sure you have **docker installed** and just run `./s/start_jupyter.sh` and 
 
 # References
 
+The richest content is here, where all the info we saw in this text was extracted, based or inspired by. You can deepen your knowledge with these amazing links, books, videos and etc.
+
 * https://www.coursera.org/learn/digital/
+* https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.6-20160331-draft.pdf
+* http://iphome.hhi.de/wiegand/assets/pdfs/2012_12_IEEE-HEVC-Overview.pdf
+* https://medium.com/@mbebenita/av1-bitstream-analyzer-d25f1c27072b#.d5a89oxz8
+* https://arxiv.org/pdf/1702.00817v1.pdf
 * https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/ref=sr_1_1?s=books&ie=UTF8&qid=1486395327&sr=1-1
 * https://www.amazon.com/Practical-Guide-Video-Audio-Compression/dp/0240806301/ref=sr_1_3?s=books&ie=UTF8&qid=1486396914&sr=1-3&keywords=A+PRACTICAL+GUIDE+TO+VIDEO+AUDIO
-* https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.6-20160331-draft.pdf
 * https://www.amazon.com/Video-Encoding-Numbers-Eliminate-Guesswork/dp/0998453005/ref=sr_1_1?s=books&ie=UTF8&qid=1486396940&sr=1-1&keywords=jan+ozer
-* https://arxiv.org/pdf/1702.00817v1.pdf
 * http://www.cambridgeincolour.com/tutorials/camera-sensors.htm
 * https://en.wikipedia.org/wiki/Intra-frame_coding
 * https://en.wikipedia.org/wiki/Inter_frame
@@ -241,6 +257,7 @@ Make sure you have **docker installed** and just run `./s/start_jupyter.sh` and 
 * http://gentlelogic.blogspot.com.br/2011/11/exploring-h264-part-2-h264-bitstream.html
 * https://trac.ffmpeg.org/wiki/Encode/H.264
 * http://www.itu.int/ITU-T/recommendations/rec.aspx?rec=12904&lang=en
+* http://stackoverflow.com/a/24890903
 * https://cardinalpeak.com/blog/worlds-smallest-h-264-encoder/
 * https://cardinalpeak.com/blog/the-h-264-sequence-parameter-set/
 * https://codesequoia.wordpress.com/category/video/
