@@ -197,6 +197,15 @@ It generates a single frame video which is great for learning and analysis.
 ./s/mediainfo --Details /files/v/minimal_yuv420.mp4  | less
 ```
 
+## Generate a single frame h264 bitstream
+
+```
+./s/ffmpeg -i /files/i/minimal.png -pix_fmt yuv420p /files/v/minimal_yuv420.h264
+
+# you can check the raw h264 bit stream
+hexdump  v/minimal_yuv420.h264
+```
+
 ## Audio sampling
 
 From `original` to `8kHz`:
