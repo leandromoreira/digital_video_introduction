@@ -17,13 +17,14 @@ To see some details:
 To see full details:
 
 ```
-./s/mediainfo --Details=1 /files/v/small_bunny_1080p_30fps.mp4
+./s/mediainfo --Details /files/v/small_bunny_1080p_30fps.mp4
+# I don't know why Details is not on man page
 ```
 
 To see only the frame, slice types:
 
 ```
-./s/mediainfo --Details=1 /files/v/small_bunny_1080p_30fps.mp4 | grep slice_type
+./s/mediainfo --Details /files/v/small_bunny_1080p_30fps.mp4 | grep slice_type
 ```
 ## Transmuxing
 
@@ -62,7 +63,7 @@ From `h264` to `h264` with I-frame at each second (for a 30FPS video):
 Count how many `I-slice` (keyframes) were inserted:
 
 ```
-./s/mediainfo --Details=1 /files/v/small_bunny_1080p_30fps_h264_keyframe_each_second.mp4 | grep "slice_type I" | wc -l
+./s/mediainfo --Details /files/v/small_bunny_1080p_30fps_h264_keyframe_each_second.mp4 | grep "slice_type I" | wc -l
 ```
 
 ## 1 I-Frames per second vs 0.5 I-Frames per second
@@ -89,11 +90,11 @@ Generates a video with a `single I frame` and the `rest are P frames`.
 You can check if that's true:
 
 ```
-./s/mediainfo --Details=1 /files/v/small_bunny_1080p_30fps_single_I_rest_P.mp4 | grep "slice_type I" | wc -l
+./s/mediainfo --Details /files/v/small_bunny_1080p_30fps_single_I_rest_P.mp4 | grep "slice_type I" | wc -l
 
-./s/mediainfo --Details=1 /files/v/small_bunny_1080p_30fps_single_I_rest_P.mp4 | grep "slice_type P" | wc -l
+./s/mediainfo --Details /files/v/small_bunny_1080p_30fps_single_I_rest_P.mp4 | grep "slice_type P" | wc -l
 
-./s/mediainfo --Details=1 /files/v/small_bunny_1080p_30fps_single_I_rest_P.mp4 | grep "slice_type B" | wc -l
+./s/mediainfo --Details /files/v/small_bunny_1080p_30fps_single_I_rest_P.mp4 | grep "slice_type B" | wc -l
 
 ```
 
@@ -108,7 +109,7 @@ Generates a video with 0 B-frames.
 Check if that's right and also compare the size.
 
 ```
-./s/mediainfo --Details=1 /files/v/small_bunny_1080p_30fps_zero_b_frames.mp4 | grep "slice_type B" | wc -l
+./s/mediainfo --Details /files/v/small_bunny_1080p_30fps_zero_b_frames.mp4 | grep "slice_type B" | wc -l
 
 ls -lah v/
 ```
@@ -181,6 +182,19 @@ Get `images` from `1s video`:
 
 # from multiple images (repeating 10s)
 ./s/ffmpeg -loop 1 -i /files/v/smallest_bunny_1080p_30fps_%03d.jpg -c:v libx264 -pix_fmt yuv420p -t 10 /files/v/smallest_bunny_1080p_30fps_from_images.mp4
+```
+
+## Generate a single frame video
+
+It generates a single frame video which is great for learning and analysis.
+
+```
+./s/ffmpeg -i /files/i/minimal.png -pix_fmt yuv420p /files/v/minimal_yuv420.mp4
+
+./s/ffmpeg -i /files/i/minimal.png  /files/v/minimal_yuv444.mp4
+
+# we can inspect h264 bitstream
+./s/mediainfo --Details /files/v/minimal_yuv420.mp4  | less
 ```
 
 ## Audio sampling
