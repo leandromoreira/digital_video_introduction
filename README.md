@@ -239,11 +239,13 @@ The idea is to lossless compress the quantized bitstream, for sure this article 
 
 After we did all these steps we need to **pack the compressed frames and context to these steps**. We need to explicitly inform to the decoder about **the decisions taken by the encoder**, things like: bit depth, color space, resolution, predictions info (motion vectors, direction of prediction), profile, level, frame rate and more.
 
-We're going to study superficially the H264 bitstream. Our first step is to [generate a minimal H264 bitstream](/enconding_pratical_examples.md#generate-a-single-frame-h264-bitstream), we can do that using our own repository and ffmpeg.
+We're going to study superficially the H264 bitstream. Our first step is to [generate a minimal <sup>1</sup> H264 bitstream](/enconding_pratical_examples.md#generate-a-single-frame-h264-bitstream), we can do that using our own repository and [ffmpeg](http://ffmpeg.org/).
 
 ```
 ./s/ffmpeg -i /files/i/minimal.png -pix_fmt yuv420p /files/v/minimal_yuv420.h264
 ```
+
+> <sup>1</sup> It's not minimal since ffmpeg adds, by default, all the encoding parameter as a **SEI NAL**, soon we'll define what is a NAL.
 
 This command will generate a raw h264 bitstream with a single frame, 64x64 and with color space yuv420p.
 
@@ -257,7 +259,7 @@ There is the **synchronization marker** to define the boundaries among the NAL's
 
 ![synchronization marker on NAL units](/i/minimal_yuv420_hex.png "synchronization marker on NAL units")
 
-As we said before, the decoder needs to knows not only the picture data but also the details of the video, the used parameters and others. The **first byte** of each NAL defines its priority and **type**.
+As we said before, the decoder needs to know not only the picture data but also the details of the video, the used parameters and others. The **first byte** of each NAL defines its category and **type**.
 
 | Id  | Description  |
 |---  |---|
@@ -277,11 +279,11 @@ As we said before, the decoder needs to knows not only the picture data but also
 
 Usually the first NAL of a bitstream is a **SPS** which makes sense, since this type of NAL is responsible to inform the general encoding variables like **profile**, **level**, **resolution** and others.
 
-If we skip the first synchronization marker we can decode the first byte to know what type of NAL is the following.
+If we skip the first synchronization marker we can decode the **first byte** to know what **type of NAL** is the following.
 
-For instance the first byte after the synchronization marker is `01100111`, where the first bit (`0`) is to the field **forbidden_zero_bit**, the next 2 bits (`11`) tell us the field **nal_ref_idc** which indicates whether this NAL is a reference field or not and the rest 5 bits (`00111`) inform us the field **nal_unit_type**, in this case it's a **SSP** (7) NAL unit.
+For instance the first byte after the synchronization marker is `01100111`, where the first bit (`0`) is to the field **forbidden_zero_bit**, the next 2 bits (`11`) tell us the field **nal_ref_idc** which indicates whether this NAL is a reference field or not and the rest 5 bits (`00111`) inform us the field **nal_unit_type**, in this case it's a **SPS** (7) NAL unit.
 
-The second byte (`binary=01100100, hex=0x64, dec=100`) of a SSP NAL is the field **profile_idc** which shows the profile that the encoder has used, in this case we used  the **[constrained high profile](https://en.wikipedia.org/wiki/H.264/MPEG-4_AVC#Profiles)**, it's a high profile without support of B (bi-predictive) slices.
+The second byte (`binary=01100100, hex=0x64, dec=100`) of a SPS NAL is the field **profile_idc** which shows the profile that the encoder has used, in this case we used  the **[constrained high profile](https://en.wikipedia.org/wiki/H.264/MPEG-4_AVC#Profiles)**, it's a high profile without support of B (bi-predictive) slices.
 
 ![SPS binary view](/i/minimal_yuv420_bin.png "SPS binary view")
 
@@ -294,13 +296,13 @@ When we read the H264 bitstream spec for a SPS NAL we'll find a **parameter name
 
 > **ue(v)**: unsigned integer Exp-Golomb-coded syntax element with the left bit first. The parsing process for this descriptor is specified in clause 9.1.
 
-If we do some math with the value of these fields we will end up with the **resolution**. We can represent a `1920 x 1080`using a `pic_width_in_mbs_minus_1` with the value of `119 (119 + 1 * macroblock_size = 120 * 16 = 1920) `, again saving space, instead of encode `1920` we did it with `119`.
+If we do some math with the value of these fields we will end up with the **resolution**. We can represent a `1920 x 1080` using a `pic_width_in_mbs_minus_1` with the value of `119 ( (119 + 1) * macroblock_size = 120 * 16 = 1920) `, again saving space, instead of encode `1920` we did it with `119`.
 
-I think you got the idea, it's like a protocol and if you want or need to learn more about this bitstream please read the [ITU H264 spec.]( http://www.itu.int/rec/T-REC-H.264-201610-I) Here's a macro diagram which shows where the picture data (compressed YUV) resides.
+It's like a protocol and if you want or need to learn more about this bitstream please read the [ITU H264 spec.]( http://www.itu.int/rec/T-REC-H.264-201610-I) Here's a macro diagram which shows where the picture data (compressed YUV) resides.
 
 ![h264 bitstream macro diagram](/i/h264_bitstream_macro_diagram.png "h264 bitstream macro diagram")
 
-We can explore others bitstreams like the [VP9 bitstream](https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.6-20160331-draft.pdf), [H265 (HEVC)](handle.itu.int/11.1002/1000/11885-en?locatt=format:pdf) or even our new best friend [AV1 bitstream](https://medium.com/@mbebenita/av1-bitstream-analyzer-d25f1c27072b#.d5a89oxz8
+We can explore others bitstreams like the [VP9 bitstream](https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.6-20160331-draft.pdf), [H265 (HEVC)](handle.itu.int/11.1002/1000/11885-en?locatt=format:pdf) or even our **new best friend** [**AV1** bitstream](https://medium.com/@mbebenita/av1-bitstream-analyzer-d25f1c27072b#.d5a89oxz8
 ), they're all look similar.
 
 > ### Hands-on: Inspect the H264 bitstream
