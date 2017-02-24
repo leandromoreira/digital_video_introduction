@@ -281,7 +281,7 @@ If we skip the first synchronization marker we can decode the first byte to know
 
 For instance the first byte after the synchronization marker is `01100111`, where the first bit (`0`) is to the field **forbidden_zero_bit**, the next 2 bits (`11`) tell us the field **nal_ref_idc** which indicates whether this NAL is a reference field or not and the rest 5 bits (`00111`) inform us the field **nal_unit_type**, in this case it's a **SSP** (7) NAL unit.
 
-The next byte of a SSP NAL is the field **profile_idc** which shows the profiler that the encoder has used, in this case we used the **High profiler** (`binary=01100100, hex=0x64, dec=100`)
+The next byte of a SSP NAL is the field **profile_idc** which shows the profile that the encoder has used, in this case we used the **High profile** (`binary=01100100, hex=0x64, dec=100`)
 
 ![SPS binary view](/i/minimal_yuv420_bin.png "SPS binary view")
 
