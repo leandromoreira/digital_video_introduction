@@ -21,11 +21,18 @@ All the hands-on should be performed from the folder you cloned this repository,
 - [Index](#index)
 - [Basic video/image terminology](#basic-videoimage-terminology)
       - [Other ways to encode a color image](#other-ways-to-encode-a-color-image)
-      - [Jupyter: play around with image and color](#jupyter-play-around-with-image-and-color)
+      - [Hands-on: play around with image and color](#hands-on-play-around-with-image-and-color)
       - [DVD is DAR 4:3](#dvd-is-dar-43)
       - [Hands-on: Check video properties](#hands-on-check-video-properties)
 - [Image capture](#image-capture)
 - [Redundancy removal](#redundancy-removal)
+  * [Colors, Luminance and our eyes](#colors-luminance-and-our-eyes)
+  * [Frame types](#frame-types)
+    + [I Frame (intra, keyframe)](#i-frame-intra-keyframe)
+    + [P Frame (predicted)](#p-frame-predicted)
+    + [B Frame (bi-predictive)](#b-frame-bi-predictive)
+  * [Temporal redundancy (inter prediction)](#temporal-redundancy-inter-prediction)
+  * [Spatial redundancy (intra prediction)](#spatial-redundancy-intra-prediction)
 - [How does a video codec work?](#how-does-a-video-codec-work)
   * [A little bit of the past and present](#a-little-bit-of-the-past-and-present)
     + [Past](#past)
@@ -40,8 +47,13 @@ All the hands-on should be performed from the folder you cloned this repository,
     + [Arithmetic coding:](#arithmetic-coding)
     + [Hands-on: CABAC vs CAVLC](#hands-on-cabac-vs-cavlc)
   * [6th step - bitstream format](#6th-step---bitstream-format)
+    + [H264 bitstream](#h264-bitstream)
+    + [Hands-on: Inspect the H264 bitstream](#hands-on-inspect-the-h264-bitstream)
 - [How H265 can achieve better compression ratio than H264](#how-h265-can-achieve-better-compression-ratio-than-h264)
 - [Adaptive streaming](#adaptive-streaming)
+  * [What? Why? How?](#what-why-how)
+  * [HLS and Dash](#hls-and-dash)
+  * [Building a bit rate ladder](#building-a-bit-rate-ladder)
 - [Encoding parameters the whys](#encoding-parameters-the-whys)
 - [Audio codec](#audio-codec)
 - [How to use jupyter](#how-to-use-jupyter)
@@ -118,7 +130,20 @@ Now we have an idea about what is an **image**, how its **colors** are arranged,
 
 # Redundancy removal
 
-[WIP]
+## Colors, Luminance and our eyes
+
+## Frame types
+
+### I Frame (intra, keyframe)
+
+### P Frame (predicted)
+
+### B Frame (bi-predictive)
+
+## Temporal redundancy (inter prediction)
+
+## Spatial redundancy (intra prediction)
+
 
 # How does a video codec work?
 
@@ -212,9 +237,58 @@ The idea is to lossless compress the quantized bitstream, for sure this article 
 
 ## 6th step - bitstream format
 
-After we did all these steps we need to **pack all these compressed frames and its meanings**. We need to explicitly inform to the decoder about the decisions done by the encoder, things like: bit depth, color space, resolution, predictions info, profile, level, frame rate and etc.
+After we did all these steps we need to **pack the compressed frames and context to these steps**. We need to explicitly inform to the decoder about **the decisions taken by the encoder**, things like: bit depth, color space, resolution, predictions info (motion vectors, direction of prediction), profile, level, frame rate and more.
 
-We're going to, superficially, study the H264 bitstream in order to have an idea
+We're going to study superficially the H264 bitstream. Our first step is to [generate a minimal H264 bitstream](/enconding_pratical_examples.md#generate-a-single-frame-h264-bitstream), we can do that using our own repository and ffmpeg.
+
+```
+./s/ffmpeg -i /files/i/minimal.png -pix_fmt yuv420p /files/v/minimal_yuv420.h264
+```
+
+This command will generate a raw h264 bitstream with a single frame, 64x64 and with color space yuv420p.
+
+### H264 bitstream
+
+The AVC (H264) standard defines that the information will be send in **macro frames** (in the network sense), called **[NAL](https://en.wikipedia.org/wiki/Network_Abstraction_Layer)** (Network Abstraction Layer). The main goal of the NAL is the provision of a "network-friendly" video representation, this standard must work on TVs (stream based), Internet (packet based) among others.
+
+![NAL units H264](/i/nal_units.png "NAL units H264")
+
+There is the **synchronization marker** to define the boundaries among the NAL's units. Each synchronization marker holds a value of `0x00 0x00 0x01` except the first one which is `0x00 0x00 0x00 0x01`. If we run the **hexdump** on the minimal h264 bitstream we can identify at least three NALs.
+
+![synchronization marker on NAL units](/i/minimal_yuv420_hex.png "synchronization marker on NAL units")
+
+As we said before, the decoder needs to knows not only the picture data but also the details of the video, the used parameters and others. The **first byte** of each NAL defines its priority and **type**.
+
+| Id  | Description  |
+|---  |---|
+| 0  |  Undefined |
+| 1  |  Coded slice of a non-IDR picture |
+| 2  |  Coded slice data partition A |
+| 3  |  Coded slice data partition B |
+| 4  |  Coded slice data partition C |
+| 5  |  **IDR** Coded slice of an IDR picture |
+| 6  |  **SEI** Supplemental enhancement information |
+| 7  |  **SPS** Sequence parameter set |
+| 8  |  **PPS** Picture parameter set |
+| 9  |  Access unit delimiter |
+| 10 |  End of sequence |
+| 12 |  End of stream |
+| ... |  ... |
+
+Usually the first NAL of a bitstream is a **SPS** which makes sense, since this type of NAL is responsible to inform the general encoding variables like **profile**, **level**, **resolution** and others.
+
+If we skip the first synchronization marker we can decode the first byte to know what type of NAL is the following.
+
+For instance the first byte after the synchronization marker is `01100111`, where the first bit (`0`) is to the field **forbidden_zero_bit**, the next 2 bits (`11`) tell us the field **nal_ref_idc** which indicates whether this NAL is a reference field or not and the rest 5 bits (`00111`) inform us the field **nal_unit_type**, in this case it's a **SSP** (7) NAL unit.
+
+The next byte of a SSP NAL is the field **profile_idc** which shows the profiler that the encoder has used, in this case we used the **High profiler** (`binary=01100100, hex=0x64, dec=100`)
+
+![SPS binary view](/i/minimal_yuv420_bin.png "SPS binary view")
+
+I think you got the idea, it's like a protocol and if you want or need to learn more about this bitstream please read the [ITU H264 spec.]( http://www.itu.int/rec/T-REC-H.264-201610-I) Here's a macro diagram which shows where the picture data (compressed YUV) resides.
+
+![SPS binary view](/i/h264_bitstream_macro_diagram.png "SPS binary view")
+
 
 > ### Hands-on: Inspect the H264 bitstream
 > We can [generate a single frame video](https://github.com/leandromoreira/introduction_video_technology/blob/master/enconding_pratical_examples.md#generate-a-single-frame-video) and use  [mediainfo](https://en.wikipedia.org/wiki/MediaInfo) to inspect its H264 bitstream. In fact, you can even see the [source code that parses h264 (AVC)](https://github.com/MediaArea/MediaInfoLib/blob/master/Source/MediaInfo/Video/File_Avc.cpp) bitstream.
@@ -259,6 +333,7 @@ The richest content is here, where all the info we saw in this text was extracte
 * https://people.xiph.org/~tterribe/pubs/lca2012/auckland/intro_to_video1.pdf
 * https://xiph.org/video/vid1.shtml
 * https://xiph.org/video/vid2.shtml
+* http://www.itu.int/rec/T-REC-H.264-201610-I
 * https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/ref=sr_1_1?s=books&ie=UTF8&qid=1486395327&sr=1-1
 * https://www.amazon.com/Practical-Guide-Video-Audio-Compression/dp/0240806301/ref=sr_1_3?s=books&ie=UTF8&qid=1486396914&sr=1-3&keywords=A+PRACTICAL+GUIDE+TO+VIDEO+AUDIO
 * https://www.amazon.com/Video-Encoding-Numbers-Eliminate-Guesswork/dp/0998453005/ref=sr_1_1?s=books&ie=UTF8&qid=1486396940&sr=1-1&keywords=jan+ozer
