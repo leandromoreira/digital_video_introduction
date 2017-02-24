@@ -281,14 +281,27 @@ If we skip the first synchronization marker we can decode the first byte to know
 
 For instance the first byte after the synchronization marker is `01100111`, where the first bit (`0`) is to the field **forbidden_zero_bit**, the next 2 bits (`11`) tell us the field **nal_ref_idc** which indicates whether this NAL is a reference field or not and the rest 5 bits (`00111`) inform us the field **nal_unit_type**, in this case it's a **SSP** (7) NAL unit.
 
-The next byte of a SSP NAL is the field **profile_idc** which shows the profile that the encoder has used, in this case we used the **High profile** (`binary=01100100, hex=0x64, dec=100`)
+The second byte (`binary=01100100, hex=0x64, dec=100`) of a SSP NAL is the field **profile_idc** which shows the profile that the encoder has used, in this case we used  the **[constrained high profile](https://en.wikipedia.org/wiki/H.264/MPEG-4_AVC#Profiles)**, it's a high profile without support of B (bi-predictive) slices.
 
 ![SPS binary view](/i/minimal_yuv420_bin.png "SPS binary view")
 
+When we read the H264 bitstream spec for a SPS NAL we'll find a **parameter name**, **category** and a **descriptor**, for instance let's look at `pic_width_in_mbs_minus_1` and `pic_height_in_map_units_minus_1` fields.
+
+| Parameter name  | Category  |  Description  |
+|---  |---|---|
+| pic_width_in_mbs_minus_1 |  0 | ue(v) |
+| pic_height_in_map_units_minus_1 |  0 | ue(v) |
+
+> **ue(v)**: unsigned integer Exp-Golomb-coded syntax element with the left bit first. The parsing process for this descriptor is specified in clause 9.1.
+
+If we do some math with the value of these fields we will end up with the **resolution**. We can represent a `1920 x 1080`using a `pic_width_in_mbs_minus_1` with the value of `119 (119 + 1 * macroblock_size = 120 * 16 = 1920) `, again saving space, instead of encode `1920` we did it with `119`.
+
 I think you got the idea, it's like a protocol and if you want or need to learn more about this bitstream please read the [ITU H264 spec.]( http://www.itu.int/rec/T-REC-H.264-201610-I) Here's a macro diagram which shows where the picture data (compressed YUV) resides.
 
-![SPS binary view](/i/h264_bitstream_macro_diagram.png "SPS binary view")
+![h264 bitstream macro diagram](/i/h264_bitstream_macro_diagram.png "h264 bitstream macro diagram")
 
+We can explore others bitstreams like the [VP9 bitstream](https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.6-20160331-draft.pdf), [H265 (HEVC)](handle.itu.int/11.1002/1000/11885-en?locatt=format:pdf) or even our new best friend [AV1 bitstream](https://medium.com/@mbebenita/av1-bitstream-analyzer-d25f1c27072b#.d5a89oxz8
+), they're all look similar.
 
 > ### Hands-on: Inspect the H264 bitstream
 > We can [generate a single frame video](https://github.com/leandromoreira/introduction_video_technology/blob/master/enconding_pratical_examples.md#generate-a-single-frame-video) and use  [mediainfo](https://en.wikipedia.org/wiki/MediaInfo) to inspect its H264 bitstream. In fact, you can even see the [source code that parses h264 (AVC)](https://github.com/MediaArea/MediaInfoLib/blob/master/Source/MediaInfo/Video/File_Avc.cpp) bitstream.
