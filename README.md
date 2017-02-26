@@ -311,7 +311,6 @@ We can see its first 6 bytes values: `01100101 10001000 10000100 00000000 001000
 Using the spec info we can decode what type of slice (**slice_type**), frame number (**frame_num**) among others important fields. In order to get the values of some fields (`ue(v)`) we need to decode it using a special decoder called [Exponential-Golomb](https://pythonhosted.org/bitstring/exp-golomb.html), this method is very efficient to encode variable values, mainly where there are many default values.
 
 > The values of **slice_type** and **frame_num** of this video are: 7 (I slice) and 0 (the first frame).
-> These values were extracted from `10001000`
 
 We can see the **bitstream as a protocol** and if you want or need to learn more about this bitstream please refer to the [ITU H264 spec.]( http://www.itu.int/rec/T-REC-H.264-201610-I) Here's a macro diagram which shows where the picture data (compressed YUV) resides.
 
