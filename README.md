@@ -149,11 +149,11 @@ Now we have an idea about what is an **image**, how its **colors** are arranged,
 
 [WIP]
 
-## A little bit of the past and present
-
-### Past
+## History
 
 ### Present (AV1 vs HEVC)
+
+### Patents
 
 ## 1st step - picture partitioning
 
@@ -237,17 +237,19 @@ The idea is to lossless compress the quantized bitstream, for sure this article 
 
 ## 6th step - bitstream format
 
-After we did all these steps we need to **pack the compressed frames and context to these steps**. We need to explicitly inform to the decoder about **the decisions taken by the encoder**, things like: bit depth, color space, resolution, predictions info (motion vectors, direction of prediction), profile, level, frame rate and more.
+After we did all these steps we need to **pack the compressed frames and context to these steps**. We need to explicitly inform to the decoder about **the decisions taken by the encoder**, things like: bit depth, color space, resolution, predictions info (motion vectors, direction of prediction), profile, level, frame rate, frame type, frame number and many more.
 
-We're going to study superficially the H264 bitstream. Our first step is to [generate a minimal <sup>1</sup> H264 bitstream](/enconding_pratical_examples.md#generate-a-single-frame-h264-bitstream), we can do that using our own repository and [ffmpeg](http://ffmpeg.org/).
+We're going to study, superficially, the H264 bitstream. Our first step is to [generate a minimal <sup>1</sup> H264 bitstream](/enconding_pratical_examples.md#generate-a-single-frame-h264-bitstream), we can do that using our own repository and [ffmpeg](http://ffmpeg.org/).
 
 ```
 ./s/ffmpeg -i /files/i/minimal.png -pix_fmt yuv420p /files/v/minimal_yuv420.h264
 ```
 
-> <sup>1</sup> It's not minimal since ffmpeg adds, by default, all the encoding parameter as a **SEI NAL**, soon we'll define what is a NAL.
+> <sup>1</sup> ffmpeg adds, by default, all the encoding parameter as a **SEI NAL**, soon we'll define what is a NAL.
 
-This command will generate a raw h264 bitstream with a single frame, 64x64 and with color space yuv420p.
+This command will generate a raw h264 bitstream with a **single frame**, 64x64, with color space yuv420 and using the following image as the frame.
+
+> ![used frame to generate minimal h264 bitstream](/i/minimal.png "used frame to generate minimal h264 bitstream")
 
 ### H264 bitstream
 
@@ -255,11 +257,11 @@ The AVC (H264) standard defines that the information will be send in **macro fra
 
 ![NAL units H264](/i/nal_units.png "NAL units H264")
 
-There is the **synchronization marker** to define the boundaries among the NAL's units. Each synchronization marker holds a value of `0x00 0x00 0x01` except the first one which is `0x00 0x00 0x00 0x01`. If we run the **hexdump** on the minimal h264 bitstream we can identify at least three NALs.
+There is a **synchronization marker** to define the boundaries among the NAL's units. Each synchronization marker holds a value of `0x00 0x00 0x01` except to the very first one which is `0x00 0x00 0x00 0x01`. If we run the **hexdump** on the generated h264 bitstream, we can identify at least three NALs in the beginning of the file.
 
 ![synchronization marker on NAL units](/i/minimal_yuv420_hex.png "synchronization marker on NAL units")
 
-As we said before, the decoder needs to know not only the picture data but also the details of the video, the used parameters and others. The **first byte** of each NAL defines its category and **type**.
+As we said before, the decoder needs to know not only the picture data but also the details of the video, frame, colors, used parameters and others. The **first byte** of each NAL defines its category and **type**.
 
 | NAL type id  | Description  |
 |---  |---|
@@ -277,9 +279,9 @@ As we said before, the decoder needs to know not only the picture data but also 
 | 12 |  End of stream |
 | ... |  ... |
 
-Usually the first NAL of a bitstream is a **SPS** which makes sense, since this type of NAL is responsible to inform the general encoding variables like **profile**, **level**, **resolution** and others.
+Usually the first NAL of a bitstream is a **SPS**, this type of NAL is responsible to inform the general encoding variables like **profile**, **level**, **resolution** and others.
 
-If we skip the first synchronization marker we can decode the **first byte** to know what **type of NAL** is the following.
+If we skip the first synchronization marker we can decode the **first byte** to know what **type of NAL** is the first one.
 
 For instance the first byte after the synchronization marker is `01100111`, where the first bit (`0`) is to the field **forbidden_zero_bit**, the next 2 bits (`11`) tell us the field **nal_ref_idc** which indicates whether this NAL is a reference field or not and the rest 5 bits (`00111`) inform us the field **nal_unit_type**, in this case it's a **SPS** (7) NAL unit.
 
@@ -287,7 +289,7 @@ The second byte (`binary=01100100, hex=0x64, dec=100`) of a SPS NAL is the field
 
 ![SPS binary view](/i/minimal_yuv420_bin.png "SPS binary view")
 
-When we read the H264 bitstream spec for a SPS NAL we'll find a **parameter name**, **category** and a **descriptor**, for instance let's look at `pic_width_in_mbs_minus_1` and `pic_height_in_map_units_minus_1` fields.
+When we read the H264 bitstream spec for a SPS NAL we'll find a **parameter name**, **category** and a **description**, for instance let's look at `pic_width_in_mbs_minus_1` and `pic_height_in_map_units_minus_1` fields.
 
 | Parameter name  | Category  |  Description  |
 |---  |---|---|
@@ -298,7 +300,19 @@ When we read the H264 bitstream spec for a SPS NAL we'll find a **parameter name
 
 If we do some math with the value of these fields we will end up with the **resolution**. We can represent a `1920 x 1080` using a `pic_width_in_mbs_minus_1` with the value of `119 ( (119 + 1) * macroblock_size = 120 * 16 = 1920) `, again saving space, instead of encode `1920` we did it with `119`.
 
-It's like a protocol and if you want or need to learn more about this bitstream please read the [ITU H264 spec.]( http://www.itu.int/rec/T-REC-H.264-201610-I) Here's a macro diagram which shows where the picture data (compressed YUV) resides.
+If we continue to examine our created video with a binary view (ex: `xxd -b -c 11 v/minimal_yuv420.h264`), we can skip to the last NAL which is the frame itself.
+
+![h264 idr slice header](/i/slice_nal_idr_bin.png "h264 idr slice header")
+
+We can see its first 6 bytes values: `01100101 10001000 10000100 00000000 00100001 11111111`. As we already know the first byte tell us about what type of NAL it is, in this case (`00101`) it's an **IDR Slice (5)** and we can further inspect it:
+
+![h264 slice header spec](/i/slice_header.png "h264 slice header spec")
+
+Using the spec info we can decode what type of slice (**slice_type**), frame number (**frame_num**) among others important fields. In order to decode some fields (`ue(v)`) we need to decode this binary using a special decoder called [Exponential-Golomb](https://pythonhosted.org/bitstring/exp-golomb.html), this method is very efficient to encode variable values.
+
+> The values of **slice_type** and **frame_num** of this video are: 7 (I slice) and 0 (the first frame).
+
+We can see the **bitstream as a protocol** and if you want or need to learn more about this bitstream please refer to the [ITU H264 spec.]( http://www.itu.int/rec/T-REC-H.264-201610-I) Here's a macro diagram which shows where the picture data (compressed YUV) resides.
 
 ![h264 bitstream macro diagram](/i/h264_bitstream_macro_diagram.png "h264 bitstream macro diagram")
 
