@@ -197,6 +197,23 @@ It generates a single frame video which is great for learning and analysis.
 ./s/mediainfo --Details /files/v/minimal_yuv420.mp4  | less
 ```
 
+## Generate a simple video
+
+It generates a video from a sequence of images.
+
+```
+# 2 simple images with white background
+./s/ffmpeg -i /files/i/solid_background_ball_%d.png -pix_fmt yuv420p /files/v/solid_background_ball_yuv420.mp4
+
+# 4 simple images with background
+./s/ffmpeg -i /files/i/smw_background_ball_%d.png -pix_fmt yuv420p /files/v/smw_background_ball_yuv420.mp4
+
+# 4 white images as a video (great to test predicitons)
+
+for i in {1..4}; do cp i/solid_background.png i/solid_background_$i.png; done
+./s/ffmpeg -i /files/i/solid_background_%d.png -pix_fmt yuv420p /files/v/solid_background_yuv420.mp4
+```
+
 ## Generate a single frame h264 bitstream
 
 ```
