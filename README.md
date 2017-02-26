@@ -257,7 +257,7 @@ The AVC (H264) standard defines that the information will be send in **macro fra
 
 ![NAL units H264](/i/nal_units.png "NAL units H264")
 
-There is a **synchronization marker** to define the boundaries among the NAL's units. Each synchronization marker holds a value of `0x00 0x00 0x01` except to the very first one which is `0x00 0x00 0x00 0x01`. If we run the **hexdump** on the generated h264 bitstream, we can identify at least three NALs in the beginning of the file.
+There is a **[synchronization marker](https://en.wikipedia.org/wiki/Frame_synchronization)** to define the boundaries among the NAL's units. Each synchronization marker holds a value of `0x00 0x00 0x01` except to the very first one which is `0x00 0x00 0x00 0x01`. If we run the **hexdump** on the generated h264 bitstream, we can identify at least three NALs in the beginning of the file.
 
 ![synchronization marker on NAL units](/i/minimal_yuv420_hex.png "synchronization marker on NAL units")
 
@@ -289,14 +289,14 @@ The second byte (`binary=01100100, hex=0x64, dec=100`) of a SPS NAL is the field
 
 ![SPS binary view](/i/minimal_yuv420_bin.png "SPS binary view")
 
-When we read the H264 bitstream spec for a SPS NAL we'll find a **parameter name**, **category** and a **description**, for instance let's look at `pic_width_in_mbs_minus_1` and `pic_height_in_map_units_minus_1` fields.
+When we read the H264 bitstream spec for a SPS NAL we'll find many values for **parameter name**, **category** and a **description**, for instance let's look at `pic_width_in_mbs_minus_1` and `pic_height_in_map_units_minus_1` fields.
 
 | Parameter name  | Category  |  Description  |
 |---  |---|---|
 | pic_width_in_mbs_minus_1 |  0 | ue(v) |
 | pic_height_in_map_units_minus_1 |  0 | ue(v) |
 
-> **ue(v)**: unsigned integer Exp-Golomb-coded syntax element with the left bit first. The parsing process for this descriptor is specified in clause 9.1.
+> **ue(v)**: unsigned integer [Exp-Golomb-coded](https://pythonhosted.org/bitstring/exp-golomb.html)
 
 If we do some math with the value of these fields we will end up with the **resolution**. We can represent a `1920 x 1080` using a `pic_width_in_mbs_minus_1` with the value of `119 ( (119 + 1) * macroblock_size = 120 * 16 = 1920) `, again saving space, instead of encode `1920` we did it with `119`.
 
@@ -308,7 +308,9 @@ We can see its first 6 bytes values: `01100101 10001000 10000100 00000000 001000
 
 ![h264 slice header spec](/i/slice_header.png "h264 slice header spec")
 
-Using the spec info we can decode what type of slice (**slice_type**), frame number (**frame_num**) among others important fields. In order to get the values of some fields (`ue(v)`) we need to decode it using a special decoder called [Exponential-Golomb](https://pythonhosted.org/bitstring/exp-golomb.html), this method is very efficient to encode variable values, mainly where there are many default values.
+Using the spec info we can decode what type of slice (**slice_type**), frame number (**frame_num**) among others important fields.
+
+In order to get the values of some fields (`ue(v), me(v), se(v) or te(v)`) we need to decode it using a special decoder called [Exponential-Golomb](https://pythonhosted.org/bitstring/exp-golomb.html), this method is **very efficient to encode variable values**, mostly when there are many default values.
 
 > The values of **slice_type** and **frame_num** of this video are: 7 (I slice) and 0 (the first frame).
 
