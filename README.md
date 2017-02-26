@@ -261,7 +261,7 @@ There is the **synchronization marker** to define the boundaries among the NAL's
 
 As we said before, the decoder needs to know not only the picture data but also the details of the video, the used parameters and others. The **first byte** of each NAL defines its category and **type**.
 
-| Id  | Description  |
+| NAL type id  | Description  |
 |---  |---|
 | 0  |  Undefined |
 | 1  |  Coded slice of a non-IDR picture |
