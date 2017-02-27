@@ -15,7 +15,7 @@ cd introduction_video_technology
 ```
 > **WARNING**: when you see a `./s/ffmpeg` or `./s/mediainfo` command, it means we're running a **containerized version** of that program, which already includes all the needed requirements.
 
-All the **hands-on should be performed from the folder you cloned** this repository, for the **jupyter examples** you must start the server `./s/start_jupyter.sh` and follow the instructions.
+All the **hands-on should be performed from the folder you cloned** this repository, for the **jupyter examples** you must start the server `./s/start_jupyter.sh` and copy the url and use it on your browser.
 
 # Index
 
@@ -399,9 +399,11 @@ The richest content is here, where all the info we saw in this text was extracte
 * https://xiph.org/video/vid2.shtml
 * http://www.itu.int/rec/T-REC-H.264-201610-I
 * https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/ref=sr_1_1?s=books&ie=UTF8&qid=1486395327&sr=1-1
+* https://www.amazon.com/H-264-Advanced-Video-Compression-Standard/dp/0470516925
 * https://www.amazon.com/Practical-Guide-Video-Audio-Compression/dp/0240806301/ref=sr_1_3?s=books&ie=UTF8&qid=1486396914&sr=1-3&keywords=A+PRACTICAL+GUIDE+TO+VIDEO+AUDIO
 * https://www.amazon.com/Video-Encoding-Numbers-Eliminate-Guesswork/dp/0998453005/ref=sr_1_1?s=books&ie=UTF8&qid=1486396940&sr=1-1&keywords=jan+ozer
 * http://www.cambridgeincolour.com/tutorials/camera-sensors.htm
+* http://www.streamingmediaglobal.com/Articles/ReadArticle.aspx?ArticleID=116505&PageNum=1
 * https://en.wikipedia.org/wiki/Intra-frame_coding
 * https://en.wikipedia.org/wiki/Inter_frame
 * http://stackoverflow.com/questions/38094302/how-to-understand-header-of-h264
