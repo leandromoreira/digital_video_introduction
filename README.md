@@ -175,9 +175,9 @@ The first step is to **divide the frame** into several **partitions, sub-partiti
 
 ![picture partitioning](/i/picture_partitioning.png "picture partitioning")
 
-**But why?** There are many reasons, for instance, when we partition the picture we can work the predictions more precisely, using small partitions for the moving parts while use bigger partitions to static background.
+**But why?** There are many reasons, for instance, when we split the picture we can work the predictions more precisely, using small partitions for the moving parts while use bigger partitions to static background.
 
-Usually, the CODECs organize these partitions into slices, macro and sub partitions.
+Usually, the CODECs organize these partitions into slices, macro and sub partitions. The max size of these partitions varies, HEVC sets 64x64 while AVC uses 16x16.
 
 ## 2nd step - predictions
 
