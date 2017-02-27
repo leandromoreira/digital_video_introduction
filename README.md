@@ -104,7 +104,7 @@ When people says this movie or picture is **16x9** they usually are referring to
 > #### DVD is DAR 4:3
 > Although the real resolution of a DVD is 704x480 it still keeps a 4:3 aspect ratio because it has a PAR of 10:11 (704x10/480x11)
 
-Finally we can define a **video** as a **succession of *n* frames** in **time** which can be seen as another dimension, *n* is the frame rate or frames per second(FPS).
+Finally we can define a **video** as a **succession of *n* frames** in **time** which can be seen as another dimension, *n* is the frame rate or frames per second (FPS).
 
 ![video](/i/video.png "video")
 
