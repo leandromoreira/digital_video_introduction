@@ -179,6 +179,11 @@ The first step is to **divide the frame** into several **partitions, sub-partiti
 
 Usually, the CODECs organize these partitions into slices, macro and sub partitions. The max size of these partitions varies, HEVC sets 64x64 while AVC uses 16x16.
 
+> ### Hands-on: Check partitions
+> We can use the [Intel Video Pro Analyzer](https://software.intel.com/en-us/intel-video-pro-analyzer) (which is paid but there is a free trial version which limits you to only the first 10 frames). Here's a [VP9 partitions](/enconding_pratical_examples.md#transcoding) analyzed.
+>
+> ![VP9 partitions view intel video pro analyzer ](/i/paritions_view_intel_video_pro_analyzer.png "VP9 partitions view intel video pro analyzer")
+
 ## 2nd step - predictions
 
 ## 3rd step - transform
