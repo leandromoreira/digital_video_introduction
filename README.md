@@ -147,13 +147,24 @@ Now we have an idea about what is an **image**, how its **colors** are arranged,
 
 # How does a video codec work?
 
-[WIP]
+## What? Why? How?
+
+**What?** It's a software / hardware that compresses or decompresses digital video. **Why?** Market and society demands higher quality videos with limited bandwidth or storage. It's the only way to delivery HD/FullHD/4K in TVs and Internet. **How?** We'll take brief look a the major techniques here.
 
 ## History
 
-### Present (AV1 vs HEVC)
+Before we jump in the inner works of a generic codec, let's look back to understand a little better about some old video codecs.
 
-### Patents
+The video codec [H261](https://en.wikipedia.org/wiki/H.261)  was born in 1990 (technically 1988), it was designed to work with **data rates of 64 kbit/s**. It already uses ideas such as chroma subsampling, macro block and etc. In the year of 1995 the **H263** video codec standard was published but it continued to be extended until 2001.
+
+
+In 2003 the first version of **H.264/AVC** was completed, in the same year, a company called **TrueMotion** released their video codec as a **royalty free** lossy video compression called **VP3**. In 2008, **Google bought** this company, int the same year they released the **VP8**. In December of 2012, Google released the **VP9** and this codec is **supported by roughly ¾ of the browser market** (mobile included).
+
+ **[AV1](https://en.wikipedia.org/wiki/AOMedia_Video_1)** is a new video codec, **royalty-free**, open source being designed by the [Alliance for Open Media (AOMedia)](http://aomedia.org/) which is composed by the **companies: Google, Mozilla, Microsoft, Amazon, Netflix, AMD, ARM, NVidia, Intel, Cisco** among others. The **first version** 0.1.0 of the reference codec was **published on April 7, 2016**.
+
+![codec history timeline](/i/codec_history_timeline.png "codec history timeline")
+
+> If you want to learn more about the history of the codecs you must learn the basics behind [video compression patents](https://www.vcodex.com/video-compression-patents/).
 
 ## 1st step - picture partitioning
 
