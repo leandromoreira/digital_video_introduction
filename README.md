@@ -9,8 +9,8 @@ The goal is to introduce some digital video subjects with a **simple text, visua
 There will be **hands-on** sections which requires you to have **docker installed** and this repo cloned.
 
 ```bash
-git clone https://github.com/leandromoreira/introduction_video_technology.git
-cd introduction_video_technology
+git clone https://github.com/leandromoreira/digital_video_introduction.git
+cd digital_video_introduction
 ./setup.sh
 ```
 > **WARNING**: when you see a `./s/ffmpeg` or `./s/mediainfo` command, it means we're running a **containerized version** of that program, which already includes all the needed requirements.
