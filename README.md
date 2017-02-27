@@ -36,6 +36,7 @@ All the hands-on should be performed from the folder you cloned this repository,
 - [How does a video codec work?](#how-does-a-video-codec-work)
   * [What? Why? How?](#what-why-how)
   * [History](#history)
+  * [A generic codec](#a-generic-codec)
   * [1st step - picture partitioning](#1st-step---picture-partitioning)
   * [2nd step - predictions](#2nd-step---predictions)
   * [3rd step - transform](#3rd-step---transform)
@@ -48,12 +49,11 @@ All the hands-on should be performed from the folder you cloned this repository,
   * [6th step - bitstream format](#6th-step---bitstream-format)
     + [H264 bitstream](#h264-bitstream)
     + [Hands-on: Inspect the H264 bitstream](#hands-on-inspect-the-h264-bitstream)
-- [How H265 can achieve better compression ratio than H264](#how-h265-can-achieve-better-compression-ratio-than-h264)
+  * [How H265 can achieve better compression ratio than H264](#how-h265-can-achieve-better-compression-ratio-than-h264)
 - [Adaptive streaming](#adaptive-streaming)
   * [What? Why? How?](#what-why-how-1)
   * [HLS and Dash](#hls-and-dash)
   * [Building a bit rate ladder](#building-a-bit-rate-ladder)
-- [Encoding parameters the whys](#encoding-parameters-the-whys)
 - [Audio codec](#audio-codec)
 - [How to use jupyter](#how-to-use-jupyter)
 - [References](#references)
@@ -165,9 +165,19 @@ In 2003 the first version of **H.264/AVC** was completed, in the same year, a co
 
 > If you want to learn more about the history of the codecs you must learn the basics behind [video compression patents](https://www.vcodex.com/video-compression-patents/).
 
+## A generic codec
+
+We're going to introduce the **main mechanics behind a generic video codec** but most of these concepts are useful and used in modern codecs such as VP9, AV1 and HEVC. Be sure to understand that we're going to simplify things a LOT. Sometimes we'll use a real example (mostly H264) to demonstrate a technique.
+
 ## 1st step - picture partitioning
 
-Each picture is partitioned in several images units
+The first step is to **divide the frame** into several **partitions, sub-partitions** and beyond.
+
+![picture partitioning](/i/picture_partitioning.png "picture partitioning")
+
+**But why?** There are many reasons, for instance, when we partition the picture we can work the predictions more precisely, using small partitions for the moving parts while use bigger partitions to static background.
+
+Usually, the CODECs organize these partitions into slices, macro and sub partitions.
 
 ## 2nd step - predictions
 
@@ -340,13 +350,19 @@ We can explore others bitstreams like the [VP9 bitstream](https://storage.google
 >
 > ![intel video pro analyzer details h264 bitstream](/i/intel-video-pro-analyzer.png "intel video pro analyzer details h264 bitstream")
 
-# How H265 can achieve better compression ratio than H264
+## How H265 can achieve better compression ratio than H264
 
 [WIP]
 
 # Adaptive streaming
 
-[WIP]
+## What? Why? How?
+Creating multiple playlist thinking about mobile network
+## HLS and Dash
+
+## Building a bit rate ladder
+
+We could create our bit rate options based on many
 
 # Encoding parameters the whys
 
