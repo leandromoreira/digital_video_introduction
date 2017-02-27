@@ -2,18 +2,20 @@
 
 # Intro
 
-This text will be used to provide a gentle introduction to video technology, although it's aimed to software developers / engineering we want to make it easy for anyone to learn.
+A gentle introduction to video technology, although it's aimed for software developers / engineering, we want to make it easy **for anyone to learn**. This idea was born during a mini workshop for newcomers to video technology.
 
-The idea is to introduce some video subjects with an ease to understand text (at least for developers), visual element and practical examples where is possible. Also, feel free to send error corrections, suggestions, grammar fixes, and etc via PRs.
+The goal is to introduce some digital video subjects with a **simple text, visual element and practical examples**, where is possible and make this knowledge available everywhere. Please, feel free to correct, suggest and improve it.
 
-There will be hands-on sections which requires you to have docker installed and this repo cloned.
+There will be **hands-on** sections which requires you to have **docker installed** and this repo cloned.
 
 ```bash
 git clone https://github.com/leandromoreira/introduction_video_technology.git
 cd introduction_video_technology
 ./setup.sh
 ```
-All the hands-on should be performed from the folder you cloned this repository, for the **jupyter examples** you must start the server `./s/start_jupyter.sh` and follow the instructions.
+> **WARNING**: when you see a `./s/ffmpeg` or `./s/mediainfo` command, it means we're running a **containerized version** of that program, which already includes all the needed requirements.
+
+All the **hands-on should be performed from the folder you cloned** this repository, for the **jupyter examples** you must start the server `./s/start_jupyter.sh` and follow the instructions.
 
 # Index
 
