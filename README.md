@@ -167,7 +167,7 @@ Now we have an idea about what is an **image**, how its **colors** are arranged,
 
 ## What? Why? How?
 
-**What?** It's a software / hardware that compresses or decompresses digital video. **Why?** Market and society demands higher quality videos with limited bandwidth or storage. It's the only way to delivery HD/FullHD/4K in TVs and Internet. **How?** We'll take brief look a the major techniques here.
+**What?** It's a software / hardware that compresses or decompresses digital video. **Why?** Market and society demands higher quality videos with limited bandwidth or storage, remember when we [calculated the needed bandwidth](#basic-videoimage-terminology) for a 30 frames per second, 24 bits per pixel, resolution of 480x240 video? It was **82.944 Mbps** with none compression applied. It's the only way to delivery HD/FullHD/4K in TVs and Internet. **How?** We'll take brief look a the major techniques here.
 
 ## History
 
