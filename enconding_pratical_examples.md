@@ -166,6 +166,18 @@ Joining `audio` with `video`:
 ./s/ffmpeg -i /files/v/small_bunny_audio.aac -i /files/v/small_bunny_1080p_30fps.mp4 /files/v/small_bunny_1080p_30fps_muxed.mp4
 ```
 
+## Generate debug video
+
+It generates a video with macro blocks debug over the video. Please refer to https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors to understand the meaning of each block color.
+```
+./s/ffmpeg -debug vis_mb_type -i /files/v/small_bunny_1080p_30fps.mp4 /files/v/small_bunny_1080p_30fps_vis_mb.mp4
+```
+
+It generates a video with motion vector over the video.
+```
+./s/ffmpeg -flags2 +export_mvs -i /files/v/small_bunny_1080p_30fps.mp4 -vf codecview=mv=pf+bf+bb /files/v/small_bunny_1080p_30fps_vis_mv.mp4
+```
+
 ## Generate images from video
 
 Get `images` from `1s video`:
