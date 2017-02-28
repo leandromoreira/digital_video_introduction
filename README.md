@@ -84,6 +84,8 @@ We can see that the **red color** will be the one that **contributes more** (the
 
 And each color intensity requires a certain amount of bits, this quantity is know as **bit depth**. Let's say we spend **8 bits** (accepting values from 0 to 255) per color (plane), therefore we have a **color depth** of **24 (8 * 3) bits** and we can also infer that we could use 2 to the power of 24 different colors.
 
+> **It's great** to learn [how an image is captured from the world to the bits](http://www.cambridgeincolour.com/tutorials/camera-sensors.htm).
+
 Another property of an image is the **resolution**, which is the number of pixels in one dimension. It is often presented as width × height, for example the **4×4** image bellow.
 
 ![image resolution](/i/resolution.png "image resolution")
@@ -124,10 +126,6 @@ Now we have an idea about what is an **image**, how its **colors** are arranged,
 
 > #### Hands-on: Check video properties
 > You can [check most of the  explained properties with ffmpeg or mediainfo.](https://github.com/leandromoreira/introduction_video_technology/blob/master/enconding_pratical_examples.md#inspect-stream)
-
-# Image capture
-
-[WIP]
 
 # Redundancy removal
 
