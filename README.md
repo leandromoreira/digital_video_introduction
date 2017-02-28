@@ -133,6 +133,12 @@ Now we have an idea about what is an **image**, how its **colors** are arranged,
 
 ## Colors, Luminance and our eyes
 
+
+> #### Hands-on: Check YUV histogram
+> You can [check the YUV histogram ffmpeg.](/enconding_pratical_examples.md#generates-yuv-histogram)
+>
+> ![yuv color histogram](/i/yuv_histogram.png "yuv color histogram")
+
 ## Frame types
 
 ### I Frame (intra, keyframe)
