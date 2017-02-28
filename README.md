@@ -143,8 +143,25 @@ Now we have an idea about what is an **image**, how its **colors** are arranged,
 
 ## Temporal redundancy (inter prediction)
 
+> #### Hands-on: See the motion vectors
+> We can [generate a video with the inter prediction (motion vectors)  with ffmpeg.](/enconding_pratical_examples.md#generate-debug-video)
+>
+> ![inter prediction (motion vectors) with ffmpeg](/i/motion_vectors_ffmpeg.png "inter prediction (motion vectors) with ffmpeg")
+>
+> Or we can use the [Intel Video Pro Analyzer](https://software.intel.com/en-us/intel-video-pro-analyzer) (which is paid but there is a free trial version which limits you to only the first 10 frames).
+>
+> ![inter prediction intel video pro analyzer](/i/inter_prediction_intel_video_pro_analyzer.png "inter prediction intel video pro analyzer")
+
 ## Spatial redundancy (intra prediction)
 
+> #### Hands-on: Check intra predictions
+> You can [generate a video with macro blocks and their predictions with ffmpeg.](/enconding_pratical_examples.md#generate-debug-video) Please check the ffmpeg documentation to understand the [meaning of each block color](https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors).
+>
+> ![intra prediction (macro blocks) with ffmpeg](/i/macro_blocks_ffmpeg.png "inter prediction (motion vectors) with ffmpeg")
+>
+> Or we can use the [Intel Video Pro Analyzer](https://software.intel.com/en-us/intel-video-pro-analyzer) (which is paid but there is a free trial version which limits you to only the first 10 frames).
+>
+> ![intra prediction intel video pro analyzer](/i/intra_prediction_intel_video_pro_analyzer.png "intra prediction intel video pro analyzer")
 
 # How does a video codec work?
 
@@ -182,7 +199,7 @@ The first step is to **divide the frame** into several **partitions, sub-partiti
 Usually, the CODECs organize these partitions into slices, macro and sub partitions. The max size of these partitions varies, HEVC sets 64x64 while AVC uses 16x16.
 
 > ### Hands-on: Check partitions
-> We can use the [Intel Video Pro Analyzer](https://software.intel.com/en-us/intel-video-pro-analyzer) (which is paid but there is a free trial version which limits you to only the first 10 frames). Here's a [VP9 partitions](/enconding_pratical_examples.md#transcoding) analyzed.
+> We can also use the [Intel Video Pro Analyzer](https://software.intel.com/en-us/intel-video-pro-analyzer) (which is paid but there is a free trial version which limits you to only the first 10 frames). Here's a [VP9 partitions](/enconding_pratical_examples.md#transcoding) analyzed.
 >
 > ![VP9 partitions view intel video pro analyzer ](/i/paritions_view_intel_video_pro_analyzer.png "VP9 partitions view intel video pro analyzer")
 
@@ -397,6 +414,8 @@ The richest content is here, where all the info we saw in this text was extracte
 * https://people.xiph.org/~tterribe/pubs/lca2012/auckland/intro_to_video1.pdf
 * https://xiph.org/video/vid1.shtml
 * https://xiph.org/video/vid2.shtml
+* http://ffmpeg.org/documentation.html
+* https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors
 * http://www.itu.int/rec/T-REC-H.264-201610-I
 * https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/ref=sr_1_1?s=books&ie=UTF8&qid=1486395327&sr=1-1
 * https://www.amazon.com/H-264-Advanced-Video-Compression-Standard/dp/0470516925
