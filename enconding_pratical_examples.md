@@ -166,6 +166,13 @@ Joining `audio` with `video`:
 ./s/ffmpeg -i /files/v/small_bunny_audio.aac -i /files/v/small_bunny_1080p_30fps.mp4 /files/v/small_bunny_1080p_30fps_muxed.mp4
 ```
 
+## Generates YUV histogram
+
+It generates a video with color histogram as an overlay.
+```
+./s/ffmpeg -i /files/v/small_bunny_1080p_30fps.mp4 -vf "split=2[a][b],[b]histogram,format=yuv420p[hh],[a][hh]overlay" /files/v/small_bunny_yuv_histogram.mp4
+```
+
 ## Generate debug video
 
 It generates a video with macro blocks debug over the video. Please refer to https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors to understand the meaning of each block color.
