@@ -26,7 +26,6 @@ All the **hands-on should be performed from the folder you cloned** this reposit
       - [Hands-on: play around with image and color](#hands-on-play-around-with-image-and-color)
       - [DVD is DAR 4:3](#dvd-is-dar-43)
       - [Hands-on: Check video properties](#hands-on-check-video-properties)
-- [Image capture](#image-capture)
 - [Redundancy removal](#redundancy-removal)
   * [Colors, Luminance and our eyes](#colors-luminance-and-our-eyes)
   * [Frame types](#frame-types)
@@ -34,12 +33,15 @@ All the **hands-on should be performed from the folder you cloned** this reposit
     + [P Frame (predicted)](#p-frame-predicted)
     + [B Frame (bi-predictive)](#b-frame-bi-predictive)
   * [Temporal redundancy (inter prediction)](#temporal-redundancy-inter-prediction)
+      - [Hands-on: See the motion vectors](#hands-on-see-the-motion-vectors)
   * [Spatial redundancy (intra prediction)](#spatial-redundancy-intra-prediction)
+      - [Hands-on: Check intra predictions](#hands-on-check-intra-predictions)
 - [How does a video codec work?](#how-does-a-video-codec-work)
   * [What? Why? How?](#what-why-how)
   * [History](#history)
   * [A generic codec](#a-generic-codec)
   * [1st step - picture partitioning](#1st-step---picture-partitioning)
+    + [Hands-on: Check partitions](#hands-on-check-partitions)
   * [2nd step - predictions](#2nd-step---predictions)
   * [3rd step - transform](#3rd-step---transform)
   * [4th step - quantization](#4th-step---quantization)
@@ -194,7 +196,9 @@ The first step is to **divide the frame** into several **partitions, sub-partiti
 
 **But why?** There are many reasons, for instance, when we split the picture we can work the predictions more precisely, using small partitions for the moving parts while use bigger partitions to static background.
 
-Usually, the CODECs organize these partitions into slices, macro and sub partitions. The max size of these partitions varies, HEVC sets 64x64 while AVC uses 16x16.
+Usually, the CODECs **organize these partitions** into slices (or tiles), macro (or coding tree units) and many sub partitions. The max size of these partitions varies, HEVC sets 64x64 while AVC uses 16x16 but the sub-partitions can reach sizes of 4x4.
+
+Remember that we learned how **frames are typed**?! Well, you can **apply those ideas to blocks** too, therefore we can have I-Slice, B-Slice, I-Macroblock and etc.
 
 > ### Hands-on: Check partitions
 > We can also use the [Intel Video Pro Analyzer](https://software.intel.com/en-us/intel-video-pro-analyzer) (which is paid but there is a free trial version which limits you to only the first 10 frames). Here's a [VP9 partitions](/enconding_pratical_examples.md#transcoding) analyzed.
