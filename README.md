@@ -133,7 +133,7 @@ Now we have an idea about what is an **image**, how its **colors** are arranged,
 
 We learned that is not feasible to use video without any compression, **a single one hour video** at 720p resolution with 30fps would **require 2.38Tb<sup>*</sup>**. We need to find a way to compress the video, **using solely lossless data compression algorithms**, like DEFLATE (used in PKZIP, Gzip, and PNG), **won't help** as much as we need.
 
-> <sup>*</sup> We found this number by multiplying 1280 x 720 x 24 x 30 (width, height, bits per pixel and fps)
+> <sup>*</sup> We found this number by multiplying 1280 x 720 x 24 x 30 x 3600 (width, height, bits per pixel, fps and time in seconds)
 
 We can **exploit how our vision works**, we're better to distinguish brightness than colors, the **repetitions in time**, a video contains a lot of images with few changes, and **repetitions in image**, each image also contains many areas using the same or similar color.
 
