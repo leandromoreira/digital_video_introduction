@@ -131,8 +131,19 @@ Now we have an idea about what is an **image**, how its **colors** are arranged,
 
 # Redundancy removal
 
+We learned that is not feasible to use video without any compression, **a single one hour video** at 720p resolution with 30fps would **require 2.38Tb<sup>*</sup>**. We need to find a way to compress the video, **using solely lossless data compression algorithms**, like DEFLATE (used in PKZIP, Gzip, and PNG), **won't help** as much as we need.
+
+> <sup>*</sup> We found this number by multiplying 1280 x 720 x 24 x 30 (width, height, bits per pixel and fps)
+
+We can **exploit how our vision works**, we're better to distinguish brightness than colors, the **repetitions in time**, a video contains a lot of images with few changes, and **repetitions in image**, each image also contains many areas using the same or similar color.
+
 ## Colors, Luminance and our eyes
 
+Our eyes are [more sensible to brightness than colors](http://vanseodesign.com/web-design/color-luminance/), you can test it for yourself, look at this picture.
+
+![luminance vs color](/i/luminance_vs_color.png "luminance vs color")
+
+If you are unable to see that the colors of the **squares A and B are identical** in the right side, that's fine, it's our **eyes giving more value for the light and dark** instead of the color. There is a connector, with the same color, in the left side so we (our brain) can easily spot that in fact they're the same color.
 
 > #### Hands-on: Check YUV histogram
 > You can [check the YUV histogram with ffmpeg.](/enconding_pratical_examples.md#generates-yuv-histogram)
@@ -291,13 +302,13 @@ The idea is to lossless compress the quantized bitstream, for sure this article 
 
 After we did all these steps we need to **pack the compressed frames and context to these steps**. We need to explicitly inform to the decoder about **the decisions taken by the encoder**, things like: bit depth, color space, resolution, predictions info (motion vectors, direction of prediction), profile, level, frame rate, frame type, frame number and many more.
 
-We're going to study, superficially, the H264 bitstream. Our first step is to [generate a minimal <sup>1</sup> H264 bitstream](/enconding_pratical_examples.md#generate-a-single-frame-h264-bitstream), we can do that using our own repository and [ffmpeg](http://ffmpeg.org/).
+We're going to study, superficially, the H264 bitstream. Our first step is to [generate a minimal <sup>*</sup> H264 bitstream](/enconding_pratical_examples.md#generate-a-single-frame-h264-bitstream), we can do that using our own repository and [ffmpeg](http://ffmpeg.org/).
 
 ```
 ./s/ffmpeg -i /files/i/minimal.png -pix_fmt yuv420p /files/v/minimal_yuv420.h264
 ```
 
-> <sup>1</sup> ffmpeg adds, by default, all the encoding parameter as a **SEI NAL**, soon we'll define what is a NAL.
+> <sup>*</sup> ffmpeg adds, by default, all the encoding parameter as a **SEI NAL**, soon we'll define what is a NAL.
 
 This command will generate a raw h264 bitstream with a **single frame**, 64x64, with color space yuv420 and using the following image as the frame.
 
