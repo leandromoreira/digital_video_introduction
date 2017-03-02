@@ -64,7 +64,7 @@ All the **hands-on should be performed from the folder you cloned** this reposit
 
 # Basic video/image terminology
 
-An **image** can be thought as a **2D matrix** and if we think about **colors**, we can extrapolate this idea seeing this image as a **3D matrix** where the **additional dimensions** are used to provide **color info**.
+An **image** can be thought as a **2D matrix** and if we think about **colors**, we can extrapolate this idea seeing this image as a **3D matrix** where the **additional dimensions** are used to provide **color data**.
 
 If we chose to represent these colors using the [primary colors (red, green and blue)](https://en.wikipedia.org/wiki/Primary_color), we then can define the tree planes: the first one **red**, the second **green** and the last the **blue** color.
 
@@ -97,7 +97,7 @@ Another property of an image is the **resolution**, which is the number of pixel
 >
 > You can also learn [how image filters (edge detection, sharpen, blur...) work](/filters_are_easy.ipynb).
 
-Another property we can see while working with images or video is **aspect ratio** which is simple describes the proportional relationship between width and height of an image or pixel.
+Another property we can see while working with images or video is the **aspect ratio** which is simple describes the proportional relationship between width and height of an image or pixel.
 
 When people says this movie or picture is **16x9** they usually are referring to the **Display Aspect Ratio (DAR)** and we also can have different shapes of a pixel, we call this **Pixel Aspect Ratio (PAR)**.
 
@@ -114,9 +114,11 @@ Finally we can define a **video** as a **succession of *n* frames** in **time** 
 
 The amount of bits per second needed to show a video is its **bit rate**. For example, a video with 30 frames per second, 24 bits per pixel, resolution of 480x240 will need **82,944,000 bits per second** or 82.944 Mbps (30x480x240x24) if we don't employ any kind of compression.
 
-When the **bit rate** is constant it's called constant bit rate (**CBR**) but it also can vary then called variable bit rate (**VBR**).
+When the **bit rate** is nearly constant it's called constant bit rate (**CBR**) but it also can vary then called variable bit rate (**VBR**).
 
-![constrained vbr](/i/vbr.png "constrained vbr")
+> This graph shows a constrained VBR which doesn't spend too many bits while the frame is black.
+>
+> ![constrained vbr](/i/vbr.png "constrained vbr")
 
 In the early days engineering come up with a technique for doubling the perceived frame rate of a video display **without consuming extra bandwidth**, this technique is known as **interlaced video**. It basically sends half of the screen in 1 "frame" and the next "frame" they send the other half.
 
@@ -135,7 +137,7 @@ We learned that is not feasible to use video without any compression, **a single
 
 > <sup>*</sup> We found this number by multiplying 1280 x 720 x 24 x 30 x 3600 (width, height, bits per pixel, fps and time in seconds)
 
-We can **exploit how our vision works**, we're better to distinguish brightness than colors, the **repetitions in time**, a video contains a lot of images with few changes, and **repetitions in image**, each image also contains many areas using the same or similar color.
+We can **exploit how our vision works**, we're better to distinguish brightness than colors, the **repetitions in time**, a video contains a lot of images with few changes, and the **repetitions within image**, each frame also contains many areas using the same or similar color.
 
 ## Colors, Luminance and our eyes
 
@@ -211,7 +213,7 @@ The first step is to **divide the frame** into several **partitions, sub-partiti
 
 ![picture partitioning](/i/picture_partitioning.png "picture partitioning")
 
-**But why?** There are many reasons, for instance, when we split the picture we can work the predictions more precisely, using small partitions for the moving parts while use bigger partitions to static background.
+**But why?** There are many reasons, for instance, when we split the picture we can work the predictions more precisely, using small partitions for the small moving parts while use bigger partitions to static background.
 
 Usually, the CODECs **organize these partitions** into slices (or tiles), macro (or coding tree units) and many sub partitions. The max size of these partitions varies, HEVC sets 64x64 while AVC uses 16x16 but the sub-partitions can reach sizes of 4x4.
 
