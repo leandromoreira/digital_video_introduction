@@ -148,7 +148,7 @@ Our eyes are [more sensible to brightness than colors](http://vanseodesign.com/w
 
 ![luminance vs color](/i/luminance_vs_color.png "luminance vs color")
 
-If you are unable to see that the colors of the **squares A and B are identical** in the right side, that's fine, it's our **eyes giving more value for the light and dark** than color. There is a connector, with the same color, in the left side so we (our brain) can easily spot that in fact they're the same color.
+If you are unable to see that the colors of the **squares A and B are identical** in the right side, that's fine, it's our brain playing tricks on you to **pay more attention to light and dark than color**. There is a connector, with the same color, in the left side so we (our brain) can easily spot that in fact they're the same color.
 
 > #### Hands-on: Check YUV histogram
 > You can [check the YUV histogram with ffmpeg.](/enconding_pratical_examples.md#generates-yuv-histogram)
