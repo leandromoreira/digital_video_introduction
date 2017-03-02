@@ -28,6 +28,7 @@ All the **hands-on should be performed from the folder you cloned** this reposit
       - [Hands-on: Check video properties](#hands-on-check-video-properties)
 - [Redundancy removal](#redundancy-removal)
   * [Colors, Luminance and our eyes](#colors-luminance-and-our-eyes)
+      - [Hands-on: Check YUV histogram](#hands-on-check-yuv-histogram)
   * [Frame types](#frame-types)
     + [I Frame (intra, keyframe)](#i-frame-intra-keyframe)
     + [P Frame (predicted)](#p-frame-predicted)
@@ -39,6 +40,7 @@ All the **hands-on should be performed from the folder you cloned** this reposit
 - [How does a video codec work?](#how-does-a-video-codec-work)
   * [What? Why? How?](#what-why-how)
   * [History](#history)
+      - [The born of AV1](#the-born-of-av1)
   * [A generic codec](#a-generic-codec)
   * [1st step - picture partitioning](#1st-step---picture-partitioning)
     + [Hands-on: Check partitions](#hands-on-check-partitions)
@@ -53,7 +55,8 @@ All the **hands-on should be performed from the folder you cloned** this reposit
   * [6th step - bitstream format](#6th-step---bitstream-format)
     + [H264 bitstream](#h264-bitstream)
     + [Hands-on: Inspect the H264 bitstream](#hands-on-inspect-the-h264-bitstream)
-  * [How H265 can achieve better compression ratio than H264](#how-h265-can-achieve-better-compression-ratio-than-h264)
+  * [Review](#review)
+  * [How does H265 can achieve better compression ratio than H264?](#how-does-h265-can-achieve-better-compression-ratio-than-h264)
 - [Adaptive streaming](#adaptive-streaming)
   * [What? Why? How?](#what-why-how-1)
   * [HLS and Dash](#hls-and-dash)
@@ -201,7 +204,24 @@ In 2003 the first version of **H.264/AVC** was completed, in the same year, a co
 
 ![codec history timeline](/i/codec_history_timeline.png "codec history timeline")
 
-> If you want to learn more about the history of the codecs you must learn the basics behind [video compression patents](https://www.vcodex.com/video-compression-patents/).
+> #### The born of AV1
+>
+> Early 2015, Google was working on [VP10](https://en.wikipedia.org/wiki/VP9#Successor:_from_VP10_to_AV1), Xiph (Mozilla) was working on [Daala](https://xiph.org/daala/) and Cisco open-sourced its royalty-free video codec called [Thor](https://tools.ietf.org/html/draft-fuldseth-netvc-thor-03).
+>
+> Then MPEG LA first announces annual caps for HEVC (H265) 8 times higher than H264 but soon after it releases new rules:
+> * **no annual cap**,
+> * **content fee** (0.5% of revenue) and
+> * **per-unit fees about 10 times higher than h264**.
+>
+> Then the [alliance for open media](http://aomedia.org/about-us/) was created by companies from hardware manufacturer (Intel, AMD, ARM , Nvidia, Cisco), content delivery (Google, Netflix, Amazon), browser maintainers (Google, Mozilla) and many more interested companies.
+>
+> The companies have a common goal, a royalty-free video codec and then AV1 was born with a much [simpler patent license](http://aomedia.org/license/patent/). **Timothy B. Terriberry** did an awesome presentation, which is the source of this section, about the [AV1 conception, license model and its current state](https://www.youtube.com/watch?v=lzPaldsmJbk).
+>
+> You'll be surprised to know that you can **analyze the AV1 codec through your browser**, go to: http://aomanalyzer.org/
+>
+> ![av1 browser analyzer](/i/av1_browser_analyzer.png "av1 browser analyzer")
+>
+> PS: If you want to learn more about the history of the codecs you must learn the basics behind [video compression patents](https://www.vcodex.com/video-compression-patents/).
 
 ## A generic codec
 
@@ -435,6 +455,8 @@ The richest content is here, where all the info we saw in this text was extracte
 * https://people.xiph.org/~tterribe/pubs/lca2012/auckland/intro_to_video1.pdf
 * https://xiph.org/video/vid1.shtml
 * https://xiph.org/video/vid2.shtml
+* https://www.youtube.com/watch?v=lzPaldsmJbk
+* https://fosdem.org/2017/schedule/event/om_av1/
 * http://ffmpeg.org/documentation.html
 * https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors
 * http://www.itu.int/rec/T-REC-H.264-201610-I
