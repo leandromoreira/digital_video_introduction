@@ -195,9 +195,9 @@ Adicionar pixel_geometry
 
 > **CODEC vs Container**
 >
-> One common mistake that beginners often do is to confuse digital video CODEC and [digital video container](https://en.wikipedia.org/wiki/Digital_container_format). We can think of **containers** as a wrapper format which contains metadata of the video, and the **compressed video is the codec**.
+> One common mistake that beginners often do is to confuse digital video CODEC and [digital video container](https://en.wikipedia.org/wiki/Digital_container_format). We can think of **containers** as a wrapper format which contains metadata of the video and possible audio too, and the **compressed video is the codec** can be seen as its payload.
 >
-> Usually the extension of a video file defines its video container. For instance, the file `video.mp4` is probably a **[MPEG-4 Part 14](https://en.wikipedia.org/wiki/MPEG-4_Part_14)** container and a file named `video.mkv` it's probably a **[matroka](https://en.wikipedia.org/wiki/Matroska)**. To be completly sure about the codec and container we can use [ffmpeg or mediainfo](/enconding_pratical_examples.md#inspect-stream).
+> Usually the extension of a video file defines its video container. For instance, the file `video.mp4` is probably a **[MPEG-4 Part 14](https://en.wikipedia.org/wiki/MPEG-4_Part_14)** container and a file named `video.mkv` it's probably a **[matroska](https://en.wikipedia.org/wiki/Matroska)**. To be completly sure about the codec and container format we can use [ffmpeg or mediainfo](/enconding_pratical_examples.md#inspect-stream).
 
 ## History
 
