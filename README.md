@@ -150,12 +150,76 @@ Our eyes are [more sensible to brightness than colors](http://vanseodesign.com/w
 
 If you are unable to see that the colors of the **squares A and B are identical** in the right side, that's fine, it's our brain playing tricks on us to **pay more attention to light and dark than color**. There is a connector, with the same color, in the left side so we (our brain) can easily spot that in fact they're the same color.
 
-Adicionar pixel_geometry
+Once we know that we're more sensible to **luma** (the brightness in an image) we can try to exploit it.
 
-> #### Hands-on: Check YUV (YCbCr) histogram
-> You can [check the YUV histogram with ffmpeg.](/enconding_pratical_examples.md#generates-yuv-histogram)
+### Color model
+
+We first learned [how to color images](/digital_video_introduction#basic-terminology) work using **RGB model** but there are others models. In fact, there is a model that separates luma (brightness) from  chrominance (colors) and it is known as **YCbCr**<sup>*</sup>.
+
+> <sup>*</sup> there are more models which does the same separation.
+
+This color model uses **Y** to represent the brightness and plus two color channels **Cb** (chroma blue) and **Cr** (chrome red). The [YCbCr](https://en.wikipedia.org/wiki/YCbCr) can be derived from RGB and it also can be converted back to RGB. Using this model we can produced full colored images as we can see down bellow.
+
+![ycbcr example](/i/ycbcr.png "ycbcr example")
+
+### Converting between YCbCr and RGB
+
+Some may argue, how can we produce all the **colors without using the green**?
+
+To answer this question we'll walk through a conversion from RGB to YCbCr. We'll use the coefficients from the **[standard BT.601](https://en.wikipedia.org/wiki/Rec._601)** that was recommended by the **[group ITU-R<sup>*</sup>](https://en.wikipedia.org/wiki/ITU-R)** . The first step is to **calculate the luma**, we'll use the constants suggested by ITU and replace the RGB values.
+
+```
+Y = 0.299R + 0.587G + 0.114B
+```
+
+Once we had the luma, we can **split the colors** (chroma blue and red):
+
+```
+Cb = 0.564(B - Y)
+Cr = 0.713(R - Y)
+```
+
+And we can also **convert it back** and even getting the **green by using YCbCr**.
+
+```
+R = Y + 1.402Cr
+B = Y + 1.772Cb
+G = Y - 0.344Cb - 0.714Cr
+```
+
+> <sup>*</sup> groups and standards are common in digital video, they usually defines what are the standards, for instance [what is 4K? what frame rate should we use? resolution? color model?](https://en.wikipedia.org/wiki/Rec._2020)
+
+Generally, the **displays** (monitors, TVs, screens and etc) shows **only the RGB model**, see some of them in a zoomed level, they organize the RGB channels in different manners:
+
+![pixel geometry](/i/pixel_geometry.jpg "pixel geometry")
+
+### Chroma subsampling
+
+Once we were able to separate luma from chroma, we can take advantage of the human visual system that is more capable to see luma than chroma. **Chroma subsampling** is the technique of encoding images using **less resolution for chroma than for luma**.
+
+
+
+![ycbcr subsampling resolutions](/i/ycbcr_subsampling_resolution.png "ycbcr subsampling resolutions")
+
+
+How much should we reduce from the chroma resolution?! it turns out that there is already some schemes that describes how to handle resolution and the merge (`final color = Y + Cb + Cr`).
+
+These schemas are known as subsampling systems (or ratios), they are identified by: **4:4:4, 4:2:3, 4:2:1, 4:1:1, 4:2:0, 4:1:0 and 3:1:1**. And each one of them defines how much should we discard in the chroma resolution as well as how we should merge the three planes (Y, Cb, Cr).
+
+You can see the same image encoded by the main chroma subsampling types, the first row of images are the final YCbCr while the last row of images shows the chroma resolution.
+
+![chroma subsampling examples](/i/chroma_subsampling_examples.jpg "chroma subsampling examples")
+
+Previously we calculated that we needed [2.3Tb of storage to keep a video file with one hour at 720p resolution and 30fps](/digital_video_introduction#redundancy-removal), if we use **YCbCr 4:2:0** we can cut **this size in half (1.19Tb)**<sup>*</sup> but it is still far from the ideal.
+
+> <sup>*</sup> we found this value by multiplying width, height, bits per pixel and fps, before we needed 24 bits now we only need 12.
+
+<br/>
+
+> ### Hands-on: Check YCbCr histogram
+> You can [check the YCbCr histogram with ffmpeg.](/enconding_pratical_examples.md#generates-yuv-histogram) This scene has more blue contribution which is showed by the [histogram](https://en.wikipedia.org/wiki/Histogram).
 >
-> ![yuv color histogram](/i/yuv_histogram.png "yuv color histogram")
+> ![ycbcr color histogram](/i/yuv_histogram.png "ycbcr color histogram")
 
 ## Frame types
 
@@ -332,7 +396,7 @@ The idea is to lossless compress the quantized bitstream, for sure this article 
 
 After we did all these steps we need to **pack the compressed frames and context to these steps**. We need to explicitly inform to the decoder about **the decisions taken by the encoder**, things like: bit depth, color space, resolution, predictions info (motion vectors, direction of prediction), profile, level, frame rate, frame type, frame number and many more.
 
-We're going to study, superficially, the H264 bitstream. Our first step is to [generate a minimal <sup>*</sup> H264 bitstream](/enconding_pratical_examples.md#generate-a-single-frame-h264-bitstream), we can do that using our own repository and [ffmpeg](http://ffmpeg.org/).
+We're going to study, superficially, the H264 bitstream. Our first step is to [generate a minimal  H264 <sup>*</sup> bitstream](/enconding_pratical_examples.md#generate-a-single-frame-h264-bitstream), we can do that using our own repository and [ffmpeg](http://ffmpeg.org/).
 
 ```
 ./s/ffmpeg -i /files/i/minimal.png -pix_fmt yuv420p /files/v/minimal_yuv420.h264
