@@ -4,7 +4,7 @@
 
 A gentle introduction to video technology, although it's aimed for software developers / engineering, we want to make it easy **for anyone to learn**. This idea was born during a mini workshop for newcomers to video technology.
 
-The goal is to introduce some digital video subjects with a **simple text, visual element and practical examples**, where is possible and make this knowledge available everywhere. Please, feel free to correct, suggest and improve it.
+The goal is to introduce some digital video subjects with a **simple text, visual element and practical examples**, where is possible, and make this knowledge available everywhere. Please, feel free to correct, suggest and improve it.
 
 There will be **hands-on** sections which requires you to have **docker installed** and this repo cloned.
 
@@ -65,7 +65,7 @@ All the **hands-on should be performed from the folder you cloned** this reposit
 - [How to use jupyter](#how-to-use-jupyter)
 - [References](#references)
 
-# Basic video/image terminology
+# Basic terminology
 
 An **image** can be thought as a **2D matrix** and if we think about **colors**, we can extrapolate this idea seeing this image as a **3D matrix** where the **additional dimensions** are used to provide **color data**.
 
@@ -150,7 +150,9 @@ Our eyes are [more sensible to brightness than colors](http://vanseodesign.com/w
 
 If you are unable to see that the colors of the **squares A and B are identical** in the right side, that's fine, it's our brain playing tricks on us to **pay more attention to light and dark than color**. There is a connector, with the same color, in the left side so we (our brain) can easily spot that in fact they're the same color.
 
-> #### Hands-on: Check YUV histogram
+Adicionar pixel_geometry
+
+> #### Hands-on: Check YUV (YCbCr) histogram
 > You can [check the YUV histogram with ffmpeg.](/enconding_pratical_examples.md#generates-yuv-histogram)
 >
 > ![yuv color histogram](/i/yuv_histogram.png "yuv color histogram")
@@ -190,6 +192,12 @@ If you are unable to see that the colors of the **squares A and B are identical*
 ## What? Why? How?
 
 **What?** It's a software / hardware that compresses or decompresses digital video. **Why?** Market and society demands higher quality videos with limited bandwidth or storage, remember when we [calculated the needed bandwidth](#basic-videoimage-terminology) for a 30 frames per second, 24 bits per pixel, resolution of 480x240 video? It was **82.944 Mbps** with none compression applied. It's the only way to delivery HD/FullHD/4K in TVs and Internet. **How?** We'll take brief look a the major techniques here.
+
+> **CODEC vs Container**
+>
+> One common mistake that beginners often do is to confuse digital video CODEC and [digital video container](https://en.wikipedia.org/wiki/Digital_container_format). We can think of **containers** as a wrapper format which contains metadata of the video, and the **compressed video is the codec**.
+>
+> Usually the extension of a video file defines its video container. For instance, the file `video.mp4` is probably a **[MPEG-4 Part 14](https://en.wikipedia.org/wiki/MPEG-4_Part_14)** container and a file named `video.mkv` it's probably a **[matroka](https://en.wikipedia.org/wiki/Matroska)**. To be completly sure about the codec and container we can use [ffmpeg or mediainfo](/enconding_pratical_examples.md#inspect-stream).
 
 ## History
 
@@ -404,7 +412,7 @@ We can see the **bitstream as a protocol** and if you want or need to learn more
 ![h264 bitstream macro diagram](/i/h264_bitstream_macro_diagram.png "h264 bitstream macro diagram")
 
 We can explore others bitstreams like the [VP9 bitstream](https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.6-20160331-draft.pdf), [H265 (HEVC)](handle.itu.int/11.1002/1000/11885-en?locatt=format:pdf) or even our **new best friend** [**AV1** bitstream](https://medium.com/@mbebenita/av1-bitstream-analyzer-d25f1c27072b#.d5a89oxz8
-), they're all look similar.
+), [do they all look similar? No](http://www.gpac-licensing.com/2016/07/12/vp9-av1-bitstream-format/), but once you learned one you can easily get the others.
 
 > ### Hands-on: Inspect the H264 bitstream
 > We can [generate a single frame video](https://github.com/leandromoreira/introduction_video_technology/blob/master/enconding_pratical_examples.md#generate-a-single-frame-video) and use  [mediainfo](https://en.wikipedia.org/wiki/MediaInfo) to inspect its H264 bitstream. In fact, you can even see the [source code that parses h264 (AVC)](https://github.com/MediaArea/MediaInfoLib/blob/master/Source/MediaInfo/Video/File_Avc.cpp) bitstream.
