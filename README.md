@@ -207,7 +207,7 @@ Once we were able to separate luma from chroma, we can take advantage of the hum
 
 How much should we reduce from the chroma resolution?! it turns out that there is already some schemes that describes how to handle resolution and the merge (`final color = Y + Cb + Cr`).
 
-These schemas are known as subsampling systems (or ratios), they are identified by: **4:4:4, 4:2:3, 4:2:1, 4:1:1, 4:2:0, 4:1:0 and 3:1:1**. And each one of them defines how much should we discard in the chroma resolution as well as how we should merge the three planes (Y, Cb, Cr).
+These schemas are known as subsampling systems (or ratios), they are identified by the numbers: **4:4:4, 4:2:3, 4:2:1, 4:1:1, 4:2:0, 4:1:0 and 3:1:1**. And each one of them defines how much should we discard in the chroma resolution as well as how we should merge the three planes (Y, Cb, Cr).
 
 You can see the same image encoded by the main chroma subsampling types, the first row of images are the final YCbCr while the last row of images shows the chroma resolution.
 
