@@ -157,7 +157,7 @@ Once we know that we're more sensible to **luma** (the brightness in an image) w
 
 ### Color model
 
-We first learned [how to color images](/digital_video_introduction#basic-terminology) work using **RGB model** but there are others models. In fact, there is a model that separates luma (brightness) from  chrominance (colors) and it is known as **YCbCr**<sup>*</sup>.
+We first learned [how to color images](#basic-terminology) work using **RGB model** but there are others models. In fact, there is a model that separates luma (brightness) from  chrominance (colors) and it is known as **YCbCr**<sup>*</sup>.
 
 > <sup>*</sup> there are more models which does the same separation.
 
@@ -213,7 +213,7 @@ You can see the same image encoded by the main chroma subsampling types, the fir
 
 ![chroma subsampling examples](/i/chroma_subsampling_examples.jpg "chroma subsampling examples")
 
-Previously we had calculated that we needed [2.3Tb of storage to keep a video file with one hour at 720p resolution and 30fps](/digital_video_introduction#redundancy-removal), if we use **YCbCr 4:2:0** we can cut **this size in half (1.19Tb)**<sup>*</sup> but it is still far from the ideal.
+Previously we had calculated that we needed [2.3Tb of storage to keep a video file with one hour at 720p resolution and 30fps](#redundancy-removal), if we use **YCbCr 4:2:0** we can cut **this size in half (1.19Tb)**<sup>*</sup> but it is still far from the ideal.
 
 > <sup>*</sup> we found this value by multiplying width, height, bits per pixel and fps, before we needed 24 bits now we only need 12.
 
