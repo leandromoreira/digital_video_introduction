@@ -209,7 +209,13 @@ How much should we reduce from the chroma resolution?! it turns out that there i
 
 These schemas are known as subsampling systems (or ratios), they are identified by the numbers: **4:4:4, 4:2:3, 4:2:1, 4:1:1, 4:2:0, 4:1:0 and 3:1:1**. And each one of them defines how much should we discard in the chroma resolution as well as how we should merge the three planes (Y, Cb, Cr).
 
-You can see the same image encoded by the main chroma subsampling types, the first row of images are the final YCbCr while the last row of images shows the chroma resolution.
+> **YCbCr 4:2:0 merge**
+>
+> Here's a merged piece of an image using YCbCr 4:2:0, notice that we only spent 12 bits.
+>
+> ![YCbCr 4:2:0 merge](/i/ycbcr_420_merge.png "YCbCr 4:2:0 merge")
+
+You can see the same image encoded by the main chroma subsampling types, the first row of images are the final YCbCr while the last row of images shows the chroma resolution. It's indeed a great win for such small loss.
 
 ![chroma subsampling examples](/i/chroma_subsampling_examples.jpg "chroma subsampling examples")
 
@@ -523,6 +529,7 @@ The richest content is here, where all the info we saw in this text was extracte
 * https://www.coursera.org/learn/digital/
 * https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.6-20160331-draft.pdf
 * http://iphome.hhi.de/wiegand/assets/pdfs/2012_12_IEEE-HEVC-Overview.pdf
+* http://phenix.int-evry.fr/jct/doc_end_user/current_document.php?id=7243
 * https://medium.com/@mbebenita/av1-bitstream-analyzer-d25f1c27072b#.d5a89oxz8
 * https://arxiv.org/pdf/1702.00817v1.pdf
 * https://people.xiph.org/~xiphmont/demo/daala/demo1.shtml
