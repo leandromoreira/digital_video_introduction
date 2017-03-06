@@ -72,14 +72,14 @@ All the **hands-on should be performed from the folder you cloned** this reposit
 
 An **image** can be thought as a **2D matrix** and if we think about **colors**, we can extrapolate this idea seeing this image as a **3D matrix** where the **additional dimensions** are used to provide **color data**.
 
-If we chose to represent these colors using the [primary colors (red, green and blue)](https://en.wikipedia.org/wiki/Primary_color), we then can define the tree planes: the first one **red**, the second **green** and the last the **blue** color.
+If we chose to represent these colors using the [primary colors (red, green and blue)](https://en.wikipedia.org/wiki/Primary_color), we then can define the tree planes: the first one **red**, the second **green**, and the last the **blue** color.
 
 ![an image is a 3d matrix RGB](/i/image_3d_matrix_rgb.png "An image is a 3D matrix")
 
-Each point in this matrix, we'll call it **a pixel** (picture element), will hold the **intensity** (usually a numeric value) of that given color. A **total red color** means 0 of green, 0 of blue and max of red, the **pink color** can be formed with (using 0 to 255 as the possible range) with **Red=255, Green=192 and Blue=203**.
+Each point in this matrix, we'll call it **a pixel** (picture element), will hold the **intensity** (usually a numeric value) of that given color. A **total red color** means 0 of green, 0 of blue and maximum of red, the **pink color** can be formed with (using 0 to 255 as the possible range) with **Red=255, Green=192 and Blue=203**.
 
 > #### Other ways to encode a color image
-> There are much more models to represent an image with colors. We could use a indexed palette where we'd spend only a byte for each pixel instead of 3, comparing it to RGB model. In this model instead of a 3D matrix we'd use a 2D matrix, saving memory but having much less color options.
+> There are much more models to represent an image with colors. We could use an indexed palette where we'd spend only a byte for each pixel instead of 3, comparing it to RGB model. In this model instead of a 3D matrix, we'd use a 2D matrix, saving memory but having fewer color options.
 >
 > ![NES palette](/i/nes-color-palette.png "NES palette")
 
@@ -90,11 +90,11 @@ For instance, look at the picture down bellow, the first face is full colored, t
 We can see that the **red color** will be the one that **contributes more** (the brightest parts in the second face) to the final color while the **blue color** contribution can be mostly **only seen in Mario's eyes** (last face) and part of his clothes, see how **all the planes contributes less** (darkest parts) to the **Mario's mustache**.
 
 
-And each color intensity requires a certain amount of bits, this quantity is know as **bit depth**. Let's say we spend **8 bits** (accepting values from 0 to 255) per color (plane), therefore we have a **color depth** of **24 (8 * 3) bits** and we can also infer that we could use 2 to the power of 24 different colors.
+And each color intensity requires a certain amount of bits, this quantity is known as **bit depth**. Let's say we spend **8 bits** (accepting values from 0 to 255) per color (plane), therefore we have a **color depth** of **24 (8 * 3) bits** and we can also infer that we could use 2 to the power of 24 different colors.
 
 > **It's great** to learn [how an image is captured from the world to the bits](http://www.cambridgeincolour.com/tutorials/camera-sensors.htm).
 
-Another property of an image is the **resolution**, which is the number of pixels in one dimension. It is often presented as width × height, for example the **4×4** image bellow.
+Another property of an image is the **resolution**, which is the number of pixels in one dimension. It is often presented as width × height, for example, the **4×4** image bellow.
 
 ![image resolution](/i/resolution.png "image resolution")
 
@@ -103,7 +103,7 @@ Another property of an image is the **resolution**, which is the number of pixel
 >
 > You can also learn [how image filters (edge detection, sharpen, blur...) work](/filters_are_easy.ipynb).
 
-Another property we can see while working with images or video is the **aspect ratio** which is simple describes the proportional relationship between width and height of an image or pixel.
+Another property we can see while working with images or video is the **aspect ratio** which is simply describes the proportional relationship between width and height of an image or pixel.
 
 When people says this movie or picture is **16x9** they usually are referring to the **Display Aspect Ratio (DAR)** and we also can have different shapes of a pixel, we call this **Pixel Aspect Ratio (PAR)**.
 
@@ -114,11 +114,11 @@ When people says this movie or picture is **16x9** they usually are referring to
 > #### DVD is DAR 4:3
 > Although the real resolution of a DVD is 704x480 it still keeps a 4:3 aspect ratio because it has a PAR of 10:11 (704x10/480x11)
 
-Finally we can define a **video** as a **succession of *n* frames** in **time** which can be seen as another dimension, *n* is the frame rate or frames per second (FPS).
+Finally, we can define a **video** as a **succession of *n* frames** in **time** which can be seen as another dimension, *n* is the frame rate or frames per second (FPS).
 
 ![video](/i/video.png "video")
 
-The amount of bits per second needed to show a video is its **bit rate**. For example, a video with 30 frames per second, 24 bits per pixel, resolution of 480x240 will need **82,944,000 bits per second** or 82.944 Mbps (30x480x240x24) if we don't employ any kind of compression.
+The number of bits per second needed to show a video is its **bit rate**. For example, a video with 30 frames per second, 24 bits per pixel, resolution of 480x240 will need **82,944,000 bits per second** or 82.944 Mbps (30x480x240x24) if we don't employ any kind of compression.
 
 When the **bit rate** is nearly constant it's called constant bit rate (**CBR**) but it also can vary then called variable bit rate (**VBR**).
 
@@ -126,7 +126,7 @@ When the **bit rate** is nearly constant it's called constant bit rate (**CBR**)
 >
 > ![constrained vbr](/i/vbr.png "constrained vbr")
 
-In the early days engineering come up with a technique for doubling the perceived frame rate of a video display **without consuming extra bandwidth**, this technique is known as **interlaced video**. It basically sends half of the screen in 1 "frame" and the next "frame" they send the other half.
+In the early days engineering comes up with a technique for doubling the perceived frame rate of a video display **without consuming extra bandwidth**, this technique is known as **interlaced video**. It basically sends half of the screen in 1 "frame" and the next "frame" they send the other half.
 
 Today screens render mostly using **progressive scan technique**, progressive is a way of displaying, storing, or transmitting moving images in which all the lines of each frame are drawn in sequence.
 
@@ -143,7 +143,7 @@ We learned that is not feasible to use video without any compression, **a single
 
 > <sup>*</sup> We found this number by multiplying 1280 x 720 x 24 x 30 x 3600 (width, height, bits per pixel, fps and time in seconds)
 
-We can **exploit how our vision works**, we're better to distinguish brightness than colors, the **repetitions in time**, a video contains a lot of images with few changes, and the **repetitions within image**, each frame also contains many areas using the same or similar color.
+We can **exploit how our vision works**, we're better to distinguish brightness than colors, the **repetitions in time**, a video contains a lot of images with few changes, and the **repetitions within the image**, each frame also contains many areas using the same or similar color.
 
 ## Colors, Luminance and our eyes
 
@@ -159,9 +159,9 @@ Once we know that we're more sensible to **luma** (the brightness in an image) w
 
 We first learned [how to color images](#basic-terminology) work using **RGB model** but there are others models. In fact, there is a model that separates luma (brightness) from  chrominance (colors) and it is known as **YCbCr**<sup>*</sup>.
 
-> <sup>*</sup> there are more models which does the same separation.
+> <sup>*</sup> there are more models which do the same separation.
 
-This color model uses **Y** to represent the brightness and plus two color channels **Cb** (chroma blue) and **Cr** (chrome red). The [YCbCr](https://en.wikipedia.org/wiki/YCbCr) can be derived from RGB and it also can be converted back to RGB. Using this model we can produced full colored images as we can see down bellow.
+This color model uses **Y** to represent the brightness and plus two color channels **Cb** (chroma blue) and **Cr** (chrome red). The [YCbCr](https://en.wikipedia.org/wiki/YCbCr) can be derived from RGB and it also can be converted back to RGB. Using this model we can create full colored images as we can see down bellow.
 
 ![ycbcr example](/i/ycbcr.png "ycbcr example")
 
@@ -190,7 +190,7 @@ B = Y + 1.772Cb
 G = Y - 0.344Cb - 0.714Cr
 ```
 
-> <sup>*</sup> groups and standards are common in digital video, they usually defines what are the standards, for instance [what is 4K? what frame rate should we use? resolution? color model?](https://en.wikipedia.org/wiki/Rec._2020)
+> <sup>*</sup> groups and standards are common in digital video, they usually define what are the standards, for instance, [what is 4K? what frame rate should we use? resolution? color model?](https://en.wikipedia.org/wiki/Rec._2020)
 
 Generally, the **displays** (monitors, TVs, screens and etc) shows **only the RGB model**, see some of them in a zoomed level, they organize the RGB channels in different manners:
 
@@ -198,14 +198,14 @@ Generally, the **displays** (monitors, TVs, screens and etc) shows **only the RG
 
 ### Chroma subsampling
 
-Once we were able to separate luma from chroma, we can take advantage of the human visual system that is more capable to see luma than chroma. **Chroma subsampling** is the technique of encoding images using **less resolution for chroma than for luma**.
+Once we were able to separate luma from chroma, we can take advantage of the human visual system that is more capable of seeing luma than chroma. **Chroma subsampling** is the technique of encoding images using **less resolution for chroma than for luma**.
 
 
 
 ![ycbcr subsampling resolutions](/i/ycbcr_subsampling_resolution.png "ycbcr subsampling resolutions")
 
 
-How much should we reduce from the chroma resolution?! it turns out that there is already some schemes that describes how to handle resolution and the merge (`final color = Y + Cb + Cr`).
+How much should we reduce the chroma resolution?! it turns out that there is already some schemes that describe how to handle resolution and the merge (`final color = Y + Cb + Cr`).
 
 These schemas are known as subsampling systems (or ratios), they are identified by the numbers: **4:4:4, 4:2:3, 4:2:1, 4:1:1, 4:2:0, 4:1:0 and 3:1:1**. And each one of them defines how much should we discard in the chroma resolution as well as how we should merge the three planes (Y, Cb, Cr).
 
@@ -226,7 +226,7 @@ Previously we had calculated that we needed [2.3Tb of storage to keep a video fi
 <br/>
 
 > ### Hands-on: Check YCbCr histogram
-> You can [check the YCbCr histogram with ffmpeg.](/enconding_pratical_examples.md#generates-yuv-histogram) This scene has more blue contribution which is showed by the [histogram](https://en.wikipedia.org/wiki/Histogram).
+> You can [check the YCbCr histogram with ffmpeg.](/enconding_pratical_examples.md#generates-yuv-histogram) This scene has the more blue contribution which is showed by the [histogram](https://en.wikipedia.org/wiki/Histogram).
 >
 > ![ycbcr color histogram](/i/yuv_histogram.png "ycbcr color histogram")
 
@@ -264,24 +264,24 @@ Previously we had calculated that we needed [2.3Tb of storage to keep a video fi
 
 ## What? Why? How?
 
-**What?** It's a software / hardware that compresses or decompresses digital video. **Why?** Market and society demands higher quality videos with limited bandwidth or storage, remember when we [calculated the needed bandwidth](#basic-videoimage-terminology) for a 30 frames per second, 24 bits per pixel, resolution of 480x240 video? It was **82.944 Mbps** with none compression applied. It's the only way to delivery HD/FullHD/4K in TVs and Internet. **How?** We'll take brief look a the major techniques here.
+**What?** It's a software / hardware that compresses or decompresses digital video. **Why?** Market and society demands higher quality videos with limited bandwidth or storage, remember when we [calculated the needed bandwidth](#basic-videoimage-terminology) for 30 frames per second, 24 bits per pixel, resolution of 480x240 video? It was **82.944 Mbps** with none compression applied. It's the only way to deliver HD/FullHD/4K in TVs and the Internet. **How?** We'll take a brief look a the major techniques here.
 
 > **CODEC vs Container**
 >
 > One common mistake that beginners often do is to confuse digital video CODEC and [digital video container](https://en.wikipedia.org/wiki/Digital_container_format). We can think of **containers** as a wrapper format which contains metadata of the video and possible audio too, and the **compressed video is the codec** can be seen as its payload.
 >
-> Usually the extension of a video file defines its video container. For instance, the file `video.mp4` is probably a **[MPEG-4 Part 14](https://en.wikipedia.org/wiki/MPEG-4_Part_14)** container and a file named `video.mkv` it's probably a **[matroska](https://en.wikipedia.org/wiki/Matroska)**. To be completly sure about the codec and container format we can use [ffmpeg or mediainfo](/enconding_pratical_examples.md#inspect-stream).
+> Usually, the extension of a video file defines its video container. For instance, the file `video.mp4` is probably a **[MPEG-4 Part 14](https://en.wikipedia.org/wiki/MPEG-4_Part_14)** container and a file named `video.mkv` it's probably a **[matroska](https://en.wikipedia.org/wiki/Matroska)**. To be completely sure about the codec and container format we can use [ffmpeg or mediainfo](/enconding_pratical_examples.md#inspect-stream).
 
 ## History
 
 Before we jump in the inner works of a generic codec, let's look back to understand a little better about some old video codecs.
 
-The video codec [H261](https://en.wikipedia.org/wiki/H.261)  was born in 1990 (technically 1988), it was designed to work with **data rates of 64 kbit/s**. It already uses ideas such as chroma subsampling, macro block and etc. In the year of 1995 the **H263** video codec standard was published but it continued to be extended until 2001.
+The video codec [H261](https://en.wikipedia.org/wiki/H.261)  was born in 1990 (technically 1988), it was designed to work with **data rates of 64 kbit/s**. It already uses ideas such as chroma subsampling, macro block and etc. In the year of 1995, the **H263** video codec standard was published but it continued to be extended until 2001.
 
 
-In 2003 the first version of **H.264/AVC** was completed, in the same year, a company called **TrueMotion** released their video codec as a **royalty free** lossy video compression called **VP3**. In 2008, **Google bought** this company, in the same year they released the **VP8**. In December of 2012, Google released the **VP9** and it's  **supported by roughly ¾ of the browser market** (mobile included).
+In 2003 the first version of **H.264/AVC** was completed, in the same year, a company called **TrueMotion** released their video codec as a **royalty-free** lossy video compression called **VP3**. In 2008, **Google bought** this company, in the same year they released the **VP8**. In December of 2012, Google released the **VP9** and it's  **supported by roughly ¾ of the browser market** (mobile included).
 
- **[AV1](https://en.wikipedia.org/wiki/AOMedia_Video_1)** is a new video codec, **royalty-free**, open source being designed by the [Alliance for Open Media (AOMedia)](http://aomedia.org/) which is composed by the **companies: Google, Mozilla, Microsoft, Amazon, Netflix, AMD, ARM, NVidia, Intel, Cisco** among others. The **first version** 0.1.0 of the reference codec was **published on April 7, 2016**.
+ **[AV1](https://en.wikipedia.org/wiki/AOMedia_Video_1)** is a new video codec, **royalty-free**, open source being designed by the [Alliance for Open Media (AOMedia)](http://aomedia.org/) which is composed of the **companies: Google, Mozilla, Microsoft, Amazon, Netflix, AMD, ARM, NVidia, Intel, Cisco** among others. The **first version** 0.1.0 of the reference codec was **published on April 7, 2016**.
 
 ![codec history timeline](/i/codec_history_timeline.png "codec history timeline")
 
@@ -314,14 +314,14 @@ The first step is to **divide the frame** into several **partitions, sub-partiti
 
 ![picture partitioning](/i/picture_partitioning.png "picture partitioning")
 
-**But why?** There are many reasons, for instance, when we split the picture we can work the predictions more precisely, using small partitions for the small moving parts while use bigger partitions to static background.
+**But why?** There are many reasons, for instance, when we split the picture we can work the predictions more precisely, using small partitions for the small moving parts while using bigger partitions to a static background.
 
-Usually, the CODECs **organize these partitions** into slices (or tiles), macro (or coding tree units) and many sub partitions. The max size of these partitions varies, HEVC sets 64x64 while AVC uses 16x16 but the sub-partitions can reach sizes of 4x4.
+Usually, the CODECs **organize these partitions** into slices (or tiles), macro (or coding tree units) and many subpartitions. The max size of these partitions varies, HEVC sets 64x64 while AVC uses 16x16 but the sub-partitions can reach sizes of 4x4.
 
 Remember that we learned how **frames are typed**?! Well, you can **apply those ideas to blocks** too, therefore we can have I-Slice, B-Slice, I-Macroblock and etc.
 
 > ### Hands-on: Check partitions
-> We can also use the [Intel Video Pro Analyzer](https://software.intel.com/en-us/intel-video-pro-analyzer) (which is paid but there is a free trial version which limits you to only the first 10 frames). Here's a [VP9 partitions](/enconding_pratical_examples.md#transcoding) analyzed.
+> We can also use the [Intel Video Pro Analyzer](https://software.intel.com/en-us/intel-video-pro-analyzer) (which is paid but there is a free trial version which limits you to only the first 10 frames). Here are [VP9 partitions](/enconding_pratical_examples.md#transcoding) analyzed.
 >
 > ![VP9 partitions view intel video pro analyzer ](/i/paritions_view_intel_video_pro_analyzer.png "VP9 partitions view intel video pro analyzer")
 
@@ -343,7 +343,7 @@ Both encoder and decoder **must know** the rule of delta formation.
 
 ### VLC coding:
 
-Let's suppose we have a stream with the symbols: **a**, **e**, **r** and **t** and their probability (from 0 to 1) is represented by this table.
+Let's suppose we have a stream of the symbols: **a**, **e**, **r** and **t** and their probability (from 0 to 1) is represented by this table.
 
 |             | a   | e   | r    | t   |
 |-------------|-----|-----|------|-----|
@@ -358,15 +358,15 @@ We can assign unique binary codes (preferable small) to the most probable and bi
 
 Let's compress the stream **eat**, assuming we would spend 8 bits for each symbol, we would spend **24 bits** without any compression. But in case we replace each symbol for its code we can save space.
 
-The first step is to encode the symbol **e** which is `10` and the second symbol is **a** which is added (not in the mathematical way) `[10][0]` and finally the third symbol **t** which makes our final compressed bitstream to be `[10][0][1110]` or `1001110` which only requires **7 bits** (3.4 times less space than the original).
+The first step is to encode the symbol **e** which is `10` and the second symbol is **a** which is added (not in a mathematical way) `[10][0]` and finally the third symbol **t** which makes our final compressed bitstream to be `[10][0][1110]` or `1001110` which only requires **7 bits** (3.4 times less space than the original).
 
 Notice that each code must be a unique prefixed code [Huffman can help you to find these numbers](https://en.wikipedia.org/wiki/Huffman_coding). Though it has some issues there are [video codecs that still offers](https://en.wikipedia.org/wiki/Context-adaptive_variable-length_coding) this method and it's the  algorithm for many application which requires compression.
 
-Both encoder and decoder **must know** the symbol table with its code therefore you need to send the table too.
+Both encoder and decoder **must know** the symbol table with its code, therefore, you need to send the table too.
 
 ### Arithmetic coding:
 
-Let's suppose we have a stream with the symbols: **a**, **e**, **r**, **s** and **t** and their probability is represented by this table.
+Let's suppose we have a stream of the symbols: **a**, **e**, **r**, **s** and **t** and their probability is represented by this table.
 
 |             | a   | e   | r    | s    | t   |
 |-------------|-----|-----|------|------|-----|
@@ -384,17 +384,17 @@ Let's continue to encode our stream **eat**, now we take the second symbol **a**
 
 ![final arithmetic range](/i/arithimetic_range.png "final arithmetic range")
 
-We just need to pick a number within the last subrange **0.354 to 0.372**, let's chose **0.36** but we could chose any number within this subrange. With **only** this number we'll be able to recovery our original stream **eat**. If you think about it, it's like if we were drawing a line within ranges of ranges to encode our stream.
+We just need to pick a number within the last subrange **0.354 to 0.372**, let's choose **0.36** but we could chose any number within this subrange. With **only** this number we'll be able to recover our original stream **eat**. If you think about it, it's like if we were drawing a line within ranges of ranges to encode our stream.
 
 ![final range traverse](/i/range_show.png "final range traverse")
 
 The **reverse process** (A.K.A. decoding) is equally easy, with our number **0.36** and our original range we can run the same process but now using this number to reveal the stream encoded behind this number.
 
-With the first range we notice that our number fits at the **e** slice therefore it's our first symbol, now we split this subrange again, doing the same process as before, and we'll notice that **0.36** fits the symbol **a** and after we repeat the process we came to the last symbol **t** (forming our original encoded stream *eat*).
+With the first range we notice that our number fits at the slice, therefore, it's our first symbol, now we split this subrange again, doing the same process as before, and we'll notice that **0.36** fits the symbol **a** and after we repeat the process we came to the last symbol **t** (forming our original encoded stream *eat*).
 
 Both encoder and decoder **must know** the symbol probability table, therefore you need to send the table.
 
-Pretty neat isn't? People are damm smart to come up with such solution, some [video codec uses](https://en.wikipedia.org/wiki/Context-adaptive_binary_arithmetic_coding) (or at least offers as an option) this technique.
+Pretty neat isn't? People are damn smart to come up with such solution, some [video codec uses](https://en.wikipedia.org/wiki/Context-adaptive_binary_arithmetic_coding) (or at least offers as an option) this technique.
 
 The idea is to lossless compress the quantized bitstream, for sure this article is missing tons of details, reasons, trade-offs and etc. But [you should learn more](https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/) as a developer. Newer codecs are trying to use different [entropy coding algorithms like ANS.](https://en.wikipedia.org/wiki/Asymmetric_Numeral_Systems)
 
@@ -403,7 +403,7 @@ The idea is to lossless compress the quantized bitstream, for sure this article 
 
 ## 6th step - bitstream format
 
-After we did all these steps we need to **pack the compressed frames and context to these steps**. We need to explicitly inform to the decoder about **the decisions taken by the encoder**, things like: bit depth, color space, resolution, predictions info (motion vectors, direction of prediction), profile, level, frame rate, frame type, frame number and many more.
+After we did all these steps we need to **pack the compressed frames and context to these steps**. We need to explicitly inform to the decoder about **the decisions taken by the encoder**, such as: bit depth, color space, resolution, predictions info (motion vectors, intra prediction direction), profile, level, frame rate, frame type, frame number and much more.
 
 We're going to study, superficially, the H264 bitstream. Our first step is to [generate a minimal  H264 <sup>*</sup> bitstream](/enconding_pratical_examples.md#generate-a-single-frame-h264-bitstream), we can do that using our own repository and [ffmpeg](http://ffmpeg.org/).
 
@@ -419,15 +419,15 @@ This command will generate a raw h264 bitstream with a **single frame**, 64x64, 
 
 ### H264 bitstream
 
-The AVC (H264) standard defines that the information will be send in **macro frames** (in the network sense), called **[NAL](https://en.wikipedia.org/wiki/Network_Abstraction_Layer)** (Network Abstraction Layer). The main goal of the NAL is the provision of a "network-friendly" video representation, this standard must work on TVs (stream based), Internet (packet based) among others.
+The AVC (H264) standard defines that the information will be sent in **macro frames** (in the network sense), called **[NAL](https://en.wikipedia.org/wiki/Network_Abstraction_Layer)** (Network Abstraction Layer). The main goal of the NAL is the provision of a "network-friendly" video representation, this standard must work on TVs (stream based), the Internet (packet based) among others.
 
 ![NAL units H264](/i/nal_units.png "NAL units H264")
 
-There is a **[synchronization marker](https://en.wikipedia.org/wiki/Frame_synchronization)** to define the boundaries among the NAL's units. Each synchronization marker holds a value of `0x00 0x00 0x01` except to the very first one which is `0x00 0x00 0x00 0x01`. If we run the **hexdump** on the generated h264 bitstream, we can identify at least three NALs in the beginning of the file.
+There is a **[synchronization marker](https://en.wikipedia.org/wiki/Frame_synchronization)** to define the boundaries of the NAL's units. Each synchronization marker holds a value of `0x00 0x00 0x01` except to the very first one which is `0x00 0x00 0x00 0x01`. If we run the **hexdump** on the generated h264 bitstream, we can identify at least three NALs in the beginning of the file.
 
 ![synchronization marker on NAL units](/i/minimal_yuv420_hex.png "synchronization marker on NAL units")
 
-As we said before, the decoder needs to know not only the picture data but also the details of the video, frame, colors, used parameters and others. The **first byte** of each NAL defines its category and **type**.
+As we said before, the decoder needs to know not only the picture data but also the details of the video, frame, colors, used parameters, and others. The **first byte** of each NAL defines its category and **type**.
 
 | NAL type id  | Description  |
 |---  |---|
@@ -445,17 +445,17 @@ As we said before, the decoder needs to know not only the picture data but also 
 | 12 |  End of stream |
 | ... |  ... |
 
-Usually the first NAL of a bitstream is a **SPS**, this type of NAL is responsible to inform the general encoding variables like **profile**, **level**, **resolution** and others.
+Usually, the first NAL of a bitstream is a **SPS**, this type of NAL is responsible for informing the general encoding variables like **profile**, **level**, **resolution** and others.
 
 If we skip the first synchronization marker we can decode the **first byte** to know what **type of NAL** is the first one.
 
 For instance the first byte after the synchronization marker is `01100111`, where the first bit (`0`) is to the field **forbidden_zero_bit**, the next 2 bits (`11`) tell us the field **nal_ref_idc** which indicates whether this NAL is a reference field or not and the rest 5 bits (`00111`) inform us the field **nal_unit_type**, in this case it's a **SPS** (7) NAL unit.
 
-The second byte (`binary=01100100, hex=0x64, dec=100`) of a SPS NAL is the field **profile_idc** which shows the profile that the encoder has used, in this case we used  the **[constrained high profile](https://en.wikipedia.org/wiki/H.264/MPEG-4_AVC#Profiles)**, it's a high profile without support of B (bi-predictive) slices.
+The second byte (`binary=01100100, hex=0x64, dec=100`) of a SPS NAL is the field **profile_idc** which shows the profile that the encoder has used, in this case, we used  the **[constrained high-profile](https://en.wikipedia.org/wiki/H.264/MPEG-4_AVC#Profiles)**, it's a high profile without the support of B (bi-predictive) slices.
 
 ![SPS binary view](/i/minimal_yuv420_bin.png "SPS binary view")
 
-When we read the H264 bitstream spec for a SPS NAL we'll find many values for **parameter name**, **category** and a **description**, for instance let's look at `pic_width_in_mbs_minus_1` and `pic_height_in_map_units_minus_1` fields.
+When we read the H264 bitstream spec for a SPS NAL we'll find many values for the **parameter name**, **category** and a **description**, for instance, let's look at `pic_width_in_mbs_minus_1` and `pic_height_in_map_units_minus_1` fields.
 
 | Parameter name  | Category  |  Description  |
 |---  |---|---|
@@ -470,7 +470,7 @@ If we continue to examine our created video with a binary view (ex: `xxd -b -c 1
 
 ![h264 idr slice header](/i/slice_nal_idr_bin.png "h264 idr slice header")
 
-We can see its first 6 bytes values: `01100101 10001000 10000100 00000000 00100001 11111111`. As we already know the first byte tell us about what type of NAL it is, in this case (`00101`) it's an **IDR Slice (5)** and we can further inspect it:
+We can see its first 6 bytes values: `01100101 10001000 10000100 00000000 00100001 11111111`. As we already know the first byte tell us about what type of NAL it is, in this case, (`00101`) it's an **IDR Slice (5)** and we can further inspect it:
 
 ![h264 slice header spec](/i/slice_header.png "h264 slice header spec")
 
@@ -478,7 +478,7 @@ Using the spec info we can decode what type of slice (**slice_type**), frame num
 
 In order to get the values of some fields (`ue(v), me(v), se(v) or te(v)`) we need to decode it using a special decoder called [Exponential-Golomb](https://pythonhosted.org/bitstring/exp-golomb.html), this method is **very efficient to encode variable values**, mostly when there are many default values.
 
-> The values of **slice_type** and **frame_num** of this video are: 7 (I slice) and 0 (the first frame).
+> The values of **slice_type** and **frame_num** of this video are 7 (I slice) and 0 (the first frame).
 
 We can see the **bitstream as a protocol** and if you want or need to learn more about this bitstream please refer to the [ITU H264 spec.]( http://www.itu.int/rec/T-REC-H.264-201610-I) Here's a macro diagram which shows where the picture data (compressed YUV) resides.
 
