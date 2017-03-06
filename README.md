@@ -194,7 +194,7 @@ G = Y - 0.344Cb - 0.714Cr
 
 Generally, the **displays** (monitors, TVs, screens and etc) shows **only the RGB model**, see some of them in a zoomed level, they organize the RGB channels in different manners:
 
-![pixel geometry](/i/pixel_geometry.jpg "pixel geometry")
+![pixel geometry](/i/new_pixel_geometry.jpg "pixel geometry")
 
 ### Chroma subsampling
 
