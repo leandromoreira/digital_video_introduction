@@ -153,6 +153,16 @@ Our eyes are [more sensible to brightness than colors](http://vanseodesign.com/w
 
 If you are unable to see that the colors of the **squares A and B are identical** in the right side, that's fine, it's our brain playing tricks on us to **pay more attention to light and dark than color**. There is a connector, with the same color, in the left side so we (our brain) can easily spot that in fact they're the same color.
 
+> **Simplistic explanation about our eyes**
+>
+> The [eye is a complex organ](http://www.biologymad.com/nervoussystem/eyenotes.htm), it is composed by many parts but we are mostly interested in the cones and rods cells. The eye [contains about 120 million rod cells and 6 million cone cells](https://en.wikipedia.org/wiki/Photoreceptor_cell).
+>
+> We will abuse of an **oversimplification**, let's try to put colors and brightness in the eye's parts function. The **[rod cells](https://en.wikipedia.org/wiki/Rod_cell) are mostly responsible for brightness** while the **[cone cells](https://en.wikipedia.org/wiki/Cone_cell) are responsible for color**, there are three types of cones, each with different pigment, namely: [S-cones (Blue), M-cones (Green) and L-cones (Red)](https://upload.wikimedia.org/wikipedia/commons/1/1e/Cones_SMJ2_E.svg).
+>
+> Since we have much more rod cells (brightness) than cone cells (color), one can infer that we are more capable of distinguish dark and light than colors.
+>
+> ![eyes composition](/i/eyes.jpg "eyes composition")
+
 Once we know that we're more sensible to **luma** (the brightness in an image) we can try to exploit it.
 
 ### Color model
