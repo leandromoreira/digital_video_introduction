@@ -274,7 +274,7 @@ Previously we had calculated that we needed [2.3Tb of storage to keep a video fi
 
 ## What? Why? How?
 
-**What?** It's a software / hardware that compresses or decompresses digital video. **Why?** Market and society demands higher quality videos with limited bandwidth or storage, remember when we [calculated the needed bandwidth](#basic-videoimage-terminology) for 30 frames per second, 24 bits per pixel, resolution of 480x240 video? It was **82.944 Mbps** with none compression applied. It's the only way to deliver HD/FullHD/4K in TVs and the Internet. **How?** We'll take a brief look a the major techniques here.
+**What?** It's a software / hardware that compresses or decompresses digital video. **Why?** Market and society demands higher quality videos with limited bandwidth or storage, remember when we [calculated the needed bandwidth](#basic-terminology) for 30 frames per second, 24 bits per pixel, resolution of 480x240 video? It was **82.944 Mbps** with none compression applied. It's the only way to deliver HD/FullHD/4K in TVs and the Internet. **How?** We'll take a brief look a the major techniques here.
 
 > **CODEC vs Container**
 >
@@ -569,6 +569,10 @@ The richest content is here, where all the info we saw in this text was extracte
 * https://cardinalpeak.com/blog/the-h-264-sequence-parameter-set/
 * https://codesequoia.wordpress.com/category/video/
 * https://ffmpeg.org/ffprobe.html
+* http://www.biologymad.com/nervoussystem/eyenotes.htm
+* https://en.wikipedia.org/wiki/Photoreceptor_cell
+* https://en.wikipedia.org/wiki/Cone_cell
+* https://en.wikipedia.org/wiki/Rod_cell
 * https://en.wikipedia.org/wiki/Presentation_timestamp
 * https://www.linkedin.com/pulse/video-streaming-methodology-reema-majumdar
 * https://leandromoreira.com.br/2016/10/09/how-to-measure-video-quality-perception/
