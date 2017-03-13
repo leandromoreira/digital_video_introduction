@@ -139,7 +139,7 @@ Now we have an idea about what is an **image**, how its **colors** are arranged,
 
 # Redundancy removal
 
-We learned that is not feasible to use video without any compression, **a single one hour video** at 720p resolution with 30fps would **require 2.38Tb<sup>*</sup>**. We need to find a way to compress the video, **using solely lossless data compression algorithms**, like DEFLATE (used in PKZIP, Gzip, and PNG), **won't help** as much as we need.
+We learned that is not feasible to use video without any compression, **a single one hour video** at 720p resolution with 30fps would **require 278GB<sup>*</sup>**. We need to find a way to compress the video, **using solely lossless data compression algorithms**, like DEFLATE (used in PKZIP, Gzip, and PNG), **won't help** as much as we need.
 
 > <sup>*</sup> We found this number by multiplying 1280 x 720 x 24 x 30 x 3600 (width, height, bits per pixel, fps and time in seconds)
 
@@ -229,7 +229,7 @@ You can see the same image encoded by the main chroma subsampling types, the fir
 
 ![chroma subsampling examples](/i/chroma_subsampling_examples.jpg "chroma subsampling examples")
 
-Previously we had calculated that we needed [2.3Tb of storage to keep a video file with one hour at 720p resolution and 30fps](#redundancy-removal), if we use **YCbCr 4:2:0** we can cut **this size in half (1.19Tb)**<sup>*</sup> but it is still far from the ideal.
+Previously we had calculated that we needed [278GB of storage to keep a video file with one hour at 720p resolution and 30fps](#redundancy-removal), if we use **YCbCr 4:2:0** we can cut **this size in half (139GB)**<sup>*</sup> but it is still far from the ideal.
 
 > <sup>*</sup> we found this value by multiplying width, height, bits per pixel and fps, before we needed 24 bits now we only need 12.
 
@@ -534,7 +534,7 @@ Make sure you have **docker installed** and just run `./s/start_jupyter.sh` and 
 
 # References
 
-The richest content is here, where all the info we saw in this text was extracted, based or inspired by. You can deepen your knowledge with these amazing links, books, videos and etc.
+The richest content is here, it's where all the info we saw in this text was extracted, based or inspired by. You can deepen your knowledge with these amazing links, books, videos and etc.
 
 * https://www.coursera.org/learn/digital/
 * https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.6-20160331-draft.pdf
