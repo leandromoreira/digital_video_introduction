@@ -326,7 +326,7 @@ The first step is to **divide the frame** into several **partitions, sub-partiti
 
 **But why?** There are many reasons, for instance, when we split the picture we can work the predictions more precisely, using small partitions for the small moving parts while using bigger partitions to a static background.
 
-Usually, the CODECs **organize these partitions** into slices (or tiles), macro (or coding tree units) and many subpartitions. The max size of these partitions varies, HEVC sets 64x64 while AVC uses 16x16 but the sub-partitions can reach sizes of 4x4.
+Usually, the CODECs **organize these partitions** into slices (or tiles), macro (or coding tree units) and many sub-partitions. The max size of these partitions varies, HEVC sets 64x64 while AVC uses 16x16 but the sub-partitions can reach sizes of 4x4.
 
 Remember that we learned how **frames are typed**?! Well, you can **apply those ideas to blocks** too, therefore we can have I-Slice, B-Slice, I-Macroblock and etc.
 
@@ -338,6 +338,64 @@ Remember that we learned how **frames are typed**?! Well, you can **apply those 
 ## 2nd step - predictions
 
 ## 3rd step - transform
+
+After we get the residual block (`predicted partition - real partition`), we can **transform** it in a way that we can know which **pixels we can discard** but still keeping the **overall quality**. There are some transformations for this exactly behavior.
+
+Although there are [others transformations](https://en.wikipedia.org/wiki/List_of_Fourier-related_transforms#Discrete_transforms), we'll look more closely the discrete cosine transform (DCT). The [**DCT**](https://en.wikipedia.org/wiki/Discrete_cosine_transform) main features are:
+
+* **converts** blocks of **pixels** into  same-sized blocks of **frequency coefficients**.
+* **compacts** energy, making it easy to eliminate spatial redundancy.
+* is **reversible**, a.k.a. you can reverse to pixels.
+
+> On 2 Feb, 2017, Cintra, R. J. and Bayer, F. M have published their paper [DCT-like Transform for Image Compression
+Requires 14 Additions Only](https://arxiv.org/abs/1702.00817).
+
+Don't worry if you don't understood the benefits from every bullet point, we'll try to make some experiments in order to see the real value from it.
+
+Let's take the following **block of pixels** (8x8):
+
+![pixel values matrix](/i/pixel_matrice.png "pixel values matrix")
+
+Which renders to the following block image (8x8):
+
+![pixel values matrix](/i/gray_image.png "pixel values matrix")
+
+Then when we **apply the DCT** over this block of pixels and we get the **block of coefficients** (8x8):
+
+![coefficients values](/i/dct_coefficient_values.png "coefficients values")
+
+And if we render this block of coefficients, we'll get this image:
+
+![dct coefficients image](/i/dct_coefficient_image.png "dct coefficients image")
+
+As you can see it doesn't look nothing like the original image, we might noticed that the **first coefficient** is very different from all the others. This first coefficient is known as the DC coefficient which represents of **all the samples** in the input array, something **similar to an average**.
+
+This block of coefficients has an interesting property which is it separates the high frequency components from the low frequency.
+
+![dct frequency coefficients property](/i/dctfrequ.jpg "dct frequency coefficients property")
+
+In an image, **most of the energy** will be concentrated in the [**lower frequencies**](https://www.iem.thm.de/telekom-labor/zinke/mk/mpeg2beg/whatisit.htm), so if we transform an image into its frequency components and **throw away the higher frequency coefficients**, we can **reduce the amount of data** needed to describe the image without sacrificing too much image quality.
+
+> frequency means how fast a signal is changing
+
+Let's try to put the knowledge we acquired in test, we'll convert the original image to its frequency (block of coefficients) using DCT and then throw away part of the least important coefficients.
+
+First we convert it to its **frequency domain**.
+
+![coefficients values](/i/dct_coefficient_values.png "coefficients values")
+
+And then we discard part (67%) of the coefficients, mostly the bottom right part of it.
+
+![zeroed coefficients](/i/dct_coefficient_zeroed.png "zeroed coefficients")
+
+And then we reconstruct the image from this discarded block of coefficients (remember, it needs to be reversible) and compare it to the original.
+
+![original vs quantized](/i/original_vs_quantized.png "original vs quantized")
+
+As we can see it resembles the original image but it introduced lots of differences from the original, we **throw away 67.1875%** and we still were able to get at least something similar to the original. We could more intelligently discard the coefficients to have a better image quality but that's the next topic.
+
+> ### Hands-on: throwing away different coefficients
+> You can play around with the [DCT transform](/uniform_quantization_experience.ipynb).
 
 ## 4th step - quantization
 
@@ -596,6 +654,7 @@ The richest content is here, it's where all the info we saw in this text was ext
 * https://www.vcodex.com/h264avc-intra-precition/
 * http://bbb3d.renderfarming.net/download.html
 * http://www.slideshare.net/vcodex/a-short-history-of-video-coding
+* https://www.iem.thm.de/telekom-labor/zinke/mk/mpeg2beg/whatisit.htm
 * https://sites.google.com/site/linuxencoding/x264-ffmpeg-mapping
 * https://www.encoding.com/http-live-streaming-hls/
 * https://en.wikipedia.org/wiki/Adaptive_bitrate_streaming
