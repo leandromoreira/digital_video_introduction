@@ -2,11 +2,11 @@
 
 # Intro
 
-A gentle introduction to video technology, although it's aimed for software developers / engineering, we want to make it easy **for anyone to learn**. This idea was born during a mini workshop for newcomers to video technology.
+A gentle introduction to video technology, although it's aimed for software developers / engineering, we want to make it easy **for anyone to learn**. This idea was born during a [mini workshop for newcomers to video technology](https://docs.google.com/presentation/d/17Z31kEkl_NGJ0M66reqr9_uTG6tI5EDDVXpdPKVuIrs/edit#slide=id.p).
 
-The goal is to introduce some digital video subjects with a **simple text, visual element and practical examples**, where is possible, and make this knowledge available everywhere. Please, feel free to correct, suggest and improve it.
+The goal is to introduce some digital video subjects with a **simple text, visual element and practical examples**, when is possible, and make this knowledge available everywhere. Please, feel free to correct, suggest and improve it.
 
-There will be **hands-on** sections which requires you to have **docker installed** and this repo cloned.
+There will be **hands-on** sections which require you to have **docker installed** and this repository cloned.
 
 ```bash
 git clone https://github.com/leandromoreira/digital_video_introduction.git
