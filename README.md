@@ -49,9 +49,9 @@ All the **hands-on should be performed from the folder you cloned** this reposit
     + [Hands-on: Check partitions](#hands-on-check-partitions)
   * [2nd step - predictions](#2nd-step---predictions)
   * [3rd step - transform](#3rd-step---transform)
+    + [Hands-on: throwing away different coefficients](#hands-on-throwing-away-different-coefficients)
   * [4th step - quantization](#4th-step---quantization)
   * [5th step - entropy coding](#5th-step---entropy-coding)
-    + [Delta coding:](#delta-coding)
     + [VLC coding:](#vlc-coding)
     + [Arithmetic coding:](#arithmetic-coding)
     + [Hands-on: CABAC vs CAVLC](#hands-on-cabac-vs-cavlc)
@@ -60,11 +60,10 @@ All the **hands-on should be performed from the folder you cloned** this reposit
     + [Hands-on: Inspect the H264 bitstream](#hands-on-inspect-the-h264-bitstream)
   * [Review](#review)
   * [How does H265 can achieve better compression ratio than H264?](#how-does-h265-can-achieve-better-compression-ratio-than-h264)
-- [Adaptive streaming](#adaptive-streaming)
-  * [What? Why? How?](#what-why-how-1)
-  * [HLS and Dash](#hls-and-dash)
-  * [Building a bit rate ladder](#building-a-bit-rate-ladder)
-- [Audio codec](#audio-codec)
+- [Online streaming](#online-streaming)
+  * [General architecture](#general-architecture)
+  * [Progressive download and adaptive streaming](#progressive-download-and-adaptive-streaming)
+  * [Content protection](#content-protection)
 - [How to use jupyter](#how-to-use-jupyter)
 - [References](#references)
 
@@ -405,9 +404,9 @@ After we quantized the data (image blocks/slices/frames) we still can compress i
 
 ### Delta coding:
 
-I love the simplicity of this method (it's amazing), let's say we need to compress the following numbers `[0,1,2,3,4,5,6,7]` and if we just decrease the current number to its previous and we'll get the `[0,1,1,1,1,1,1,1]` array which is highly compressible.
+## 5th step - entropy coding
 
-Both encoder and decoder **must know** the rule of delta formation.
+After we quantized the data (image blocks/slices/frames) we still can compress it in a lossless way. There are many ways (algorithms) to compress data. We're going to briefly experience some of them, for a deeper understanding you can read the amazing book [Understanding Compression: Data Compression for Modern Developers](https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/).
 
 ### VLC coding:
 
@@ -564,7 +563,7 @@ We can explore others bitstreams like the [VP9 bitstream](https://storage.google
 >
 > ![intel video pro analyzer details h264 bitstream](/i/intel-video-pro-analyzer.png "intel video pro analyzer details h264 bitstream")
 
-## How H265 can achieve better compression ratio than H264
+## Review
 
 [WIP]
 
@@ -574,17 +573,14 @@ We can explore others bitstreams like the [VP9 bitstream](https://storage.google
 Creating multiple playlist thinking about mobile network
 ## HLS and Dash
 
-## Building a bit rate ladder
-
-We could create our bit rate options based on many
-
-# Encoding parameters the whys
+## How does H265 can achieve better compression ratio than H264?
 
 [WIP]
 
-# Audio codec
-
-[WIP]
+# Online streaming
+## General architecture
+## Progressive download and adaptive streaming
+## Content protection
 
 # How to use jupyter
 
