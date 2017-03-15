@@ -408,11 +408,20 @@ As we can see it resembles the original image but it introduced lots of differen
 
 ## 4th step - quantization
 
-## 5th step - entropy coding
+When we throw away some of the coefficients, in the last step (transform), we kinda did some form of quantization. This step is where we chose to lose information (the **lossy part**) or in simple terms we'll **quantize coefficients to achieve compression**.
 
-After we quantized the data (image blocks/slices/frames) we still can compress it in a lossless way. There are many ways (algorithms) to compress data. We're going to briefly experience some of them, for a deeper understanding you can read the amazing book [Understanding Compression: Data Compression for Modern Developers](https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/).
+How can we quantize a block of coefficients? One simple method would be a uniform quantization, we take a block and **divide it by a single value** (10) and round this value.
 
-### Delta coding:
+![quantize](/i/quantize.png "quantize")
+
+How can we **reverse** (re-quantize) this block of coefficients? We can do that by **multiplying the same value** (10) we divide it first.
+
+![re-quantize](/i/re-quantize.png "re-quantize")
+
+This **approach isn't the best** because it doesn't take into account the importance of each coefficient, we could use a **matrix of quantizers** instead of a single value, this matrix can exploit the property of the DCT, quantizing most the bottom right and less the upper left, the [JPEG uses a similar approach](https://www.hdm-stuttgart.de/~maucher/Python/MMCodecs/html/jpegUpToQuant.html).
+
+> ### Hands-on: quantization
+> You can play around with the [quantization](/dct_experiences.ipynb).
 
 ## 5th step - entropy coding
 
