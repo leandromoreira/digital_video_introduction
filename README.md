@@ -598,9 +598,11 @@ Creating multiple playlist thinking about mobile network
 
 # Online streaming
 ## General architecture
+[WIP]
 ## Progressive download and adaptive streaming
+[WIP]
 ## Content protection
-
+[WIP]
 # How to use jupyter
 
 Make sure you have **docker installed** and just run `./s/start_jupyter.sh` and follow the instructions on the terminal.
