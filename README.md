@@ -393,7 +393,7 @@ And then we reconstruct the image from this discarded block of coefficients (rem
 
 As we can see it resembles the original image but it introduced lots of differences from the original, we **throw away 67.1875%** and we still were able to get at least something similar to the original. We could more intelligently discard the coefficients to have a better image quality but that's the next topic.
 
-> **Each coefficient is formed using all pixels**
+> **Each coefficient is formed using all the pixels**
 >
 > It's important to note that each coefficient doesn't directly map to a single pixel but it's a weighted sum of all pixels. This amazing graph shows how the first and second coefficient are calculated, using weights which are unique for each index.
 >
