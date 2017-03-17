@@ -2,9 +2,9 @@
 
 # Intro
 
-A gentle introduction to video technology, although it's aimed for software developers / engineering, we want to make it easy **for anyone to learn**. This idea was born during a [mini workshop for newcomers to video technology](https://docs.google.com/presentation/d/17Z31kEkl_NGJ0M66reqr9_uTG6tI5EDDVXpdPKVuIrs/edit#slide=id.p).
+A gentle introduction to video technology, although it's aimed to software developers / engineering, we want to make it easy **for anyone to learn**. This idea was born during a [mini workshop for newcomers to video technology](https://docs.google.com/presentation/d/17Z31kEkl_NGJ0M66reqr9_uTG6tI5EDDVXpdPKVuIrs/edit#slide=id.p).
 
-The goal is to introduce some digital video subjects with **simple texts, lots of visual elements and practical examples**, when is possible, and make this knowledge available everywhere. Please, feel free to correct, suggest and improve it.
+The goal is to introduce some digital video subjects with **simple texts, lots of visual elements and practical examples** when is possible, and make this knowledge available everywhere. Please, feel free to correct, suggest and improve it.
 
 There will be **hands-on** sections which require you to have **docker installed** and this repository cloned.
 
@@ -15,7 +15,7 @@ cd digital_video_introduction
 ```
 > **WARNING**: when you see a `./s/ffmpeg` or `./s/mediainfo` command, it means we're running a **containerized version** of that program, which already includes all the needed requirements.
 
-All the **hands-on should be performed from the folder you cloned** this repository, for the **jupyter examples** you must start the server `./s/start_jupyter.sh` and copy the url and use it on your browser.
+All the **hands-on should be performed from the folder you cloned** this repository, for the **jupyter examples** you must start the server `./s/start_jupyter.sh` and copy the URL and use it on your browser.
 
 # Index
 
@@ -106,7 +106,7 @@ Another property of an image is the **resolution**, which is the number of pixel
 >
 > You can also learn [how image filters (edge detection, sharpen, blur...) work](/filters_are_easy.ipynb).
 
-Another property we can see while working with images or video is the **aspect ratio** which is simply describes the proportional relationship between width and height of an image or pixel.
+Another property we can see while working with images or video is the **aspect ratio** which simply describes the proportional relationship between width and height of an image or pixel.
 
 When people says this movie or picture is **16x9** they usually are referring to the **Display Aspect Ratio (DAR)** and we also can have different shapes of a pixel, we call this **Pixel Aspect Ratio (PAR)**.
 
@@ -154,15 +154,15 @@ Our eyes are [more sensible to brightness than colors](http://vanseodesign.com/w
 
 ![luminance vs color](/i/luminance_vs_color.png "luminance vs color")
 
-If you are unable to see that the colors of the **squares A and B are identical** in the right side, that's fine, it's our brain playing tricks on us to **pay more attention to light and dark than color**. There is a connector, with the same color, in the left side so we (our brain) can easily spot that in fact they're the same color.
+If you are unable to see that the colors of the **squares A and B are identical** in the right side, that's fine, it's our brain playing tricks on us to **pay more attention to light and dark than color**. There is a connector, with the same color, on the left side so we (our brain) can easily spot that in fact, they're the same color.
 
 > **Simplistic explanation about our eyes**
 >
-> The [eye is a complex organ](http://www.biologymad.com/nervoussystem/eyenotes.htm), it is composed by many parts but we are mostly interested in the cones and rods cells. The eye [contains about 120 million rod cells and 6 million cone cells](https://en.wikipedia.org/wiki/Photoreceptor_cell).
+> The [eye is a complex organ](http://www.biologymad.com/nervoussystem/eyenotes.htm), it is composed of many parts but we are mostly interested in the cones and rods cells. The eye [contains about 120 million rod cells and 6 million cone cells](https://en.wikipedia.org/wiki/Photoreceptor_cell).
 >
 > We will abuse of an **oversimplification**, let's try to put colors and brightness in the eye's parts function. The **[rod cells](https://en.wikipedia.org/wiki/Rod_cell) are mostly responsible for brightness** while the **[cone cells](https://en.wikipedia.org/wiki/Cone_cell) are responsible for color**, there are three types of cones, each with different pigment, namely: [S-cones (Blue), M-cones (Green) and L-cones (Red)](https://upload.wikimedia.org/wikipedia/commons/1/1e/Cones_SMJ2_E.svg).
 >
-> Since we have much more rod cells (brightness) than cone cells (color), one can infer that we are more capable of distinguish dark and light than colors.
+> Since we have much more rod cells (brightness) than cone cells (color), one can infer that we are more capable of distinguishing dark and light than colors.
 >
 > ![eyes composition](/i/eyes.jpg "eyes composition")
 
@@ -232,9 +232,9 @@ You can see the same image encoded by the main chroma subsampling types, the fir
 
 ![chroma subsampling examples](/i/chroma_subsampling_examples.jpg "chroma subsampling examples")
 
-Previously we had calculated that we needed [278GB of storage to keep a video file with one hour at 720p resolution and 30fps](#redundancy-removal), if we use **YCbCr 4:2:0** we can cut **this size in half (139GB)**<sup>*</sup> but it is still far from the ideal.
+Previously we had calculated that we needed [278GB of storage to keep a video file with one hour at 720p resolution and 30fps](#redundancy-removal) if we use **YCbCr 4:2:0** we can cut **this size in half (139GB)**<sup>*</sup> but it is still far from the ideal.
 
-> <sup>*</sup> we found this value by multiplying width, height, bits per pixel and fps, before we needed 24 bits now we only need 12.
+> <sup>*</sup> we found this value by multiplying width, height, bits per pixel and fps before we needed 24 bits now we only need 12.
 
 <br/>
 
@@ -245,16 +245,16 @@ Previously we had calculated that we needed [278GB of storage to keep a video fi
 
 ## Frame types
 
-Now we can move on and try to eliminate the **redundancy in time** but before let's establish some basic terminology. Suppose we have a movie with 30fps, here we'll see its first 4 frames.
+Now we can move on and try to eliminate the **redundancy in time** but before let's establish some basic terminology. Suppose we have a movie with 30fps, here its first 4 frames.
 
 ![ball 1](/i/smw_background_ball_1.png "ball 1") ![ball 2](/i/smw_background_ball_2.png "ball 2") ![ball 3](/i/smw_background_ball_3.png "ball 3")
 ![ball 4](/i/smw_background_ball_4.png "ball 4")
 
-We can see **lots of repetitions** within frames like **the blue background**, it doesn't change from frame 0 to frame 3. To tackle this problem we can **abstractly categorize** three types of frames.
+We can see **lots of repetitions** within frames like **the blue background**, it doesn't change from frame 0 to frame 3. To tackle this problem we can **abstractly categorize** them as a three types of frames.
 
 ### I Frame (intra, keyframe)
 
-An I-frame (reference, keyframe, intra) is **self contained frame**, a.k.a. it doesn't rely in anything to be rendered, an I-frame looks similar to a static photo. The first frame is usually an I-frame but we'll see I-frames inserted regularly among other types of frames.
+An I-frame (reference, keyframe, intra) is a **self-contained frame**. It doesn't rely on anything to be rendered, an I-frame looks similar to a static photo. The first frame is usually an I-frame but we'll see I-frames inserted regularly among other types of frames.
 
 ![ball 1](/i/smw_background_ball_1.png "ball 1")
 
@@ -273,7 +273,7 @@ A P-frame takes advantage of the fact that almost always the current picture can
 
 ### B Frame (bi-predictive)
 
-What about referencing past and future frames to provide even a better compression?! That's basically what a B-frame is.
+What about referencing the past and future frames to provide even a better compression?! That's basically what a B-frame is.
 
 ![ball 1](/i/smw_background_ball_1.png "ball 1") <-  ![ball 2](/i/smw_background_ball_2_diff.png "ball 2") -> ![ball 3](/i/smw_background_ball_3.png "ball 3")
 
@@ -342,11 +342,11 @@ In 2003 the first version of **H.264/AVC** was completed, in the same year, a co
 > * **content fee** (0.5% of revenue) and
 > * **per-unit fees about 10 times higher than h264**.
 >
-> And the [alliance for open media](http://aomedia.org/about-us/) was created by companies from hardware manufacturer (Intel, AMD, ARM , Nvidia, Cisco), content delivery (Google, Netflix, Amazon), browser maintainers (Google, Mozilla) and many more interested companies.
+> And the [alliance for open media](http://aomedia.org/about-us/) was created by companies from hardware manufacturer (Intel, AMD, ARM , Nvidia, Cisco), content delivery (Google, Netflix, Amazon), browser maintainers (Google, Mozilla) and much more interested companies.
 >
 > The companies have a common goal, a royalty-free video codec and then AV1 was born with a much [simpler patent license](http://aomedia.org/license/patent/). **Timothy B. Terriberry** did an awesome presentation, which is the source of this section, about the [AV1 conception, license model and its current state](https://www.youtube.com/watch?v=lzPaldsmJbk).
 >
-> You'll be surprised to know that you can **analyze the AV1 codec through your browser**, go to: http://aomanalyzer.org/
+> You'll be surprised to know that you can **analyze the AV1 codec through your browser**, go to http://aomanalyzer.org/
 >
 > ![av1 browser analyzer](/i/av1_browser_analyzer.png "av1 browser analyzer")
 >
@@ -377,7 +377,7 @@ Remember that we learned how **frames are typed**?! Well, you can **apply those 
 
 ## 3rd step - transform
 
-After we get the residual block (`predicted partition - real partition`), we can **transform** it in a way that we can know which **pixels we can discard** but still keeping the **overall quality**. There are some transformations for this exactly behavior.
+After we get the residual block (`predicted partition - real partition`), we can **transform** it in a way that we can know which **pixels we can discard** but still keeping the **overall quality**. There are some transformations for this exact behavior.
 
 Although there are [others transformations](https://en.wikipedia.org/wiki/List_of_Fourier-related_transforms#Discrete_transforms), we'll look more closely the discrete cosine transform (DCT). The [**DCT**](https://en.wikipedia.org/wiki/Discrete_cosine_transform) main features are:
 
@@ -385,10 +385,10 @@ Although there are [others transformations](https://en.wikipedia.org/wiki/List_o
 * **compacts** energy, making it easy to eliminate spatial redundancy.
 * is **reversible**, a.k.a. you can reverse to pixels.
 
-> On 2 Feb, 2017, Cintra, R. J. and Bayer, F. M have published their paper [DCT-like Transform for Image Compression
+> On 2 Feb 2017, Cintra, R. J. and Bayer, F. M have published their paper [DCT-like Transform for Image Compression
 Requires 14 Additions Only](https://arxiv.org/abs/1702.00817).
 
-Don't worry if you don't understood the benefits from every bullet point, we'll try to make some experiments in order to see the real value from it.
+Don't worry if you didn't understand the benefits from every bullet point, we'll try to make some experiments in order to see the real value from it.
 
 Let's take the following **block of pixels** (8x8):
 
@@ -406,9 +406,9 @@ And if we render this block of coefficients, we'll get this image:
 
 ![dct coefficients image](/i/dct_coefficient_image.png "dct coefficients image")
 
-As you can see it doesn't look nothing like the original image, we might noticed that the **first coefficient** is very different from all the others. This first coefficient is known as the DC coefficient which represents of **all the samples** in the input array, something **similar to an average**.
+As you can see it doesn't look nothing like the original image, we might notice that the **first coefficient** is very different from all the others. This first coefficient is known as the DC coefficient which represents of **all the samples** in the input array, something **similar to an average**.
 
-This block of coefficients has an interesting property which is it separates the high frequency components from the low frequency.
+This block of coefficients has an interesting property which is it separates the high-frequency components from the low frequency.
 
 ![dct frequency coefficients property](/i/dctfrequ.jpg "dct frequency coefficients property")
 
@@ -416,9 +416,9 @@ In an image, **most of the energy** will be concentrated in the [**lower frequen
 
 > frequency means how fast a signal is changing
 
-Let's try to put the knowledge we acquired in test, we'll convert the original image to its frequency (block of coefficients) using DCT and then throw away part of the least important coefficients.
+Let's try to put the knowledge we acquired in the test, we'll convert the original image to its frequency (block of coefficients) using DCT and then throw away part of the least important coefficients.
 
-First we convert it to its **frequency domain**.
+First, we convert it to its **frequency domain**.
 
 ![coefficients values](/i/dct_coefficient_values.png "coefficients values")
 
@@ -434,7 +434,7 @@ As we can see it resembles the original image but it introduced lots of differen
 
 > **Each coefficient is formed using all the pixels**
 >
-> It's important to note that each coefficient doesn't directly map to a single pixel but it's a weighted sum of all pixels. This amazing graph shows how the first and second coefficient are calculated, using weights which are unique for each index.
+> It's important to note that each coefficient doesn't directly map to a single pixel but it's a weighted sum of all pixels. This amazing graph shows how the first and second coefficient is calculated, using weights which are unique for each index.
 >
 > ![dct calculation](/i/applicat.jpg "dct calculation")
 >
@@ -447,7 +447,7 @@ As we can see it resembles the original image but it introduced lots of differen
 
 ## 4th step - quantization
 
-When we throw away some of the coefficients, in the last step (transform), we kinda did some form of quantization. This step is where we chose to lose information (the **lossy part**) or in simple terms we'll **quantize coefficients to achieve compression**.
+When we throw away some of the coefficients, in the last step (transform), we kinda did some form of quantization. This step is where we chose to lose information (the **lossy part**) or in simple terms, we'll **quantize coefficients to achieve compression**.
 
 How can we quantize a block of coefficients? One simple method would be a uniform quantization, we take a block and **divide it by a single value** (10) and round this value.
 
@@ -497,7 +497,7 @@ Let's suppose we have a stream of the symbols: **a**, **e**, **r**, **s** and **
 |-------------|-----|-----|------|------|-----|
 | probability | 0.3 | 0.3 | 0.15 | 0.05 | 0.2 |
 
-With this table in mind we can build ranges containing all the possible symbols sorted by the most frequents.
+With this table in mind, we can build ranges containing all the possible symbols sorted by the most frequents.
 
 ![initial arithmetic range](/i/range.png "initial arithmetic range")
 
@@ -509,7 +509,7 @@ Let's continue to encode our stream **eat**, now we take the second symbol **a**
 
 ![final arithmetic range](/i/arithimetic_range.png "final arithmetic range")
 
-We just need to pick a number within the last subrange **0.354 to 0.372**, let's choose **0.36** but we could chose any number within this subrange. With **only** this number we'll be able to recover our original stream **eat**. If you think about it, it's like if we were drawing a line within ranges of ranges to encode our stream.
+We just need to pick a number within the last subrange **0.354 to 0.372**, let's choose **0.36** but we could choose any number within this subrange. With **only** this number we'll be able to recover our original stream **eat**. If you think about it, it's like if we were drawing a line within ranges of ranges to encode our stream.
 
 ![final range traverse](/i/range_show.png "final range traverse")
 
@@ -528,7 +528,7 @@ The idea is to lossless compress the quantized bitstream, for sure this article 
 
 ## 6th step - bitstream format
 
-After we did all these steps we need to **pack the compressed frames and context to these steps**. We need to explicitly inform to the decoder about **the decisions taken by the encoder**, such as: bit depth, color space, resolution, predictions info (motion vectors, intra prediction direction), profile, level, frame rate, frame type, frame number and much more.
+After we did all these steps we need to **pack the compressed frames and context to these steps**. We need to explicitly inform to the decoder about **the decisions taken by the encoder**, such as bit depth, color space, resolution, predictions info (motion vectors, intra prediction direction), profile, level, frame rate, frame type, frame number and much more.
 
 We're going to study, superficially, the H264 bitstream. Our first step is to [generate a minimal  H264 <sup>*</sup> bitstream](/enconding_pratical_examples.md#generate-a-single-frame-h264-bitstream), we can do that using our own repository and [ffmpeg](http://ffmpeg.org/).
 
@@ -574,7 +574,7 @@ Usually, the first NAL of a bitstream is a **SPS**, this type of NAL is responsi
 
 If we skip the first synchronization marker we can decode the **first byte** to know what **type of NAL** is the first one.
 
-For instance the first byte after the synchronization marker is `01100111`, where the first bit (`0`) is to the field **forbidden_zero_bit**, the next 2 bits (`11`) tell us the field **nal_ref_idc** which indicates whether this NAL is a reference field or not and the rest 5 bits (`00111`) inform us the field **nal_unit_type**, in this case it's a **SPS** (7) NAL unit.
+For instance the first byte after the synchronization marker is `01100111`, where the first bit (`0`) is to the field **forbidden_zero_bit**, the next 2 bits (`11`) tell us the field **nal_ref_idc** which indicates whether this NAL is a reference field or not and the rest 5 bits (`00111`) inform us the field **nal_unit_type**, in this case, it's a **SPS** (7) NAL unit.
 
 The second byte (`binary=01100100, hex=0x64, dec=100`) of a SPS NAL is the field **profile_idc** which shows the profile that the encoder has used, in this case, we used  the **[constrained high-profile](https://en.wikipedia.org/wiki/H.264/MPEG-4_AVC#Profiles)**, it's a high profile without the support of B (bi-predictive) slices.
 
@@ -599,7 +599,7 @@ We can see its first 6 bytes values: `01100101 10001000 10000100 00000000 001000
 
 ![h264 slice header spec](/i/slice_header.png "h264 slice header spec")
 
-Using the spec info we can decode what type of slice (**slice_type**), frame number (**frame_num**) among others important fields.
+Using the spec info we can decode what type of slice (**slice_type**), the frame number (**frame_num**) among others important fields.
 
 In order to get the values of some fields (`ue(v), me(v), se(v) or te(v)`) we need to decode it using a special decoder called [Exponential-Golomb](https://pythonhosted.org/bitstring/exp-golomb.html), this method is **very efficient to encode variable values**, mostly when there are many default values.
 
