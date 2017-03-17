@@ -35,7 +35,10 @@ All the **hands-on should be performed from the folder you cloned** this reposit
   * [Frame types](#frame-types)
     + [I Frame (intra, keyframe)](#i-frame-intra-keyframe)
     + [P Frame (predicted)](#p-frame-predicted)
+      - [Hands-on: A video with a single I-frame](#hands-on-a-video-with-a-single-i-frame)
     + [B Frame (bi-predictive)](#b-frame-bi-predictive)
+      - [Hands-on: Compare videos with B-frame](#hands-on-compare-videos-with-b-frame)
+    + [Summary](#summary)
   * [Temporal redundancy (inter prediction)](#temporal-redundancy-inter-prediction)
       - [Hands-on: See the motion vectors](#hands-on-see-the-motion-vectors)
   * [Spatial redundancy (intra prediction)](#spatial-redundancy-intra-prediction)
@@ -51,6 +54,7 @@ All the **hands-on should be performed from the folder you cloned** this reposit
   * [3rd step - transform](#3rd-step---transform)
     + [Hands-on: throwing away different coefficients](#hands-on-throwing-away-different-coefficients)
   * [4th step - quantization](#4th-step---quantization)
+    + [Hands-on: quantization](#hands-on-quantization)
   * [5th step - entropy coding](#5th-step---entropy-coding)
     + [VLC coding:](#vlc-coding)
     + [Arithmetic coding:](#arithmetic-coding)
@@ -241,11 +245,46 @@ Previously we had calculated that we needed [278GB of storage to keep a video fi
 
 ## Frame types
 
+Now we can move on and try to eliminate the **redundancy in time** but before let's establish some basic terminology. Suppose we have a movie with 30fps, here we'll see its first 4 frames.
+
+![ball 1](/i/smw_background_ball_1.png "ball 1") ![ball 2](/i/smw_background_ball_2.png "ball 2") ![ball 3](/i/smw_background_ball_3.png "ball 3")
+![ball 4](/i/smw_background_ball_4.png "ball 4")
+
+We can see **lots of repetitions** within frames like **the blue background**, it doesn't change from frame 0 to frame 3. To tackle this problem we can **abstractly categorize** three types of frames.
+
 ### I Frame (intra, keyframe)
+
+An I-frame (reference, keyframe, intra) is **self contained frame**, a.k.a. it doesn't rely in anything to be rendered, an I-frame looks similar to a static photo. The first frame is usually an I-frame but we'll see I-frames inserted regularly among other types of frames.
+
+![ball 1](/i/smw_background_ball_1.png "ball 1")
 
 ### P Frame (predicted)
 
+A P-frame takes advantage of the fact that almost always the current picture can be **rendered using the last frame.** For instance, in the second frame, the only change was the ball that moved forward. We can **rebuild the frame 1, only informing the difference and referencing to the previous frame**.
+
+![ball 1](/i/smw_background_ball_1.png "ball 1") <-  ![ball 2](/i/smw_background_ball_2_diff.png "ball 2")
+
+> #### Hands-on: A video with a single I-frame
+> Since a P-frame uses less data why can't we encode an entire [video with a single I-frame and all the rest being P-frames?](/enconding_pratical_examples.md#1-i-frame-and-the-rest-p-frames)
+>
+> After you encoded this video, start to watch it and do a **seek for an advanced** part of the video, you'll notice **it takes some time** to really move to that part, that's because a **P-frame needs a reference frame** (I-frame for instance) to be rendered.
+>
+> Another quick test you can do is to encode a video using a single I-Frame and then [encode it inserting an I-frame each 2s](/enconding_pratical_examples.md#1-i-frames-per-second-vs-05-i-frames-per-second) and **check the size of each rendition**.
+
 ### B Frame (bi-predictive)
+
+What about referencing past and future frames to provide even a better compression?! That's basically what a B-frame is.
+
+![ball 1](/i/smw_background_ball_1.png "ball 1") <-  ![ball 2](/i/smw_background_ball_2_diff.png "ball 2") -> ![ball 3](/i/smw_background_ball_3.png "ball 3")
+
+> #### Hands-on: Compare videos with B-frame
+> You can generate two renditions, first with B-frames and other with [no B-frames at all](/enconding_pratical_examples.md#no-b-frames-at-all) and check the size of the file as well as the quality.
+
+### Summary
+
+These frames types are used to **provide better compression**, we'll look how this happens in the next section, for now, we can think of **I-frame is expensive while P-frame are cheaper but the cheapest is the B-frame.**
+
+![frame types example](/i/frame_types.png "frame types example")
 
 ## Temporal redundancy (inter prediction)
 
