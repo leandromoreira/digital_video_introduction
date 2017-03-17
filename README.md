@@ -282,7 +282,7 @@ What about referencing past and future frames to provide even a better compressi
 
 ### Summary
 
-These frames types are used to **provide better compression**, we'll look how this happens in the next section, for now, we can think of **I-frame is expensive while P-frame are cheaper but the cheapest is the B-frame.**
+These frames types are used to **provide better compression**, we'll look how this happens in the next section, for now, we can think of **I-frame is expensive while P-frame is cheaper but the cheapest is the B-frame.**
 
 ![frame types example](/i/frame_types.png "frame types example")
 
@@ -457,7 +457,7 @@ How can we **reverse** (re-quantize) this block of coefficients? We can do that 
 
 ![re-quantize](/i/re-quantize.png "re-quantize")
 
-This **approach isn't the best** because it doesn't take into account the importance of each coefficient, we could use a **matrix of quantizers** instead of a single value, this matrix can exploit the property of the DCT, quantizing most the bottom right and less the upper left, the [JPEG uses a similar approach](https://www.hdm-stuttgart.de/~maucher/Python/MMCodecs/html/jpegUpToQuant.html).
+This **approach isn't the best** because it doesn't take into account the importance of each coefficient, we could use a **matrix of quantizers** instead of a single value, this matrix can exploit the property of the DCT, quantizing most the bottom right and less the upper left, the [JPEG uses a similar approach](https://www.hdm-stuttgart.de/~maucher/Python/MMCodecs/html/jpegUpToQuant.html), you can check [source code to see this matrix.](https://github.com/google/guetzli/blob/master/guetzli/jpeg_data.h#L40).
 
 > ### Hands-on: quantization
 > You can play around with the [quantization](/dct_experiences.ipynb).
