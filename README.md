@@ -220,7 +220,7 @@ These schemas are known as subsampling systems (or ratios), they are identified 
 
 > **YCbCr 4:2:0 merge**
 >
-> Here's a merged piece of an image using YCbCr 4:2:0, notice that we only spent 12 bits.
+> Here's a merged piece of an image using YCbCr 4:2:0, notice that we only spend 12 bits per pixel.
 >
 > ![YCbCr 4:2:0 merge](/i/ycbcr_420_merge.png "YCbCr 4:2:0 merge")
 
@@ -298,12 +298,12 @@ In 2003 the first version of **H.264/AVC** was completed, in the same year, a co
 >
 > Early 2015, Google was working on [VP10](https://en.wikipedia.org/wiki/VP9#Successor:_from_VP10_to_AV1), Xiph (Mozilla) was working on [Daala](https://xiph.org/daala/) and Cisco open-sourced its royalty-free video codec called [Thor](https://tools.ietf.org/html/draft-fuldseth-netvc-thor-03).
 >
-> Then MPEG LA first announces annual caps for HEVC (H265) 8 times higher than H264 but soon after it releases new rules:
+> Then MPEG LA first announced annual caps for HEVC (H265) and fees 8 times higher than H264 but soon they changed the rules again:
 > * **no annual cap**,
 > * **content fee** (0.5% of revenue) and
 > * **per-unit fees about 10 times higher than h264**.
 >
-> Then the [alliance for open media](http://aomedia.org/about-us/) was created by companies from hardware manufacturer (Intel, AMD, ARM , Nvidia, Cisco), content delivery (Google, Netflix, Amazon), browser maintainers (Google, Mozilla) and many more interested companies.
+> And the [alliance for open media](http://aomedia.org/about-us/) was created by companies from hardware manufacturer (Intel, AMD, ARM , Nvidia, Cisco), content delivery (Google, Netflix, Amazon), browser maintainers (Google, Mozilla) and many more interested companies.
 >
 > The companies have a common goal, a royalty-free video codec and then AV1 was born with a much [simpler patent license](http://aomedia.org/license/patent/). **Timothy B. Terriberry** did an awesome presentation, which is the source of this section, about the [AV1 conception, license model and its current state](https://www.youtube.com/watch?v=lzPaldsmJbk).
 >
@@ -359,7 +359,7 @@ Which renders to the following block image (8x8):
 
 ![pixel values matrix](/i/gray_image.png "pixel values matrix")
 
-Then when we **apply the DCT** over this block of pixels and we get the **block of coefficients** (8x8):
+When we **apply the DCT** over this block of pixels and we get the **block of coefficients** (8x8):
 
 ![coefficients values](/i/dct_coefficient_values.png "coefficients values")
 
