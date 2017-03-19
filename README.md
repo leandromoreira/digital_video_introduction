@@ -678,6 +678,10 @@ We'll notice that many of the **modern codecs uses this same model we learned**.
 
 ![thor_codec_block_diagram](/i/thor_codec_block_diagram.png "thor_codec_block_diagram")
 
+Previously we had calculated that we needed [139GB of storage to keep a video file with one hour at 720p resolution and 30fps](#chroma-subsampling) if we use the techniques we learned here, like **inter and intra prediction, transform, quantization, entropy coding and other** we can achieve, assuming we are spending **0.031 bit per pixel**, the same perceivable quality video **requiring only 367.82MB vs 139GB** of store.
+
+> We choose to use **0.031 bit per pixel** based on the example video provided here.
+
 ## How does H265 can achieve better compression ratio than H264?
 
 Now that we know more about how the codecs work then it is easy to understand how new codecs are able to deliver higher resolutions with less bits.
