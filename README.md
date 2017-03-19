@@ -250,7 +250,7 @@ Now we can move on and try to eliminate the **redundancy in time** but before le
 ![ball 1](/i/smw_background_ball_1.png "ball 1") ![ball 2](/i/smw_background_ball_2.png "ball 2") ![ball 3](/i/smw_background_ball_3.png "ball 3")
 ![ball 4](/i/smw_background_ball_4.png "ball 4")
 
-We can see **lots of repetitions** within frames like **the blue background**, it doesn't change from frame 0 to frame 3. To tackle this problem we can **abstractly categorize** them as a three types of frames.
+We can see **lots of repetitions** within frames like **the blue background**, it doesn't change from frame 0 to frame 3. To tackle this problem we can **abstractly categorize** them as three types of frames.
 
 ### I Frame (intra, keyframe)
 
@@ -291,7 +291,7 @@ These frames types are used to **provide better compression**, we'll look how th
 Let's explore the options we have to reduce the **repetitions in time**, this type of redundancy can be solved with techniques of **inter prediction**.
 
 
-We will try to **spend less bits** to encode the sequence of frames 0 and 1.
+We will try to **spend fewer bits** to encode the sequence of frames 0 and 1.
 
 ![original frames](/i/original_frames.png "original frames")
 
@@ -299,15 +299,15 @@ One thing we can do it's a subtraction, we simply **subtract frame 1 from frame 
 
 ![delta frames](/i/difference_frames.png "delta frames")
 
-But if I tell you that there is a **better method** which uses even less bits?! First, let's treat the `frame 0` as a collection of well defined partitions and then we'll try to matches the blocks from `frame 0` on `frame 1`. We can think of it as **motion estimation**.
+But if I tell you that there is a **better method** which uses even fewer bits?! First, let's treat the `frame 0` as a collection of well-defined partitions and then we'll try to matches the blocks from `frame 0` on `frame 1`. We can think of it as **motion estimation**.
 
 ![delta frames](/i/original_frames_motion_estimation.png "delta frames")
 
 We could estimate that the ball moved from `x=0, y=35` to `x=6, y=36`, the **x** and **y** values are the **motion vectors**. One **further step** we can do to save bits is to **encode only the motion vector difference** between the last block position and the predicted, so the final motion vector would be `x=6 (6-0), y=1 (36-35)`
 
-> In a real world situation this **ball would be sliced into n partitions** but the process is the same.
+> In a real world situation, this **ball would be sliced into n partitions** but the process is the same.
 
-The objects on the frame **move in a 3D way**, the ball can become smaller when it moves to the background. It's normal that **we wont find the perfect match** to the block we tried to find a match. Here's an superposed view of our estimation vs the real picture.
+The objects on the frame **move in a 3D way**, the ball can become smaller when it moves to the background. It's normal that **we won't find the perfect match** to the block we tried to find a match. Here's a superposed view of our estimation vs the real picture.
 
 ![motion estimation](/i/motion_estimation.png "motion estimation")
 
@@ -332,7 +332,7 @@ If we analyze **each frame** in a video we'll see that there are also **many are
 
 ![](/i/repetitions_in_space.png)
 
-Let's walkthrough an example. This scene is mostly composed by blue and white colors.
+Let's walk through an example. This scene is mostly composed of blue and white colors.
 
 ![](/i/smw_bg.png)
 
@@ -361,7 +361,7 @@ Our **prediction can be wrong**, for that reason we need to apply this technique
 
 ## What? Why? How?
 
-**What?** It's a software / hardware that compresses or decompresses digital video. **Why?** Market and society demands higher quality videos with limited bandwidth or storage, remember when we [calculated the needed bandwidth](#basic-terminology) for 30 frames per second, 24 bits per pixel, resolution of 480x240 video? It was **82.944 Mbps** with none compression applied. It's the only way to deliver HD/FullHD/4K in TVs and the Internet. **How?** We'll take a brief look a the major techniques here.
+**What?** It's a software / hardware that compresses or decompresses digital video. **Why?** Market and society demands higher quality videos with limited bandwidth or storage, remember when we [calculated the needed bandwidth](#basic-terminology) for 30 frames per second, 24 bits per pixel, resolution of a 480x240 video? It was **82.944 Mbps** with none compression applied. It's the only way to deliver HD/FullHD/4K in TVs and the Internet. **How?** We'll take a brief look a the major techniques here.
 
 > **CODEC vs Container**
 >
@@ -457,7 +457,7 @@ And if we render this block of coefficients, we'll get this image:
 
 ![dct coefficients image](/i/dct_coefficient_image.png "dct coefficients image")
 
-As you can see it doesn't look nothing like the original image, we might notice that the **first coefficient** is very different from all the others. This first coefficient is known as the DC coefficient which represents of **all the samples** in the input array, something **similar to an average**.
+As you can see it looks nothing like the original image, we might notice that the **first coefficient** is very different from all the others. This first coefficient is known as the DC coefficient which represents of **all the samples** in the input array, something **similar to an average**.
 
 This block of coefficients has an interesting property which is it separates the high-frequency components from the low frequency.
 
@@ -627,11 +627,11 @@ If we skip the first synchronization marker we can decode the **first byte** to 
 
 For instance the first byte after the synchronization marker is `01100111`, where the first bit (`0`) is to the field **forbidden_zero_bit**, the next 2 bits (`11`) tell us the field **nal_ref_idc** which indicates whether this NAL is a reference field or not and the rest 5 bits (`00111`) inform us the field **nal_unit_type**, in this case, it's a **SPS** (7) NAL unit.
 
-The second byte (`binary=01100100, hex=0x64, dec=100`) of a SPS NAL is the field **profile_idc** which shows the profile that the encoder has used, in this case, we used  the **[constrained high-profile](https://en.wikipedia.org/wiki/H.264/MPEG-4_AVC#Profiles)**, it's a high profile without the support of B (bi-predictive) slices.
+The second byte (`binary=01100100, hex=0x64, dec=100`) of an SPS NAL is the field **profile_idc** which shows the profile that the encoder has used, in this case, we used  the **[constrained high-profile](https://en.wikipedia.org/wiki/H.264/MPEG-4_AVC#Profiles)**, it's a high profile without the support of B (bi-predictive) slices.
 
 ![SPS binary view](/i/minimal_yuv420_bin.png "SPS binary view")
 
-When we read the H264 bitstream spec for a SPS NAL we'll find many values for the **parameter name**, **category** and a **description**, for instance, let's look at `pic_width_in_mbs_minus_1` and `pic_height_in_map_units_minus_1` fields.
+When we read the H264 bitstream spec for an SPS NAL we'll find many values for the **parameter name**, **category** and a **description**, for instance, let's look at `pic_width_in_mbs_minus_1` and `pic_height_in_map_units_minus_1` fields.
 
 | Parameter name  | Category  |  Description  |
 |---  |---|---|
