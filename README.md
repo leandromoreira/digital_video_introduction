@@ -69,6 +69,7 @@ All the **hands-on should be performed from the folder you cloned** this reposit
   * [Progressive download and adaptive streaming](#progressive-download-and-adaptive-streaming)
   * [Content protection](#content-protection)
 - [How to use jupyter](#how-to-use-jupyter)
+- [Conferences](#conferences)
 - [References](#references)
 
 # Basic terminology
@@ -718,6 +719,10 @@ HEVC has bigger and more **partitions** (and **sub-partitions**) options than AV
 # How to use jupyter
 
 Make sure you have **docker installed** and just run `./s/start_jupyter.sh` and follow the instructions on the terminal.
+
+# Conferences
+
+* [DEMUXED](https://demuxed.com/) - you can [check the last 2 events presentations.](https://www.youtube.com/channel/UCIc_DkRxo9UgUSTvWVNCmpA).
 
 # References
 
