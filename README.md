@@ -288,6 +288,35 @@ These frames types are used to **provide better compression**, we'll look how th
 
 ## Temporal redundancy (inter prediction)
 
+Let's explore the options we have to reduce the **repetitions in time**, this type of redundancy can be solved with techniques of **inter prediction**.
+
+
+We will try to **spend less bits** to encode the sequence of frames 0 and 1.
+
+![original frames](/i/original_frames.png "original frames")
+
+One thing we can do it's a subtraction, we simply **subtract frame 1 from frame 0** and we get just what we need to **encode the residual**.
+
+![delta frames](/i/difference_frames.png "delta frames")
+
+But if I tell you that there is a **better method** which uses even less bits?! First, let's treat the `frame 0` as a collection of well defined partitions and then we'll try to matches the blocks from `frame 0` on `frame 1`. We can think of it as **motion estimation**.
+
+![delta frames](/i/original_frames_motion_estimation.png "delta frames")
+
+We could estimate that the ball moved from `x=0, y=35` to `x=6, y=36`, the **x** and **y** values are the **motion vectors**. One **further step** we can do to save bits is to **encode only the motion vector difference** between the last block position and the predicted, so the final motion vector would be `x=6 (6-0), y=1 (36-35)`
+
+> In a real world situation this **ball would be sliced into n partitions** but the process is the same.
+
+The objects on the frame **move in a 3D way**, the ball can become smaller when it moves to the background. It's normal that **we wont find the perfect match** to the block we tried to find a match. Here's an superposed view of our estimation vs the real picture.
+
+![motion estimation](/i/motion_estimation.png "motion estimation")
+
+But we can see that when we apply **motion estimation** the **data to encode is smaller** than using simply delta frame techniques.
+
+![motion estimation vs delta ](/i/comparison_delta_vs_motion_estimation.png "motion estimationvs delta")
+
+You can [play around with these concepts using jupyter](/frame_difference_vs_motion_estimation_plus_residual.ipynb).
+
 > #### Hands-on: See the motion vectors
 > We can [generate a video with the inter prediction (motion vectors)  with ffmpeg.](/enconding_pratical_examples.md#generate-debug-video)
 >
@@ -298,6 +327,26 @@ These frames types are used to **provide better compression**, we'll look how th
 > ![inter prediction intel video pro analyzer](/i/inter_prediction_intel_video_pro_analyzer.png "inter prediction intel video pro analyzer")
 
 ## Spatial redundancy (intra prediction)
+
+If we analyze **each frame** in a video we'll see that there are also **many areas that are correlated**.
+
+![](/i/repetitions_in_space.png)
+
+Let's walkthrough an example. This scene is mostly composed by blue and white colors.
+
+![](/i/smw_bg.png)
+
+This is an `I-frame` and we **can't use previous frames** to predict from but we still can compress it. We will encode the red block selection. If we **look at its neighbors**, we can **estimate** that there is a **trend of colors around it**.
+
+![](/i/smw_bg_block.png)
+
+We will **predict** that the frame will continue to **spread the colors vertically**, it means that the colors of the **unknown pixels will hold the values of its neighbors**.
+
+![](/i/smw_bg_prediction.png)
+
+Our **prediction can be wrong**, for that reason we need to apply this technique (**intra prediction**) and then **subtract the real values** which gives us the residual block, resulting in a much compressible matrix of values.
+
+![](/i/smw_residual.png)
 
 > #### Hands-on: Check intra predictions
 > You can [generate a video with macro blocks and their predictions with ffmpeg.](/enconding_pratical_examples.md#generate-debug-video) Please check the ffmpeg documentation to understand the [meaning of each block color](https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors).
@@ -374,6 +423,8 @@ Remember that we learned how **frames are typed**?! Well, you can **apply those 
 > ![VP9 partitions view intel video pro analyzer ](/i/paritions_view_intel_video_pro_analyzer.png "VP9 partitions view intel video pro analyzer")
 
 ## 2nd step - predictions
+
+Once we have the partitions, we can make predictions over them. For the [inter prediction](/digital_video_introduction#temporal-redundancy-inter-prediction) we need **to send the motion vectors and the residual** and the [intra prediction](/digital_video_introduction#spatial-redundancy-intra-prediction) we'll **send the prediction direction and the residual** as well.
 
 ## 3rd step - transform
 
@@ -623,25 +674,43 @@ We can explore others bitstreams like the [VP9 bitstream](https://storage.google
 
 ## Review
 
-[WIP]
+We'll notice that many of the **modern codecs uses this same model we learned**. In fact, let's look at the Thor video codec block diagram, it contains all the steps we studied. The idea is that you now should be able to at least understand better the innovations and papers for the area.
 
-# Adaptive streaming
-
-## What? Why? How?
-Creating multiple playlist thinking about mobile network
-## HLS and Dash
+![thor_codec_block_diagram](/i/thor_codec_block_diagram.png "thor_codec_block_diagram")
 
 ## How does H265 can achieve better compression ratio than H264?
 
-[WIP]
+Now that we know more about how the codecs work then it is easy to understand how new codecs are able to deliver higher resolutions with less bits.
+
+We will compare AVC and HEVC, let's keep in mind that it is almost always a trade off between more CPU cycles (complexity) and compression rate.
+
+HEVC has bigger and more **partitions** (and **sub-partitions**) options than AVC, more **intra predictions directions**, **improved entropy coding** and more, all these improvement made H265 capable to compress 50% more than H264.
+
+![h264 vs h265](/i/avc_vs_hevc.png "h264 vs h265")
 
 # Online streaming
 ## General architecture
-[WIP]
+
+![general architecture](/i/general_architecture.png "general architecture")
+
+[TODO]
+
 ## Progressive download and adaptive streaming
-[WIP]
+
+![progressive download](/i/progressive_download.png "progressive download")
+
+![adaptive streaming](/i/adaptive_streaming.png "adaptive streaming")
+
+[TODO]
+
 ## Content protection
-[WIP]
+
+![token protection](/i/token_protection.png "token_protection")
+
+![drm](/i/drm.png "drm")
+
+[TODO]
+
 # How to use jupyter
 
 Make sure you have **docker installed** and just run `./s/start_jupyter.sh` and follow the instructions on the terminal.
