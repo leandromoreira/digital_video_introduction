@@ -304,7 +304,7 @@ But if I tell you that there is a **better method** which uses even fewer bits?!
 
 ![delta frames](/i/original_frames_motion_estimation.png "delta frames")
 
-We could estimate that the ball moved from `x=0, y=35` to `x=6, y=36`, the **x** and **y** values are the **motion vectors**. One **further step** we can do to save bits is to **encode only the motion vector difference** between the last block position and the predicted, so the final motion vector would be `x=6 (6-0), y=1 (36-35)`
+We could estimate that the ball moved from `x=0, y=25` to `x=6, y=26`, the **x** and **y** values are the **motion vectors**. One **further step** we can do to save bits is to **encode only the motion vector difference** between the last block position and the predicted, so the final motion vector would be `x=6 (6-0), y=1 (26-25)`
 
 > In a real world situation, this **ball would be sliced into n partitions** but the process is the same.
 
