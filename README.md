@@ -2,7 +2,7 @@
 
 # Intro
 
-A gentle introduction to video technology, although it's aimed to software developers / engineering, we want to make it easy **for anyone to learn**. This idea was born during a [mini workshop for newcomers to video technology](https://docs.google.com/presentation/d/17Z31kEkl_NGJ0M66reqr9_uTG6tI5EDDVXpdPKVuIrs/edit#slide=id.p).
+A gentle introduction to video technology, although it's aimed at software developers / engineers, we want to make it easy **for anyone to learn**. This idea was born during a [mini workshop for newcomers to video technology](https://docs.google.com/presentation/d/17Z31kEkl_NGJ0M66reqr9_uTG6tI5EDDVXpdPKVuIrs/edit#slide=id.p).
 
 The goal is to introduce some digital video subjects with **simple texts, lots of visual elements and practical examples** when is possible, and make this knowledge available everywhere. Please, feel free to correct, suggest and improve it.
 
@@ -56,8 +56,8 @@ All the **hands-on should be performed from the folder you cloned** this reposit
   * [4th step - quantization](#4th-step---quantization)
     + [Hands-on: quantization](#hands-on-quantization)
   * [5th step - entropy coding](#5th-step---entropy-coding)
-    + [VLC coding:](#vlc-coding)
-    + [Arithmetic coding:](#arithmetic-coding)
+    + [VLC coding](#vlc-coding)
+    + [Arithmetic coding](#arithmetic-coding)
     + [Hands-on: CABAC vs CAVLC](#hands-on-cabac-vs-cavlc)
   * [6th step - bitstream format](#6th-step---bitstream-format)
     + [H264 bitstream](#h264-bitstream)
@@ -74,7 +74,7 @@ All the **hands-on should be performed from the folder you cloned** this reposit
 
 # Basic terminology
 
-An **image** can be thought as a **2D matrix** and if we think about **colors**, we can extrapolate this idea seeing this image as a **3D matrix** where the **additional dimensions** are used to provide **color data**.
+An **image** can be thought of as a **2D matrix** and if we think about **colors**, we can extrapolate this idea seeing this image as a **3D matrix** where the **additional dimensions** are used to provide **color data**.
 
 If we chose to represent these colors using the [primary colors (red, green and blue)](https://en.wikipedia.org/wiki/Primary_color), we then can define the tree planes: the first one **red**, the second **green**, and the last the **blue** color.
 
@@ -91,8 +91,7 @@ For instance, look at the picture down bellow, the first face is full colored, t
 
 ![RGB channels intensity](/i/rgb_channels_intensity.png "RGB channels intensity")
 
-We can see that the **red color** will be the one that **contributes more** (the brightest parts in the second face) to the final color while the **blue color** contribution can be mostly **only seen in Mario's eyes** (last face) and part of his clothes, see how **all the planes contributes less** (darkest parts) to the **Mario's mustache**.
-
+We can see that the **red color** will be the one that **contributes more** (the brightest parts in the second face) to the final color while the **blue color** contribution can be mostly **only seen in Mario's eyes** (last face) and part of his clothes, see how **all planes contribute less** (darkest parts) to the **Mario's mustache**.
 
 And each color intensity requires a certain amount of bits, this quantity is known as **bit depth**. Let's say we spend **8 bits** (accepting values from 0 to 255) per color (plane), therefore we have a **color depth** of **24 (8 * 3) bits** and we can also infer that we could use 2 to the power of 24 different colors.
 
