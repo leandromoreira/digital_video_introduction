@@ -345,7 +345,7 @@ We will **predict** that the frame will continue to **spread the colors vertical
 
 ![](/i/smw_bg_prediction.png)
 
-Our **prediction can be wrong**, for that reason we need to apply this technique (**intra prediction**) and then **subtract the real values** which gives us the residual block, resulting in a much compressible matrix of values.
+Our **prediction can be wrong**, for that reason we need to apply this technique (**intra prediction**) and then **subtract the real values** which gives us the residual block, resulting in a much more compressible matrix compared to the original.
 
 ![](/i/smw_residual.png)
 
