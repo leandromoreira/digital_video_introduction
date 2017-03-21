@@ -129,9 +129,9 @@ When the **bit rate** is nearly constant it's called constant bit rate (**CBR**)
 >
 > ![constrained vbr](/i/vbr.png "constrained vbr")
 
-In the early days engineering comes up with a technique for doubling the perceived frame rate of a video display **without consuming extra bandwidth**, this technique is known as **interlaced video**. It basically sends half of the screen in 1 "frame" and the next "frame" they send the other half.
+In the early days, engineering came up with a technique for doubling the perceived frame rate of a video display **without consuming extra bandwidth**. This technique is known as **interlaced video**; it basically sends half of the screen in 1 "frame" and the other half in the next "frame".
 
-Today screens render mostly using **progressive scan technique**, progressive is a way of displaying, storing, or transmitting moving images in which all the lines of each frame are drawn in sequence.
+Today screens render mostly using **progressive scan technique**. Progressive is a way of displaying, storing, or transmitting moving images in which all the lines of each frame are drawn in sequence.
 
 ![interlaced vs progressive](/i/interlaced_vs_progressive.png "interlaced vs progressive")
 
@@ -142,11 +142,11 @@ Now we have an idea about what is an **image**, how its **colors** are arranged,
 
 # Redundancy removal
 
-We learned that is not feasible to use video without any compression, **a single one hour video** at 720p resolution with 30fps would **require 278GB<sup>*</sup>**. We need to find a way to compress the video, **using solely lossless data compression algorithms**, like DEFLATE (used in PKZIP, Gzip, and PNG), **won't help** as much as we need.
+We learned that is not feasible to use video without any compression; **a single one hour video** at 720p resolution with 30fps would **require 278GB<sup>*</sup>**. We need to find another way to compress the video, since **using solely lossless data compression algorithms**, like DEFLATE (used in PKZIP, Gzip, and PNG), **won't help** as much as we need.
 
 > <sup>*</sup> We found this number by multiplying 1280 x 720 x 24 x 30 x 3600 (width, height, bits per pixel, fps and time in seconds)
 
-We can **exploit how our vision works**, we're better to distinguish brightness than colors, the **repetitions in time**, a video contains a lot of images with few changes, and the **repetitions within the image**, each frame also contains many areas using the same or similar color.
+In order to do this, we can **exploit how our vision works**. We're better to distinguish brightness than colors, the **repetitions in time**, a video contains a lot of images with few changes, and the **repetitions within the image**, each frame also contains many areas using the same or similar color.
 
 ## Colors, Luminance and our eyes
 
@@ -218,7 +218,7 @@ Once we were able to separate luma from chroma, we can take advantage of the hum
 ![ycbcr subsampling resolutions](/i/ycbcr_subsampling_resolution.png "ycbcr subsampling resolutions")
 
 
-How much should we reduce the chroma resolution?! it turns out that there is already some schemes that describe how to handle resolution and the merge (`final color = Y + Cb + Cr`).
+How much should we reduce the chroma resolution?! It turns out that there is already some schemes that describe how to handle resolution and the merge (`final color = Y + Cb + Cr`).
 
 These schemas are known as subsampling systems (or ratios), they are identified by the numbers: **4:4:4, 4:2:3, 4:2:1, 4:1:1, 4:2:0, 4:1:0 and 3:1:1**. And each one of them defines how much should we discard in the chroma resolution as well as how we should merge the three planes (Y, Cb, Cr).
 
@@ -245,7 +245,7 @@ Previously we had calculated that we needed [278GB of storage to keep a video fi
 
 ## Frame types
 
-Now we can move on and try to eliminate the **redundancy in time** but before let's establish some basic terminology. Suppose we have a movie with 30fps, here its first 4 frames.
+Now we can move on and try to eliminate the **redundancy in time** but before that let's establish some basic terminology. Suppose we have a movie with 30fps, here its first 4 frames.
 
 ![ball 1](/i/smw_background_ball_1.png "ball 1") ![ball 2](/i/smw_background_ball_2.png "ball 2") ![ball 3](/i/smw_background_ball_3.png "ball 3")
 ![ball 4](/i/smw_background_ball_4.png "ball 4")
@@ -267,7 +267,7 @@ A P-frame takes advantage of the fact that almost always the current picture can
 > #### Hands-on: A video with a single I-frame
 > Since a P-frame uses less data why can't we encode an entire [video with a single I-frame and all the rest being P-frames?](/enconding_pratical_examples.md#1-i-frame-and-the-rest-p-frames)
 >
-> After you encoded this video, start to watch it and do a **seek for an advanced** part of the video, you'll notice **it takes some time** to really move to that part, that's because a **P-frame needs a reference frame** (I-frame for instance) to be rendered.
+> After you encoded this video, start to watch it and do a **seek for an advanced** part of the video, you'll notice **it takes some time** to really move to that part. That's because a **P-frame needs a reference frame** (I-frame for instance) to be rendered.
 >
 > Another quick test you can do is to encode a video using a single I-Frame and then [encode it inserting an I-frame each 2s](/enconding_pratical_examples.md#1-i-frames-per-second-vs-05-i-frames-per-second) and **check the size of each rendition**.
 
@@ -299,7 +299,7 @@ One thing we can do it's a subtraction, we simply **subtract frame 1 from frame 
 
 ![delta frames](/i/difference_frames.png "delta frames")
 
-But if I tell you that there is a **better method** which uses even fewer bits?! First, let's treat the `frame 0` as a collection of well-defined partitions and then we'll try to matches the blocks from `frame 0` on `frame 1`. We can think of it as **motion estimation**.
+But if I tell you that there is a **better method** which uses even fewer bits?! First, let's treat the `frame 0` as a collection of well-defined partitions and then we'll try to match the blocks from `frame 0` on `frame 1`. We can think of it as **motion estimation**.
 
 > ### Wikipedia - block motion compensation
 > "**Block motion compensation** divides up the current frame into non-overlapping blocks, and the motion compensation vector **tells where those blocks come from** (a common misconception is that the previous frame is divided up into non-overlapping blocks, and the motion compensation vectors tell where those blocks move to). The source blocks typically overlap in the source frame. Some video compression algorithms assemble the current frame out of pieces of several different previously-transmitted frames."
@@ -364,11 +364,11 @@ Our **prediction can be wrong**, for that reason we need to apply this technique
 
 ## What? Why? How?
 
-**What?** It's a software / hardware that compresses or decompresses digital video. **Why?** Market and society demands higher quality videos with limited bandwidth or storage, remember when we [calculated the needed bandwidth](#basic-terminology) for 30 frames per second, 24 bits per pixel, resolution of a 480x240 video? It was **82.944 Mbps** with none compression applied. It's the only way to deliver HD/FullHD/4K in TVs and the Internet. **How?** We'll take a brief look a the major techniques here.
+**What?** It's a software / hardware that compresses or decompresses digital video. **Why?** Market and society demands higher quality videos with limited bandwidth or storage. Remember when we [calculated the needed bandwidth](#basic-terminology) for 30 frames per second, 24 bits per pixel, resolution of a 480x240 video? It was **82.944 Mbps** with no compression applied. It's the only way to deliver HD/FullHD/4K in TVs and the Internet. **How?** We'll take a brief look at the major techniques here.
 
 > **CODEC vs Container**
 >
-> One common mistake that beginners often do is to confuse digital video CODEC and [digital video container](https://en.wikipedia.org/wiki/Digital_container_format). We can think of **containers** as a wrapper format which contains metadata of the video and possible audio too, and the **compressed video is the codec** can be seen as its payload.
+> One common mistake that beginners often do is to confuse digital video CODEC and [digital video container](https://en.wikipedia.org/wiki/Digital_container_format). We can think of **containers** as a wrapper format which contains metadata of the video (and possible audio too), and the **compressed video** can be seen as its payload.
 >
 > Usually, the extension of a video file defines its video container. For instance, the file `video.mp4` is probably a **[MPEG-4 Part 14](https://en.wikipedia.org/wiki/MPEG-4_Part_14)** container and a file named `video.mkv` it's probably a **[matroska](https://en.wikipedia.org/wiki/Matroska)**. To be completely sure about the codec and container format we can use [ffmpeg or mediainfo](/enconding_pratical_examples.md#inspect-stream).
 
@@ -376,16 +376,15 @@ Our **prediction can be wrong**, for that reason we need to apply this technique
 
 Before we jump in the inner works of a generic codec, let's look back to understand a little better about some old video codecs.
 
-The video codec [H261](https://en.wikipedia.org/wiki/H.261)  was born in 1990 (technically 1988), it was designed to work with **data rates of 64 kbit/s**. It already uses ideas such as chroma subsampling, macro block and etc. In the year of 1995, the **H263** video codec standard was published but it continued to be extended until 2001.
+The video codec [H261](https://en.wikipedia.org/wiki/H.261)  was born in 1990 (technically 1988), and it was designed to work with **data rates of 64 kbit/s**. It already uses ideas such as chroma subsampling, macro block, etc. In the year of 1995, the **H263** video codec standard was published and continued to be extended until 2001.
 
-
-In 2003 the first version of **H.264/AVC** was completed, in the same year, a company called **TrueMotion** released their video codec as a **royalty-free** lossy video compression called **VP3**. In 2008, **Google bought** this company, in the same year they released the **VP8**. In December of 2012, Google released the **VP9** and it's  **supported by roughly ¾ of the browser market** (mobile included).
+In 2003 the first version of **H.264/AVC** was completed. In the same year, a company called **TrueMotion** released their video codec as a **royalty-free** lossy video compression called **VP3**. In 2008, **Google bought** this company, releasing **VP8** in the same year. In December of 2012, Google released the **VP9** and it's  **supported by roughly ¾ of the browser market** (mobile included).
 
  **[AV1](https://en.wikipedia.org/wiki/AOMedia_Video_1)** is a new video codec, **royalty-free**, open source being designed by the [Alliance for Open Media (AOMedia)](http://aomedia.org/) which is composed of the **companies: Google, Mozilla, Microsoft, Amazon, Netflix, AMD, ARM, NVidia, Intel, Cisco** among others. The **first version** 0.1.0 of the reference codec was **published on April 7, 2016**.
 
 ![codec history timeline](/i/codec_history_timeline.png "codec history timeline")
 
-> #### The born of AV1
+> #### The birth of AV1
 >
 > Early 2015, Google was working on [VP10](https://en.wikipedia.org/wiki/VP9#Successor:_from_VP10_to_AV1), Xiph (Mozilla) was working on [Daala](https://xiph.org/daala/) and Cisco open-sourced its royalty-free video codec called [Thor](https://tools.ietf.org/html/draft-fuldseth-netvc-thor-03).
 >
@@ -394,9 +393,9 @@ In 2003 the first version of **H.264/AVC** was completed, in the same year, a co
 > * **content fee** (0.5% of revenue) and
 > * **per-unit fees about 10 times higher than h264**.
 >
-> And the [alliance for open media](http://aomedia.org/about-us/) was created by companies from hardware manufacturer (Intel, AMD, ARM , Nvidia, Cisco), content delivery (Google, Netflix, Amazon), browser maintainers (Google, Mozilla) and much more interested companies.
+> The [alliance for open media](http://aomedia.org/about-us/) was created by companies from hardware manufacturer (Intel, AMD, ARM , Nvidia, Cisco), content delivery (Google, Netflix, Amazon), browser maintainers (Google, Mozilla), and others.
 >
-> The companies have a common goal, a royalty-free video codec and then AV1 was born with a much [simpler patent license](http://aomedia.org/license/patent/). **Timothy B. Terriberry** did an awesome presentation, which is the source of this section, about the [AV1 conception, license model and its current state](https://www.youtube.com/watch?v=lzPaldsmJbk).
+> The companies had a common goal, a royalty-free video codec and then AV1 was born with a much [simpler patent license](http://aomedia.org/license/patent/). **Timothy B. Terriberry** did an awesome presentation, which is the source of this section, about the [AV1 conception, license model and its current state](https://www.youtube.com/watch?v=lzPaldsmJbk).
 >
 > You'll be surprised to know that you can **analyze the AV1 codec through your browser**, go to http://aomanalyzer.org/
 >
@@ -511,7 +510,7 @@ How can we **reverse** (re-quantize) this block of coefficients? We can do that 
 
 ![re-quantize](/i/re-quantize.png "re-quantize")
 
-This **approach isn't the best** because it doesn't take into account the importance of each coefficient, we could use a **matrix of quantizers** instead of a single value, this matrix can exploit the property of the DCT, quantizing most the bottom right and less the upper left, the [JPEG uses a similar approach](https://www.hdm-stuttgart.de/~maucher/Python/MMCodecs/html/jpegUpToQuant.html), you can check [source code to see this matrix.](https://github.com/google/guetzli/blob/master/guetzli/jpeg_data.h#L40).
+This **approach isn't the best** because it doesn't take into account the importance of each coefficient, we could use a **matrix of quantizers** instead of a single value, this matrix can exploit the property of the DCT, quantizing most the bottom right and less the upper left, the [JPEG uses a similar approach](https://www.hdm-stuttgart.de/~maucher/Python/MMCodecs/html/jpegUpToQuant.html), you can check [source code to see this matrix](https://github.com/google/guetzli/blob/master/guetzli/jpeg_data.h#L40).
 
 > ### Hands-on: quantization
 > You can play around with the [quantization](/dct_experiences.ipynb).
@@ -573,7 +572,7 @@ With the first range we notice that our number fits at the slice, therefore, it'
 
 Both encoder and decoder **must know** the symbol probability table, therefore you need to send the table.
 
-Pretty neat isn't? People are damn smart to come up with such solution, some [video codec uses](https://en.wikipedia.org/wiki/Context-adaptive_binary_arithmetic_coding) (or at least offers as an option) this technique.
+Pretty neat, isn't? People are damn smart to come up with such solution, some [video codec uses](https://en.wikipedia.org/wiki/Context-adaptive_binary_arithmetic_coding) (or at least offers as an option) this technique.
 
 The idea is to lossless compress the quantized bitstream, for sure this article is missing tons of details, reasons, trade-offs and etc. But [you should learn more](https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/) as a developer. Newer codecs are trying to use different [entropy coding algorithms like ANS.](https://en.wikipedia.org/wiki/Asymmetric_Numeral_Systems)
 
@@ -687,7 +686,7 @@ Previously we had calculated that we needed [139GB of storage to keep a video fi
 
 ## How does H265 can achieve better compression ratio than H264?
 
-Now that we know more about how the codecs work then it is easy to understand how new codecs are able to deliver higher resolutions with less bits.
+Now that we know more about how codecs work, then it is easy to understand how new codecs are able to deliver higher resolutions with less bits.
 
 We will compare AVC and HEVC, let's keep in mind that it is almost always a trade off between more CPU cycles (complexity) and compression rate.
 
