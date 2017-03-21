@@ -129,9 +129,9 @@ When the **bit rate** is nearly constant it's called constant bit rate (**CBR**)
 >
 > ![constrained vbr](/i/vbr.png "constrained vbr")
 
-In the early days engineering comes up with a technique for doubling the perceived frame rate of a video display **without consuming extra bandwidth**, this technique is known as **interlaced video**. It basically sends half of the screen in 1 "frame" and the next "frame" they send the other half.
+In the early days, engineering came up with a technique for doubling the perceived frame rate of a video display **without consuming extra bandwidth**. This technique is known as **interlaced video**; it basically sends half of the screen in 1 "frame" and the other half in the next "frame".
 
-Today screens render mostly using **progressive scan technique**, progressive is a way of displaying, storing, or transmitting moving images in which all the lines of each frame are drawn in sequence.
+Today screens render mostly using **progressive scan technique**. Progressive is a way of displaying, storing, or transmitting moving images in which all the lines of each frame are drawn in sequence.
 
 ![interlaced vs progressive](/i/interlaced_vs_progressive.png "interlaced vs progressive")
 
@@ -142,11 +142,11 @@ Now we have an idea about what is an **image**, how its **colors** are arranged,
 
 # Redundancy removal
 
-We learned that is not feasible to use video without any compression, **a single one hour video** at 720p resolution with 30fps would **require 278GB<sup>*</sup>**. We need to find a way to compress the video, **using solely lossless data compression algorithms**, like DEFLATE (used in PKZIP, Gzip, and PNG), **won't help** as much as we need.
+We learned that is not feasible to use video without any compression; **a single one hour video** at 720p resolution with 30fps would **require 278GB<sup>*</sup>**. We need to find another way to compress the video, since **using solely lossless data compression algorithms**, like DEFLATE (used in PKZIP, Gzip, and PNG), **won't help** as much as we need.
 
 > <sup>*</sup> We found this number by multiplying 1280 x 720 x 24 x 30 x 3600 (width, height, bits per pixel, fps and time in seconds)
 
-We can **exploit how our vision works**, we're better to distinguish brightness than colors, the **repetitions in time**, a video contains a lot of images with few changes, and the **repetitions within the image**, each frame also contains many areas using the same or similar color.
+In order to do this, we can **exploit how our vision works**. We're better to distinguish brightness than colors, the **repetitions in time**, a video contains a lot of images with few changes, and the **repetitions within the image**, each frame also contains many areas using the same or similar color.
 
 ## Colors, Luminance and our eyes
 
@@ -218,7 +218,7 @@ Once we were able to separate luma from chroma, we can take advantage of the hum
 ![ycbcr subsampling resolutions](/i/ycbcr_subsampling_resolution.png "ycbcr subsampling resolutions")
 
 
-How much should we reduce the chroma resolution?! it turns out that there is already some schemes that describe how to handle resolution and the merge (`final color = Y + Cb + Cr`).
+How much should we reduce the chroma resolution?! It turns out that there is already some schemes that describe how to handle resolution and the merge (`final color = Y + Cb + Cr`).
 
 These schemas are known as subsampling systems (or ratios), they are identified by the numbers: **4:4:4, 4:2:3, 4:2:1, 4:1:1, 4:2:0, 4:1:0 and 3:1:1**. And each one of them defines how much should we discard in the chroma resolution as well as how we should merge the three planes (Y, Cb, Cr).
 
@@ -245,7 +245,7 @@ Previously we had calculated that we needed [278GB of storage to keep a video fi
 
 ## Frame types
 
-Now we can move on and try to eliminate the **redundancy in time** but before let's establish some basic terminology. Suppose we have a movie with 30fps, here its first 4 frames.
+Now we can move on and try to eliminate the **redundancy in time** but before that let's establish some basic terminology. Suppose we have a movie with 30fps, here its first 4 frames.
 
 ![ball 1](/i/smw_background_ball_1.png "ball 1") ![ball 2](/i/smw_background_ball_2.png "ball 2") ![ball 3](/i/smw_background_ball_3.png "ball 3")
 ![ball 4](/i/smw_background_ball_4.png "ball 4")
@@ -267,7 +267,7 @@ A P-frame takes advantage of the fact that almost always the current picture can
 > #### Hands-on: A video with a single I-frame
 > Since a P-frame uses less data why can't we encode an entire [video with a single I-frame and all the rest being P-frames?](/enconding_pratical_examples.md#1-i-frame-and-the-rest-p-frames)
 >
-> After you encoded this video, start to watch it and do a **seek for an advanced** part of the video, you'll notice **it takes some time** to really move to that part, that's because a **P-frame needs a reference frame** (I-frame for instance) to be rendered.
+> After you encoded this video, start to watch it and do a **seek for an advanced** part of the video, you'll notice **it takes some time** to really move to that part. That's because a **P-frame needs a reference frame** (I-frame for instance) to be rendered.
 >
 > Another quick test you can do is to encode a video using a single I-Frame and then [encode it inserting an I-frame each 2s](/enconding_pratical_examples.md#1-i-frames-per-second-vs-05-i-frames-per-second) and **check the size of each rendition**.
 
@@ -299,7 +299,7 @@ One thing we can do it's a subtraction, we simply **subtract frame 1 from frame 
 
 ![delta frames](/i/difference_frames.png "delta frames")
 
-But if I tell you that there is a **better method** which uses even fewer bits?! First, let's treat the `frame 0` as a collection of well-defined partitions and then we'll try to matches the blocks from `frame 0` on `frame 1`. We can think of it as **motion estimation**.
+But if I tell you that there is a **better method** which uses even fewer bits?! First, let's treat the `frame 0` as a collection of well-defined partitions and then we'll try to match the blocks from `frame 0` on `frame 1`. We can think of it as **motion estimation**.
 
 > ### Wikipedia - block motion compensation
 > "**Block motion compensation** divides up the current frame into non-overlapping blocks, and the motion compensation vector **tells where those blocks come from** (a common misconception is that the previous frame is divided up into non-overlapping blocks, and the motion compensation vectors tell where those blocks move to). The source blocks typically overlap in the source frame. Some video compression algorithms assemble the current frame out of pieces of several different previously-transmitted frames."
