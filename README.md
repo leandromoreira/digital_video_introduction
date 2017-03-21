@@ -364,11 +364,11 @@ Our **prediction can be wrong**, for that reason we need to apply this technique
 
 ## What? Why? How?
 
-**What?** It's a software / hardware that compresses or decompresses digital video. **Why?** Market and society demands higher quality videos with limited bandwidth or storage, remember when we [calculated the needed bandwidth](#basic-terminology) for 30 frames per second, 24 bits per pixel, resolution of a 480x240 video? It was **82.944 Mbps** with none compression applied. It's the only way to deliver HD/FullHD/4K in TVs and the Internet. **How?** We'll take a brief look a the major techniques here.
+**What?** It's a software / hardware that compresses or decompresses digital video. **Why?** Market and society demands higher quality videos with limited bandwidth or storage. Remember when we [calculated the needed bandwidth](#basic-terminology) for 30 frames per second, 24 bits per pixel, resolution of a 480x240 video? It was **82.944 Mbps** with no compression applied. It's the only way to deliver HD/FullHD/4K in TVs and the Internet. **How?** We'll take a brief look at the major techniques here.
 
 > **CODEC vs Container**
 >
-> One common mistake that beginners often do is to confuse digital video CODEC and [digital video container](https://en.wikipedia.org/wiki/Digital_container_format). We can think of **containers** as a wrapper format which contains metadata of the video and possible audio too, and the **compressed video is the codec** can be seen as its payload.
+> One common mistake that beginners often do is to confuse digital video CODEC and [digital video container](https://en.wikipedia.org/wiki/Digital_container_format). We can think of **containers** as a wrapper format which contains metadata of the video (and possible audio too), and the **compressed video** can be seen as its payload.
 >
 > Usually, the extension of a video file defines its video container. For instance, the file `video.mp4` is probably a **[MPEG-4 Part 14](https://en.wikipedia.org/wiki/MPEG-4_Part_14)** container and a file named `video.mkv` it's probably a **[matroska](https://en.wikipedia.org/wiki/Matroska)**. To be completely sure about the codec and container format we can use [ffmpeg or mediainfo](/enconding_pratical_examples.md#inspect-stream).
 
@@ -376,16 +376,15 @@ Our **prediction can be wrong**, for that reason we need to apply this technique
 
 Before we jump in the inner works of a generic codec, let's look back to understand a little better about some old video codecs.
 
-The video codec [H261](https://en.wikipedia.org/wiki/H.261)  was born in 1990 (technically 1988), it was designed to work with **data rates of 64 kbit/s**. It already uses ideas such as chroma subsampling, macro block and etc. In the year of 1995, the **H263** video codec standard was published but it continued to be extended until 2001.
+The video codec [H261](https://en.wikipedia.org/wiki/H.261)  was born in 1990 (technically 1988), and it was designed to work with **data rates of 64 kbit/s**. It already uses ideas such as chroma subsampling, macro block, etc. In the year of 1995, the **H263** video codec standard was published and continued to be extended until 2001.
 
-
-In 2003 the first version of **H.264/AVC** was completed, in the same year, a company called **TrueMotion** released their video codec as a **royalty-free** lossy video compression called **VP3**. In 2008, **Google bought** this company, in the same year they released the **VP8**. In December of 2012, Google released the **VP9** and it's  **supported by roughly ¾ of the browser market** (mobile included).
+In 2003 the first version of **H.264/AVC** was completed. In the same year, a company called **TrueMotion** released their video codec as a **royalty-free** lossy video compression called **VP3**. In 2008, **Google bought** this company, releasing **VP8** in the same year. In December of 2012, Google released the **VP9** and it's  **supported by roughly ¾ of the browser market** (mobile included).
 
  **[AV1](https://en.wikipedia.org/wiki/AOMedia_Video_1)** is a new video codec, **royalty-free**, open source being designed by the [Alliance for Open Media (AOMedia)](http://aomedia.org/) which is composed of the **companies: Google, Mozilla, Microsoft, Amazon, Netflix, AMD, ARM, NVidia, Intel, Cisco** among others. The **first version** 0.1.0 of the reference codec was **published on April 7, 2016**.
 
 ![codec history timeline](/i/codec_history_timeline.png "codec history timeline")
 
-> #### The born of AV1
+> #### The birth of AV1
 >
 > Early 2015, Google was working on [VP10](https://en.wikipedia.org/wiki/VP9#Successor:_from_VP10_to_AV1), Xiph (Mozilla) was working on [Daala](https://xiph.org/daala/) and Cisco open-sourced its royalty-free video codec called [Thor](https://tools.ietf.org/html/draft-fuldseth-netvc-thor-03).
 >
@@ -394,9 +393,9 @@ In 2003 the first version of **H.264/AVC** was completed, in the same year, a co
 > * **content fee** (0.5% of revenue) and
 > * **per-unit fees about 10 times higher than h264**.
 >
-> And the [alliance for open media](http://aomedia.org/about-us/) was created by companies from hardware manufacturer (Intel, AMD, ARM , Nvidia, Cisco), content delivery (Google, Netflix, Amazon), browser maintainers (Google, Mozilla) and much more interested companies.
+> The [alliance for open media](http://aomedia.org/about-us/) was created by companies from hardware manufacturer (Intel, AMD, ARM , Nvidia, Cisco), content delivery (Google, Netflix, Amazon), browser maintainers (Google, Mozilla), and others.
 >
-> The companies have a common goal, a royalty-free video codec and then AV1 was born with a much [simpler patent license](http://aomedia.org/license/patent/). **Timothy B. Terriberry** did an awesome presentation, which is the source of this section, about the [AV1 conception, license model and its current state](https://www.youtube.com/watch?v=lzPaldsmJbk).
+> The companies had a common goal, a royalty-free video codec and then AV1 was born with a much [simpler patent license](http://aomedia.org/license/patent/). **Timothy B. Terriberry** did an awesome presentation, which is the source of this section, about the [AV1 conception, license model and its current state](https://www.youtube.com/watch?v=lzPaldsmJbk).
 >
 > You'll be surprised to know that you can **analyze the AV1 codec through your browser**, go to http://aomanalyzer.org/
 >
@@ -511,7 +510,7 @@ How can we **reverse** (re-quantize) this block of coefficients? We can do that 
 
 ![re-quantize](/i/re-quantize.png "re-quantize")
 
-This **approach isn't the best** because it doesn't take into account the importance of each coefficient, we could use a **matrix of quantizers** instead of a single value, this matrix can exploit the property of the DCT, quantizing most the bottom right and less the upper left, the [JPEG uses a similar approach](https://www.hdm-stuttgart.de/~maucher/Python/MMCodecs/html/jpegUpToQuant.html), you can check [source code to see this matrix.](https://github.com/google/guetzli/blob/master/guetzli/jpeg_data.h#L40).
+This **approach isn't the best** because it doesn't take into account the importance of each coefficient, we could use a **matrix of quantizers** instead of a single value, this matrix can exploit the property of the DCT, quantizing most the bottom right and less the upper left, the [JPEG uses a similar approach](https://www.hdm-stuttgart.de/~maucher/Python/MMCodecs/html/jpegUpToQuant.html), you can check [source code to see this matrix](https://github.com/google/guetzli/blob/master/guetzli/jpeg_data.h#L40).
 
 > ### Hands-on: quantization
 > You can play around with the [quantization](/dct_experiences.ipynb).
@@ -573,7 +572,7 @@ With the first range we notice that our number fits at the slice, therefore, it'
 
 Both encoder and decoder **must know** the symbol probability table, therefore you need to send the table.
 
-Pretty neat isn't? People are damn smart to come up with such solution, some [video codec uses](https://en.wikipedia.org/wiki/Context-adaptive_binary_arithmetic_coding) (or at least offers as an option) this technique.
+Pretty neat, isn't? People are damn smart to come up with such solution, some [video codec uses](https://en.wikipedia.org/wiki/Context-adaptive_binary_arithmetic_coding) (or at least offers as an option) this technique.
 
 The idea is to lossless compress the quantized bitstream, for sure this article is missing tons of details, reasons, trade-offs and etc. But [you should learn more](https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/) as a developer. Newer codecs are trying to use different [entropy coding algorithms like ANS.](https://en.wikipedia.org/wiki/Asymmetric_Numeral_Systems)
 
@@ -687,7 +686,7 @@ Previously we had calculated that we needed [139GB of storage to keep a video fi
 
 ## How does H265 can achieve better compression ratio than H264?
 
-Now that we know more about how the codecs work then it is easy to understand how new codecs are able to deliver higher resolutions with less bits.
+Now that we know more about how codecs work, then it is easy to understand how new codecs are able to deliver higher resolutions with less bits.
 
 We will compare AVC and HEVC, let's keep in mind that it is almost always a trade off between more CPU cycles (complexity) and compression rate.
 
