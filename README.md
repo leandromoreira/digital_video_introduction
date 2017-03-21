@@ -4,7 +4,7 @@
 
 A gentle introduction to video technology, although it's aimed at software developers / engineers, we want to make it easy **for anyone to learn**. This idea was born during a [mini workshop for newcomers to video technology](https://docs.google.com/presentation/d/17Z31kEkl_NGJ0M66reqr9_uTG6tI5EDDVXpdPKVuIrs/edit#slide=id.p).
 
-The goal is to introduce some digital video subjects with **simple texts, lots of visual elements and practical examples** when is possible, and make this knowledge available everywhere. Please, feel free to correct, suggest and improve it.
+The goal is to introduce some digital video concepts with a **simple vocabulary, lots of visual elements and practical examples** when possible, and make this knowledge available everywhere. Please, feel free to send corrections, suggestions and improve it.
 
 There will be **hands-on** sections which require you to have **docker installed** and this repository cloned.
 
@@ -15,7 +15,7 @@ cd digital_video_introduction
 ```
 > **WARNING**: when you see a `./s/ffmpeg` or `./s/mediainfo` command, it means we're running a **containerized version** of that program, which already includes all the needed requirements.
 
-All the **hands-on should be performed from the folder you cloned** this repository, for the **jupyter examples** you must start the server `./s/start_jupyter.sh` and copy the URL and use it on your browser.
+All the **hands-on should be performed from the folder you cloned** this repository. For the **jupyter examples** you must start the server `./s/start_jupyter.sh` and copy the URL and use it in your browser.
 
 # Index
 
@@ -74,16 +74,16 @@ All the **hands-on should be performed from the folder you cloned** this reposit
 
 # Basic terminology
 
-An **image** can be thought of as a **2D matrix** and if we think about **colors**, we can extrapolate this idea seeing this image as a **3D matrix** where the **additional dimensions** are used to provide **color data**.
+An **image** can be thought of as a **2D matrix**. If we think about **colors**, we can extrapolate this idea seeing this image as a **3D matrix** where the **additional dimensions** are used to provide **color data**.
 
-If we chose to represent these colors using the [primary colors (red, green and blue)](https://en.wikipedia.org/wiki/Primary_color), we then can define the tree planes: the first one **red**, the second **green**, and the last the **blue** color.
+If we chose to represent these colors using the [primary colors (red, green and blue)](https://en.wikipedia.org/wiki/Primary_color), we define tree planes: the first one for **red**, the second for **green**, and the last one for the **blue** color. 
 
 ![an image is a 3d matrix RGB](/i/image_3d_matrix_rgb.png "An image is a 3D matrix")
 
-Each point in this matrix, we'll call it **a pixel** (picture element), will hold the **intensity** (usually a numeric value) of that given color. A **total red color** means 0 of green, 0 of blue and maximum of red, the **pink color** can be formed with (using 0 to 255 as the possible range) with **Red=255, Green=192 and Blue=203**.
+We'll call each point in this matrix **a pixel** (picture element). One pixel represents the **intensity** (usually a numeric value) of a given color. For example, a **red pixel** means 0 of green, 0 of blue and maximum of red. The **pink color pixel** can be formed with a combination of the three colors. Using a representative numeric range from 0 to 255, the pink pixel is defined by **Red=255, Green=192 and Blue=203**.
 
 > #### Other ways to encode a color image
-> There are much more models to represent an image with colors. We could use an indexed palette where we'd spend only a byte for each pixel instead of 3, comparing it to RGB model. In this model instead of a 3D matrix, we'd use a 2D matrix, saving memory but having fewer color options.
+> There are much more models to represent an image with colors. We could use an indexed palette where we'd be able to spend only a byte for each pixel instead of 3, comparing it to RGB model. In this model instead of a 3D matrix, we'd use a 2D matrix, saving memory but having fewer color options.
 >
 > ![NES palette](/i/nes-color-palette.png "NES palette")
 
