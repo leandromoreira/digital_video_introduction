@@ -301,6 +301,9 @@ One thing we can do it's a subtraction, we simply **subtract frame 1 from frame 
 
 But if I tell you that there is a **better method** which uses even fewer bits?! First, let's treat the `frame 0` as a collection of well-defined partitions and then we'll try to matches the blocks from `frame 0` on `frame 1`. We can think of it as **motion estimation**.
 
+> ### Wikipedia - block motion compensation
+> "**Block motion compensation** divides up the current frame into non-overlapping blocks, and the motion compensation vector **tells where those blocks come from** (a common misconception is that the previous frame is divided up into non-overlapping blocks, and the motion compensation vectors tell where those blocks move to). The source blocks typically overlap in the source frame. Some video compression algorithms assemble the current frame out of pieces of several different previously-transmitted frames."
+
 ![delta frames](/i/original_frames_motion_estimation.png "delta frames")
 
 We could estimate that the ball moved from `x=0, y=25` to `x=6, y=26`, the **x** and **y** values are the **motion vectors**. One **further step** we can do to save bits is to **encode only the motion vector difference** between the last block position and the predicted, so the final motion vector would be `x=6 (6-0), y=1 (26-25)`
