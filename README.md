@@ -757,6 +757,7 @@ The richest content is here, it's where all the info we saw in this text was ext
 * http://stackoverflow.com/questions/38094302/how-to-understand-header-of-h264
 * http://gentlelogic.blogspot.com.br/2011/11/exploring-h264-part-2-h264-bitstream.html
 * https://trac.ffmpeg.org/wiki/Encode/H.264
+* http://inst.eecs.berkeley.edu/~ee290t/sp04/lectures/02-Motion_Compensation_girod.pdf
 * http://www.itu.int/ITU-T/recommendations/rec.aspx?rec=12904&lang=en
 * http://stackoverflow.com/a/24890903
 * https://cardinalpeak.com/blog/worlds-smallest-h-264-encoder/
