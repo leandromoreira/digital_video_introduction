@@ -83,7 +83,7 @@ If we chose to represent these colors using the [primary colors (red, green and 
 We'll call each point in this matrix **a pixel** (picture element). One pixel represents the **intensity** (usually a numeric value) of a given color. For example, a **red pixel** means 0 of green, 0 of blue and maximum of red. The **pink color pixel** can be formed with a combination of the three colors. Using a representative numeric range from 0 to 255, the pink pixel is defined by **Red=255, Green=192 and Blue=203**.
 
 > #### Other ways to encode a color image
-> There are much more models to represent an image with colors. We could use an indexed palette where we'd be able to spend only a byte for each pixel instead of 3, comparing it to RGB model. In this model instead of a 3D matrix, we'd use a 2D matrix, saving memory but having fewer color options.
+> Many other possible models may be used to represent the colors that make up an image. We could, for instance, use an indexed palette where we'd only need a single byte to represent each pixel instead of the 3 needed when using the RGB model. In such a model we'd could use a 2D matrix instead of a 3D matrix to represent our color, this would save on memory but yeild fewer color options.
 >
 > ![NES palette](/i/nes-color-palette.png "NES palette")
 
