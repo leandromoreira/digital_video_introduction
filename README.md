@@ -129,7 +129,7 @@ When the **bit rate** is nearly constant it's called constant bit rate (**CBR**)
 >
 > ![constrained vbr](/i/vbr.png "constrained vbr")
 
-In the early days, engineering came up with a technique for doubling the perceived frame rate of a video display **without consuming extra bandwidth**. This technique is known as **interlaced video**; it basically sends half of the screen in 1 "frame" and the other half in the next "frame".
+In the early days, engineers came up with a technique for doubling the perceived frame rate of a video display **without consuming extra bandwidth**. This technique is known as **interlaced video**; it basically sends half of the screen in 1 "frame" and the other half in the next "frame".
 
 Today screens render mostly using **progressive scan technique**. Progressive is a way of displaying, storing, or transmitting moving images in which all the lines of each frame are drawn in sequence.
 
