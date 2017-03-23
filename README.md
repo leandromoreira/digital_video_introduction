@@ -129,7 +129,7 @@ When the **bit rate** is nearly constant it's called constant bit rate (**CBR**)
 >
 > ![constrained vbr](/i/vbr.png "constrained vbr")
 
-In the early days, engineering came up with a technique for doubling the perceived frame rate of a video display **without consuming extra bandwidth**. This technique is known as **interlaced video**; it basically sends half of the screen in 1 "frame" and the other half in the next "frame".
+In the early days, engineers came up with a technique for doubling the perceived frame rate of a video display **without consuming extra bandwidth**. This technique is known as **interlaced video**; it basically sends half of the screen in 1 "frame" and the other half in the next "frame".
 
 Today screens render mostly using **progressive scan technique**. Progressive is a way of displaying, storing, or transmitting moving images in which all the lines of each frame are drawn in sequence.
 
@@ -245,7 +245,7 @@ Previously we had calculated that we needed [278GB of storage to keep a video fi
 
 ## Frame types
 
-Now we can move on and try to eliminate the **redundancy in time** but before that let's establish some basic terminology. Suppose we have a movie with 30fps, here its first 4 frames.
+Now we can move on and try to eliminate the **redundancy in time** but before that let's establish some basic terminology. Suppose we have a movie with 30fps, here are its first 4 frames.
 
 ![ball 1](/i/smw_background_ball_1.png "ball 1") ![ball 2](/i/smw_background_ball_2.png "ball 2") ![ball 3](/i/smw_background_ball_3.png "ball 3")
 ![ball 4](/i/smw_background_ball_4.png "ball 4")
