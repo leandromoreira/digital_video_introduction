@@ -76,7 +76,7 @@ All the **hands-on should be performed from the folder you cloned** this reposit
 
 An **image** can be thought of as a **2D matrix**. If we think about **colors**, we can extrapolate this idea seeing this image as a **3D matrix** where the **additional dimensions** are used to provide **color data**.
 
-If we chose to represent these colors using the [primary colors (red, green and blue)](https://en.wikipedia.org/wiki/Primary_color), we define tree planes: the first one for **red**, the second for **green**, and the last one for the **blue** color. 
+If we chose to represent these colors using the [primary colors (red, green and blue)](https://en.wikipedia.org/wiki/Primary_color), we define tree planes: the first one for **red**, the second for **green**, and the last one for the **blue** color.
 
 ![an image is a 3d matrix RGB](/i/image_3d_matrix_rgb.png "An image is a 3D matrix")
 
@@ -146,7 +146,7 @@ We learned that is not feasible to use video without any compression; **a single
 
 > <sup>*</sup> We found this number by multiplying 1280 x 720 x 24 x 30 x 3600 (width, height, bits per pixel, fps and time in seconds)
 
-In order to do this, we can **exploit how our vision works**. We're better to distinguish brightness than colors, the **repetitions in time**, a video contains a lot of images with few changes, and the **repetitions within the image**, each frame also contains many areas using the same or similar color.
+In order to do this, we can **exploit how our vision works**. We're better at distinguishing brightness than colors, the **repetitions in time**, a video contains a lot of images with few changes, and the **repetitions within the image**, each frame also contains many areas using the same or similar color.
 
 ## Colors, Luminance and our eyes
 
@@ -166,7 +166,7 @@ If you are unable to see that the colors of the **squares A and B are identical*
 >
 > ![eyes composition](/i/eyes.jpg "eyes composition")
 
-Once we know that we're more sensible to **luma** (the brightness in an image) we can try to exploit it.
+Once we know that we're more sensitive to **luma** (the brightness in an image) we can try to exploit it.
 
 ### Color model
 
@@ -174,7 +174,7 @@ We first learned [how to color images](#basic-terminology) work using **RGB mode
 
 > <sup>*</sup> there are more models which do the same separation.
 
-This color model uses **Y** to represent the brightness and plus two color channels **Cb** (chroma blue) and **Cr** (chrome red). The [YCbCr](https://en.wikipedia.org/wiki/YCbCr) can be derived from RGB and it also can be converted back to RGB. Using this model we can create full colored images as we can see down bellow.
+This color model uses **Y** to represent the brightness and two color channels **Cb** (chroma blue) and **Cr** (chrome red). The [YCbCr](https://en.wikipedia.org/wiki/YCbCr) can be derived from RGB and it also can be converted back to RGB. Using this model we can create full colored images as we can see down bellow.
 
 ![ycbcr example](/i/ycbcr.png "ycbcr example")
 
@@ -195,7 +195,7 @@ Cb = 0.564(B - Y)
 Cr = 0.713(R - Y)
 ```
 
-And we can also **convert it back** and even getting the **green by using YCbCr**.
+And we can also **convert it back** and even get the **green by using YCbCr**.
 
 ```
 R = Y + 1.402Cr
@@ -205,20 +205,20 @@ G = Y - 0.344Cb - 0.714Cr
 
 > <sup>*</sup> groups and standards are common in digital video, they usually define what are the standards, for instance, [what is 4K? what frame rate should we use? resolution? color model?](https://en.wikipedia.org/wiki/Rec._2020)
 
-Generally, the **displays** (monitors, TVs, screens and etc) shows **only the RGB model**, see some of them in a zoomed level, they organize the RGB channels in different manners:
+Generally, **displays** (monitors, TVs, screens and etc) utilize **only the RGB model**, organized in different manners, see some of them magnified below:
 
 ![pixel geometry](/i/new_pixel_geometry.jpg "pixel geometry")
 
 ### Chroma subsampling
 
-Once we were able to separate luma from chroma, we can take advantage of the human visual system that is more capable of seeing luma than chroma. **Chroma subsampling** is the technique of encoding images using **less resolution for chroma than for luma**.
+Once we are able to separate luma from chroma, we can take advantage of the human visual system that is more capable of seeing luma than chroma. **Chroma subsampling** is the technique of encoding images using **less resolution for chroma than for luma**.
 
 
 
 ![ycbcr subsampling resolutions](/i/ycbcr_subsampling_resolution.png "ycbcr subsampling resolutions")
 
 
-How much should we reduce the chroma resolution?! It turns out that there is already some schemes that describe how to handle resolution and the merge (`final color = Y + Cb + Cr`).
+How much should we reduce the chroma resolution?! It turns out that there are already some schemas that describe how to handle resolution and the merge (`final color = Y + Cb + Cr`).
 
 These schemas are known as subsampling systems (or ratios), they are identified by the numbers: **4:4:4, 4:2:3, 4:2:1, 4:1:1, 4:2:0, 4:1:0 and 3:1:1**. And each one of them defines how much should we discard in the chroma resolution as well as how we should merge the three planes (Y, Cb, Cr).
 
@@ -232,9 +232,9 @@ You can see the same image encoded by the main chroma subsampling types, the fir
 
 ![chroma subsampling examples](/i/chroma_subsampling_examples.jpg "chroma subsampling examples")
 
-Previously we had calculated that we needed [278GB of storage to keep a video file with one hour at 720p resolution and 30fps](#redundancy-removal) if we use **YCbCr 4:2:0** we can cut **this size in half (139GB)**<sup>*</sup> but it is still far from the ideal.
+Previously we had calculated that we needed [278GB of storage to keep a video file with one hour at 720p resolution and 30fps](#redundancy-removal). If we use **YCbCr 4:2:0** we can cut **this size in half (139GB)**<sup>*</sup> but it is still far from the ideal.
 
-> <sup>*</sup> we found this value by multiplying width, height, bits per pixel and fps before we needed 24 bits now we only need 12.
+> <sup>*</sup> we found this value by multiplying width, height, bits per pixel and fps. Previously we needed 24 bits, now we only need 12.
 
 <br/>
 
@@ -260,7 +260,7 @@ An I-frame (reference, keyframe, intra) is a **self-contained frame**. It doesn'
 
 ### P Frame (predicted)
 
-A P-frame takes advantage of the fact that almost always the current picture can be **rendered using the last frame.** For instance, in the second frame, the only change was the ball that moved forward. We can **rebuild the frame 1, only informing the difference and referencing to the previous frame**.
+A P-frame takes advantage of the fact that almost always the current picture can be **rendered using the previous frame.** For instance, in the second frame, the only change was the ball that moved forward. We can **rebuild frame 1, only using the difference and referencing to the previous frame**.
 
 ![ball 1](/i/smw_background_ball_1.png "ball 1") <-  ![ball 2](/i/smw_background_ball_2_diff.png "ball 2")
 
@@ -432,7 +432,7 @@ Once we have the partitions, we can make predictions over them. For the [inter p
 
 After we get the residual block (`predicted partition - real partition`), we can **transform** it in a way that we can know which **pixels we can discard** but still keeping the **overall quality**. There are some transformations for this exact behavior.
 
-Although there are [others transformations](https://en.wikipedia.org/wiki/List_of_Fourier-related_transforms#Discrete_transforms), we'll look more closely the discrete cosine transform (DCT). The [**DCT**](https://en.wikipedia.org/wiki/Discrete_cosine_transform) main features are:
+Although there are [other transformations](https://en.wikipedia.org/wiki/List_of_Fourier-related_transforms#Discrete_transforms), we'll look more closely the discrete cosine transform (DCT). The [**DCT**](https://en.wikipedia.org/wiki/Discrete_cosine_transform) main features are:
 
 * **converts** blocks of **pixels** into  same-sized blocks of **frequency coefficients**.
 * **compacts** energy, making it easy to eliminate spatial redundancy.
@@ -461,7 +461,7 @@ And if we render this block of coefficients, we'll get this image:
 
 As you can see it looks nothing like the original image, we might notice that the **first coefficient** is very different from all the others. This first coefficient is known as the DC coefficient which represents of **all the samples** in the input array, something **similar to an average**.
 
-This block of coefficients has an interesting property which is it separates the high-frequency components from the low frequency.
+This block of coefficients has an interesting property which is that it separates the high-frequency components from the low frequency.
 
 ![dct frequency coefficients property](/i/dctfrequ.jpg "dct frequency coefficients property")
 
@@ -469,7 +469,7 @@ In an image, **most of the energy** will be concentrated in the [**lower frequen
 
 > frequency means how fast a signal is changing
 
-Let's try to put the knowledge we acquired in the test, we'll convert the original image to its frequency (block of coefficients) using DCT and then throw away part of the least important coefficients.
+Let's try to apply the knowledge we acquired in the test, we'll convert the original image to its frequency (block of coefficients) using DCT and then throw away part of the least important coefficients.
 
 First, we convert it to its **frequency domain**.
 
