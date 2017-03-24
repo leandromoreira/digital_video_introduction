@@ -1,2 +1,2 @@
 #!/bin/bash
-docker run --rm -v $(PWD):/files leandromoreira/mediainfo $@
+docker run --rm -v $(pwd):/files leandromoreira/mediainfo $@
