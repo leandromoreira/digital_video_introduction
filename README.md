@@ -489,6 +489,8 @@ As we can see it resembles the original image but it introduced lots of differen
 >
 > It's important to note that each coefficient doesn't directly map to a single pixel but it's a weighted sum of all pixels. This amazing graph shows how the first and second coefficient is calculated, using weights which are unique for each index.
 >
+> You can also try to [visualize the DCT by looking at a simple image](/dct_better_explained.ipynb) formation over the DCT basis.  
+>
 > ![dct calculation](/i/applicat.jpg "dct calculation")
 >
 > Source: https://www.iem.thm.de/telekom-labor/zinke/mk/mpeg2beg/whatisit.htm
