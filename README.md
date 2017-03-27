@@ -76,7 +76,7 @@ All the **hands-on should be performed from the folder you cloned** this reposit
 
 An **image** can be thought of as a **2D matrix**. If we think about **colors**, we can extrapolate this idea seeing this image as a **3D matrix** where the **additional dimensions** are used to provide **color data**.
 
-If we chose to represent these colors using the [primary colors (red, green and blue)](https://en.wikipedia.org/wiki/Primary_color), we define tree planes: the first one for **red**, the second for **green**, and the last one for the **blue** color.
+If we chose to represent these colors using the [primary colors (red, green and blue)](https://en.wikipedia.org/wiki/Primary_color), we define three planes: the first one for **red**, the second for **green**, and the last one for the **blue** color.
 
 ![an image is a 3d matrix RGB](/i/image_3d_matrix_rgb.png "An image is a 3D matrix")
 
@@ -87,7 +87,7 @@ We'll call each point in this matrix **a pixel** (picture element). One pixel re
 >
 > ![NES palette](/i/nes-color-palette.png "NES palette")
 
-For instance, look at the picture down bellow, the first face is full colored, the rest is the red, green and blue (but in gray tones) planes.
+For instance, look at the picture down below. The first face is fully colored. The others are the red, green, and blue planes (shown as gray tones).
 
 ![RGB channels intensity](/i/rgb_channels_intensity.png "RGB channels intensity")
 
@@ -108,7 +108,7 @@ Another property of an image is the **resolution**, which is the number of pixel
 
 Another property we can see while working with images or video is the **aspect ratio** which simply describes the proportional relationship between width and height of an image or pixel.
 
-When people says this movie or picture is **16x9** they usually are referring to the **Display Aspect Ratio (DAR)** and we also can have different shapes of a pixel, we call this **Pixel Aspect Ratio (PAR)**.
+When people says this movie or picture is **16x9** they usually are referring to the **Display Aspect Ratio (DAR)**, however we also can have different shapes of individual pixels, we call this **Pixel Aspect Ratio (PAR)**.
 
 ![display aspect ratio](/i/DAR.png "display aspect ratio")
 
@@ -135,14 +135,14 @@ Today screens render mostly using **progressive scan technique**. Progressive is
 
 ![interlaced vs progressive](/i/interlaced_vs_progressive.png "interlaced vs progressive")
 
-Now we have an idea about what is an **image**, how its **colors** are arranged, how many **bits per second** do we spend to show a video, if it's constant (CBR)  or variable (VBR), with a given **resolution** using a given **frame rate** and many other terms such as interlaced, PAR and others.
+Now we have an idea about how an **image** is represented digitally, how its **colors** are arranged, how many **bits per second** do we spend to show a video, if it's constant (CBR)  or variable (VBR), with a given **resolution** using a given **frame rate** and many other terms such as interlaced, PAR and others.
 
 > #### Hands-on: Check video properties
 > You can [check most of the  explained properties with ffmpeg or mediainfo.](https://github.com/leandromoreira/introduction_video_technology/blob/master/enconding_pratical_examples.md#inspect-stream)
 
 # Redundancy removal
 
-We learned that is not feasible to use video without any compression; **a single one hour video** at 720p resolution with 30fps would **require 278GB<sup>*</sup>**. We need to find another way to compress the video, since **using solely lossless data compression algorithms**, like DEFLATE (used in PKZIP, Gzip, and PNG), **won't help** as much as we need.
+We learned that is not feasible to use video without any compression; **a single one hour video** at 720p resolution with 30fps would **require 278GB<sup>*</sup>**. Since **using solely lossless data compression algorithms** like DEFLATE (used in PKZIP, Gzip, and PNG), **won't** decrease the required bandwidth sufficiently we need to find other ways to compress the video.
 
 > <sup>*</sup> We found this number by multiplying 1280 x 720 x 24 x 30 x 3600 (width, height, bits per pixel, fps and time in seconds)
 
@@ -150,13 +150,13 @@ In order to do this, we can **exploit how our vision works**. We're better at di
 
 ## Colors, Luminance and our eyes
 
-Our eyes are [more sensible to brightness than colors](http://vanseodesign.com/web-design/color-luminance/), you can test it for yourself, look at this picture.
+Our eyes are [more sensitive to brightness than colors](http://vanseodesign.com/web-design/color-luminance/), you can test it for yourself, look at this picture.
 
 ![luminance vs color](/i/luminance_vs_color.png "luminance vs color")
 
 If you are unable to see that the colors of the **squares A and B are identical** on the left side, that's fine, it's our brain playing tricks on us to **pay more attention to light and dark than color**. There is a connector, with the same color, on the right side so we (our brain) can easily spot that in fact, they're the same color.
 
-> **Simplistic explanation about our eyes**
+> **Simplistic explanation of how our eyes work**
 >
 > The [eye is a complex organ](http://www.biologymad.com/nervoussystem/eyenotes.htm), it is composed of many parts but we are mostly interested in the cones and rods cells. The eye [contains about 120 million rod cells and 6 million cone cells](https://en.wikipedia.org/wiki/Photoreceptor_cell).
 >
