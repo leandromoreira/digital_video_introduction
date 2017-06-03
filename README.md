@@ -825,3 +825,5 @@ The richest content is here, it's where all the info we saw in this text was ext
 * http://www.hometheatersound.com/
 * http://web.ece.ucdavis.edu/cerl/ReliableJPEG/Cung/jpeg.html
 * https://en.wikipedia.org/wiki/Pixel_aspect_ratio
+* https://it.wikipedia.org/wiki/File:Pixel_geometry_01_Pengo.jpg
+* https://en.wikipedia.org/wiki/Chroma_subsampling#/media/File:Colorcomp.jpg
