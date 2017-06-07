@@ -46,7 +46,6 @@ All the **hands-on should be performed from the folder you cloned** this reposit
 - [How does a video codec work?](#how-does-a-video-codec-work)
   * [What? Why? How?](#what-why-how)
   * [History](#history)
-      - [The born of AV1](#the-born-of-av1)
   * [A generic codec](#a-generic-codec)
   * [1st step - picture partitioning](#1st-step---picture-partitioning)
     + [Hands-on: Check partitions](#hands-on-check-partitions)
@@ -60,10 +59,10 @@ All the **hands-on should be performed from the folder you cloned** this reposit
     + [Arithmetic coding](#arithmetic-coding)
     + [Hands-on: CABAC vs CAVLC](#hands-on-cabac-vs-cavlc)
   * [6th step - bitstream format](#6th-step---bitstream-format)
-    + [H264 bitstream](#h264-bitstream)
-    + [Hands-on: Inspect the H264 bitstream](#hands-on-inspect-the-h264-bitstream)
+    + [H.264 bitstream](#h264-bitstream)
+    + [Hands-on: Inspect the H.264 bitstream](#hands-on-inspect-the-h264-bitstream)
   * [Review](#review)
-  * [How does H265 can achieve better compression ratio than H264?](#how-does-h265-can-achieve-better-compression-ratio-than-h264)
+  * [How does H.265 can achieve better compression ratio than H.264?](#how-does-h265-can-achieve-better-compression-ratio-than-h264)
 - [Online streaming](#online-streaming)
   * [General architecture](#general-architecture)
   * [Progressive download and adaptive streaming](#progressive-download-and-adaptive-streaming)
@@ -376,7 +375,7 @@ Our **prediction can be wrong**, for that reason we need to apply this technique
 
 Before we jump in the inner works of a generic codec, let's look back to understand a little better about some old video codecs.
 
-The video codec [H261](https://en.wikipedia.org/wiki/H.261)  was born in 1990 (technically 1988), and it was designed to work with **data rates of 64 kbit/s**. It already uses ideas such as chroma subsampling, macro block, etc. In the year of 1995, the **H263** video codec standard was published and continued to be extended until 2001.
+The video codec [H.261](https://en.wikipedia.org/wiki/H.261)  was born in 1990 (technically 1988), and it was designed to work with **data rates of 64 kbit/s**. It already uses ideas such as chroma subsampling, macro block, etc. In the year of 1995, the **H.263** video codec standard was published and continued to be extended until 2001.
 
 In 2003 the first version of **H.264/AVC** was completed. In the same year, a company called **TrueMotion** released their video codec as a **royalty-free** lossy video compression called **VP3**. In 2008, **Google bought** this company, releasing **VP8** in the same year. In December of 2012, Google released the **VP9** and it's  **supported by roughly ¾ of the browser market** (mobile included).
 
@@ -388,7 +387,7 @@ In 2003 the first version of **H.264/AVC** was completed. In the same year, a co
 >
 > Early 2015, Google was working on [VP10](https://en.wikipedia.org/wiki/VP9#Successor:_from_VP10_to_AV1), Xiph (Mozilla) was working on [Daala](https://xiph.org/daala/) and Cisco open-sourced its royalty-free video codec called [Thor](https://tools.ietf.org/html/draft-fuldseth-netvc-thor-03).
 >
-> Then MPEG LA first announced annual caps for HEVC (H265) and fees 8 times higher than H264 but soon they changed the rules again:
+> Then MPEG LA first announced annual caps for HEVC (H.265) and fees 8 times higher than H.264 but soon they changed the rules again:
 > * **no annual cap**,
 > * **content fee** (0.5% of revenue) and
 > * **per-unit fees about 10 times higher than h264**.
@@ -405,7 +404,7 @@ In 2003 the first version of **H.264/AVC** was completed. In the same year, a co
 
 ## A generic codec
 
-We're going to introduce the **main mechanics behind a generic video codec** but most of these concepts are useful and used in modern codecs such as VP9, AV1 and HEVC. Be sure to understand that we're going to simplify things a LOT. Sometimes we'll use a real example (mostly H264) to demonstrate a technique.
+We're going to introduce the **main mechanics behind a generic video codec** but most of these concepts are useful and used in modern codecs such as VP9, AV1 and HEVC. Be sure to understand that we're going to simplify things a LOT. Sometimes we'll use a real example (mostly H.264) to demonstrate a technique.
 
 ## 1st step - picture partitioning
 
@@ -590,7 +589,7 @@ The idea is to lossless compress the quantized bitstream, for sure this article 
 
 After we did all these steps we need to **pack the compressed frames and context to these steps**. We need to explicitly inform to the decoder about **the decisions taken by the encoder**, such as bit depth, color space, resolution, predictions info (motion vectors, intra prediction direction), profile, level, frame rate, frame type, frame number and much more.
 
-We're going to study, superficially, the H264 bitstream. Our first step is to [generate a minimal  H264 <sup>*</sup> bitstream](/enconding_pratical_examples.md#generate-a-single-frame-h264-bitstream), we can do that using our own repository and [ffmpeg](http://ffmpeg.org/).
+We're going to study, superficially, the H.264 bitstream. Our first step is to [generate a minimal  H.264 <sup>*</sup> bitstream](/enconding_pratical_examples.md#generate-a-single-frame-h264-bitstream), we can do that using our own repository and [ffmpeg](http://ffmpeg.org/).
 
 ```
 ./s/ffmpeg -i /files/i/minimal.png -pix_fmt yuv420p /files/v/minimal_yuv420.h264
@@ -602,11 +601,11 @@ This command will generate a raw h264 bitstream with a **single frame**, 64x64, 
 
 > ![used frame to generate minimal h264 bitstream](/i/minimal.png "used frame to generate minimal h264 bitstream")
 
-### H264 bitstream
+### H.264 bitstream
 
-The AVC (H264) standard defines that the information will be sent in **macro frames** (in the network sense), called **[NAL](https://en.wikipedia.org/wiki/Network_Abstraction_Layer)** (Network Abstraction Layer). The main goal of the NAL is the provision of a "network-friendly" video representation, this standard must work on TVs (stream based), the Internet (packet based) among others.
+The AVC (H.264) standard defines that the information will be sent in **macro frames** (in the network sense), called **[NAL](https://en.wikipedia.org/wiki/Network_Abstraction_Layer)** (Network Abstraction Layer). The main goal of the NAL is the provision of a "network-friendly" video representation, this standard must work on TVs (stream based), the Internet (packet based) among others.
 
-![NAL units H264](/i/nal_units.png "NAL units H264")
+![NAL units H.264](/i/nal_units.png "NAL units H.264")
 
 There is a **[synchronization marker](https://en.wikipedia.org/wiki/Frame_synchronization)** to define the boundaries of the NAL's units. Each synchronization marker holds a value of `0x00 0x00 0x01` except to the very first one which is `0x00 0x00 0x00 0x01`. If we run the **hexdump** on the generated h264 bitstream, we can identify at least three NALs in the beginning of the file.
 
@@ -640,7 +639,7 @@ The second byte (`binary=01100100, hex=0x64, dec=100`) of an SPS NAL is the fiel
 
 ![SPS binary view](/i/minimal_yuv420_bin.png "SPS binary view")
 
-When we read the H264 bitstream spec for an SPS NAL we'll find many values for the **parameter name**, **category** and a **description**, for instance, let's look at `pic_width_in_mbs_minus_1` and `pic_height_in_map_units_minus_1` fields.
+When we read the H.264 bitstream spec for an SPS NAL we'll find many values for the **parameter name**, **category** and a **description**, for instance, let's look at `pic_width_in_mbs_minus_1` and `pic_height_in_map_units_minus_1` fields.
 
 | Parameter name  | Category  |  Description  |
 |---  |---|---|
@@ -665,15 +664,15 @@ In order to get the values of some fields (`ue(v), me(v), se(v) or te(v)`) we ne
 
 > The values of **slice_type** and **frame_num** of this video are 7 (I slice) and 0 (the first frame).
 
-We can see the **bitstream as a protocol** and if you want or need to learn more about this bitstream please refer to the [ITU H264 spec.]( http://www.itu.int/rec/T-REC-H.264-201610-I) Here's a macro diagram which shows where the picture data (compressed YUV) resides.
+We can see the **bitstream as a protocol** and if you want or need to learn more about this bitstream please refer to the [ITU H.264 spec.]( http://www.itu.int/rec/T-REC-H.264-201610-I) Here's a macro diagram which shows where the picture data (compressed YUV) resides.
 
 ![h264 bitstream macro diagram](/i/h264_bitstream_macro_diagram.png "h264 bitstream macro diagram")
 
-We can explore others bitstreams like the [VP9 bitstream](https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.6-20160331-draft.pdf), [H265 (HEVC)](http://handle.itu.int/11.1002/1000/11885-en?locatt=format:pdf) or even our **new best friend** [**AV1** bitstream](https://medium.com/@mbebenita/av1-bitstream-analyzer-d25f1c27072b#.d5a89oxz8
+We can explore others bitstreams like the [VP9 bitstream](https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.6-20160331-draft.pdf), [H.265 (HEVC)](http://handle.itu.int/11.1002/1000/11885-en?locatt=format:pdf) or even our **new best friend** [**AV1** bitstream](https://medium.com/@mbebenita/av1-bitstream-analyzer-d25f1c27072b#.d5a89oxz8
 ), [do they all look similar? No](http://www.gpac-licensing.com/2016/07/12/vp9-av1-bitstream-format/), but once you learned one you can easily get the others.
 
-> ### Hands-on: Inspect the H264 bitstream
-> We can [generate a single frame video](https://github.com/leandromoreira/introduction_video_technology/blob/master/enconding_pratical_examples.md#generate-a-single-frame-video) and use  [mediainfo](https://en.wikipedia.org/wiki/MediaInfo) to inspect its H264 bitstream. In fact, you can even see the [source code that parses h264 (AVC)](https://github.com/MediaArea/MediaInfoLib/blob/master/Source/MediaInfo/Video/File_Avc.cpp) bitstream.
+> ### Hands-on: Inspect the H.264 bitstream
+> We can [generate a single frame video](https://github.com/leandromoreira/introduction_video_technology/blob/master/enconding_pratical_examples.md#generate-a-single-frame-video) and use  [mediainfo](https://en.wikipedia.org/wiki/MediaInfo) to inspect its H.264 bitstream. In fact, you can even see the [source code that parses h264 (AVC)](https://github.com/MediaArea/MediaInfoLib/blob/master/Source/MediaInfo/Video/File_Avc.cpp) bitstream.
 >
 > ![mediainfo details h264 bitstream](/i/mediainfo_details_1.png "mediainfo details h264 bitstream")
 >
@@ -691,15 +690,15 @@ Previously we had calculated that we needed [139GB of storage to keep a video fi
 
 > We choose to use **0.031 bit per pixel** based on the example video provided here.
 
-## How does H265 can achieve better compression ratio than H264?
+## How does H.265 achieve better compression ratio than H.264?
 
-Now that we know more about how codecs work, then it is easy to understand how new codecs are able to deliver higher resolutions with less bits.
+Now that we know more about how codecs work, then it is easy to understand how new codecs are able to deliver higher resolutions with fewer bits.
 
 We will compare AVC and HEVC, let's keep in mind that it is almost always a trade off between more CPU cycles (complexity) and compression rate.
 
-HEVC has bigger and more **partitions** (and **sub-partitions**) options than AVC, more **intra predictions directions**, **improved entropy coding** and more, all these improvement made H265 capable to compress 50% more than H264.
+HEVC has bigger and more **partitions** (and **sub-partitions**) options than AVC, more **intra predictions directions**, **improved entropy coding** and more, all these improvement made H.265 capable to compress 50% more than H.264.
 
-![h264 vs h265](/i/avc_vs_hevc.png "h264 vs h265")
+![h264 vs h265](/i/avc_vs_hevc.png "H.264 vs H.265")
 
 # Online streaming
 ## General architecture
