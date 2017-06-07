@@ -736,94 +736,116 @@ Make sure you have **docker installed** and just run `./s/start_jupyter.sh` and 
 
 The richest content is here, it's where all the info we saw in this text was extracted, based or inspired by. You can deepen your knowledge with these amazing links, books, videos and etc.
 
+Online Courses and Tutorials:
+
 * https://www.coursera.org/learn/digital/
-* https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.6-20160331-draft.pdf
-* http://iphome.hhi.de/wiegand/assets/pdfs/2012_12_IEEE-HEVC-Overview.pdf
-* http://phenix.int-evry.fr/jct/doc_end_user/current_document.php?id=7243
-* https://medium.com/@mbebenita/av1-bitstream-analyzer-d25f1c27072b#.d5a89oxz8
-* https://arxiv.org/pdf/1702.00817v1.pdf
-* https://people.xiph.org/~xiphmont/demo/daala/demo1.shtml
-* https://people.xiph.org/~jm/daala/revisiting/
 * https://people.xiph.org/~tterribe/pubs/lca2012/auckland/intro_to_video1.pdf
 * https://xiph.org/video/vid1.shtml
 * https://xiph.org/video/vid2.shtml
-* https://www.youtube.com/watch?v=lzPaldsmJbk
-* https://fosdem.org/2017/schedule/event/om_av1/
-* http://ffmpeg.org/documentation.html
-* https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors
-* http://www.itu.int/rec/T-REC-H.264-201610-I
+* http://www.cambridgeincolour.com/tutorials/camera-sensors.htm
+* http://www.slideshare.net/vcodex/a-short-history-of-video-coding
+* http://www.slideshare.net/vcodex/introduction-to-video-compression-13394338
+* https://developer.android.com/guide/topics/media/media-formats.html
+* http://www.slideshare.net/MadhawaKasun/audio-compression-23398426
+* http://inst.eecs.berkeley.edu/~ee290t/sp04/lectures/02-Motion_Compensation_girod.pdf
+
+Books:
+
 * https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/ref=sr_1_1?s=books&ie=UTF8&qid=1486395327&sr=1-1
 * https://www.amazon.com/H-264-Advanced-Video-Compression-Standard/dp/0470516925
 * https://www.amazon.com/Practical-Guide-Video-Audio-Compression/dp/0240806301/ref=sr_1_3?s=books&ie=UTF8&qid=1486396914&sr=1-3&keywords=A+PRACTICAL+GUIDE+TO+VIDEO+AUDIO
 * https://www.amazon.com/Video-Encoding-Numbers-Eliminate-Guesswork/dp/0998453005/ref=sr_1_1?s=books&ie=UTF8&qid=1486396940&sr=1-1&keywords=jan+ozer
-* http://www.cambridgeincolour.com/tutorials/camera-sensors.htm
-* http://www.streamingmediaglobal.com/Articles/ReadArticle.aspx?ArticleID=116505&PageNum=1
-* https://en.wikipedia.org/wiki/Intra-frame_coding
-* https://en.wikipedia.org/wiki/Inter_frame
-* http://stackoverflow.com/questions/38094302/how-to-understand-header-of-h264
-* http://gentlelogic.blogspot.com.br/2011/11/exploring-h264-part-2-h264-bitstream.html
-* https://trac.ffmpeg.org/wiki/Encode/H.264
-* http://inst.eecs.berkeley.edu/~ee290t/sp04/lectures/02-Motion_Compensation_girod.pdf
+
+Bitstream Specifications:
+
+* http://www.itu.int/rec/T-REC-H.264-201610-I
 * http://www.itu.int/ITU-T/recommendations/rec.aspx?rec=12904&lang=en
-* http://stackoverflow.com/a/24890903
-* https://cardinalpeak.com/blog/worlds-smallest-h-264-encoder/
-* https://cardinalpeak.com/blog/the-h-264-sequence-parameter-set/
-* https://codesequoia.wordpress.com/category/video/
+* https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.6-20160331-draft.pdf
+* http://iphome.hhi.de/wiegand/assets/pdfs/2012_12_IEEE-HEVC-Overview.pdf
+* http://phenix.int-evry.fr/jct/doc_end_user/current_document.php?id=7243
+* http://gentlelogic.blogspot.com.br/2011/11/exploring-h264-part-2-h264-bitstream.html
+
+Software:
+
+* https://ffmpeg.org/
+* https://ffmpeg.org/ffmpeg-all.html
 * https://ffmpeg.org/ffprobe.html
+* https://trac.ffmpeg.org/wiki/
+* https://medium.com/@mbebenita/av1-bitstream-analyzer-d25f1c27072b#.d5a89oxz8
+
+Non-ITU Codecs:
+
+* https://people.xiph.org/~xiphmont/demo/daala/demo1.shtml
+* https://people.xiph.org/~jm/daala/revisiting/
+* https://www.youtube.com/watch?v=lzPaldsmJbk
+* https://fosdem.org/2017/schedule/event/om_av1/
+
+Encoding Concepts:
+
+* http://x265.org/hevc-h265/
+* https://arxiv.org/pdf/1702.00817v1.pdf
+* https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors
+* http://web.ece.ucdavis.edu/cerl/ReliableJPEG/Cung/jpeg.html
+* http://www.adobe.com/devnet/adobe-media-server/articles/h264_encoding.html
+* https://prezi.com/8m7thtvl4ywr/mp3-and-aac-explained/
+
+Video Sequences for Testing:
+
+* http://bbb3d.renderfarming.net/download.html
+* https://www.its.bldrdoc.gov/vqeg/video-datasets-and-organizations.aspx
+
+Miscellaneous:
+
+* http://stackoverflow.com/a/24890903
+* http://stackoverflow.com/a/24890903
+* http://stackoverflow.com/questions/38094302/how-to-understand-header-of-h264
+* http://techblog.netflix.com/2016/08/a-large-scale-comparison-of-x264-x265.html
+* http://vanseodesign.com/web-design/color-luminance/
 * http://www.biologymad.com/nervoussystem/eyenotes.htm
-* https://en.wikipedia.org/wiki/Photoreceptor_cell
-* https://en.wikipedia.org/wiki/Cone_cell
-* https://en.wikipedia.org/wiki/Rod_cell
-* https://en.wikipedia.org/wiki/Presentation_timestamp
-* https://www.linkedin.com/pulse/video-streaming-methodology-reema-majumdar
-* https://leandromoreira.com.br/2016/10/09/how-to-measure-video-quality-perception/
-* https://www.linkedin.com/pulse/brief-history-video-codecs-yoav-nativ
-* http://www.slideshare.net/vcodex/a-short-history-of-video-coding
-* https://en.wikibooks.org/wiki/MeGUI/x264_Settings
-* http://www.slideshare.net/vcodex/introduction-to-video-compression-13394338
-* https://www.lifewire.com/cmos-image-sensor-493271
-* https://www.youtube.com/watch?v=9vgtJJ2wwMA
-* https://developer.android.com/guide/topics/media/media-formats.html
-* https://www.encoding.com/android/
-* https://developer.apple.com/library/content/technotes/tn2224/_index.html
+* http://www.compression.ru/video/codec_comparison/h264_2012/mpeg4_avc_h264_video_codecs_comparison.pdf
+* http://www.csc.villanova.edu/~rschumey/csc4800/dct.html
+* http://www.explainthatstuff.com/digitalcameras.html
+* http://www.hkvstar.com
+* http://www.hometheatersound.com/
 * http://www.lighterra.com/papers/videoencodingh264/
+* http://www.red.com/learn/red-101/video-chroma-subsampling
 * http://www.slideshare.net/ManoharKuse/hevc-intra-coding
 * http://www.slideshare.net/mwalendo/h264vs-hevc
 * http://www.slideshare.net/rvarun7777/final-seminar-46117193
-* http://x265.org/hevc-h265/
-* http://www.compression.ru/video/codec_comparison/h264_2012/mpeg4_avc_h264_video_codecs_comparison.pdf
-* http://vanseodesign.com/web-design/color-luminance/
-* https://en.wikipedia.org/wiki/AOMedia_Video_1
-* https://www.vcodex.com/h264avc-intra-precition/
-* http://bbb3d.renderfarming.net/download.html
-* http://www.slideshare.net/vcodex/a-short-history-of-video-coding
-* https://www.iem.thm.de/telekom-labor/zinke/mk/mpeg2beg/whatisit.htm
-* https://sites.google.com/site/linuxencoding/x264-ffmpeg-mapping
-* https://www.encoding.com/http-live-streaming-hls/
-* https://en.wikipedia.org/wiki/Adaptive_bitrate_streaming
-* http://www.adobe.com/devnet/adobe-media-server/articles/h264_encoding.html
-* https://www.youtube.com/watch?v=Lto-ajuqW3w&list=PLzH6n4zXuckpKAj1_88VS-8Z6yn9zX_P6
-* https://www.youtube.com/watch?v=LFXN9PiOGtY
-* https://github.com/leandromoreira/encoding101
+* http://www.springer.com/cda/content/document/cda_downloaddocument/9783642147029-c1.pdf
+* http://www.streamingmedia.com/Articles/Editorial/Featured-Articles/A-Progress-Report-The-Alliance-for-Open-Media-and-the-AV1-Codec-110383.aspx
+* http://www.streamingmediaglobal.com/Articles/ReadArticle.aspx?ArticleID=116505&PageNum=1
+* http://yumichan.net/video-processing/video-compression/introduction-to-h264-nal-unit/
 * https://cardinalpeak.com/blog/the-h-264-sequence-parameter-set/
 * https://cardinalpeak.com/blog/worlds-smallest-h-264-encoder/
-* https://tools.ietf.org/html/draft-fuldseth-netvc-thor-03
-* https://prezi.com/8m7thtvl4ywr/mp3-and-aac-explained/
-* http://www.slideshare.net/MadhawaKasun/audio-compression-23398426
-* http://techblog.netflix.com/2016/08/a-large-scale-comparison-of-x264-x265.html
-* http://yumichan.net/video-processing/video-compression/introduction-to-h264-nal-unit/
-* http://www.springer.com/cda/content/document/cda_downloaddocument/9783642147029-c1.pdf
-* http://www.red.com/learn/red-101/video-chroma-subsampling
-* http://www.streamingmedia.com/Articles/Editorial/Featured-Articles/A-Progress-Report-The-Alliance-for-Open-Media-and-the-AV1-Codec-110383.aspx
-* http://www.explainthatstuff.com/digitalcameras.html
-* https://www.youtube.com/watch?v=LWxu4rkZBLw
-* http://www.csc.villanova.edu/~rschumey/csc4800/dct.html
-* https://en.wikipedia.org/wiki/File:H.264_block_diagram_with_quality_score.jpg
-* https://softwaredevelopmentperestroika.wordpress.com/2014/02/11/image-processing-with-python-numpy-scipy-image-convolution/
-* http://stackoverflow.com/a/24890903
-* http://www.hkvstar.com
-* http://www.hometheatersound.com/
-* http://web.ece.ucdavis.edu/cerl/ReliableJPEG/Cung/jpeg.html
-* https://en.wikipedia.org/wiki/Pixel_aspect_ratio
-* https://it.wikipedia.org/wiki/File:Pixel_geometry_01_Pengo.jpg
+* https://codesequoia.wordpress.com/category/video/
+* https://developer.apple.com/library/content/technotes/tn2224/_index.html
+* https://en.wikibooks.org/wiki/MeGUI/x264_Settings
+* https://en.wikipedia.org/wiki/Adaptive_bitrate_streaming
+* https://en.wikipedia.org/wiki/AOMedia_Video_1
 * https://en.wikipedia.org/wiki/Chroma_subsampling#/media/File:Colorcomp.jpg
+* https://en.wikipedia.org/wiki/Cone_cell
+* https://en.wikipedia.org/wiki/File:H.264_block_diagram_with_quality_score.jpg
+* https://en.wikipedia.org/wiki/Inter_frame
+* https://en.wikipedia.org/wiki/Intra-frame_coding
+* https://en.wikipedia.org/wiki/Photoreceptor_cell
+* https://en.wikipedia.org/wiki/Pixel_aspect_ratio
+* https://en.wikipedia.org/wiki/Presentation_timestamp
+* https://en.wikipedia.org/wiki/Rod_cell
+* https://it.wikipedia.org/wiki/File:Pixel_geometry_01_Pengo.jpg
+* https://leandromoreira.com.br/2016/10/09/how-to-measure-video-quality-perception/
+* https://sites.google.com/site/linuxencoding/x264-ffmpeg-mapping
+* https://softwaredevelopmentperestroika.wordpress.com/2014/02/11/image-processing-with-python-numpy-scipy-image-convolution/
+* https://tools.ietf.org/html/draft-fuldseth-netvc-thor-03
+* https://www.encoding.com/android/
+* https://www.encoding.com/http-live-streaming-hls/
+* https://www.iem.thm.de/telekom-labor/zinke/mk/mpeg2beg/whatisit.htm
+* https://www.lifewire.com/cmos-image-sensor-493271
+* https://www.linkedin.com/pulse/brief-history-video-codecs-yoav-nativ
+* https://www.linkedin.com/pulse/video-streaming-methodology-reema-majumdar
+* https://www.vcodex.com/h264avc-intra-precition/
+* https://www.youtube.com/watch?v=9vgtJJ2wwMA
+* https://www.youtube.com/watch?v=LFXN9PiOGtY
+* https://www.youtube.com/watch?v=Lto-ajuqW3w&list=PLzH6n4zXuckpKAj1_88VS-8Z6yn9zX_P6
+* https://www.youtube.com/watch?v=LWxu4rkZBLw
+
