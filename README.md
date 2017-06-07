@@ -46,6 +46,7 @@ All the **hands-on should be performed from the folder you cloned** this reposit
 - [How does a video codec work?](#how-does-a-video-codec-work)
   * [What? Why? How?](#what-why-how)
   * [History](#history)
+    + [The birth of AV1](#the-birth-of-av1)
   * [A generic codec](#a-generic-codec)
   * [1st step - picture partitioning](#1st-step---picture-partitioning)
     + [Hands-on: Check partitions](#hands-on-check-partitions)
