@@ -771,10 +771,13 @@ Software:
 * https://ffmpeg.org/ffmpeg-all.html
 * https://ffmpeg.org/ffprobe.html
 * https://trac.ffmpeg.org/wiki/
+* https://software.intel.com/en-us/intel-video-pro-analyzer
 * https://medium.com/@mbebenita/av1-bitstream-analyzer-d25f1c27072b#.d5a89oxz8
 
 Non-ITU Codecs:
 
+* https://aomedia.googlesource.com/ 
+* https://github.com/webmproject/libvpx/tree/master/vp9
 * https://people.xiph.org/~xiphmont/demo/daala/demo1.shtml
 * https://people.xiph.org/~jm/daala/revisiting/
 * https://www.youtube.com/watch?v=lzPaldsmJbk
