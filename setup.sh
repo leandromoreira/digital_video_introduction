@@ -1,3 +1,4 @@
+#!/bin/bash
 check_cmd()
 {
   if ! which $1 &>/dev/null; then

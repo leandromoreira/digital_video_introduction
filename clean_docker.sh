@@ -1,3 +1,4 @@
+#!/bin/bash
 EXITED=$(docker ps -q -f status=exited)
 DANGLING=$(docker images -q -f "dangling=true")
 DANGLING_VOLUME=$(docker volume ls -qf "dangling=true")
