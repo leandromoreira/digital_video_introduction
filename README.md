@@ -225,7 +225,9 @@ These schemas are known as subsampling systems and are expressed as a 3 part rat
  * `x` is the number of chroma samples in the first row of `a` pixels (horizontal resolution in relation to `a`), and
  * `y` is is the numer of changes of chroma samples between the first and seconds rows of `a` pixels.
 
-Common schemes used in modern codecs are: **4:4:4, 4:2:2, 4:1:1, 4:2:0, 4:1:0 and 3:1:1**. 
+> An exception to this exists with 4:1:0, which provides a single chroma sample within each `4 x 4` block of luma resolution.
+
+Common schemes used in modern codecs are: **4:4:4** *(no subsampling)***, **4:2:2, 4:1:1, 4:2:0, 4:1:0 and 3:1:1**. 
 
 > **YCbCr 4:2:0 merge**
 >
