@@ -211,8 +211,7 @@ Generally, **displays** (monitors, TVs, screens and etc) utilize **only the RGB 
 
 ### Chroma subsampling
 
-Once we are able to separate luma from chroma, we can take advantage of the human visual system that is more capable of seeing luma than chroma. **Chroma subsampling** is the technique of encoding images using **less resolution for chroma than for luma**.
-
+With the image represented as luma and chroma components, we can take advantage of the human visual system's greater sensitity for luma resolution rather than chroma to selectively remove information. **Chroma subsampling** is the technique of encoding images using **less resolution for chroma than for luma**.
 
 
 ![ycbcr subsampling resolutions](/i/ycbcr_subsampling_resolution.png "ycbcr subsampling resolutions")
@@ -220,7 +219,13 @@ Once we are able to separate luma from chroma, we can take advantage of the huma
 
 How much should we reduce the chroma resolution?! It turns out that there are already some schemas that describe how to handle resolution and the merge (`final color = Y + Cb + Cr`).
 
-These schemas are known as subsampling systems (or ratios), they are identified by the numbers: **4:4:4, 4:2:3, 4:2:2, 4:2:1, 4:1:1, 4:2:0, 4:1:0 and 3:1:1**. And each one of them defines how much should we discard in the chroma resolution as well as how we should merge the three planes (Y, Cb, Cr).
+These schemas are known as subsampling systems and are expressed as a 3 part ratio - `a:x:y` which defines the chroma resolution in relation to a `a x 2` block of luma pixels.
+
+ * `a` is the horizontal sampling reference (usually 4),
+ * `x` is the number of chroma samples in the first row of `a` pixels (horizontal resolution in relation to `a`), and
+ * `y` is is the numer of changes of chroma samples between the first and seconds rows of `a` pixels.
+
+Common schemes used in modern codecs are: **4:4:4, 4:2:2, 4:1:1, 4:2:0, 4:1:0 and 3:1:1**. 
 
 > **YCbCr 4:2:0 merge**
 >
