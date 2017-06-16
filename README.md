@@ -97,7 +97,7 @@ And each color intensity requires a certain amount of bits, this quantity is kno
 
 > **It's great** to learn [how an image is captured from the world to the bits](http://www.cambridgeincolour.com/tutorials/camera-sensors.htm).
 
-Another property of an image is the **resolution**, which is the number of pixels in one dimension. It is often presented as width × height, for example, the **4×4** image bellow.
+Another property of an image is the **resolution**, which is the number of pixels in one dimension. It is often presented as width × height, for example, the **4×4** image below.
 
 ![image resolution](/i/resolution.png "image resolution")
 
