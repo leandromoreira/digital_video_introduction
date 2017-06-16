@@ -170,11 +170,11 @@ Once we know that we're more sensitive to **luma** (the brightness in an image) 
 
 ### Color model
 
-We first learned [how to color images](#basic-terminology) work using **RGB model** but there are others models. In fact, there is a model that separates luma (brightness) from  chrominance (colors) and it is known as **YCbCr**<sup>*</sup>.
+We first learned [how to color images](#basic-terminology) work using **RGB model** but there are other models. In fact, there is a model that separates luma (brightness) from  chrominance (colors) and it is known as **YCbCr**<sup>*</sup>.
 
 > <sup>*</sup> there are more models which do the same separation.
 
-This color model uses **Y** to represent the brightness and two color channels **Cb** (chroma blue) and **Cr** (chrome red). The [YCbCr](https://en.wikipedia.org/wiki/YCbCr) can be derived from RGB and it also can be converted back to RGB. Using this model we can create full colored images as we can see down bellow.
+This color model uses **Y** to represent the brightness and two color channels **Cb** (chroma blue) and **Cr** (chrome red). The [YCbCr](https://en.wikipedia.org/wiki/YCbCr) can be derived from RGB and it also can be converted back to RGB. Using this model we can create full colored images as we can see down below.
 
 ![ycbcr example](/i/ycbcr.png "ycbcr example")
 
@@ -182,7 +182,7 @@ This color model uses **Y** to represent the brightness and two color channels *
 
 Some may argue, how can we produce all the **colors without using the green**?
 
-To answer this question we'll walk through a conversion from RGB to YCbCr. We'll use the coefficients from the **[standard BT.601](https://en.wikipedia.org/wiki/Rec._601)** that was recommended by the **[group ITU-R<sup>*</sup>](https://en.wikipedia.org/wiki/ITU-R)** . The first step is to **calculate the luma**, we'll use the constants suggested by ITU and replace the RGB values.
+To answer this question, we'll walk through a conversion from RGB to YCbCr. We'll use the coefficients from the **[standard BT.601](https://en.wikipedia.org/wiki/Rec._601)** that was recommended by the **[group ITU-R<sup>*</sup>](https://en.wikipedia.org/wiki/ITU-R)** . The first step is to **calculate the luma**, we'll use the constants suggested by ITU and replace the RGB values.
 
 ```
 Y = 0.299R + 0.587G + 0.114B
@@ -211,8 +211,7 @@ Generally, **displays** (monitors, TVs, screens and etc) utilize **only the RGB 
 
 ### Chroma subsampling
 
-Once we are able to separate luma from chroma, we can take advantage of the human visual system that is more capable of seeing luma than chroma. **Chroma subsampling** is the technique of encoding images using **less resolution for chroma than for luma**.
-
+With the image represented as luma and chroma components, we can take advantage of the human visual system's greater sensitity for luma resolution rather than chroma to selectively remove information. **Chroma subsampling** is the technique of encoding images using **less resolution for chroma than for luma**.
 
 
 ![ycbcr subsampling resolutions](/i/ycbcr_subsampling_resolution.png "ycbcr subsampling resolutions")
@@ -220,7 +219,15 @@ Once we are able to separate luma from chroma, we can take advantage of the huma
 
 How much should we reduce the chroma resolution?! It turns out that there are already some schemas that describe how to handle resolution and the merge (`final color = Y + Cb + Cr`).
 
-These schemas are known as subsampling systems (or ratios), they are identified by the numbers: **4:4:4, 4:2:3, 4:2:2, 4:2:1, 4:1:1, 4:2:0, 4:1:0 and 3:1:1**. And each one of them defines how much should we discard in the chroma resolution as well as how we should merge the three planes (Y, Cb, Cr).
+These schemas are known as subsampling systems and are expressed as a 3 part ratio - `a:x:y` which defines the chroma resolution in relation to a `a x 2` block of luma pixels.
+
+ * `a` is the horizontal sampling reference (usually 4),
+ * `x` is the number of chroma samples in the first row of `a` pixels (horizontal resolution in relation to `a`), and
+ * `y` is is the numer of changes of chroma samples between the first and seconds rows of `a` pixels.
+
+> An exception to this exists with 4:1:0, which provides a single chroma sample within each `4 x 4` block of luma resolution.
+
+Common schemes used in modern codecs are: **4:4:4** *(no subsampling)***, **4:2:2, 4:1:1, 4:2:0, 4:1:0 and 3:1:1**. 
 
 > **YCbCr 4:2:0 merge**
 >
@@ -228,11 +235,11 @@ These schemas are known as subsampling systems (or ratios), they are identified 
 >
 > ![YCbCr 4:2:0 merge](/i/ycbcr_420_merge.png "YCbCr 4:2:0 merge")
 
-You can see the same image encoded by the main chroma subsampling types, the first row of images are the final YCbCr while the last row of images shows the chroma resolution. It's indeed a great win for such small loss.
+You can see the same image encoded by the main chroma subsampling types, images in the first row are the final YCbCr while the last row of images shows the chroma resolution. It's indeed a great win for such small loss.
 
 ![chroma subsampling examples](/i/chroma_subsampling_examples.jpg "chroma subsampling examples")
 
-Previously we had calculated that we needed [278GB of storage to keep a video file with one hour at 720p resolution and 30fps](#redundancy-removal). If we use **YCbCr 4:2:0** we can cut **this size in half (139GB)**<sup>*</sup> but it is still far from the ideal.
+Previously we had calculated that we needed [278GB of storage to keep a video file with one hour at 720p resolution and 30fps](#redundancy-removal). If we use **YCbCr 4:2:0** we can cut **this size in half (139 GB)**<sup>*</sup> but it is still far from the ideal.
 
 > <sup>*</sup> we found this value by multiplying width, height, bits per pixel and fps. Previously we needed 24 bits, now we only need 12.
 
@@ -250,7 +257,7 @@ Now we can move on and try to eliminate the **redundancy in time** but before th
 ![ball 1](/i/smw_background_ball_1.png "ball 1") ![ball 2](/i/smw_background_ball_2.png "ball 2") ![ball 3](/i/smw_background_ball_3.png "ball 3")
 ![ball 4](/i/smw_background_ball_4.png "ball 4")
 
-We can see **lots of repetitions** within frames like **the blue background**, it doesn't change from frame 0 to frame 3. To tackle this problem we can **abstractly categorize** them as three types of frames.
+We can see **lots of repetitions** within frames like **the blue background**, it doesn't change from frame 0 to frame 3. To tackle this problem, we can **abstractly categorize** them as three types of frames.
 
 ### I Frame (intra, keyframe)
 
@@ -308,7 +315,7 @@ But if I tell you that there is a **better method** which uses even fewer bits?!
 
 We could estimate that the ball moved from `x=0, y=25` to `x=6, y=26`, the **x** and **y** values are the **motion vectors**. One **further step** we can do to save bits is to **encode only the motion vector difference** between the last block position and the predicted, so the final motion vector would be `x=6 (6-0), y=1 (26-25)`
 
-> In a real world situation, this **ball would be sliced into n partitions** but the process is the same.
+> In a real-world situation, this **ball would be sliced into n partitions** but the process is the same.
 
 The objects on the frame **move in a 3D way**, the ball can become smaller when it moves to the background. It's normal that **we won't find the perfect match** to the block we tried to find a match. Here's a superposed view of our estimation vs the real picture.
 
@@ -545,7 +552,7 @@ Let's compress the stream **eat**, assuming we would spend 8 bits for each symbo
 
 The first step is to encode the symbol **e** which is `10` and the second symbol is **a** which is added (not in a mathematical way) `[10][0]` and finally the third symbol **t** which makes our final compressed bitstream to be `[10][0][1110]` or `1001110` which only requires **7 bits** (3.4 times less space than the original).
 
-Notice that each code must be a unique prefixed code [Huffman can help you to find these numbers](https://en.wikipedia.org/wiki/Huffman_coding). Though it has some issues there are [video codecs that still offers](https://en.wikipedia.org/wiki/Context-adaptive_variable-length_coding) this method and it's the  algorithm for many application which requires compression.
+Notice that each code must be a unique prefixed code [Huffman can help you to find these numbers](https://en.wikipedia.org/wiki/Huffman_coding). Though it has some issues there are [video codecs that still offers](https://en.wikipedia.org/wiki/Context-adaptive_variable-length_coding) this method and it's the  algorithm for many applications which requires compression.
 
 Both encoder and decoder **must know** the symbol table with its code, therefore, you need to send the table too.
 
@@ -575,11 +582,11 @@ We just need to pick a number within the last subrange **0.354 to 0.372**, let's
 
 The **reverse process** (A.K.A. decoding) is equally easy, with our number **0.36** and our original range we can run the same process but now using this number to reveal the stream encoded behind this number.
 
-With the first range we notice that our number fits at the slice, therefore, it's our first symbol, now we split this subrange again, doing the same process as before, and we'll notice that **0.36** fits the symbol **a** and after we repeat the process we came to the last symbol **t** (forming our original encoded stream *eat*).
+With the first range, we notice that our number fits at the slice, therefore, it's our first symbol, now we split this subrange again, doing the same process as before, and we'll notice that **0.36** fits the symbol **a** and after we repeat the process we came to the last symbol **t** (forming our original encoded stream *eat*).
 
 Both encoder and decoder **must know** the symbol probability table, therefore you need to send the table.
 
-Pretty neat, isn't? People are damn smart to come up with such solution, some [video codec uses](https://en.wikipedia.org/wiki/Context-adaptive_binary_arithmetic_coding) (or at least offers as an option) this technique.
+Pretty neat, isn't it? People are damn smart to come up with a such solution, some [video codecs use](https://en.wikipedia.org/wiki/Context-adaptive_binary_arithmetic_coding) this technique (or at least offer it as an option).
 
 The idea is to lossless compress the quantized bitstream, for sure this article is missing tons of details, reasons, trade-offs and etc. But [you should learn more](https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/) as a developer. Newer codecs are trying to use different [entropy coding algorithms like ANS.](https://en.wikipedia.org/wiki/Asymmetric_Numeral_Systems)
 
@@ -695,9 +702,9 @@ Previously we had calculated that we needed [139GB of storage to keep a video fi
 
 Now that we know more about how codecs work, then it is easy to understand how new codecs are able to deliver higher resolutions with fewer bits.
 
-We will compare AVC and HEVC, let's keep in mind that it is almost always a trade off between more CPU cycles (complexity) and compression rate.
+We will compare AVC and HEVC, let's keep in mind that it is almost always a trade-off between more CPU cycles (complexity) and compression rate.
 
-HEVC has bigger and more **partitions** (and **sub-partitions**) options than AVC, more **intra predictions directions**, **improved entropy coding** and more, all these improvement made H.265 capable to compress 50% more than H.264.
+HEVC has bigger and more **partitions** (and **sub-partitions**) options than AVC, more **intra predictions directions**, **improved entropy coding** and more, all these improvements made H.265 capable to compress 50% more than H.264.
 
 ![h264 vs h265](/i/avc_vs_hevc.png "H.264 vs H.265")
 
