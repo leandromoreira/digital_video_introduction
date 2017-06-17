@@ -121,7 +121,11 @@ Finally, we can define a **video** as a **succession of *n* frames** in **time**
 
 ![video](/i/video.png "video")
 
-The number of bits per second needed to show a video is its **bit rate**. For example, a video with 30 frames per second, 24 bits per pixel, resolution of 480x240 will need **82,944,000 bits per second** or 82.944 Mbps (30x480x240x24) if we don't employ any kind of compression.
+The number of bits per second needed to show a video is its **bit rate**. 
+
+> bit rate = width * height * * bit depth * frames per second 
+
+For example, a video with 30 frames per second, 24 bits per pixel, resolution of 480x240 will need **82,944,000 bits per second** or 82.944 Mbps (30x480x240x24) if we don't employ any kind of compression.
 
 When the **bit rate** is nearly constant it's called constant bit rate (**CBR**) but it also can vary then called variable bit rate (**VBR**).
 
