@@ -97,7 +97,7 @@ And each color intensity requires a certain amount of bits, this quantity is kno
 
 > **It's great** to learn [how an image is captured from the world to the bits](http://www.cambridgeincolour.com/tutorials/camera-sensors.htm).
 
-Another property of an image is the **resolution**, which is the number of pixels in one dimension. It is often presented as width × height, for example, the **4×4** image bellow.
+Another property of an image is the **resolution**, which is the number of pixels in one dimension. It is often presented as width × height, for example, the **4×4** image below.
 
 ![image resolution](/i/resolution.png "image resolution")
 
@@ -121,7 +121,11 @@ Finally, we can define a **video** as a **succession of *n* frames** in **time**
 
 ![video](/i/video.png "video")
 
-The number of bits per second needed to show a video is its **bit rate**. For example, a video with 30 frames per second, 24 bits per pixel, resolution of 480x240 will need **82,944,000 bits per second** or 82.944 Mbps (30x480x240x24) if we don't employ any kind of compression.
+The number of bits per second needed to show a video is its **bit rate**. 
+
+> bit rate = width * height * * bit depth * frames per second 
+
+For example, a video with 30 frames per second, 24 bits per pixel, resolution of 480x240 will need **82,944,000 bits per second** or 82.944 Mbps (30x480x240x24) if we don't employ any kind of compression.
 
 When the **bit rate** is nearly constant it's called constant bit rate (**CBR**) but it also can vary then called variable bit rate (**VBR**).
 
@@ -306,7 +310,7 @@ One thing we can do it's a subtraction, we simply **subtract frame 1 from frame 
 
 ![delta frames](/i/difference_frames.png "delta frames")
 
-But if I tell you that there is a **better method** which uses even fewer bits?! First, let's treat the `frame 0` as a collection of well-defined partitions and then we'll try to match the blocks from `frame 0` on `frame 1`. We can think of it as **motion estimation**.
+But what if I tell you that there is a **better method** which uses even fewer bits?! First, let's treat the `frame 0` as a collection of well-defined partitions and then we'll try to match the blocks from `frame 0` on `frame 1`. We can think of it as **motion estimation**.
 
 > ### Wikipedia - block motion compensation
 > "**Block motion compensation** divides up the current frame into non-overlapping blocks, and the motion compensation vector **tells where those blocks come from** (a common misconception is that the previous frame is divided up into non-overlapping blocks, and the motion compensation vectors tell where those blocks move to). The source blocks typically overlap in the source frame. Some video compression algorithms assemble the current frame out of pieces of several different previously-transmitted frames."

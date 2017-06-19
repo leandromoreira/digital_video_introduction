@@ -66,6 +66,18 @@ Count how many `I-slice` (keyframes) were inserted:
 ./s/mediainfo --Details /files/v/small_bunny_1080p_30fps_h264_keyframe_each_second.mp4 | grep "slice_type I" | wc -l
 ```
 
+## Split and merge smoothly
+
+To work with smaller videos you can split the whole video into segments and you can also merge then after.
+
+```
+# spliting into several likely 2s segments
+./s/ffmpeg -fflags +genpts -i /files/v/small_bunny_1080p_30fps.mp4 -map 0 -c copy -f segment -segment_format mp4 -segment_time 2 -segment_list video.ffcat -reset_timestamps 1 -v error chunk-%03d.mp4
+
+# joining them 
+./s/ffmpeg -y -v error -i video.ffcat -map 0 -c copy output.mp4
+```
+
 ## 1 I-Frames per second vs 0.5 I-Frames per second
 
 From `h264` to `h264` with I-frame at each second (for a 30FPS video):
