@@ -476,7 +476,7 @@ This block of coefficients has an interesting property which is that it separate
 
 ![dct frequency coefficients property](/i/dctfrequ.jpg "dct frequency coefficients property")
 
-In an image, **most of the energy** will be concentrated in the [**lower frequencies**](https://www.iem.thm.de/telekom-labor/zinke/mk/mpeg2beg/whatisit.htm), so if we transform an image into its frequency components and **throw away the higher frequency coefficients**, we can **reduce the amount of data** needed to describe the image without sacrificing too much image quality.
+In an image, **most of the energy** will be concentrated in the [**lower frequencies**](https://web.archive.org/web/20150129171151/https://www.iem.thm.de/telekom-labor/zinke/mk/mpeg2beg/whatisit.htm), so if we transform an image into its frequency components and **throw away the higher frequency coefficients**, we can **reduce the amount of data** needed to describe the image without sacrificing too much image quality.
 
 > frequency means how fast a signal is changing
 
@@ -502,7 +502,7 @@ As we can see it resembles the original image but it introduced lots of differen
 >
 > ![dct calculation](/i/applicat.jpg "dct calculation")
 >
-> Source: https://www.iem.thm.de/telekom-labor/zinke/mk/mpeg2beg/whatisit.htm
+> Source: https://web.archive.org/web/20150129171151/https://www.iem.thm.de/telekom-labor/zinke/mk/mpeg2beg/whatisit.htm
 >
 > You can also try to [visualize the DCT by looking at a simple image](/dct_better_explained.ipynb) formation over the DCT basis. For instance, here's the [A character being formed](https://en.wikipedia.org/wiki/Discrete_cosine_transform#Example_of_IDCT) using each coefficient weight.
 >
@@ -853,7 +853,7 @@ Miscellaneous:
 * https://tools.ietf.org/html/draft-fuldseth-netvc-thor-03
 * https://www.encoding.com/android/
 * https://www.encoding.com/http-live-streaming-hls/
-* https://www.iem.thm.de/telekom-labor/zinke/mk/mpeg2beg/whatisit.htm
+* https://web.archive.org/web/20150129171151/https://www.iem.thm.de/telekom-labor/zinke/mk/mpeg2beg/whatisit.htm
 * https://www.lifewire.com/cmos-image-sensor-493271
 * https://www.linkedin.com/pulse/brief-history-video-codecs-yoav-nativ
 * https://www.linkedin.com/pulse/video-streaming-methodology-reema-majumdar
