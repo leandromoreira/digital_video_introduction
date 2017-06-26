@@ -638,7 +638,7 @@ As we said before, the decoder needs to know not only the picture data but also 
 | 8  |  **PPS** Picture parameter set |
 | 9  |  Access unit delimiter |
 | 10 |  End of sequence |
-| 12 |  End of stream |
+| 11 |  End of stream |
 | ... |  ... |
 
 Usually, the first NAL of a bitstream is a **SPS**, this type of NAL is responsible for informing the general encoding variables like **profile**, **level**, **resolution** and others.
