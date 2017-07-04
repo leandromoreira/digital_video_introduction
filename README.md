@@ -753,6 +753,7 @@ Online Courses and Tutorials:
 * https://people.xiph.org/~tterribe/pubs/lca2012/auckland/intro_to_video1.pdf
 * https://xiph.org/video/vid1.shtml
 * https://xiph.org/video/vid2.shtml
+* http://slhck.info/ffmpeg-encoding-course
 * http://www.cambridgeincolour.com/tutorials/camera-sensors.htm
 * http://www.slideshare.net/vcodex/a-short-history-of-video-coding
 * http://www.slideshare.net/vcodex/introduction-to-video-compression-13394338
@@ -797,6 +798,9 @@ Non-ITU Codecs:
 Encoding Concepts:
 
 * http://x265.org/hevc-h265/
+* http://slhck.info/video/2017/03/01/rate-control.html
+* http://slhck.info/video/2017/02/24/vbr-settings.html
+* http://slhck.info/video/2017/02/24/crf-guide.html
 * https://arxiv.org/pdf/1702.00817v1.pdf
 * https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors
 * http://web.ece.ucdavis.edu/cerl/ReliableJPEG/Cung/jpeg.html
