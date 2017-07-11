@@ -693,7 +693,7 @@ HEVC 比 AVC 有更大和更多的**分区**（和**子分区**）选项，更�
 [TODO]
 
 # 如何使用 jupyter
-确保你已安装 docker，只需运行 `.././s/start_jupyter.sh`，然后跟随控制台的说明。
+确保你已安装 docker，只需运行 `./s/start_jupyter.sh`，然后跟随控制台的说明。
 
 # 会议
 *	[DEMUXED](https://demuxed.com/) - 您可以[查看最近的2个活动演示](https://www.youtube.com/channel/UCIc_DkRxo9UgUSTvWVNCmpA)。
