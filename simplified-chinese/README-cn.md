@@ -1,12 +1,14 @@
 [![license](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)
 
 # 介绍
+
 这是一份关于视频技术的轻量级介绍，尽管是针对软件开发人员／工程师，我们也希望使它对**任何想要学习的人**来说都是容易的。这个点子产生于一个[视频技术新手微型研讨会](https://docs.google.com/presentation/d/17Z31kEkl_NGJ0M66reqr9_uTG6tI5EDDVXpdPKVuIrs/edit#slide=id.p)期间。
 
 目标是使用尽可能**简单的词汇、许多视觉元素和实例**介绍一些数字视频概念，并且让这些知识在任何地方都可以访问。请随时发送更正、建议和改进。
 
 **自己动手**部分需要你**安装了 docker** 和这个知识库的拷贝。
-```
+
+```bash
 git clone https://github.com/leandromoreira/digital_video_introduction.git
 cd digital_video_introduction
 ./setup.sh
@@ -17,6 +19,7 @@ cd digital_video_introduction
 全部**自己动手部分应该在你克隆自这个知识库的文件夹里**进行。对于 jupyter 的例子必须使用 `./s/start_jupyter.sh` 启动服务器，并拷贝 URL 到你的浏览器里运行。
 
 # 目录
+
 - [介绍](#介绍)
 - [目录](#目录)
 - [基本术语](#基本术语)
@@ -71,9 +74,13 @@ cd digital_video_introduction
 - [参考](#参考)
 
 # 基本术语
+
 一个**图像**可以想象为一个**二维矩阵**。如果我们考虑到**色彩**，我们可以推断出这个想法，将这个图像看成一个使用**额外尺寸**提供**颜色数据**的**三维矩阵**。
+
 如果我们选择原色（红，绿和蓝）代表这些颜色，我们定义三个平面：第一个是红色，第二个是绿色，最后一个是蓝色。
+
 ![an image is a 3d matrix RGB](/i/image_3d_matrix_rgb.png "An image is a 3D matrix")
+
 我们把这个矩阵里的每一个点称为**像素**（图像元素）。一个像素代表一个给定颜色的**强度**（通常是一个数字）。例如，一个**红色像素**的意思是0个绿色，0个蓝色和最大值的红色。**粉色像素**可以表示成是三种颜色的组合。使用数字范围从0到255来表示，粉色像素定义为**红色255，绿色192和蓝色203**.
 
 > ### 编码彩色图像的其它方法
@@ -97,8 +104,10 @@ cd digital_video_introduction
 ![image resolution](/i/resolution.png "image resolution")
 
 > ### 自己动手：玩转图像和颜色
-你可以使用 [jupyter](#如何使用-jupyter)（python, numpy, matplotlib 等等）[玩转图像](/image_as_3d_array.ipynb)。
-<br />你也可以学习[图像过滤器（边缘检测，磨皮，模糊。。。）的原理](/filters_are_easy.ipynb)。
+>
+> 你可以使用 [jupyter](#如何使用-jupyter)（python, numpy, matplotlib 等等）[玩转图像](/image_as_3d_array.ipynb)。
+>
+> 你也可以学习[图像过滤器（边缘检测，磨皮，模糊。。。）的原理](/filters_are_easy.ipynb)。
 
 使用图像或视频时我们可以看到的另一个属性是宽高比，它简单的描述了图像或像素的宽度和高度之间的比例关系。
 
@@ -139,6 +148,7 @@ cd digital_video_introduction
 > 你可以[使用 ffmpeg 或 mediainfo 检查大多数属性的解释](https://github.com/leandromoreira/introduction_video_technology/blob/master/encoding_pratical_examples.md#inspect-stream)。
 
 # 消除冗余
+
 我们学习到使用一个视频而不做任何压缩是不可行的；**一个单独的一小时长的视频**，分辨率为720p和30fps时将**需要 278GB***。由于**仅使用独自无损数据压缩算法**，如 DEFLATE（被PKZIP, Gzip, 和 PNG 使用），**不会**足够减少所需的带宽，我们需要找到其它压缩视频的方法。
 
 > <sup>*</sup>我们使用乘积得出这个数字 1280 x 720 x 24 x 30 x 3600 （宽，高，每像素比特数，fps 和秒数）
@@ -146,6 +156,7 @@ cd digital_video_introduction
 为此，我们可以**利用我们视觉工作的原理**。我们区分亮度比区分颜色更好，在**重复的时间**里，一段视频包含很多只有一点小小改变的图像，和**图像内的重复**，每一帧也包含很多区域使用相同或相似的颜色。
 
 ## 颜色，亮度和我们的眼睛
+
 我们的眼睛[对亮度比对颜色更敏感](http://vanseodesign.com/web-design/color-luminance/)，你可以自己测试，看着下面的图片。
 
 ![luminance vs color](/i/luminance_vs_color.png "luminance vs color")
@@ -165,6 +176,7 @@ cd digital_video_introduction
 一旦我们知道我们对**亮度**（图像中的亮度）更敏感，我们就可以利用它。
 
 ### 颜色模型
+
 我们最开始学习的[彩色图像的原理工作](#基本术语)使用 **RGB 模型**，但还有很多种模型。事实上，有一种模型区分开亮度（光亮）和色度（颜色），它被称为 **YCbCr**<sup>*</sup>。
 
 > <sup>*</sup> 有很多种模型做同样的区分。
@@ -174,6 +186,7 @@ cd digital_video_introduction
 ![ycbcr 例子](/i/ycbcr.png "ycbcr 例子")
 
 ### YCbCr 和 RGB 之间的转换
+
 有人可能会问，我们如何在不使用绿色时提供全部的颜色？
 
 为了回答这个问题，我们将介绍从 RGB 到 YCbCr 的转换。我们将使用 [ITU-R 小组](https://en.wikipedia.org/wiki/ITU-R)*建议的[标准 BT.601](https://en.wikipedia.org/wiki/Rec._601) 中的系数。第一步是计算亮度，我们将使用 ITU 建议的常量，并替换 RGB 值。
@@ -204,6 +217,7 @@ G = Y - 0.344Cb - 0.714Cr
 ![pixel geometry](/i/new_pixel_geometry.jpg "pixel geometry")
 
 ### 色度子采样
+
 一旦我们能从色度中分离出亮度，我们可以利用人类视觉系统相比色度更能看到亮度的优点。**色度子采样**是一种编码图片时使用**色度分辨率低于亮度**的技术。
 
 ![ycbcr 子采样分辨率](/i/ycbcr_subsampling_resolution.png "ycbcr 子采样分辨率")
@@ -222,6 +236,7 @@ G = Y - 0.344Cb - 0.714Cr
 > YCbCr 4:2:0 合并
 >
 > 这是使用 YCbCr 4:2:0 合并的一个图像的一块，注意我们每像素只花费 12 比特。
+>
 > ![YCbCr 4:2:0 合并](/i/ycbcr_420_merge.png "YCbCr 4:2:0 合并")
 
 你可以看到使用主色度子采样类型编码的相同图像，第一行图像是最终的 YCbCr，而最后一行图像显示色度分辨率。这么小的损失确实是一个伟大的胜利。
@@ -231,12 +246,13 @@ G = Y - 0.344Cb - 0.714Cr
 前面我们计算过我们需要 [278GB 去存储一个一小时长，分辨率在720p和30fps的视频文件](#消除冗余)。如果我们使用 `YCbCr 4:2:0` 我们能剪掉`这个大小的一半（139GB）`<sup>*</sup>，但仍然还远离理想。
 > <sup>*</sup> 我们得出这个值是乘以宽，高，每像素比特和 fps。前面我们需要 24 比特，现在我们只需要 12。
 
-> ### Hands-on: Check YCbCr histogram
-### 自己动手：检查 YCbCr 直方图
-你可以[使用 ffmpeg 检查 YCbCr 直方图](/encoding_pratical_examples.md#generates-yuv-histogram)。这个场景有更多的蓝色贡献，由[直方图](https://en.wikipedia.org/wiki/Histogram)显示。
-![ycbcr 颜色直方图](/i/yuv_histogram.png "ycbcr 颜色直方图")
+> ### 自己动手：检查 YCbCr 直方图
+> 你可以[使用 ffmpeg 检查 YCbCr 直方图](/encoding_pratical_examples.md#generates-yuv-histogram)。这个场景有更多的蓝色贡献，由[直方图](https://en.wikipedia.org/wiki/Histogram)显示。
+>
+> ![ycbcr 颜色直方图](/i/yuv_histogram.png "ycbcr 颜色直方图")
 
 ## 帧类型
+
 现在我们进一步消除`时间上的冗余`，但在这之前让我们来确定一些基本术语。假设我们一段 30fps 的影片，这是最开始的 4 帧。
 
 ![球 1](/i/smw_background_ball_1.png "球 1") ![球 2](/i/smw_background_ball_2.png "球 2") ![球 3](/i/smw_background_ball_3.png "球 3")
@@ -245,36 +261,41 @@ G = Y - 0.344Cb - 0.714Cr
 我们可以在帧内看到**很多重复**，如**蓝色背景**，从 0 帧到第 3 帧它都没有变化。为了解决这个问题，我们可以将它们**抽象地分类**为三种类型的帧。
 
 ### I 帧（内部，关键帧）
+
 I 帧（参考，关键帧，内部）是一个**自足的帧**。它不依靠任何东西来渲染，I 帧与静态图片相似。第一帧通常是 I 帧，但我们将看到 I 帧被定期插入其它类型的帧之间。
 
 ![球 1](/i/smw_background_ball_1.png "球 1")
 
 ### P 帧（预测）
+
 P 帧利用了几乎总是能使用**前一帧渲染**当前图片的事实。例如，在第二帧，唯一的改变是球向前移动了。我们可以**重建第一帧**，**只使用差异并引用前一帧**。
 
 ![球 1](/i/smw_background_ball_1.png "球 1") <-  ![球 2](/i/smw_background_ball_2_diff.png "球 2")
 
 > #### 自己动手：具有单个 I 帧的视频
-既然 P 帧使用较少的数据，为什么我们不能用[单个 I 帧和其余的 P 帧](/encoding_pratical_examples.md#1-i-frame-and-the-rest-p-frames)来编码整个视频？
+> 既然 P 帧使用较少的数据，为什么我们不能用[单个 I 帧和其余的 P 帧](/encoding_pratical_examples.md#1-i-frame-and-the-rest-p-frames)来编码整个视频？
 >
 > 在你编码这个视频之后，开始观看它，并**寻找视频的高级**部分，你会注意到**它需要花一些时间**才真正移到这部分。这是因为 **P 帧需要一个引用帧**（比如 I 帧）才能渲染。
 >
 > 你可以做的另一个快速测试是使用单个 I 帧编码视频，接着[每 2 秒插入一个 I 帧并编码](/encoding_pratical_examples.md#1-i-frames-per-second-vs-05-i-frames-per-second)，并**查看每次再编码的大小**。
 
 ### B 帧（双向预测）
+
 如何引用前面和后面的帧去做更好的压缩？！这基本上就是 B 帧。
 
  ![球 1](/i/smw_background_ball_1.png "球 1") <-  ![球 2](/i/smw_background_ball_2_diff.png "球 2") -> ![球 3](/i/smw_background_ball_3.png "球 3")
 
 > #### 自己动手：使用 B 帧比较视频
-你可以生成两个版本，一个使用 B 帧和另一个[全部不使用 B 帧](/encoding_pratical_examples.md#no-b-frames-at-all)，然后查看文件的大小以及画质。
+> 你可以生成两个版本，一个使用 B 帧和另一个[全部不使用 B 帧](/encoding_pratical_examples.md#no-b-frames-at-all)，然后查看文件的大小以及画质。
 
 ### 小结
+
 这些帧类型用于提供更好的压缩，我们在下一章将看到这是如何发生的，现在，我们可以想到 I 帧是昂贵的，P 帧是便宜的，最便宜的是 B帧。
 
 ![帧类型例子](/i/frame_types.png "帧类型例子")
 
 ## 时间冗余（帧间预测）
+
 让我们探索我们必须减少的**时间重复**，这一类冗余可以被消除的技术就是**帧间预测**。
 
 我们将尝试**花费较少的比特**去编码帧 0 和 1 的序列。
@@ -288,7 +309,7 @@ P 帧利用了几乎总是能使用**前一帧渲染**当前图片的事实。�
 但是如果我告诉你有一个**更好的方法**甚至使用更少的比特呢？！首先，我们将`帧 0` 视为一个明确分区的集合，然后我们将尝试匹配`帧 1` 上`帧 0` 的块。我们可以把它看作运动预估。
 
 > ### 维基百科—块运动补偿
-<br />“**块运动补偿**是将当前帧划分为非重叠的块，并且运动补偿向量**告诉这些块来自哪里**（一个常见的误解是前一帧已经被划分为非重叠的块，并且运动补偿向量告诉这些块移动到哪里）。原块通常在原帧中重叠。有一些视频压缩算法将当前帧组合在几个不同的先前已经传输的帧里。”
+> “**块运动补偿**是将当前帧划分为非重叠的块，并且运动补偿向量**告诉这些块来自哪里**（一个常见的误解是前一帧已经被划分为非重叠的块，并且运动补偿向量告诉这些块移动到哪里）。原块通常在原帧中重叠。有一些视频压缩算法将当前帧组合在几个不同的先前已经传输的帧里。”
 
 ![原始帧运动预测](/i/original_frames_motion_estimation.png "原始帧运动预测")
 
@@ -350,13 +371,17 @@ P 帧利用了几乎总是能使用**前一帧渲染**当前图片的事实。�
 # 视频编解码器是如何工作的？
 
 ## 是什么？为什么？如何工作？
+
 **是什么？**就是软件／硬件压缩或解压缩数字视频。**为什么？**市场和社会需求在有限带宽或存储空间下（提供）高质量的视频。还记得当我们计算每秒 30 帧，每像素 24 比特，分辨率是 480x240 的视频[需要多少带宽](#基本术语)吗？没有压缩时是 **82.944 Mbps**。（视频编解码）是在电视和英特网中提供 HD/FullHD/4K的唯一方式。**如何工作？**我们将简单介绍一下主要的技术。
 
 > 视频编解码 vs 容器
-<br />初学者一个常见的错误是混淆数字视频编解码器和[数字视频容器](https://en.wikipedia.org/wiki/Digital_container_format)。我们可以将**容器**视为包含视频（也可能是音频）元数据的包装格式，**压缩过的视频**可以看成是它的有效载荷。
-<br />通常，视频文件的格式定义其视频容器。例如，文件 `video.mp4` 可能是 [MPEG-4 Part 14](https://en.wikipedia.org/wiki/MPEG-4_Part_14) 容器，一个叫 `video.mkv` 的文件可能是 [matroska](https://en.wikipedia.org/wiki/Matroska)。我们可以使用 [ffmpeg 或 mediainfo](/encoding_pratical_examples.md#inspect-stream) 来完全确定编解码器和容器格式。
+>
+> 初学者一个常见的错误是混淆数字视频编解码器和[数字视频容器](https://en.wikipedia.org/wiki/Digital_container_format)。我们可以将**容器**视为包含视频（也可能是音频）元数据的包装格式，**压缩过的视频**可以看成是它的有效载荷。
+>
+> 通常，视频文件的格式定义其视频容器。例如，文件 `video.mp4` 可能是 [MPEG-4 Part 14](https://en.wikipedia.org/wiki/MPEG-4_Part_14) 容器，一个叫 `video.mkv` 的文件可能是 [matroska](https://en.wikipedia.org/wiki/Matroska)。我们可以使用 [ffmpeg 或 mediainfo](/encoding_pratical_examples.md#inspect-stream) 来完全确定编解码器和容器格式。
 
 ## 历史
+
 在我们跳进通用编解码器内部工作之前，让我们回头了解一些旧的视频编解码器。
 
 视频编解码器 [H.261](https://en.wikipedia.org/wiki/H.261) 诞生在 1990（技术上是 1988），被设计为以 **64 kbit/s 的数据速率**工作。它已经使用如色度子采样，宏块，等等想法。在 1995 年，**H.263** 视频编解码器标准被发布，并继续延续到 2001 年。
@@ -390,6 +415,7 @@ P 帧利用了几乎总是能使用**前一帧渲染**当前图片的事实。�
 我们接下来要介绍**通用视频编解码器背后的主要机制**，大多数概念都有用的并被现代编解码器如 VP9, AV1 和 HEVC 使用。一定要明白，我们将简化许多事情。有时我们会使用真实的例子（主要是 H.264）来演示技术。
 
 ## 第一步 - 图片分区
+
 第一步是**将帧**分成几个**分区**，**子分区**及其以外。
 
 ![图片分区](/i/picture_partitioning.png "图片分区")
@@ -479,7 +505,7 @@ P 帧利用了几乎总是能使用**前一帧渲染**当前图片的事实。�
 <br/>
 
 > ### 自己动手：丢弃不同的系数
-你可以玩转 [DCT 变换](/uniform_quantization_experience.ipynb)
+> 你可以玩转 [DCT 变换](/uniform_quantization_experience.ipynb)
 
 ## 第四步 - 量化
 
@@ -496,9 +522,10 @@ P 帧利用了几乎总是能使用**前一帧渲染**当前图片的事实。�
 这**不是最好的方法**，因为它没有考虑到每个系数的重要性，我们可以使用一个**量化矩阵**来代替单个的值，这个矩阵可以利用 DCT 的属性，多量化右下部，而少（量化）左上部，[JPEG 使用了类似的方法](https://www.hdm-stuttgart.de/~maucher/Python/MMCodecs/html/jpegUpToQuant.html)，你可以通过[查看源码来看这个矩阵](https://github.com/google/guetzli/blob/master/guetzli/jpeg_data.h#L40)。
 
 > ### 自己动手：量化
-你可以玩转[量化](/dct_experiences.ipynb)
+> 你可以玩转[量化](/dct_experiences.ipynb)
 
 ## 第五步 - 熵编码
+
 在我们量化数据（图像块／切片／帧）之后，我们仍然可以以无损的方式来压缩它。有许多方法（算法）来压缩数据。我们将简单体验其中几个，你可以阅读这本神奇的书去深度理解：[《理解压缩：现代开发者的数据压缩》](https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/)。
 
 ### VLC 编码：
@@ -562,7 +589,7 @@ P 帧利用了几乎总是能使用**前一帧渲染**当前图片的事实。�
 关于无损压缩量化比特流的想法，可以确定这篇文章缺少很多细节，原因，权衡等等。但是你作为一个开发者[应该学习更多](https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/)。视频编解码新手会尝试使用不同的[熵编码算法，如ANS](https://en.wikipedia.org/wiki/Asymmetric_Numeral_Systems)。
 
 > ### 自己动手：CABAC vs CAVLC
-你可以[生成两个流，一个使用 CABAC，另一个使用 CAVLC](https://github.com/leandromoreira/introduction_video_technology/blob/master/encoding_pratical_examples.md#cabac-vs-cavlc)，并比较生成每一个的时间以及最终的大小。
+> 你可以[生成两个流，一个使用 CABAC，另一个使用 CAVLC](https://github.com/leandromoreira/introduction_video_technology/blob/master/encoding_pratical_examples.md#cabac-vs-cavlc)，并比较生成每一个的时间以及最终的大小。
 
 ## 第六步 - 比特流格式
 
@@ -677,28 +704,38 @@ HEVC 比 AVC 有更大和更多的**分区**（和**子分区**）选项，更�
 ![h264 vs h265](/i/avc_vs_hevc.png "H.264 vs H.265")
 
 # 在线流媒体
-
 ## 通用架构
+
 ![general_architecture](/i/general_architecture.png)
+
 [TODO]
 
 ## 逐行下载和自适应流
+
 ![progressive_download](/i/progressive_download.png)
+
 ![adaptive_streaming](/i/adaptive_streaming.png)
+
 [TODO]
 
 ## 内容保护
+
 ![token_protection](/i/token_protection.png)
+
 ![drm](/i/drm.png)
+
 [TODO]
 
 # 如何使用 jupyter
+
 确保你已安装 docker，只需运行 `./s/start_jupyter.sh`，然后跟随控制台的说明。
 
 # 会议
+
 *	[DEMUXED](https://demuxed.com/) - 您可以[查看最近的2个活动演示](https://www.youtube.com/channel/UCIc_DkRxo9UgUSTvWVNCmpA)。
 
 # 参考
+
 最丰富的资源就在这里，我们在这个文本里看到的全部信息都是被摘录，依据或受其启发。你可以用这些精彩的链接，书籍，视频等深化你的知识。
 
 在线课程和教程：
