@@ -2,11 +2,11 @@
 
 # 介绍
 
-这是一份关于视频技术的轻量级介绍，尽管是针对软件开发人员／工程师，我们也希望使它对**任何想要学习的人**来说都是容易的。这个点子产生于一个[视频技术新手微型研讨会](https://docs.google.com/presentation/d/17Z31kEkl_NGJ0M66reqr9_uTG6tI5EDDVXpdPKVuIrs/edit#slide=id.p)期间。
+这是一份关于视频技术的介绍，内容循序渐进。尽管它面向的是软件开发人员，但我们希望对任何人而言，这份文档都能简单易学。这个点子产生于一个[视频技术新手小型研讨会](https://docs.google.com/presentation/d/17Z31kEkl_NGJ0M66reqr9_uTG6tI5EDDVXpdPKVuIrs/edit#slide=id.p)期间。
 
-目标是使用尽可能**简单的词汇、许多视觉元素和实例**介绍一些数字视频概念，并且让这些知识在任何地方都可以访问。请随时发送更正、建议和改进。
+本文档旨在尽可能使用**浅显的词语，丰富的图像和实例**介绍数字视频概念，使这些知识能适用于各种场合。你可以随时反馈意见或建议，以改进这篇文档。
 
-**自己动手**部分需要你**安装了 docker** 和这个知识库的拷贝。
+“**自己动手**”需要安装 docker，并将这个 repo clone 到你的计算机。
 
 ```bash
 git clone https://github.com/leandromoreira/digital_video_introduction.git
@@ -14,9 +14,9 @@ cd digital_video_introduction
 ./setup.sh
 ```
 
-> **注意**：当你看到 `./s/ffmpeg` 或 `./s/mediainfo` 命令时，即表示我们正在一个已经包含了全部所需依赖的容器版本里运行该程序。
+> **注意**：当你看到 `./s/ffmpeg` 或 `./s/mediainfo` 命令时，说明我们运行的是 docker 容器中的版本，容器已经包含了程序所需的依赖。
 
-全部**自己动手部分应该在你克隆自这个知识库的文件夹里**进行。对于 jupyter 的例子必须使用 `./s/start_jupyter.sh` 启动服务器，并拷贝 URL 到你的浏览器里运行。
+所有的**“自己动手”应从本 repo 的根目录运行**。**jupyter** 的示例应使用 `./s/start_jupyter.sh` 启动服务器，然后复制 URL 到你的浏览器中使用。
 
 # 目录
 
