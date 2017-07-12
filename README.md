@@ -21,6 +21,7 @@ All the **hands-on should be performed from the folder you cloned** this reposit
 
 # Changelog
 
+* added DRM system
 * released version 1.0.0
 * added simplified Chinese translation
 
@@ -736,11 +737,60 @@ HEVC has bigger and more **partitions** (and **sub-partitions**) options than AV
 
 ## Content protection
 
+We can use **a simple token system** to protect the content. The user without a token tries to request a video and the CDN forbids her or him while an user with a valid token can play the content, it works pretty similar to most of the web authentication systems.
+
 ![token protection](/i/token_protection.png "token_protection")
+
+The solely usage of this token system still allows a user to download a video and distribute it. Then the **DRM (digital rights management)** systems can be used to try to avoid this.
 
 ![drm](/i/drm.png "drm")
 
-[TODO]
+In real life production systems, people often use both techniques to provide authorization and authentication.
+
+### DRM
+#### Main systems
+
+* FPS - [**FairPlay Streaming**](https://developer.apple.com/streaming/fps/)
+* PR - [**PlayReady**](https://www.microsoft.com/playready/)
+* WV - [**Widevine**](http://www.widevine.com/)
+
+
+#### What?
+
+DRM means digital rights management, it's a way **to provide copyright protection for digital media**, for instance digital video and audio. Although it's used in many places [it's not universally accepted](https://en.wikipedia.org/wiki/Digital_rights_management#DRM-free_works).
+
+#### Why?
+
+Content creator (mostly studios) want to protect its intelectual property against copy to prevent unauthorized redistribution of digital media.
+
+#### How?
+
+We're going to describe an abstract and generic form of DRM in a very simplified way.
+
+Given a **content C1** (i.e. a hls or dash video streaming), with a **player P1** (i.e. shaka-clappr, exo-player or ios) in a **device D1** (i.e. a smartphone, TV, tablet or desktop/notebook) using a **DRM system DRM1** (widevine, playready or FairPlay).
+
+The content C1 is encrypted with a **symmetric-key K1** from the system DRM1, generating the **encrypted content C'1**.
+
+![drm general flow](/i/drm_general_flow.jpeg "drm general flow")
+
+The player P1, of a device D1, has two keys (asymmetric), a **private key PRK1** (this key is protected<sup>1</sup> and only known by **D1**) and a **public key PUK1**.
+
+> **<sup>1</sup>protected**: this protection can be **via hardware**, for instance this key can be stored inside a special (read-only) chip that works like [a black-box](https://en.wikipedia.org/wiki/Black_box) to provide decryption, or **by software** (less safe), the DRM system provide means to know which type of protection a given device has.
+
+
+When the **player P1 wants to play** the **content C'1**, it needs to deal with the **DRM system DRM1** , giving its public key **PUK1**. The DRM system DRM1 returns the **key K1 encrypted** with the client''s public key **PUK1**. In theory this response is something that **only D1 is capable to decrypt**.
+
+`K1P1D1 = enc(K1, PUK1)`
+
+**P1** uses its DRM local system (it could be a [SOC](https://en.wikipedia.org/wiki/System_on_a_chip), a specialized hardware or software), this system is **able to decrypt** the content using its private key PRK1, it can decrypt **the symmetric-key K1 from the K1P1D1** and **play C'1**. At best case the keys are not expose through memory RAM.
+
+ ```
+ K1 = dec(K1P1D1, PRK1)
+
+ P1.play(dec(C'1, K1))
+ ```
+
+![drm decoder flow](/i/drm_decoder_flow.jpeg "drm decoder flow")
 
 # How to use jupyter
 
