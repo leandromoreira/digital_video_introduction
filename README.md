@@ -19,6 +19,11 @@ cd digital_video_introduction
 
 All the **hands-on should be performed from the folder you cloned** this repository. For the **jupyter examples** you must start the server `./s/start_jupyter.sh` and copy the URL and use it in your browser.
 
+# Changelog
+
+* released version 1.0.0
+* added simplified Chinese translation
+
 # Index
 
 - [Intro](#intro)
@@ -123,9 +128,9 @@ Finally, we can define a **video** as a **succession of *n* frames** in **time**
 
 ![video](/i/video.png "video")
 
-The number of bits per second needed to show a video is its **bit rate**. 
+The number of bits per second needed to show a video is its **bit rate**.
 
-> bit rate = width * height * * bit depth * frames per second 
+> bit rate = width * height * * bit depth * frames per second
 
 For example, a video with 30 frames per second, 24 bits per pixel, resolution of 480x240 will need **82,944,000 bits per second** or 82.944 Mbps (30x480x240x24) if we don't employ any kind of compression.
 
@@ -233,7 +238,7 @@ These schemas are known as subsampling systems and are expressed as a 3 part rat
 
 > An exception to this exists with 4:1:0, which provides a single chroma sample within each `4 x 4` block of luma resolution.
 
-Common schemes used in modern codecs are: **4:4:4** *(no subsampling)***, **4:2:2, 4:1:1, 4:2:0, 4:1:0 and 3:1:1**. 
+Common schemes used in modern codecs are: **4:4:4** *(no subsampling)***, **4:2:2, 4:1:1, 4:2:0, 4:1:0 and 3:1:1**.
 
 > **YCbCr 4:2:0 merge**
 >
@@ -790,7 +795,7 @@ Software:
 
 Non-ITU Codecs:
 
-* https://aomedia.googlesource.com/ 
+* https://aomedia.googlesource.com/
 * https://github.com/webmproject/libvpx/tree/master/vp9
 * https://people.xiph.org/~xiphmont/demo/daala/demo1.shtml
 * https://people.xiph.org/~jm/daala/revisiting/
@@ -868,4 +873,3 @@ Miscellaneous:
 * https://www.youtube.com/watch?v=LFXN9PiOGtY
 * https://www.youtube.com/watch?v=Lto-ajuqW3w&list=PLzH6n4zXuckpKAj1_88VS-8Z6yn9zX_P6
 * https://www.youtube.com/watch?v=LWxu4rkZBLw
-
