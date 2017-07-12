@@ -782,7 +782,7 @@ When the **player P1 wants to play** the **content C'1**, it needs to deal with 
 
 `K1P1D1 = enc(K1, PUK1)`
 
-**P1** uses its DRM local system (it could be a [SOC](https://en.wikipedia.org/wiki/System_on_a_chip), a specialized hardware or software), this system is **able to decrypt** the content using its private key PRK1, it can decrypt **the symmetric-key K1 from the K1P1D1** and **play C'1**. At best case, the keys are not exposed through memory RAM.
+**P1** uses its DRM local system (it could be a [SOC](https://en.wikipedia.org/wiki/System_on_a_chip), a specialized hardware or software), this system is **able to decrypt** the content using its private key PRK1, it can decrypt **the symmetric-key K1 from the K1P1D1** and **play C'1**. At best case, the keys are not exposed through RAM.
 
  ```
  K1 = dec(K1P1D1, PRK1)
