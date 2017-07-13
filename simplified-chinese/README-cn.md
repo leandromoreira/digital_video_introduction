@@ -18,6 +18,12 @@ cd digital_video_introduction
 
 所有的 **“自己动手”应从本 repo 的根目录运行**。**jupyter** 的示例应使用 `./s/start_jupyter.sh` 启动服务器，然后复制 URL 到你的浏览器中使用。
 
+# 更新日志
+
+* 增加 DRM 系统
+* 发行版本 1.0.0
+* 新增中文翻译
+
 # 目录
 
 - [介绍](#介绍)
