@@ -88,7 +88,7 @@ cd digital_video_introduction
 >
 > ![NES palette](/i/nes-color-palette.png "NES palette")
 
-例如，看看下面这几张图片。第一张脸完全着色。其它的是红，绿和蓝色平面（显示为灰色调）。
+例如，看看下面的图片。第一张脸完全着色。其它的是红，绿和蓝色平面（（以下图片）以灰色调呈现 ）。
 
 ![RGB channels intensity](/i/rgb_channels_intensity.png "RGB channels intensity")
 
