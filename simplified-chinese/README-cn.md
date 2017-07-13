@@ -373,11 +373,11 @@ P 帧利用了一个事实：当前的画面几乎总能**使用之前的一帧�
 
 ## 是什么？为什么？如何工作？
 
-**是什么？**就是软件／硬件压缩或解压缩数字视频。**为什么？**市场和社会需求在有限带宽或存储空间下（提供）高质量的视频。还记得当我们计算每秒 30 帧，每像素 24 比特，分辨率是 480x240 的视频[需要多少带宽](#基本术语)吗？没有压缩时是 **82.944 Mbps**。（视频编解码）是在电视和英特网中提供 HD/FullHD/4K的唯一方式。**如何工作？**我们将简单介绍一下主要的技术。
+**是什么？** 就是用于压缩或解压数字视频的软件或硬件。**为什么？** 人们需要在有限带宽或存储空间下提高视频的质量。还记得当我们计算每秒 30 帧，每像素 24 bit，分辨率是 480x240 的视频[需要多少带宽](#基本术语)吗？没有压缩时是 **82.944 Mbps**。电视或互联网提供 HD/FullHD/4K 只能靠视频编解码器。**如何工作？** 我们将简单介绍一下主要的技术。
 
 > 视频编解码 vs 容器
 >
-> 初学者一个常见的错误是混淆数字视频编解码器和[数字视频容器](https://en.wikipedia.org/wiki/Digital_container_format)。我们可以将**容器**视为包含视频（也可能是音频）元数据的包装格式，**压缩过的视频**可以看成是它的有效载荷。
+> 初学者一个常见的错误是混淆数字视频编解码器和[数字视频容器](https://en.wikipedia.org/wiki/Digital_container_format)。我们可以将**容器**视为包含视频（也很可能包含音频）元数据的包装格式，**压缩过的视频**可以看成是它承载的内容。
 >
 > 通常，视频文件的格式定义其视频容器。例如，文件 `video.mp4` 可能是 [MPEG-4 Part 14](https://en.wikipedia.org/wiki/MPEG-4_Part_14) 容器，一个叫 `video.mkv` 的文件可能是 [matroska](https://en.wikipedia.org/wiki/Matroska)。我们可以使用 [ffmpeg 或 mediainfo](/encoding_pratical_examples.md#inspect-stream) 来完全确定编解码器和容器格式。
 
@@ -385,9 +385,9 @@ P 帧利用了一个事实：当前的画面几乎总能**使用之前的一帧�
 
 在我们跳进通用编解码器内部工作之前，让我们回头了解一些旧的视频编解码器。
 
-视频编解码器 [H.261](https://en.wikipedia.org/wiki/H.261) 诞生在 1990（技术上是 1988），被设计为以 **64 kbit/s 的数据速率**工作。它已经使用如色度子采样，宏块，等等想法。在 1995 年，**H.263** 视频编解码器标准被发布，并继续延续到 2001 年。
+视频编解码器 [H.261](https://en.wikipedia.org/wiki/H.261) 诞生在 1990（技术上是 1988），被设计为以 **64 kbit/s 的数据速率**工作。它已经使用如色度子采样、宏块，等等理念。在 1995 年，**H.263** 视频编解码器标准被发布，并继续延续到 2001 年。
 
-在 2003 年 **H.264/AVC** 的第一版被完成。在同一年，一家叫做 **TrueMotion** 的公司发布了他们的**免版税**有损视频压缩的视频编解码器，称为 **VP3**。在 2008 年，**Google 收购了**这家公司，在同一年发布 **VP8**。在 2012 年 12 月，Google 发布了 **VP9**，**大约有 3/4 的浏览器市场**（包括手机）支持。
+在 2003 年 **H.264/AVC** 的第一版被完成。在同一年，一家叫做 **TrueMotion** 的公司发布了他们的**免版税**有损视频压缩的视频编解码器，称为 **VP3**。在 2008 年，**Google 收购了**这家公司，在同一年发布 **VP8**。在 2012 年 12 月，Google 发布了 **VP9**，**市面上大约有 3/4 的浏览器**（包括手机）支持。
 
 [AV1](https://en.wikipedia.org/wiki/AOMedia_Video_1) 是由 **Google, Mozilla, Microsoft, Amazon, Netflix, AMD, ARM, NVidia, Intel, Cisco** 等公司组成的[开放媒体联盟（AOMedia）](http://aomedia.org/)设计的一种新的视频编解码器，免版税，开源。**第一版** 0.1.0 参考编解码器**发布于 2016 年 4 月 7号**。
 
@@ -397,9 +397,9 @@ P 帧利用了一个事实：当前的画面几乎总能**使用之前的一帧�
 >
 > 2015 年早期，Google 正在 VP10 上工作，Xiph (Mozilla) 正在 Daala 上工作，Cisco 开源了它的称为 Thor 的免版税视频编解码器。
 >
-> 接下来 MPEG LA 首先宣布了 HEVC (H.265) 的年度上限和比 H.264 8 倍高的费用，但很快他们又再次改变了规则：
-> *	**没有年度上限**
-> *	**内容费**（收入的 0.5%）
+> 接下来 MPEG LA 宣布 HEVC (H.265) 每年版税的的上限，比 H.264 高 8 倍，但很快他们又再次改变了条款：
+> *	**不设年度收费上限**
+> *	**按内容收费**（收入的 0.5%）
 > *	**每单位费用高于 h264 的 10 倍**
 >
 > [开放媒体联盟](http://aomedia.org/about-us/)由硬件厂商（Intel, AMD, ARM , Nvidia, Cisco），内容分发商（Google, Netflix, Amazon），浏览器维护者（Google, Mozilla），等公司创建。
@@ -409,15 +409,15 @@ P 帧利用了一个事实：当前的画面几乎总能**使用之前的一帧�
 > 前往 [http://aomanalyzer.org/](http://aomanalyzer.org/)， 你会惊讶于**使用你的浏览器就可以分析 AV1 编解码器**。
 > ![av1 浏览器分析器](/i/av1_browser_analyzer.png "浏览器分析器")
 >
-> 附：如果你想了解编解码器的更多历史，你必须了解[视频压缩专利](https://www.vcodex.com/video-compression-patents/)背后的基本知识。
+> 附：如果你想了解更多编解码器的历史，你需要了解[视频压缩专利](https://www.vcodex.com/video-compression-patents/)背后的基本知识。
 
 ## 通用编解码器
 
-我们接下来要介绍**通用视频编解码器背后的主要机制**，大多数概念都有用的并被现代编解码器如 VP9, AV1 和 HEVC 使用。一定要明白，我们将简化许多事情。有时我们会使用真实的例子（主要是 H.264）来演示技术。
+我们接下来要介绍**通用视频编解码器背后的主要机制**，大多数概念都很实用，并被现代编解码器如 VP9, AV1 和 HEVC 使用。需要注意：我们将简化许多内容。有时我们会使用真实的例子（主要是 H.264）来演示技术。
 
 ## 第一步 - 图片分区
 
-第一步是**将帧**分成几个**分区**，**子分区**及其以外。
+第一步是**将帧**分成几个**分区**，**子分区**甚至更多。
 
 ![图片分区](/i/picture_partitioning.png "图片分区")
 
@@ -425,11 +425,11 @@ P 帧利用了一个事实：当前的画面几乎总能**使用之前的一帧�
 
 通常，编解码器**将这些分区组织**成切片（或瓦片），宏（或编码树单元）和许多子分区。这些分区的最大大小有所不同，HEVC 设置成 64x64，而 AVC 使用 16x16，但子分区可以达到 4x4 的大小。
 
-还记得我们学过的**帧的分类**吗？！好的，你也可以**把这些概念应用到块**，因此我们可以有 I 切片，B 切片，I 宏块等等。
+还记得我们学过的**帧的分类**吗？你也可以**把这些概念应用到块**，因此我们可以有 I 切片，B 切片，I 宏块等等。
 
 > ### 自己动手：查看分区
 >
-> 我们也可以使用 [Intel® Video Pro Analyzer](https://software.intel.com/en-us/intel-video-pro-analyzer)（需要付费，但也有免费试用版限制你只能查看前10帧）。这是 [VP9 分区](/encoding_pratical_examples.md#transcoding)的分析。
+> 我们也可以使用 [Intel® Video Pro Analyzer](https://software.intel.com/en-us/intel-video-pro-analyzer)（需要付费，但也有只能查看前 10 帧的免费试用版）。这是 [VP9 分区](/encoding_pratical_examples.md#transcoding)的分析。
 >
 > ![Intel® Video Pro Analyzer VP9 分区视图 ](/i/paritions_view_intel_video_pro_analyzer.png "Intel® Video Pro Analyzer VP9 分区视图")
 
@@ -441,7 +441,7 @@ P 帧利用了一个事实：当前的画面几乎总能**使用之前的一帧�
 
 在我们得到残差块（`预测分区-真实分区`）之后，我们可以用一种方式**变换**它，这样我们就知道**哪些像素我们应该丢弃**，还依然能保持**整体质量**。这个确切的行为有几种变换方式。
 
-尽管有[其它的变换方式](https://en.wikipedia.org/wiki/List_of_Fourier-related_transforms#Discrete_transforms)，然而我们将更仔细地看离散余弦变换（DCT）。[DCT](https://en.wikipedia.org/wiki/Discrete_cosine_transform) 的主要功能有：
+尽管有[其它的变换方式](https://en.wikipedia.org/wiki/List_of_Fourier-related_transforms#Discrete_transforms)，然而我们重点关注离散余弦变换（DCT）。[DCT](https://en.wikipedia.org/wiki/Discrete_cosine_transform) 的主要功能有：
 *	将**像素**块**转换**为相同大小的**频率系数块**。
 *	**压缩**能量，更容易消除空间冗余。
 *	**可逆的**，也意味着你可以逆转为像素。
@@ -468,14 +468,14 @@ P 帧利用了一个事实：当前的画面几乎总能**使用之前的一帧�
 
 如你所见它看起来完全不像原图像，我们可能会注意到**第一个系数**与其它系数非常不同。该第一个系数被称为表示输入数组中**所有样本**的 DC 系数，**类似于平均值**。
 
-这个系数块有一个有趣的属性，显示为高频率组件和低频率分离。
+这个系数块有一个有趣的属性：高频部分和低频部分是分离的。
 
 ![dct 频率系数属性](/i/dctfrequ.jpg "dct 频率系数属性")
 
 在一张图像中，**大多数能量**会集中在[低频率](https://www.iem.thm.de/telekom-labor/zinke/mk/mpeg2beg/whatisit.htm)，所以如果我们将图像变换成频率组件，并**丢掉高频率系数**，我们就能**减少需要描述图像的数据量**，而不会牺牲太多的图像质量。
 > 频率是指信号变化的速度。
 
-我们尝试应用我们在测试中获得的知识，我们将使用 DCT 将原始图像转换为其频率（系数块），然后丢掉最不重要的系数。
+让我们通过实验学习这点，我们将使用 DCT 把原始图像转换为频率（系数块），然后丢掉最不重要的系数。
 
 首先，我们将它转换为其**频域**。
 
@@ -594,9 +594,10 @@ P 帧利用了一个事实：当前的画面几乎总能**使用之前的一帧�
 
 ## 第六步 - 比特流格式
 
-完成所有这些步之后，我们需要将**压缩过的帧和内容打包进这些步中**。我们需要向解码器明确通知**编码器做出的决定**，如比特深度，颜色空间，分辨率，预测信息（运动向量，帧内预测方向），配置，层级，帧率，帧类型，帧号等等更多信息。
+完成所有这些步之后，我们需要将**压缩过的帧和内容打包进去**。需要明确告知解码器**编码定义**，如颜色深度，颜色空间，分辨率，预测信息（运动向量，帧内预测方向），配置\*，层级\*，帧率，帧类型，帧号等等更多信息。
+> \* 译注：原文为 profile 和 level，没有官方或通用的译名
 
-我们将浅显的学习 H.264 比特流。第一步是[生成一个小的 H.264 比特流](/encoding_pratical_examples.md#generate-a-single-frame-h264-bitstream)，可以使用我们的知识库和 [ffmpeg](http://ffmpeg.org/) 来做。
+我们将浅显的学习 H.264 比特流。第一步是[生成一个小的 H.264 比特流](/encoding_pratical_examples.md#generate-a-single-frame-h264-bitstream)，可以使用本 repo 和 [ffmpeg](http://ffmpeg.org/) 来做。
 
 ```
 ./s/ffmpeg -i /files/i/minimal.png -pix_fmt yuv420p /files/v/minimal_yuv420.h264
@@ -609,15 +610,15 @@ P 帧利用了一个事实：当前的画面几乎总能**使用之前的一帧�
 
 ### H.264 比特流
 
-AVC (H.264) 标准规定信息将以称为 [NAL](https://en.wikipedia.org/wiki/Network_Abstraction_Layer)（网络抽象层）的**宏帧**（网络意义上）传输。NAL 的主要目标是提供“网络友好”的视频表示，该标准必须适用于电视（基于流），互联网（基于包）等。
+AVC (H.264) 标准规定信息将在宏帧内传输，称为 [NAL](https://en.wikipedia.org/wiki/Network_Abstraction_Layer)（网络抽象层）。NAL 的主要目标是提供“网络友好”的视频呈现方式，该标准必须适用于电视（基于流），互联网（基于包）等。
 
 ![H.264 NAL 单元](/i/nal_units.png "H.264 NAL 单元")
 
-有一个[同步标记](https://en.wikipedia.org/wiki/Frame_synchronization)来定义 NAL 单元的边界。每个同步标记持有除去  `0x00 0x00 0x00 0x01` 里的第一个之后的值  `0x00 0x00 0x01` 。如果我们在生成的 h264 比特流上运行 **hexdump**，我们可以在文件的开头识别至少三个 NAL。
+[同步标记](https://en.wikipedia.org/wiki/Frame_synchronization)用来定义 NAL 单元的边界。每个同步标记的值固定为  `0x00 0x00 0x01` ，最开头的标记例外，它的值是  `0x00 0x00 0x00 0x01` 。如果我们在生成的 h264 比特流上运行 **hexdump**，我们可以在文件的开头识别至少三个 NAL。
 
 ![NAL 单元上的同步标记](/i/minimal_yuv420_hex.png "NAL 单元上的同步标记")
 
-我们之前说过，解码器需要知道不仅仅是图片数据，还有视频的细节，帧，颜色，使用的参数等。每个 NAL 的**第一个比特**定义了其分类和**类型**。
+我们之前说过，解码器需要知道不仅仅是图片数据，还有视频的详细信息，如：帧、颜色、使用的参数等。每个 NAL 的**第一个比特**定义了其分类和**类型**。
 
 | NAL type id  | 描述  |
 |---  |---|
@@ -664,17 +665,17 @@ SPS NAL 的第二个比特 (`binary=01100100, hex=0x64, dec=100`) 是 **profile_
 
 ![h264 切片头规格](/i/slice_header.png "h264 切片头规格")
 
-使用规范信息我们能解码切片的类型（**slice_type**），帧号（**frame_num**）等重要字段。
+对照规范，我们能解码切片的类型（**slice_type**），帧号（**frame_num**）等重要字段。
 
-为了获得一些字段（`ue(v), me(v), se(v) 或 te(v)`）的值，我们需要称为 [Exponential-Golomb](https://pythonhosted.org/bitstring/exp-golomb.html) 的特别解码器来解码它。主要是有很多默认值时，这个方法编码变量值时特别高效。
+为了获得一些字段（`ue(v), me(v), se(v) 或 te(v)`）的值，我们需要称为 [Exponential-Golomb](https://pythonhosted.org/bitstring/exp-golomb.html) 的特定解码器来解码它。当存在很多默认值时，这个方法编码变量值特别高效。
 
 > 这个视频里 **slice_type** 和 **frame_num** 的值是 7（I 切片）和 0（第一帧）。
 
-我们可以将**比特流视为一个协议**，如果你想或需要了解更多比特流，请参考 [ITU H.264 规范](http://www.itu.int/rec/T-REC-H.264-201610-I)。这个宏图展示了图片数据（压缩过的 YUV）所在的位置。
+我们可以将**比特流视为一个协议**，如果你想学习更多关于比特流的内容，请参考 [ITU H.264 规范](http://www.itu.int/rec/T-REC-H.264-201610-I)。这个宏图展示了图片数据（压缩过的 YUV）所在的位置。
 
 ![h264 比特流宏图](/i/h264_bitstream_macro_diagram.png "h264 比特流宏图")
 
-我们可以探索其它比特流，如 [VP9 比特流](https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.6-20160331-draft.pdf)，[H.265（HEVC）](http://handle.itu.int/11.1002/1000/11885-en?locatt=format:pdf)或甚至我们新的最好的朋友 [AV1 比特流](https://medium.com/@mbebenita/av1-bitstream-analyzer-d25f1c27072b#.d5a89oxz8)，[它们都相似吗？不](http://www.gpac-licensing.com/2016/07/12/vp9-av1-bitstream-format/)，但是一旦你学习了一个，你就可以轻松学习其它的了。
+我们可以探究其它比特流，如 [VP9 比特流](https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.6-20160331-draft.pdf)，[H.265（HEVC）](http://handle.itu.int/11.1002/1000/11885-en?locatt=format:pdf)或是我们的新朋友 [AV1 比特流](https://medium.com/@mbebenita/av1-bitstream-analyzer-d25f1c27072b#.d5a89oxz8)，[他们很相似吗？不](http://www.gpac-licensing.com/2016/07/12/vp9-av1-bitstream-format/)，但只要学习了其中之一，学习其他的就简单多了。
 
 > ### 自己动手：检查 H.264 比特流
 
@@ -682,23 +683,23 @@ SPS NAL 的第二个比特 (`binary=01100100, hex=0x64, dec=100`) 是 **profile_
 >
 > ![mediainfo h264 比特流的详情 ](/i/mediainfo_details_1.png "mediainfo h264 比特流的详情")
 >  
-> 我们也可使用 [Intel® Video Pro Analyzer](https://software.intel.com/en-us/intel-video-pro-analyzer)，需要付费，但限制你只能查看前10帧的免费试用版已经够达成学习目的了。
+> 我们也可使用 [Intel® Video Pro Analyzer](https://software.intel.com/en-us/intel-video-pro-analyzer)，需要付费，但也有只能查看前 10 帧的免费试用版，这已经够达成学习目的了。
 >
 > ![Intel® Video Pro Analyzer h264 比特流的详情](/i/intel-video-pro-analyzer.png "Intel® Video Pro Analyzer h264 比特流的详情")
 
 ## 回顾
 
-我们可以看到我们学了许多**使用相同模型的现代编解码器**。事实上，让我们看看 Thor 视频编解码器框图，它包含所有我们学过的步骤。这个想法使你现在应该可以更好的理解该领域的创新和论文了。
+我们可以看到我们学了许多**使用相同模型的现代编解码器**。事实上，让我们看看 Thor 视频编解码器框图，它包含所有我们学过的步骤。你现在应该能更好地理解数字视频领域内的创新和论文。
 ![thor 编解码器块图](/i/thor_codec_block_diagram.png "thor 编解码器块图")
 
-之前我们计算过[需要 139GB 来保存一个一小时，720p 分辨率和30fps的视频文件](#色度子采样)，如果我们使用在这里学过的技术，如**帧间和帧内预测，转换，量化，熵编码和其它**我们能实现的，假设我们**每像素花费 0.031 比特**，同样感知质量的视频，**对比 139GB 的存储，只需 367.82MB**。
+之前我们计算过我们[需要 139GB 来保存一个一小时，720p 分辨率和30fps的视频文件](#色度子采样)，如果我们使用在这里学过的技术，如**帧间和帧内预测，转换，量化，熵编码和其它**我们能实现——假设我们**每像素花费 0.031 比特**——同样感知质量的视频，**对比 139GB 的存储，只需 367.82MB**。
 > 我们根据这里提供的示例视频选择**每像素使用 0.031 比特**。
 
 ## H.265 如何实现比 H.264 更好的压缩率
 
-现在我们知道编解码器工作的更多原理，那么就容易理解新的编解码器可以使用更少的比特传输更高的分辨率。
+我们已经更多地了解了编解码器的工作原理，那么就容易理解新的编解码器如何使用更少的数据量传输更高分辨率的视频。
 
-我们将比较 AVC 和 HEVC，让我们记住几乎总是要在更多的 CPU 周期（复杂度）和压缩率之间权衡。
+我们将比较 AVC 和 HEVC，要记住的是：我们几乎总是要在压缩率和更多的 CPU 周期（复杂度）之间作权衡。
 
 HEVC 比 AVC 有更大和更多的**分区**（和**子分区**）选项，更多**帧内预测方向**，**改进的熵编码**等，所有这些改进使得 H.265 比 H.264 的压缩率提升 50%。
 
@@ -737,7 +738,7 @@ HEVC 比 AVC 有更大和更多的**分区**（和**子分区**）选项，更�
 
 # 参考
 
-最丰富的资源就在这里，我们在这个文本里看到的全部信息都是被摘录，依据或受其启发。你可以用这些精彩的链接，书籍，视频等深化你的知识。
+最这里有最丰富的资源，这篇文档包含的信息，均摘录、依据或受它们启发。你可以用这些精彩的链接，书籍，视频等深化你的知识。
 
 在线课程和教程：
 
