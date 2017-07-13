@@ -712,7 +712,7 @@ HEVC 比 AVC 有更大和更多的**分区**（和**子分区**）选项，更�
 
 [TODO]
 
-## 逐行下载和自适应流
+## 渐进式下载和自适应流
 
 ![progressive_download](/i/progressive_download.png)
 
@@ -722,11 +722,59 @@ HEVC 比 AVC 有更大和更多的**分区**（和**子分区**）选项，更�
 
 ## 内容保护
 
+我们可以用一个简单的令牌认证系统来保护视频。用户需要拥有一个有效的令牌才可以播放视频，CDN 会拒绝没有令牌的用户的请求。它与大多数网站的身份认证系统非常相似。
+
 ![token_protection](/i/token_protection.png)
+
+仅仅使用令牌认证系统，用户仍然可以下载并重新分发视频。DRM 系统可以用来避免这种情况。
 
 ![drm](/i/drm.png)
 
-[TODO]
+实际情况下，人们通常同时使用这两种技术提供授权和认证。
+
+### DRM
+#### 主要系统
+
+* FPS - [**FairPlay Streaming**](https://developer.apple.com/streaming/fps/)
+* PR - [**PlayReady**](https://www.microsoft.com/playready/)
+* WV - [**Widevine**](http://www.widevine.com/)
+
+
+#### 是什么
+
+DRM 指的是数字版权管理，是一种**为数字媒体提供版权保护**的方法，例如数字视频和音频。尽管用在了很多场合，但它 [并没有被普遍接受](https://en.wikipedia.org/wiki/Digital_rights_management#DRM-free_works).
+
+#### 为什么
+
+内容的创作者（大部分是工作室/制片厂）希望保护他们的知识产权，使他们的数字媒体免遭未经授权的分发。
+
+#### 怎么做
+
+我们将用一种简单的、抽象的方式描述 DRM
+
+现有一份 **内容 C1**（如 HLS 或 DASH 视频流），一个 **播放器 P1**（如 shaka-clappr, exo-player 或 iOS），装在 **设备 D1**（如智能手机、电视或台式机/笔记本）上，使用 **DRM 系统 DRM1**（如 FairPlay Streaming, PlayReady, Widevine）
+
+内容 C1 由 DRM1 用一个**对称密钥 K1**加密，生成**加密内容 C'1**
+
+![DRM 一般流程](/i/drm_general_flow.jpeg "DRM 一般流程")
+
+设备 D1 上的播放器 P1 有一个非对称密钥对，密钥对包含一个**私钥 PRK1**（这个密钥是受保护的<sup>1</sup>，只有 **D1** 知道密钥内容），和一个**公钥 PUK1**
+
+> **<sup>1</sup>受保护的**: 这种保护可以**通过硬件**进行保护，例如, 将这个密钥存储在一个特殊的芯片（只读）中，芯片的工作方式就像一个用来解密的[黑箱]。 或**通过软件**进行保护（较低的安全系数）。DRM 系统提供了识别设备所使用的保护类型的方法。
+
+当 **播放器 P1 希望播放****加密内容 C'1** 时，它需要与 **DRM1** 协商，将公钥 **PUK1** 发送给 DRM1, DRM1 会返回一个被公钥 **PUK1** **加密过的 K1**。按照推论，结果就是**只有 D1 能够解密**。
+
+`K1P1D1 = enc(K1, PUK1)`
+
+**P1** 使用它的本地 DRM 系统（这可以使用 [SoC](https://zh.wikipedia.org/wiki/系统芯片) ，一个专门的硬件和软件，这个系统可以使用它的私钥 PRK1 用来**解密**内容，它可以解密被加密过的**K1P1D1 的对称密钥 K1**。理想情况下，密钥不会被导出到内存以外的地方。
+
+ ```
+ K1 = dec(K1P1D1, PRK1)
+
+ P1.play(dec(C'1, K1))
+ ```
+
+![DRM 解码流程](/i/drm_decoder_flow.jpeg "DRM 解码流程")
 
 # 如何使用 jupyter
 
