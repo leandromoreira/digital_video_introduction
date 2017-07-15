@@ -2,12 +2,15 @@
 
 # 介绍
 
-这是一份循序渐进的视频技术的介绍。尽管它面向的是软件开发人员/工程师，但我们希望**对任何人而言**，这份文档都能简单易学。这个点子产生于一个[视频技术新手小型研讨会](https://docs.google.com/presentation/d/17Z31kEkl_NGJ0M66reqr9_uTG6tI5EDDVXpdPKVuIrs/edit#slide=id.p)期间。
+本文是一篇面向软件开发人员和工程师的视频技术文档，简单易学，以至于**任何
+没有基础的人**都可以轻松入门。驱动我写作的动力来源于一次[视频技术
+新手小型研讨会](https://docs.google.com/presentation/d/17Z31kEkl_NGJ0M66reqr9_uTG6tI5EDDVXpdPKVuIrs/edit#slide=id.p)
 
-本文档旨在尽可能使用**浅显的词语，丰富的图像和实际例子**介绍数字视频概念，使这些知识能适用于各种场合。你可以随时反馈意见或建议，以改进这篇文档。
+为了能够让一些晦涩难懂的数字视频概念深入人心，普及到世界各地，本文尽量摒弃专业词汇，采用**浅显的文字＋图文并茂的图例**来进行描述。
+如果你有任何的纠错，想法，改进的建议，欢迎随时提出！
 
-“**自己动手**”需要安装 docker，并将这个 repo clone 到你的计算机。
-
+后面有部分**自己动手**章节, 需要你提前安装好docker, 并且需要把本文档仓库克隆到本
+地。示例如下:
 ```bash
 git clone https://github.com/leandromoreira/digital_video_introduction.git
 cd digital_video_introduction
