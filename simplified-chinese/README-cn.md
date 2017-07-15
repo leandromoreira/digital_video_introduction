@@ -24,6 +24,12 @@ cd digital_video_introduction
 * 发行版本 1.0.0
 * 新增中文翻译
 
+# 更新日志
+
+* 添加 DRM 系统
+* 发布版本 1.0.0
+* 添加简体中文翻译
+
 # 目录
 
 - [介绍](#介绍)
@@ -95,7 +101,9 @@ cd digital_video_introduction
 >
 > ![NES palette](/i/nes-color-palette.png "NES palette")
 
+
 例如以下几张图片。第一张包含所有颜色平面。剩下的分别是红、绿、蓝色平面（显示为灰调）（译注：颜色强度高的地方显示为亮色，强度低为暗色）。
+
 
 ![RGB channels intensity](/i/rgb_channels_intensity.png "RGB channels intensity")
 
@@ -747,7 +755,6 @@ HEVC 比 AVC 有更大和更多的**分区**（和**子分区**）选项，更�
 * PR - [**PlayReady**](https://www.microsoft.com/playready/)
 * WV - [**Widevine**](http://www.widevine.com/)
 
-
 #### 是什么
 
 DRM 指的是数字版权管理，是一种**为数字媒体提供版权保护**的方法，例如数字视频和音频。尽管用在了很多场合，但它并[没有被普遍接受](https://en.wikipedia.org/wiki/Digital_rights_management#DRM-free_works).
@@ -776,11 +783,11 @@ DRM 指的是数字版权管理，是一种**为数字媒体提供版权保护**
 
 **P1** 使用它的本地 DRM 系统（这可以使用 [SoC](https://zh.wikipedia.org/wiki/系统芯片) ，一个专门的硬件和软件，这个系统可以使用它的私钥 PRK1 用来**解密**内容，它可以解密被加密过的**K1P1D1 的对称密钥 K1**。理想情况下，密钥不会被导出到内存以外的地方。
 
- ```
+```
  K1 = dec(K1P1D1, PRK1)
 
  P1.play(dec(C'1, K1))
- ```
+```
 
 ![DRM 解码流程](/i/drm_decoder_flow.jpeg "DRM 解码流程")
 
