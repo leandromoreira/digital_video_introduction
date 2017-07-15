@@ -21,12 +21,6 @@ cd digital_video_introduction
 # 更新日志
 
 * 增加 DRM 系统
-* 发行版本 1.0.0
-* 新增中文翻译
-
-# 更新日志
-
-* 添加 DRM 系统
 * 发布版本 1.0.0
 * 添加简体中文翻译
 
@@ -57,7 +51,7 @@ cd digital_video_introduction
   * [空间冗余（帧内预测）](#空间冗余帧内预测)
       - [自己动手：查看帧间预测](#自己动手查看帧间预测)
 - [视频编解码器是如何工作的？](#视频编解码器是如何工作的)
-  * [是什么？为什么？如何工作？](#是什么为什么如何工作)
+  * [是什么？为什么？怎么做？](#是什么为什么怎么做)
   * [历史](#历史)
     + [AV1 的诞生](#av1-的诞生)
   * [通用编解码器](#通用编解码器)
@@ -97,7 +91,7 @@ cd digital_video_introduction
 
 > ### 编码彩色图像的其它方法
 >
-> 除 RGB 模型外，许多模型也可以用来表示色彩，进而组成图像。例如，给每种颜色都标上序号（如下图），这样每个像素仅需一个字节就可以表示出来，而不是 RGB 模型通常所需的 3 个。在这样一个模型里我们可以用一个二维矩阵来代替三维矩阵去表示我们的色彩，这将节省存储空间，但色彩的数量将会受限。
+> 还有许多其它模型也可以用来表示色彩，进而组成图像。例如，给每种颜色都标上序号（如下图），这样每个像素仅需一个字节就可以表示出来，而不是 RGB 模型通常所需的 3 个。在这样一个模型里我们可以用一个二维矩阵来代替三维矩阵去表示我们的色彩，这将节省存储空间，但色彩的数量将会受限。
 >
 > ![NES palette](/i/nes-color-palette.png "NES palette")
 
@@ -201,7 +195,7 @@ cd digital_video_introduction
 
 ### YCbCr 和 RGB 之间的转换
 
-有人可能会问，在**不使用绿色色度**的情况下，我们如何表现出所有的色彩？
+有人可能会问，在**不使用绿色（色度）**的情况下，我们如何表现出所有的色彩？
 
 为了回答这个问题，我们将介绍从 RGB 到 YCbCr 的转换。我们将使用 [ITU-R 小组](https://en.wikipedia.org/wiki/ITU-R)*建议的[标准 BT.601](https://en.wikipedia.org/wiki/Rec._601) 中的系数。
 
@@ -261,8 +255,6 @@ G = Y - 0.344Cb - 0.714Cr
 
 前面我们计算过我们需要 [278GB 去存储一个一小时长，分辨率在720p和30fps的视频文件](#消除冗余)。如果我们使用 `YCbCr 4:2:0` 我们能剪掉`一半的大小（139GB）`<sup>*</sup>，但仍然不够理想。
 > <sup>*</sup> 我们通过将宽、高、颜色深度和 fps 相乘得出这个值。前面我们需要 24 bit，现在我们只需要 12 bit。
-
-<br \>
 
 > ### 自己动手：检查 YCbCr 直方图
 > 你可以[使用 ffmpeg 检查 YCbCr 直方图](/encoding_pratical_examples.md#generates-yuv-histogram)。这个场景有更多的蓝色贡献，由[直方图](https://en.wikipedia.org/wiki/Histogram)显示。
@@ -694,7 +686,7 @@ SPS NAL 的第 2 位 (`binary=01100100, hex=0x64, dec=100`) 是 **profile_idc** 
 我们可以探究其它比特流，如 [VP9 比特流](https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.6-20160331-draft.pdf)，[H.265（HEVC）](http://handle.itu.int/11.1002/1000/11885-en?locatt=format:pdf)或是我们的新朋友 [AV1 比特流](https://medium.com/@mbebenita/av1-bitstream-analyzer-d25f1c27072b#.d5a89oxz8)，[他们很相似吗？不](http://www.gpac-licensing.com/2016/07/12/vp9-av1-bitstream-format/)，但只要学习了其中之一，学习其他的就简单多了。
 
 > ### 自己动手：检查 H.264 比特流
-
+> 
 > 我们可以[生成一个单帧视频](https://github.com/leandromoreira/introduction_video_technology/blob/master/encoding_pratical_examples.md#generate-a-single-frame-video)，使用 [mediainfo](https://en.wikipedia.org/wiki/MediaInfo) 检查它的 H.264 比特流。事实上，你甚至可以查看[解析 h264(AVC) 视频流的源代码](https://github.com/MediaArea/MediaInfoLib/blob/master/Source/MediaInfo/Video/File_Avc.cpp)。
 >
 > ![mediainfo h264 比特流的详情 ](/i/mediainfo_details_1.png "mediainfo h264 比特流的详情")
