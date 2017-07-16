@@ -2,28 +2,33 @@
 
 # 介绍
 
-本文是一篇面向软件开发人员和工程师的视频技术文档，简单易学，以至于**任何
-没有基础的人**都可以轻松入门。驱动我写作的动力来源于一次[视频技术
-新手小型研讨会](https://docs.google.com/presentation/d/17Z31kEkl_NGJ0M66reqr9_uTG6tI5EDDVXpdPKVuIrs/edit#slide=id.p)
+本文是一篇面向软件开发人员和工程师的视频技术文档，简单易学，以至于**任何没有基
+础的人**都可以轻松入门。驱动我写作的动力来源于一次[视频技术新手小型研讨会
+](https://docs.google.com/presentation/d/17Z31kEkl_NGJ0M66reqr9_uTG6tI5EDDVXpdPKVuIrs/edit#slide=id.p)
 
-为了能够让一些晦涩难懂的数字视频概念深入人心，普及到世界各地，本文尽量摒弃专业词汇，采用**浅显的文字＋图文并茂的图例**来进行描述。
-如果你有任何的纠错，想法，改进的建议，欢迎随时提出！
+为了能够让一些晦涩难懂的数字视频概念深入人心，普及到世界各地，本文尽量摒弃专业
+词汇，采用**浅显的文字＋图文并茂的图例**来进行描述。如果你有任何的纠错，想法，
+改进的建议，欢迎随时提出！
 
 后面有部分**自己动手**章节, 需要你提前安装好docker, 并且需要把本文档仓库克隆到本
 地。示例如下:
+
 ```bash
 git clone https://github.com/leandromoreira/digital_video_introduction.git
 cd digital_video_introduction
 ./setup.sh
 ```
 
-> **注意**：当你看到 `./s/ffmpeg` 或 `./s/mediainfo` 命令时，说明我们运行的是 docker 容器中的版本，容器已经包含了程序所需的依赖。
+> **注意**：当你看到 `./s/ffmpeg` 或 `./s/mediainfo` 命令字眼时，默认说明这个
+运行的程序已经是包含所有运行依赖的容器化版本.
 
-所有的 **“自己动手”应从本 repo 的根目录运行**。**jupyter 的示例**应使用 `./s/start_jupyter.sh` 启动服务器，然后复制 URL 到你的浏览器中使用。
+在你完成克隆本文档仓库到本地命令后，所有的 **自己动手** 操作都应该在这个根目录
+下进行。对**jupyter的示例**来说，你首先要启动服务器，运行
+`./s/start_jupyter.sh`命令，然后复制URL到浏览器地址栏访问，然后在浏览器中使用.
 
-# 更新日志
+# 修改记录
 
-* 增加 DRM 系统
+* 增加 DRM加密 系统
 * 发布版本 1.0.0
 * 添加简体中文翻译
 
