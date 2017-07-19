@@ -872,7 +872,6 @@ Video Sequences for Testing:
 Miscellaneous:
 
 * http://stackoverflow.com/a/24890903
-* http://stackoverflow.com/a/24890903
 * http://stackoverflow.com/questions/38094302/how-to-understand-header-of-h264
 * http://techblog.netflix.com/2016/08/a-large-scale-comparison-of-x264-x265.html
 * http://vanseodesign.com/web-design/color-luminance/
