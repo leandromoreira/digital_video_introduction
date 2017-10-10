@@ -154,7 +154,7 @@ Now we have an idea about how an **image** is represented digitally, how its **c
 
 # Redundancy removal
 
-We learned that is not feasible to use video without any compression; **a single one hour video** at 720p resolution with 30fps would **require 278GB<sup>*</sup>**. Since **using solely lossless data compression algorithms** like DEFLATE (used in PKZIP, Gzip, and PNG), **won't** decrease the required bandwidth sufficiently we need to find other ways to compress the video.
+We learned that it's not feasible to use video without any compression; **a single one hour video** at 720p resolution with 30fps would **require 278GB<sup>*</sup>**. Since **using solely lossless data compression algorithms** like DEFLATE (used in PKZIP, Gzip, and PNG), **won't** decrease the required bandwidth sufficiently we need to find other ways to compress the video.
 
 > <sup>*</sup> We found this number by multiplying 1280 x 720 x 24 x 30 x 3600 (width, height, bits per pixel, fps and time in seconds)
 
@@ -172,9 +172,9 @@ If you are unable to see that the colors of the **squares A and B are identical*
 >
 > The [eye is a complex organ](http://www.biologymad.com/nervoussystem/eyenotes.htm), it is composed of many parts but we are mostly interested in the cones and rods cells. The eye [contains about 120 million rod cells and 6 million cone cells](https://en.wikipedia.org/wiki/Photoreceptor_cell).
 >
-> We will abuse of an **oversimplification**, let's try to put colors and brightness in the eye's parts function. The **[rod cells](https://en.wikipedia.org/wiki/Rod_cell) are mostly responsible for brightness** while the **[cone cells](https://en.wikipedia.org/wiki/Cone_cell) are responsible for color**, there are three types of cones, each with different pigment, namely: [S-cones (Blue), M-cones (Green) and L-cones (Red)](https://upload.wikimedia.org/wikipedia/commons/1/1e/Cones_SMJ2_E.svg).
+> To **oversimplify**, let's try to put colors and brightness in the eye's parts function. The **[rod cells](https://en.wikipedia.org/wiki/Rod_cell) are mostly responsible for brightness** while the **[cone cells](https://en.wikipedia.org/wiki/Cone_cell) are responsible for color**, there are three types of cones, each with different pigment, namely: [S-cones (Blue), M-cones (Green) and L-cones (Red)](https://upload.wikimedia.org/wikipedia/commons/1/1e/Cones_SMJ2_E.svg).
 >
-> Since we have much more rod cells (brightness) than cone cells (color), one can infer that we are more capable of distinguishing dark and light than colors.
+> Since we have many more rod cells (brightness) than cone cells (color), one can infer that we are more capable of distinguishing dark and light than colors.
 >
 > ![eyes composition](/i/eyes.jpg "eyes composition")
 
@@ -182,7 +182,7 @@ Once we know that we're more sensitive to **luma** (the brightness in an image) 
 
 ### Color model
 
-We first learned [how to color images](#basic-terminology) work using **RGB model** but there are other models. In fact, there is a model that separates luma (brightness) from  chrominance (colors) and it is known as **YCbCr**<sup>*</sup>.
+We first learned [how to color images](#basic-terminology) work using the **RGB model**, but there are other modelstoo. In fact, there is a model that separates luma (brightness) from  chrominance (colors) and it is known as **YCbCr**<sup>*</sup>.
 
 > <sup>*</sup> there are more models which do the same separation.
 
@@ -251,14 +251,14 @@ You can see the same image encoded by the main chroma subsampling types, images 
 
 ![chroma subsampling examples](/i/chroma_subsampling_examples.jpg "chroma subsampling examples")
 
-Previously we had calculated that we needed [278GB of storage to keep a video file with one hour at 720p resolution and 30fps](#redundancy-removal). If we use **YCbCr 4:2:0** we can cut **this size in half (139 GB)**<sup>*</sup> but it is still far from the ideal.
+Previously we had calculated that we needed [278GB of storage to keep a video file with one hour at 720p resolution and 30fps](#redundancy-removal). If we use **YCbCr 4:2:0** we can cut **this size in half (139 GB)**<sup>*</sup> but it is still far from ideal.
 
 > <sup>*</sup> we found this value by multiplying width, height, bits per pixel and fps. Previously we needed 24 bits, now we only need 12.
 
 <br/>
 
 > ### Hands-on: Check YCbCr histogram
-> You can [check the YCbCr histogram with ffmpeg.](/encoding_pratical_examples.md#generates-yuv-histogram) This scene has the more blue contribution which is showed by the [histogram](https://en.wikipedia.org/wiki/Histogram).
+> You can [check the YCbCr histogram with ffmpeg.](/encoding_pratical_examples.md#generates-yuv-histogram) This scene has a higher blue contribution, which is showed by the [histogram](https://en.wikipedia.org/wiki/Histogram).
 >
 > ![ycbcr color histogram](/i/yuv_histogram.png "ycbcr color histogram")
 
@@ -301,7 +301,7 @@ What about referencing the past and future frames to provide even a better compr
 
 ### Summary
 
-These frames types are used to **provide better compression**, we'll look how this happens in the next section, for now, we can think of **I-frame is expensive while P-frame is cheaper but the cheapest is the B-frame.**
+These frames types are used to **provide better compression**. We'll look how this happens in the next section, but for now we can think of **I-frame as expensive while P-frame is cheaper but the cheapest is the B-frame.**
 
 ![frame types example](/i/frame_types.png "frame types example")
 
@@ -383,7 +383,7 @@ Our **prediction can be wrong**, for that reason we need to apply this technique
 
 ## What? Why? How?
 
-**What?** It's a software / hardware that compresses or decompresses digital video. **Why?** Market and society demands higher quality videos with limited bandwidth or storage. Remember when we [calculated the needed bandwidth](#basic-terminology) for 30 frames per second, 24 bits per pixel, resolution of a 480x240 video? It was **82.944 Mbps** with no compression applied. It's the only way to deliver HD/FullHD/4K in TVs and the Internet. **How?** We'll take a brief look at the major techniques here.
+**What?** It's a piece software / hardware that compresses or decompresses digital video. **Why?** Market and society demands higher quality videos with limited bandwidth or storage. Remember when we [calculated the needed bandwidth](#basic-terminology) for 30 frames per second, 24 bits per pixel, resolution of a 480x240 video? It was **82.944 Mbps** with no compression applied. It's the only way to deliver HD/FullHD/4K in TVs and the Internet. **How?** We'll take a brief look at the major techniques here.
 
 > **CODEC vs Container**
 >
@@ -393,13 +393,13 @@ Our **prediction can be wrong**, for that reason we need to apply this technique
 
 ## History
 
-Before we jump in the inner works of a generic codec, let's look back to understand a little better about some old video codecs.
+Before we jump into the inner workings of a generic codec, let's look back to understand a little better about some old video codecs.
 
 The video codec [H.261](https://en.wikipedia.org/wiki/H.261)  was born in 1990 (technically 1988), and it was designed to work with **data rates of 64 kbit/s**. It already uses ideas such as chroma subsampling, macro block, etc. In the year of 1995, the **H.263** video codec standard was published and continued to be extended until 2001.
 
 In 2003 the first version of **H.264/AVC** was completed. In the same year, a company called **TrueMotion** released their video codec as a **royalty-free** lossy video compression called **VP3**. In 2008, **Google bought** this company, releasing **VP8** in the same year. In December of 2012, Google released the **VP9** and it's  **supported by roughly ¾ of the browser market** (mobile included).
 
- **[AV1](https://en.wikipedia.org/wiki/AOMedia_Video_1)** is a new video codec, **royalty-free**, open source being designed by the [Alliance for Open Media (AOMedia)](http://aomedia.org/) which is composed of the **companies: Google, Mozilla, Microsoft, Amazon, Netflix, AMD, ARM, NVidia, Intel, Cisco** among others. The **first version** 0.1.0 of the reference codec was **published on April 7, 2016**.
+ **[AV1](https://en.wikipedia.org/wiki/AOMedia_Video_1)** is a new **royalty-free** and open source video codec that's being designed by the [Alliance for Open Media (AOMedia)](http://aomedia.org/), which is composed of the **companies: Google, Mozilla, Microsoft, Amazon, Netflix, AMD, ARM, NVidia, Intel and Cisco** among others. The **first version** 0.1.0 of the reference codec was **published on April 7, 2016**.
 
 ![codec history timeline](/i/codec_history_timeline.png "codec history timeline")
 
@@ -449,7 +449,7 @@ Once we have the partitions, we can make predictions over them. For the [inter p
 
 ## 3rd step - transform
 
-After we get the residual block (`predicted partition - real partition`), we can **transform** it in a way that we can know which **pixels we can discard** but still keeping the **overall quality**. There are some transformations for this exact behavior.
+After we get the residual block (`predicted partition - real partition`), we can **transform** it in a way that lets us know which **pixels we can discard** while keeping the **overall quality**. There are some transformations for this exact behavior.
 
 Although there are [other transformations](https://en.wikipedia.org/wiki/List_of_Fourier-related_transforms#Discrete_transforms), we'll look more closely the discrete cosine transform (DCT). The [**DCT**](https://en.wikipedia.org/wiki/Discrete_cosine_transform) main features are:
 
@@ -488,17 +488,17 @@ In an image, **most of the energy** will be concentrated in the [**lower frequen
 
 > frequency means how fast a signal is changing
 
-Let's try to apply the knowledge we acquired in the test, we'll convert the original image to its frequency (block of coefficients) using DCT and then throw away part of the least important coefficients.
+Let's try to apply the knowledge we acquired in the test by converting the original image to its frequency (block of coefficients) using DCT and then throwing away part of the least important coefficients.
 
 First, we convert it to its **frequency domain**.
 
 ![coefficients values](/i/dct_coefficient_values.png "coefficients values")
 
-And then we discard part (67%) of the coefficients, mostly the bottom right part of it.
+Next, we discard part (67%) of the coefficients, mostly the bottom right part of it.
 
 ![zeroed coefficients](/i/dct_coefficient_zeroed.png "zeroed coefficients")
 
-And then we reconstruct the image from this discarded block of coefficients (remember, it needs to be reversible) and compare it to the original.
+Finally, we reconstruct the image from this discarded block of coefficients (remember, it needs to be reversible) and compare it to the original.
 
 ![original vs quantized](/i/original_vs_quantized.png "original vs quantized")
 
@@ -528,7 +528,7 @@ As we can see it resembles the original image but it introduced lots of differen
 
 When we throw away some of the coefficients, in the last step (transform), we kinda did some form of quantization. This step is where we chose to lose information (the **lossy part**) or in simple terms, we'll **quantize coefficients to achieve compression**.
 
-How can we quantize a block of coefficients? One simple method would be a uniform quantization, we take a block and **divide it by a single value** (10) and round this value.
+How can we quantize a block of coefficients? One simple method would be a uniform quantization, where we take a block, **divide it by a single value** (10) and round this value.
 
 ![quantize](/i/quantize.png "quantize")
 
