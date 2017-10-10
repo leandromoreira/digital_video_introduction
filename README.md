@@ -182,7 +182,7 @@ Once we know that we're more sensitive to **luma** (the brightness in an image) 
 
 ### Color model
 
-We first learned [how to color images](#basic-terminology) work using the **RGB model**, but there are other modelstoo. In fact, there is a model that separates luma (brightness) from  chrominance (colors) and it is known as **YCbCr**<sup>*</sup>.
+We first learned [how to color images](#basic-terminology) work using the **RGB model**, but there are other models too. In fact, there is a model that separates luma (brightness) from  chrominance (colors) and it is known as **YCbCr**<sup>*</sup>.
 
 > <sup>*</sup> there are more models which do the same separation.
 
