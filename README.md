@@ -186,7 +186,7 @@ We first learned [how to color images](#basic-terminology) work using the **RGB 
 
 > <sup>*</sup> there are more models which do the same separation.
 
-This color model uses **Y** to represent the brightness and two color channels **Cb** (chroma blue) and **Cr** (chrome red). The [YCbCr](https://en.wikipedia.org/wiki/YCbCr) can be derived from RGB and it also can be converted back to RGB. Using this model we can create full colored images as we can see down below.
+This color model uses **Y** to represent the brightness and two color channels **Cb** (chroma blue) and **Cr** (chroma red). The [YCbCr](https://en.wikipedia.org/wiki/YCbCr) can be derived from RGB and it also can be converted back to RGB. Using this model we can create full colored images as we can see down below.
 
 ![ycbcr example](/i/ycbcr.png "ycbcr example")
 
