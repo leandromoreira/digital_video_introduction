@@ -235,7 +235,7 @@ These schemas are known as subsampling systems and are expressed as a 3 part rat
 
  * `a` is the horizontal sampling reference (usually 4),
  * `x` is the number of chroma samples in the first row of `a` pixels (horizontal resolution in relation to `a`), and
- * `y` is is the numer of changes of chroma samples between the first and seconds rows of `a` pixels.
+ * `y` is the number of changes of chroma samples between the first and seconds rows of `a` pixels.
 
 > An exception to this exists with 4:1:0, which provides a single chroma sample within each `4 x 4` block of luma resolution.
 
