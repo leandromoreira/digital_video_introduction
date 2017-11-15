@@ -863,6 +863,7 @@ Encoding Concepts:
 * http://web.ece.ucdavis.edu/cerl/ReliableJPEG/Cung/jpeg.html
 * http://www.adobe.com/devnet/adobe-media-server/articles/h264_encoding.html
 * https://prezi.com/8m7thtvl4ywr/mp3-and-aac-explained/
+* https://blogs.gnome.org/rbultje/2016/12/13/overview-of-the-vp9-video-codec/
 
 Video Sequences for Testing:
 
