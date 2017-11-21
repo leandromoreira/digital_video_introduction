@@ -335,7 +335,12 @@ The objects on the frame **move in a 3D way**, the ball can become smaller when 
 
 But we can see that when we apply **motion estimation** the **data to encode is smaller** than using simply delta frame techniques.
 
-![motion estimation vs delta ](/i/comparison_delta_vs_motion_estimation.png "motion estimationvs delta")
+![motion estimation vs delta ](/i/comparison_delta_vs_motion_estimation.png "motion estimation delta")
+
+> ### How real motion compensation would look
+> This technique is applied to all blocks, very often a ball would be partitioned in more than one block.
+>  ![real world motion compensation](/i/real_world_motion_compensation.png "real world motion compensation")
+> Source: https://web.stanford.edu/class/ee398a/handouts/lectures/EE398a_MotionEstimation_2012.pdf
 
 You can [play around with these concepts using jupyter](/frame_difference_vs_motion_estimation_plus_residual.ipynb).
 
