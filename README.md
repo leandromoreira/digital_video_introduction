@@ -838,6 +838,8 @@ Bitstream Specifications:
 * http://iphome.hhi.de/wiegand/assets/pdfs/2012_12_IEEE-HEVC-Overview.pdf
 * http://phenix.int-evry.fr/jct/doc_end_user/current_document.php?id=7243
 * http://gentlelogic.blogspot.com.br/2011/11/exploring-h264-part-2-h264-bitstream.html
+* https://forum.doom9.org/showthread.php?t=167081
+* https://forum.doom9.org/showthread.php?t=168947
 
 Software:
 
