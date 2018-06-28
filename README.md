@@ -450,7 +450,7 @@ Remember that we learned how **frames are typed**?! Well, you can **apply those 
 
 ## 2nd step - predictions
 
-Once we have the partitions, we can make predictions over them. For the [inter prediction](/digital_video_introduction#temporal-redundancy-inter-prediction) we need **to send the motion vectors and the residual** and the [intra prediction](/digital_video_introduction#spatial-redundancy-intra-prediction) we'll **send the prediction direction and the residual** as well.
+Once we have the partitions, we can make predictions over them. For the [inter prediction](#temporal-redundancy-inter-prediction) we need **to send the motion vectors and the residual** and the [intra prediction](#spatial-redundancy-intra-prediction) we'll **send the prediction direction and the residual** as well.
 
 ## 3rd step - transform
 
