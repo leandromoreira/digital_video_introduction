@@ -335,7 +335,12 @@ The objects on the frame **move in a 3D way**, the ball can become smaller when 
 
 But we can see that when we apply **motion estimation** the **data to encode is smaller** than using simply delta frame techniques.
 
-![motion estimation vs delta ](/i/comparison_delta_vs_motion_estimation.png "motion estimationvs delta")
+![motion estimation vs delta ](/i/comparison_delta_vs_motion_estimation.png "motion estimation delta")
+
+> ### How real motion compensation would look
+> This technique is applied to all blocks, very often a ball would be partitioned in more than one block.
+>  ![real world motion compensation](/i/real_world_motion_compensation.png "real world motion compensation")
+> Source: https://web.stanford.edu/class/ee398a/handouts/lectures/EE398a_MotionEstimation_2012.pdf
 
 You can [play around with these concepts using jupyter](/frame_difference_vs_motion_estimation_plus_residual.ipynb).
 
@@ -445,13 +450,13 @@ Remember that we learned how **frames are typed**?! Well, you can **apply those 
 
 ## 2nd step - predictions
 
-Once we have the partitions, we can make predictions over them. For the [inter prediction](/digital_video_introduction#temporal-redundancy-inter-prediction) we need **to send the motion vectors and the residual** and the [intra prediction](/digital_video_introduction#spatial-redundancy-intra-prediction) we'll **send the prediction direction and the residual** as well.
+Once we have the partitions, we can make predictions over them. For the [inter prediction](#temporal-redundancy-inter-prediction) we need **to send the motion vectors and the residual** and the [intra prediction](#spatial-redundancy-intra-prediction) we'll **send the prediction direction and the residual** as well.
 
 ## 3rd step - transform
 
 After we get the residual block (`predicted partition - real partition`), we can **transform** it in a way that lets us know which **pixels we can discard** while keeping the **overall quality**. There are some transformations for this exact behavior.
 
-Although there are [other transformations](https://en.wikipedia.org/wiki/List_of_Fourier-related_transforms#Discrete_transforms), we'll look more closely the discrete cosine transform (DCT). The [**DCT**](https://en.wikipedia.org/wiki/Discrete_cosine_transform) main features are:
+Although there are [other transformations](https://en.wikipedia.org/wiki/List_of_Fourier-related_transforms#Discrete_transforms), we'll look more closely at the discrete cosine transform (DCT). The [**DCT**](https://en.wikipedia.org/wiki/Discrete_cosine_transform) main features are:
 
 * **converts** blocks of **pixels** into  same-sized blocks of **frequency coefficients**.
 * **compacts** energy, making it easy to eliminate spatial redundancy.
@@ -833,6 +838,8 @@ Bitstream Specifications:
 * http://iphome.hhi.de/wiegand/assets/pdfs/2012_12_IEEE-HEVC-Overview.pdf
 * http://phenix.int-evry.fr/jct/doc_end_user/current_document.php?id=7243
 * http://gentlelogic.blogspot.com.br/2011/11/exploring-h264-part-2-h264-bitstream.html
+* https://forum.doom9.org/showthread.php?t=167081
+* https://forum.doom9.org/showthread.php?t=168947
 
 Software:
 
