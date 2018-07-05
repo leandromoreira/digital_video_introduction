@@ -1,4 +1,5 @@
 [🇨🇳](/simplified-chinese/README-cn.md "Simplified Chinese")
+[🇯🇵](/japanese/README-ja.md "Japanese")
 
 [![license](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)
 
