@@ -25,58 +25,58 @@ cd digital_video_introduction
 
 # 目次
 
-- [はじめに](#intro)
-- [目次](#index)
-- [基本用語](#basic-terminology)
-  * [カラー画像を符号化する別の方法](#other-ways-to-encode-a-color-image)
-  * [ハンズオン: 画像と色の実験](#hands-on-play-around-with-image-and-color)
-  * [DVDの画面アスペクト比は4:3](#dvd-is-dar-43)
-  * [ハンズオン: ビデオプロパティを調べる](#hands-on-check-video-properties)
-- [冗長性除去](#redundancy-removal)
-  * [色、明るさと私たちの目](#colors-luminance-and-our-eyes)
-    + [カラーモデル](#color-model)
-    + [YCbCrとRGB間の変換](#converting-between-ycbcr-and-rgb)
-    + [クロマサブサンプリング](#chroma-subsampling)
-    + [ハンズオン: YCbCrヒストグラムを調べる](#hands-on-check-ycbcr-histogram)
-  * [フレームの種類](#frame-types)
-    + [Iフレーム (イントラ、キーフレーム)](#i-frame-intra-keyframe)
-    + [Pフレーム (前方向予測)](#p-frame-predicted)
-      - [ハンズオン: Iフレームが一つだけのビデオ](#hands-on-a-video-with-a-single-i-frame)
-    + [Bフレーム (両方向予測)](#b-frame-bi-predictive)
-      - [ハンズオン: Bフレーム入りのビデオとの比較](#hands-on-compare-videos-with-b-frame)
-    + [まとめ](#summary)
-  * [時間的冗長度 (インター予測)](#temporal-redundancy-inter-prediction)
-      - [ハンズオン: 動きベクトルを見る](#hands-on-see-the-motion-vectors)
-  * [空間的冗長度 (イントラ予測)](#spatial-redundancy-intra-prediction)
-      - [ハンズオン: イントラ予測を調べる](#hands-on-check-intra-predictions)
-- [ビデオコーデックの仕組み](#how-does-a-video-codec-work)
-  * [何？なぜ？どうやって？](#what-why-how)
-  * [歴史](#history)
-    + [AV1の誕生](#the-birth-of-av1)
-  * [一般的なコーデック](#a-generic-codec)
-  * [ステップ１ - 画像分割](#1st-step---picture-partitioning)
-    + [ハンズオン: 区画を調べる](#hands-on-check-partitions)
-  * [ステップ２ - 予測](#2nd-step---predictions)
-  * [ステップ３ - 変換](#3rd-step---transform)
-    + [ハンズオン: いろいろな係数を捨ててみる](#hands-on-throwing-away-different-coefficients)
-  * [ステップ４ - 量子化](#4th-step---quantization)
-    + [ハンズオン: 量子化](#hands-on-quantization)
-  * [ステップ５ - エントロピー符号化](#5th-step---entropy-coding)
-    + [VLC符号化](#vlc-coding)
-    + [算術符号化](#arithmetic-coding)
-    + [ハンズオン: CABAC対CAVLC](#hands-on-cabac-vs-cavlc)
-  * [ステップ６ - ビットストリームフォーマット](#6th-step---bitstream-format)
-    + [H.264ビットストリーム](#h264-bitstream)
-    + [ハンズオン: H.264ビットストリームを調べる](#hands-on-inspect-the-h264-bitstream)
-  * [復習](#review)
-  * [H.265はH.264どのようにより高い圧縮率を実現しているのか?](#how-does-h265-achieve-a-better-compression-ratio-than-h264)
-- [オンラインのストリーミング](#online-streaming)
-  * [全体構造](#general-architecture)
-  * [プログレッシブダウンロードとアダプティブストリーミング](#progressive-download-and-adaptive-streaming)
-  * [コンテンツ保護](#content-protection)
-- [jupyterの使い方](#how-to-use-jupyter)
-- [カンファレンス](#conferences)
-- [参考文献](#references)
+- [はじめに](#はじめに)
+- [目次](#目次)
+- [基本用語](#基本用語)
+  * [カラー画像を符号化する別の方法](#カラー画像を符号化する別の方法)
+  * [ハンズオン: 画像と色の実験](#ハンズオン-画像と色の実験)
+  * [DVDの画面アスペクト比は4:3](#dvdの画面アスペクト比は43)
+  * [ハンズオン: ビデオプロパティを調べる](#ハンズオン-ビデオプロパティを調べる)
+- [冗長性除去](#冗長性除去)
+  * [色、明るさと私たちの目](#色、明るさと私たちの目)
+    + [カラーモデル](#カラーモデル)
+    + [YCbCrとRGB間の変換](#ycbcrとrgb間の変換)
+    + [クロマサブサンプリング](#クロマサブサンプリング)
+    + [ハンズオン: YCbCrヒストグラムを調べる](#ハンズオン-ycbcrヒストグラムを調べる)
+  * [フレームの種類](#フレームの種類)
+    + [Iフレーム (イントラ、キーフレーム)](#iフレーム-イントラ、キーフレーム)
+    + [Pフレーム (予測)](#pフレーム-予測)
+      - [ハンズオン: Iフレームが１つだけのビデオ](#ハンズオン-iフレームが１つだけのビデオ)
+    + [Bフレーム (双方向予測)](#bフレーム-双方向予測)
+      - [ハンズオン: Bフレーム付きのビデオとの比較](#ハンズオン-bフレーム付きのビデオとの比較)
+    + [まとめ](#まとめ)
+  * [時間的冗長性 (インター予測)](#時間的冗長性-インター予測)
+      - [ハンズオン: 動きベクトルを見る](#ハンズオン-動きベクトルを見る)
+  * [空間的冗長性 (イントラ予測)](#空間的冗長性-イントラ予測)
+      - [ハンズオン: イントラ予測を調べる](#ハンズオン-イントラ予測を調べる)
+- [ビデオコーデックの仕組み](#ビデオコーデックの仕組み)
+  * [何か? なぜ? どのように?](#何か-なぜ-どのように)
+  * [歴史](#歴史)
+    + [AV1の誕生](#av1の誕生)
+  * [一般的コーデック](#一般的コーデック)
+  * [ステップ１ - 画像分割](#ステップ１---画像分割)
+    + [ハンズオン: パーティションを調べる](#ハンズオン-パーティションを調べる)
+  * [ステップ２ - 予測](#ステップ２---予測)
+  * [ステップ３ - 変換](#ステップ３---変換)
+    + [ハンズオン: 種々の係数を捨てる](#ハンズオン-種々の係数を捨てる)
+  * [ステップ４ - 量子化](#ステップ４---量子化)
+    + [ハンズオン: 量子化](#ハンズオン-量子化)
+  * [ステップ５ - エントロピー符号化](#ステップ５---エントロピー符号化)
+    + [可変長符号](#可変長符号)
+    + [算術符号](#算術符号)
+    + [ハンズオン: CABAC対CAVLC](#ハンズオン-cabac対cavlc)
+  * [ステップ６ - ビットストリームフォーマット](#ステップ６---ビットストリームフォーマット)
+    + [H.264ビットストリーム](#h264ビットストリーム)
+    + [ハンズオン: H.264ビットストリームを調べる](#ハンズオン-h264ビットストリームを調べる)
+  * [おさらい](#おさらい)
+  * [どのようにH.265はH.264よりも良い圧縮率を実現しているのか?](#どのようにh265はh264よりも良い圧縮率を実現しているのか)
+- [オンラインストリーミング](#オンラインストリーミング)
+  * [一般的なアーキテクチャ](#一般的なアーキテクチャ)
+  * [プログレッシブダウンロードとアダプティブストリーミング](#プログレッシブダウンロードとアダプティブストリーミング)
+  * [コンテンツ保護](#コンテンツ保護)
+- [jupyterの使い方](#jupyterの使い方)
+- [カンファレンス](#カンファレンス)
+- [参考文献](#参考文献)
 
 # 基本用語
 
@@ -543,11 +543,11 @@ Iフレーム(参照、キーフレーム、イントラ)は**自己完結的な
 > ### ハンズオン: 量子化
 > [量子化](/dct_experiences.ipynb)を実験できます。
 
-## ステップ５- エントロピー符号化
+## ステップ５ - エントロピー符号化
 
 データ(画像 ブロック/スライス/フレーム)を量子化した後、さらに可逆圧縮することができます。データ圧縮のためのたくさんの方法(アルゴリズム)が存在します。それらのいくつかを簡単に体験していきます。より深い理解のためには、この素晴らしい本[Understanding Compression: Data Compression for Modern Developers](https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/)を読むとよいでしょう。
 
-### 可変長符号化:
+### 可変長符号:
 
 記号のストリームを持っているとします: **a**、**e**、**r**、**t**とそれらの確率(0から1)がこのテーブルで表されています。
 
@@ -603,10 +603,10 @@ Iフレーム(参照、キーフレーム、イントラ)は**自己完結的な
 
 この考えは、量子化ビットストリームを可逆圧縮する為のものです。間違いなくこの記事では伝えきれていない詳細、理由、トレードオフ等が山のようにあります。しかし、読者はデベロッパーとして[もっと学ぶべきです](https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/)。より新しいコーデックは別の[ANSのようなエントロピー符号化アルゴリズム](https://en.wikipedia.org/wiki/Asymmetric_Numeral_Systems)を使おうとしています。
 
-> ### Hands-on: CABAC vs CAVLC
+> ### ハンズオン: CABAC対CAVLC
 > [１つはCABAC、もう一方はCAVLCを使って２つのストリームを生成](https://github.com/leandromoreira/introduction_video_technology/blob/master/encoding_pratical_examples.md#cabac-vs-cavlc)し、生成する為にかかる**時間と最終的なサイズを比較し**してみましょう。
 
-## ステップ6 - ビットストリームフォーマット
+## ステップ６ - ビットストリームフォーマット
 
 これらのステップ全てを行った後、**圧縮されたフレームとこれらのステップまでの状況をパック**する必要があります。 **エンコーダによってなされた決定**についてデコーダへ明示的に知らせる必要があります。ビット深度、色空間、解像度、予測情報（動きベクトル、イントラ予測方向）、プロファイルレベル、フレームレート、フレームタイプ、フレーム数、その他多数です。
 
@@ -692,7 +692,7 @@ SPS NALについてH.264ビットストリーム仕様を読むと、**パラメ
 [VP9ビットストリーム](https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.6-20160331-draft.pdf)や[H.265 (HEVC)](http://handle.itu.int/11.1002/1000/11885-en?locatt=format:pdf)や、さらには**新しいベストフレドである** [**AV1** bitstream](https://medium.com/@mbebenita/av1-bitstream-analyzer-d25f1c27072b#.d5a89oxz8
 )のビットストリームを探索することができます。[それらはみんな似てますか？いいえ](http://www.gpac-licensing.com/2016/07/12/vp9-av1-bitstream-format/)、しかし１つを学ぶと、他のは簡単に理解できます。
 
-> ### ハンズオン: H.264ビットストリームの検査
+> ### ハンズオン: H.264ビットストリームを調べる
 > [単一フレームのビデオを生成](https://github.com/leandromoreira/introduction_video_technology/blob/master/encoding_pratical_examples.md#generate-a-single-frame-video)し、[mediainfo](https://en.wikipedia.org/wiki/MediaInfo)を使ってH.264ビットストリームを検査してみましょう。実際、[h264 (AVC)ビットストリームをパースするソースコード](https://github.com/MediaArea/MediaInfoLib/blob/master/Source/MediaInfo/Video/File_Avc.cpp)を見ることさえできます。
 >
 > ![mediainfo details h264 bitstream](/i/mediainfo_details_1.png "mediainfoがh264ビットストリームを詳述する")
@@ -736,7 +736,7 @@ HEVCはAVCに比べて、より大きく、より多くの**パーティショ�
 
 [TODO]
 
-## コンテント保護
+## コンテンツ保護
 
 **単純なトークンシステム**を使ってコンテントを保護することができます。トークンを持っていないユーザーはビデオをリクエストしようとしても、CDNが禁止します。一方有効なトークンを持つユーザーはそのコンテントを再生することができます。これはたいていのウェブ認証システムとほとんど同じように動作します。
 
