@@ -170,6 +170,15 @@ Our eyes are [more sensitive to brightness than colors](http://vanseodesign.com/
 
 If you are unable to see that the colors of the **squares A and B are identical** on the left side, that's fine, it's our brain playing tricks on us to **pay more attention to light and dark than color**. There is a connector, with the same color, on the right side so we (our brain) can easily spot that in fact, they're the same color.
 
+> **Simplistic explanation of how our eyes work**
+> The [eye is a complex organ](http://www.biologymad.com/nervoussystem/eyenotes.htm), it is composed of many parts but we are mostly interested in the cones and rods cells. The eye [contains about 120 million rod cells and 6 million cone cells](https://en.wikipedia.org/wiki/Photoreceptor_cell).
+>
+> To **oversimplify**, let's try to put colors and brightness in the eye's parts function. The **[rod cells](https://en.wikipedia.org/wiki/Rod_cell) are mostly responsible for brightness** while the **[cone cells](https://en.wikipedia.org/wiki/Cone_cell) are responsible for color**, there are three types of cones, each with different pigment, namely: [S-cones (Blue), M-cones (Green) and L-cones (Red)](https://upload.wikimedia.org/wikipedia/commons/1/1e/Cones_SMJ2_E.svg).
+>
+> Since we have many more rod cells (brightness) than cone cells (color), one can infer that we are more capable of distinguishing dark and light than colors.
+>
+> ![eyes composition](/i/eyes.jpg "eyes composition")
+>
 > **contrast sensitivity functions**
 >
 > Researchers of experimental psychology and many other fileds have set up many theories on human vision. And one of them is called contrast sensitivity functions. They are related to sptial and temporal of the light we see and their value presents at given init light, how much relative change of it required before an observer reports he realizes a change takes place. Notice the plural of the word "function", it is for the reason that we can measure contrast sensitivity functions with not only black-white but also colors. The result of experiment shows that in most cases our eyes are more sensitive to achromatic than chromatic.
