@@ -179,9 +179,9 @@ If you are unable to see that the colors of the **squares A and B are identical*
 >
 > ![eyes composition](/i/eyes.jpg "eyes composition")
 >
-> **contrast sensitivity functions**
+> **Contrast sensitivity functions**
 >
-> Researchers of experimental psychology and many other fileds have set up many theories on human vision. And one of them is called contrast sensitivity functions. They are related to sptial and temporal of the light we see and their value presents at given init light, how much relative change of it required before an observer reports he realizes a change takes place. Notice the plural of the word "function", it is for the reason that we can measure contrast sensitivity functions with not only black-white but also colors. The result of experiment shows that in most cases our eyes are more sensitive to achromatic than chromatic.
+> Researchers of experimental psychology and many other fields have developed many theories on human vision. And one of them is called Contrast sensitivity functions. They are related to spatio and temporal of the light and their value presents at given init light, how much change is required before an observer reported there was a change. Notice the plural of the word "function", this is for the reason that we can measure Contrast sensitivity functions with not only black-white but also colors. The result of these experiments shows that in most cases our eyes are more sensitive to brightness than color.
 
 Once we know that we're more sensitive to **luma** (the brightness in an image) we can try to exploit it.
 
