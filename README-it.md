@@ -169,6 +169,10 @@ Se nell'immagine a sinistra non riesci a vedere che **i colori dei quadrati A e 
 > Dato che l'occhio ha molti più bastoncelli (luminosità) che coni (colore), si può dedurre che l'occhio è più bravo a distinguere il chiaro dallo scuro che i colori.
 >
 > ![Composizione dell'occhio](/i/eyes.jpg "Composizione dell'occhio")
+>
+> **Funzioni di sensibilità al contrasto**
+>
+> Ricercatori di psicologia sperimentale e altri campi hanno sviluppato molte teorie sull'occhio umano. Una di queste si chiama "funzioni di sensibilità al contrasto". Queste funzioni riguardano il legame spaziotemporale della luce, il loro valore con una certa quantità di luce iniziale, e quanto cambiamento è richiesto prima che un osservatore si accorga che c'è stato un cambiamento. Il plurale della parola "funzioni" è dovuto al fatto che possiamo usare queste funzioni non solo per studiare il bianco e il nero, ma anche i colori. Il risultato di questi esperimenti mostra che nella maggior parte dei casi l'occhio è più sensibile alla luce che al colore.
 
 Ora che sappiamo che siamo più sensibili alla lumimanza (la luminosità di un'immagine), possiamo provare a sfruttare questo fatto.
 
