@@ -238,13 +238,13 @@ How much should we reduce the chroma resolution?! It turns out that there are al
 
 These schemas are known as subsampling systems and are expressed as a 3 part ratio - `a:x:y` which defines the chroma resolution in relation to a `a x 2` block of luma pixels.
 
- * `a` is the horizontal sampling reference (usually 4),
- * `x` is the number of chroma samples in the first row of `a` pixels (horizontal resolution in relation to `a`), and
+ * `a` is the horizontal sampling reference (usually 4)
+ * `x` is the number of chroma samples in the first row of `a` pixels (horizontal resolution in relation to `a`)
  * `y` is the number of changes of chroma samples between the first and seconds rows of `a` pixels.
 
 > An exception to this exists with 4:1:0, which provides a single chroma sample within each `4 x 4` block of luma resolution.
 
-Common schemes used in modern codecs are: **4:4:4** *(no subsampling)***, **4:2:2, 4:1:1, 4:2:0, 4:1:0 and 3:1:1**.
+Common schemes used in modern codecs are: **4:4:4** *(no subsampling)*, **4:2:2, 4:1:1, 4:2:0, 4:1:0 and 3:1:1**.
 
 > **YCbCr 4:2:0 merge**
 >
@@ -381,7 +381,7 @@ Our **prediction can be wrong**, for that reason we need to apply this technique
 ![](/i/smw_residual.png)
 
 > #### Hands-on: Check intra predictions
-> You can [generate a video with macro blocks and their predictions with ffmpeg.](/encoding_pratical_examples.md#generate-debug-video) Please check the ffmpeg documentation to understand the [meaning of each block color](https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors).
+> You can [generate a video with macro blocks and their predictions with ffmpeg.](/encoding_pratical_examples.md#generate-debug-video) Please check the ffmpeg documentation to understand the [meaning of each block color](https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors#AnalyzingMacroblockTypes).
 >
 > ![intra prediction (macro blocks) with ffmpeg](/i/macro_blocks_ffmpeg.png "inter prediction (motion vectors) with ffmpeg")
 >
