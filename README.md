@@ -103,7 +103,7 @@ For instance, look at the picture down below. The first face is fully colored. T
 
 We can see that the **red color** will be the one that **contributes more** (the brightest parts in the second face) to the final color while the **blue color** contribution can be mostly **only seen in Mario's eyes** (last face) and part of his clothes, see how **all planes contribute less** (darkest parts) to the **Mario's mustache**.
 
-And each color intensity requires a certain amount of bits, this quantity is known as **bit depth**. Let's say we spend **8 bits** (accepting values from 0 to 255) per color (plane), therefore we have a **color depth** of **24 (8 * 3) bits** and we can also infer that we could use 2 to the power of 24 different colors.
+And each color intensity requires a certain amount of bits, this quantity is known as **bit depth**. Let's say we spend **8 bits** (accepting values from 0 to 255) per color (plane), therefore we have a **color depth** of **24 bits** (8 bits * 3 planes R/G/B), and we can also infer that we could use 2 to the power of 24 different colors.
 
 > **It's great** to learn [how an image is captured from the world to the bits](http://www.cambridgeincolour.com/tutorials/camera-sensors.htm).
 
@@ -238,13 +238,13 @@ How much should we reduce the chroma resolution?! It turns out that there are al
 
 These schemas are known as subsampling systems and are expressed as a 3 part ratio - `a:x:y` which defines the chroma resolution in relation to a `a x 2` block of luma pixels.
 
- * `a` is the horizontal sampling reference (usually 4),
- * `x` is the number of chroma samples in the first row of `a` pixels (horizontal resolution in relation to `a`), and
+ * `a` is the horizontal sampling reference (usually 4)
+ * `x` is the number of chroma samples in the first row of `a` pixels (horizontal resolution in relation to `a`)
  * `y` is the number of changes of chroma samples between the first and seconds rows of `a` pixels.
 
 > An exception to this exists with 4:1:0, which provides a single chroma sample within each `4 x 4` block of luma resolution.
 
-Common schemes used in modern codecs are: **4:4:4** *(no subsampling)***, **4:2:2, 4:1:1, 4:2:0, 4:1:0 and 3:1:1**.
+Common schemes used in modern codecs are: **4:4:4** *(no subsampling)*, **4:2:2, 4:1:1, 4:2:0, 4:1:0 and 3:1:1**.
 
 > **YCbCr 4:2:0 merge**
 >
@@ -381,7 +381,7 @@ Our **prediction can be wrong**, for that reason we need to apply this technique
 ![](/i/smw_residual.png)
 
 > #### Hands-on: Check intra predictions
-> You can [generate a video with macro blocks and their predictions with ffmpeg.](/encoding_pratical_examples.md#generate-debug-video) Please check the ffmpeg documentation to understand the [meaning of each block color](https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors).
+> You can [generate a video with macro blocks and their predictions with ffmpeg.](/encoding_pratical_examples.md#generate-debug-video) Please check the ffmpeg documentation to understand the [meaning of each block color](https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors#AnalyzingMacroblockTypes).
 >
 > ![intra prediction (macro blocks) with ffmpeg](/i/macro_blocks_ffmpeg.png "inter prediction (motion vectors) with ffmpeg")
 >
