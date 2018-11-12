@@ -99,7 +99,7 @@ cd digital_video_introduction
 
 **赤色**が最終的な色に対して**より貢献している** (二番目の顔の最も明るい部分)ことが分かります。一方**青色** の貢献は服の一部と**マリオの目にしかみられません**(最後の顔) 。**マリオのひげ**に対しては、**全ての平面があまり貢献していない**(最も暗い部分)ことが分かります。
 
-各色の輝度では**ビット深度**として知られる一定量のビットが不可欠です。色(平面)ごとに(0から255の値で表現する)**8ビット**を使うとすると、**24 (8 X 3)ビット**の**色深度**を持つことになり、2の24乗種類の色を使えることが推論できます。
+各色の輝度では**ビット深度**として知られる一定量のビットが不可欠です。色(平面)ごとに(0から255の値で表現する)**8ビット**を使うとすると、**24ビット**(8ビット x 3次元 R/G/B)の**色深度**を持つことになり、2の24乗種類の色を使えることが推論できます。
 
 > [画像がどのように万物をビットとしてとらえるのか](http://www.cambridgeincolour.com/tutorials/camera-sensors.htm)を学ぶと **良い**でしょう 
 
@@ -374,7 +374,7 @@ Iフレーム(参照、キーフレーム、イントラ)は**自己完結的な
 ![](/i/smw_residual.png)
 
 > #### ハンズオン: イントラ予測を調べる
-> [ffmpegでマクロブロックとそれらの予測付きのビデオを生成する](/encoding_pratical_examples.md#generate-debug-video)ことができます。[それぞれのブロックの色の意味](https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors)を理解するためにffmpegのドキュメントを調べてください。
+> [ffmpegでマクロブロックとそれらの予測付きのビデオを生成する](/encoding_pratical_examples.md#generate-debug-video)ことができます。[それぞれのブロックの色の意味](https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors#AnalyzingMacroblockTypes)を理解するためにffmpegのドキュメントを調べてください。
 >
 > ![intra prediction (macro blocks) with ffmpeg](/i/macro_blocks_ffmpeg.png "ffmpegでインター予測 (動きベクトル)")
 >
