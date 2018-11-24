@@ -228,7 +228,7 @@ Generally, **displays** (monitors, TVs, screens and etc) utilize **only the RGB 
 
 ### Chroma subsampling
 
-With the image represented as luma and chroma components, we can take advantage of the human visual system's greater sensitity for luma resolution rather than chroma to selectively remove information. **Chroma subsampling** is the technique of encoding images using **less resolution for chroma than for luma**.
+With the image represented as luma and chroma components, we can take advantage of the human visual system's greater sensitivity for luma resolution rather than chroma to selectively remove information. **Chroma subsampling** is the technique of encoding images using **less resolution for chroma than for luma**.
 
 
 ![ycbcr subsampling resolutions](/i/ycbcr_subsampling_resolution.png "ycbcr subsampling resolutions")
