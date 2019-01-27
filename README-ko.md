@@ -1,46 +1,46 @@
-[🇨🇳](/README-cn.md "Simplified Chinese")
-[🇯🇵](/README-ja.md "Japanese")
-[🇮🇹](/README-it.md "Italian")
-[🇰🇷](/README-ko.md "Korean")
-
 [![license](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)
 
 # Intro
 
-A gentle introduction to video technology, although it's aimed at software developers / engineers, we want to make it easy **for anyone to learn**. This idea was born during a [mini workshop for newcomers to video technology](https://docs.google.com/presentation/d/17Z31kEkl_NGJ0M66reqr9_uTG6tI5EDDVXpdPKVuIrs/edit#slide=id.p).
+비디오 기술에 대한 친절한 소개 자료입니다. 비록 소프트웨어 개발자/엔지니어를 대상으로 작성 했지만, **누구나 배울 수 있는** 글이 되었으면 합니다. 아이디어는 [비디오 기술 뉴비를 위한 미니 워크샵](https://docs.google.com/presentation/d/17Z31kEkl_NGJ0M66reqr9_uTG6tI5EDDVXpdPKVuIrs/edit#slide=id.p)에서 비롯되었습니다.
 
-The goal is to introduce some digital video concepts with a **simple vocabulary, lots of visual elements and practical examples** when possible, and make this knowledge available everywhere. Please, feel free to send corrections, suggestions and improve it.
+가능한 **쉬운 단어, 많은 시각 자료 그리고 실용적인 예제**들로 디지털 비디오의 컨셉을 소개하며 어디서든 사용할 수 있는 지식이 될 수 있는 것이 목표입니다. 언제나 수정 사항, 제안 등을 보내셔서 개선해주세요.
 
-There will be **hands-on** sections which require you to have **docker installed** and this repository cloned.
+**실습** 섹션에서는 **도커**가 필요하며 이 레포지토리를 클론하셔야 합니다.
+
 
 ```bash
 git clone https://github.com/leandromoreira/digital_video_introduction.git
 cd digital_video_introduction
 ./setup.sh
 ```
-> **WARNING**: when you see a `./s/ffmpeg` or `./s/mediainfo` command, it means we're running a **containerized version** of that program, which already includes all the needed requirements.
+
+> **알림**: `./s/ffmpeg`나 `./s/mediainfo` 명령을 사용하는 경우,필요로 하는 모든 요구사항이 포함된 **도커 앱**을 실행하는 것을 의미합니다.
 
 All the **hands-on should be performed from the folder you cloned** this repository. For the **jupyter examples** you must start the server `./s/start_jupyter.sh` and copy the URL and use it in your browser.
 
-# Changelog
+**모든 실습 내용은 여러분이 클론한 레포지토리 폴더에서 실행되어야 합니다**.  
+**주피터 예제**의 경우, `./s/start_jupyter.sh`로 서버를 반드시 실행해야하며 URL을 복사해 브라우저에서 사용하시면 됩니다.
 
-* added DRM system
-* released version 1.0.0
-* added simplified Chinese translation
+# 변경로그
 
-# Index
+* DRM 시스템이 추가되었습니다.
+* 1.0.0 버전이 릴리즈 되었습니다.
+* 요약 버전의 중국어 번역이 추가되었습니다.
+
+# 색인
 
 - [Intro](#intro)
-- [Changelog](#changelog)
-- [Index](#index)
-- [Basic terminology](#basic-terminology)
-- [Redundancy removal](#redundancy-removal)
-  - [Colors, Luminance and our eyes](#colors-luminance-and-our-eyes)
-    - [Color model](#color-model)
-    - [Converting between YCbCr and RGB](#converting-between-ycbcr-and-rgb)
-    - [Chroma subsampling](#chroma-subsampling)
-  - [Frame types](#frame-types)
-    - [I Frame (intra, keyframe)](#i-frame-intra-keyframe)
+- [변경로그](#%EB%B3%80%EA%B2%BD%EB%A1%9C%EA%B7%B8)
+- [색인](#%EC%83%89%EC%9D%B8)
+- [기초 용어](#%EA%B8%B0%EC%B4%88-%EC%9A%A9%EC%96%B4)
+- [중복 제거](#%EC%A4%91%EB%B3%B5-%EC%A0%9C%EA%B1%B0)
+  - [색상, 휘도, 시각](#%EC%83%89%EC%83%81-%ED%9C%98%EB%8F%84-%EC%8B%9C%EA%B0%81)
+    - [색상 모델](#%EC%83%89%EC%83%81-%EB%AA%A8%EB%8D%B8)
+    - [YCbCr <-> RGB 변환](#ycbcr---rgb-%EB%B3%80%ED%99%98)
+    - [크로마 서브샘플링](#%ED%81%AC%EB%A1%9C%EB%A7%88-%EC%84%9C%EB%B8%8C%EC%83%98%ED%94%8C%EB%A7%81)
+  - [프레임 유형](#%ED%94%84%EB%A0%88%EC%9E%84-%EC%9C%A0%ED%98%95)
+    - [I Frame (인트라, 키프레임)](#i-frame-%EC%9D%B8%ED%8A%B8%EB%9D%BC-%ED%82%A4%ED%94%84%EB%A0%88%EC%9E%84)
     - [P Frame (predicted)](#p-frame-predicted)
     - [B Frame (bi-predictive)](#b-frame-bi-predictive)
     - [Summary](#summary)
@@ -74,137 +74,141 @@ All the **hands-on should be performed from the folder you cloned** this reposit
 - [Conferences](#conferences)
 - [References](#references)
 
-# Basic terminology
+# 기초 용어
 
-An **image** can be thought of as a **2D matrix**. If we think about **colors**, we can extrapolate this idea seeing this image as a **3D matrix** where the **additional dimensions** are used to provide **color data**.
+**이미지**는 2차원 매트릭스로 생각할 수 있습니다. 여기에 **색상**을 고려한다면, **색상 데이터** 제공에 사용되는 **추가적인 차원**이 있는 **3차원 매트릭스**로 여길 수 있습니다.
 
-If we chose to represent these colors using the [primary colors (red, green and blue)](https://en.wikipedia.org/wiki/Primary_color), we define three planes: the first one for **red**, the second for **green**, and the last one for the **blue** color.
+[삼원색(빨간색, 초록색, 파란색)](https://en.wikipedia.org/wiki/Primary_color)을 사용해 색상들을 표현하는 경우, **빨간색**, **초록색**, **파란색** 순의 세 가지 평면을 정의할 수 있습니다.  
 
 ![an image is a 3d matrix RGB](/i/image_3d_matrix_rgb.png "An image is a 3D matrix")
 
-We'll call each point in this matrix **a pixel** (picture element). One pixel represents the **intensity** (usually a numeric value) of a given color. For example, a **red pixel** means 0 of green, 0 of blue and maximum of red. The **pink color pixel** can be formed with a combination of the three colors. Using a representative numeric range from 0 to 255, the pink pixel is defined by **Red=255, Green=192 and Blue=203**.
+이 매트릭스의 각각의 점을 **픽셀**(화소)라 부를 것입니다. 하나의 픽셀은 주어진 색상의 **강도**(보통 숫자 값)를 표현합니다. 예를들어, **빨간 픽셀**은 초록생이 0, 파란색이 0이고 빨간색이 최대인 것을 의미하지요. **핑크 색상 픽셀**은 세 가지 색상의 조합으로 구성되어 있습니다. 대표적인 0부터 255까지의 숫자 범위를 사용하면 핑크색 픽셀은 **빨간색=255, 초록색=192, 파란색=203**으로 정의됩니다.  
 
-> #### Other ways to encode a color image
-> Many other possible models may be used to represent the colors that make up an image. We could, for instance, use an indexed palette where we'd only need a single byte to represent each pixel instead of the 3 needed when using the RGB model. In such a model we could use a 2D matrix instead of a 3D matrix to represent our color, this would save on memory but yield fewer color options.
+> #### 색상 이미지를 인코딩하는 또 다른 방법
+> 이미지를 구성하는 색상들을 표현하는데에는 다양한 모델들이 존재합니다. 예를들면 RGB 모델을 사용할 때 3바이트를 사용하는 것 대신, 각 픽셀을 표현하는데 한 바이트만 필요한 인덱스 팔레트를 사용할 수 있지요. 이러한 모델에서는 3차원 매트릭스 대신 2차원 매트릭스를 사용하여 색상을 표현할 수 있으며, 메모리를 아낄 수 있지만 색상에 대한 몇 가지 옵션들을 포기해야하죠.   
 >
 > ![NES palette](/i/nes-color-palette.png "NES palette")
 
-For instance, look at the picture down below. The first face is fully colored. The others are the red, green, and blue planes (shown as gray tones).
+예를들어 아래의 사진을 한 번 보세요. 첫 번째 얼굴은 모든 색상이 표현되어있지요. 다른 것들은 빨간색, 초록색, 파란색 평면입니다. (회색 톤으로 나옴)
 
 ![RGB channels intensity](/i/rgb_channels_intensity.png "RGB channels intensity")
 
-We can see that the **red color** will be the one that **contributes more** (the brightest parts in the second face) to the final color while the **blue color** contribution can be mostly **only seen in Mario's eyes** (last face) and part of his clothes, see how **all planes contribute less** (darkest parts) to the **Mario's mustache**.
+여기서 **빨간색**(두 번째 얼굴의 밝은 부분들)이 색상에 많이 나타나는 것을 볼 수 있습니다. 반면 **파란색**(마지막 얼굴)은 대부분 **마리오의 눈**과 옷의 일부에만 나타납니다. **모든 색상**의 영향력이 낮은 부분은 **마리오의 수염**(가장 어두운 부분)입니다. 
 
-And each color intensity requires a certain amount of bits, this quantity is known as **bit depth**. Let's say we spend **8 bits** (accepting values from 0 to 255) per color (plane), therefore we have a **color depth** of **24 bits** (8 bits * 3 planes R/G/B), and we can also infer that we could use 2 to the power of 24 different colors.
+각각의 색상 강도는 특정한 양의 비트를 필요로 합니다. 여기서 양이란 **비트 깊이** 입니다. 각 색상 평면당 8비트(0부터 255 사이의 값을 가지는)를 할애했다고 가정하면 **24비트**의 **색 깊이**(8 비트 * R/G/B의 3가지 평면)를 가지게 되며, 2의 24승 가지의 서로 다른 색상을 사용할 수 있음을 의미합니다.   
 
-> **It's great** to learn [how an image is captured from the world to the bits](http://www.cambridgeincolour.com/tutorials/camera-sensors.htm).
+> [세상에서 비트로 이미지가 캡쳐되는 원리](http://www.cambridgeincolour.com/tutorials/camera-sensors.htm)에 대해 배울 수 있는 **훌륭한 글** 입니다.
 
-Another property of an image is the **resolution**, which is the number of pixels in one dimension. It is often presented as width × height, for example, the **4×4** image below.
+이미지의 또 다른 속성은 **해상도**입니다. 해상도는 차원 하나에 포함될 수 있는 픽셀의 수를 의미합니다. 이는 보통 width x height로 표현됩니다. 그 예로 아래에는 **4x4** 이미지가 있습니다.  
 
 ![image resolution](/i/resolution.png "image resolution")
 
-> #### Hands-on: play around with image and color
-> You can [play around with image and colors](/image_as_3d_array.ipynb) using [jupyter](#how-to-use-jupyter) (python, numpy, matplotlib and etc).
+> #### 실습: 이미지와 색상 가지고 놀기
+> [주피터](#how-to-use-jupyter)를 사용하여 [이미지와 색 가지고 놀기](/image_as_3d_array.ipynb)를 해볼 수 있어요.
+> 
 >
-> You can also learn [how image filters (edge detection, sharpen, blur...) work](/filters_are_easy.ipynb).
+> [이미지 필터(외곽선 검출, 강조, 블러)](/filters_are_easy.ipynb)에 대해 학습할 수 있습니다.
 
-Another property we can see while working with images or video is the **aspect ratio** which simply describes the proportional relationship between width and height of an image or pixel.
+이미지나 비디오를 다루다보면 볼 수 있는 또 다른 속성인 **종횡비(aspect ratio)**가 있습니다. 이는 이미지나 픽셀의 폭과 높이의 비례 관계를 간단하게 표현하는 방법입니다.  
 
-When people says this movie or picture is **16x9** they usually are referring to the **Display Aspect Ratio (DAR)**, however we also can have different shapes of individual pixels, we call this **Pixel Aspect Ratio (PAR)**.
+사람들이 이 영상 혹은 사진은 **16x9**야라고 한다면 이는 일반적으로 **화면 종횡비(DAR)** 에 대한 이야기를 하는 것입니다. 반면에 각각의 픽셀의 서로 다른 형태에 대한 것은 **픽셀 종횡비(PAR)** 라고 부릅니다.  
 
 ![display aspect ratio](/i/DAR.png "display aspect ratio")
 
 ![pixel aspect ratio](/i/PAR.png "pixel aspect ratio")
 
-> #### DVD is DAR 4:3
-> Although the real resolution of a DVD is 704x480 it still keeps a 4:3 aspect ratio because it has a PAR of 10:11 (704x10/480x11)
+> #### DVD는 DAR 4:3이다.
+> DVD의 실제 해상도는 704x480이지만 10:11(704x10/480x11)의 PAR로 인해 4:3의 종횡비를 유지합니다.  
 
-Finally, we can define a **video** as a **succession of *n* frames** in **time** which can be seen as another dimension, *n* is the frame rate or frames per second (FPS).
+마지막으로 **비디오**는 또다른 차원으로 볼 수 있는 시간의 축에 나열된 **n개의 프레임의 연속**으로 정의할 수 있습니다.  
+여기서 n은 프레임레이트 혹은 초당 프레임 수 입니다.  
 
 ![video](/i/video.png "video")
 
-The number of bits per second needed to show a video is its **bit rate**.
+비디오의 **비트 레이트**는 동영상을 표시하는데 초당 필요한 비트의 수입니다.
 
-> bit rate = width * height * bit depth * frames per second
+> 비트레이트 = 폭 * 높이 * 비트 깊이 * 초당 프레임 수
 
-For example, a video with 30 frames per second, 24 bits per pixel, resolution of 480x240 will need **82,944,000 bits per second** or 82.944 Mbps (30x480x240x24) if we don't employ any kind of compression.
+예를들어 어떤 영상이 30fps, 24비트 픽셀 깊이, 480x240의 해상도에 압축을 하지 않은 경우라면 **초당 82,944,000비트** 혹은 82.944 Mbps (30x480x240x24)가 필요로 합니다.  
 
-When the **bit rate** is nearly constant it's called constant bit rate (**CBR**) but it also can vary then called variable bit rate (**VBR**).
+**비트 레이트**가 거의 일정한 경우 이를 고정 비트레이트(**CBR**)라고 부르며 가변의 경우에는 가변 비트레이트(**VBR**)라 부릅니다.  
 
-> This graph shows a constrained VBR which doesn't spend too many bits while the frame is black.
+> 이 그래프는 프레임이 검은색인 동안에는 그리 많은 비트를 소비하지 않는 제한된 VBR을 보여줍니다. 
 >
 > ![constrained vbr](/i/vbr.png "constrained vbr")
 
-In the early days, engineers came up with a technique for doubling the perceived frame rate of a video display **without consuming extra bandwidth**. This technique is known as **interlaced video**; it basically sends half of the screen in 1 "frame" and the other half in the next "frame".
+초기에는 엔지니어들이 **여분의 대역폭 소모 없이** 두 배의 인지 가능한 프레임 레이트로 비디오를 표시하는 기술을 개발했습니다. 이 기술은 **인터레이싱 비디오**라고 부릅니다. 이는 1프레임에서 화면의 절반을 보내고 나머지 절반을 그 다음 프레임에 보냅니다.  
 
-Today screens render mostly using **progressive scan technique**. Progressive is a way of displaying, storing, or transmitting moving images in which all the lines of each frame are drawn in sequence.
+오늘날의 화면은 대부분 **프로그레시브 스캔 기술**을 사용합니다. 프로그레시브는 각 프레임의 모든 라인을 순서대로 그리는 영상을 출력, 저장, 전송하는 기술입니다.  
 
 ![interlaced vs progressive](/i/interlaced_vs_progressive.png "interlaced vs progressive")
 
-Now we have an idea about how an **image** is represented digitally, how its **colors** are arranged, how many **bits per second** do we spend to show a video, if it's constant (CBR)  or variable (VBR), with a given **resolution** using a given **frame rate** and many other terms such as interlaced, PAR and others.
+이제 어떻게 **이미지**가 디지털로 표현되는지, **색상**이 어떻게 배치되어 영상 표현에 어느 정도의 **초당 비트 수**가 필요한지, 그게 고정(CBR)인지 가변(VBR)인지에 대한 것과 **해상도**와 **프레임 레이트**와 인터레이스드, PAR와 같은 많은 용어들을 배웠습니다.   
 
-> #### Hands-on: Check video properties
-> You can [check most of the  explained properties with ffmpeg or mediainfo.](https://github.com/leandromoreira/introduction_video_technology/blob/master/encoding_pratical_examples.md#inspect-stream)
+> #### 연습: 비디오 속성 확인
+> [ffmpeg이나 mediainfo로 속성 살펴보기](https://github.com/leandromoreira/introduction_video_technology/blob/master/encoding_pratical_examples.md#inspect-stream)
 
-# Redundancy removal
+# 중복 제거
 
-We learned that it's not feasible to use video without any compression; **a single one hour video** at 720p resolution with 30fps would **require 278GB<sup>*</sup>**. Since **using solely lossless data compression algorithms** like DEFLATE (used in PKZIP, Gzip, and PNG), **won't** decrease the required bandwidth sufficiently we need to find other ways to compress the video.
+압축 없이는 비디오를 사용할 수 없다는 것을 배웠습니다. 30fps인 720p 해상도의 **한 시간 짜리 영상**은 **278GB***를 필요로합니다. DEFLATE(PKZIP, Gzip, PNG에 사용되는)와 같은 **무손실 데이터 압축 알고리즘**을 사용하는 경우 대역폭을 충분히 줄일 수 없으므로 비디오를 압축할 다른 방법을 찾아야합니다.  
 
-> <sup>*</sup> We found this number by multiplying 1280 x 720 x 24 x 30 x 3600 (width, height, bits per pixel, fps and time in seconds)
+> <sup>*</sup> 1280 x 720 x 24 x 30 x 3600 (폭, 높이, 픽셀 당 비트 수, fps, 영상 시간)
 
-In order to do this, we can **exploit how our vision works**. We're better at distinguishing brightness than colors, the **repetitions in time**, a video contains a lot of images with few changes, and the **repetitions within the image**, each frame also contains many areas using the same or similar color.
+이를 위해서는, **우리의 눈을 속여야합니다**. 눈은 색상보다 명암 구분을 더 잘합니다. 영상은 변화가 거의 없는 많은 이미지들로 이루어져있으며, 각 프레임들은 같거나 유사한 색상을 사용하는 많은 영역들이 포함되어 있습니다.  
 
-## Colors, Luminance and our eyes
+## 색상, 휘도, 시각
 
-Our eyes are [more sensitive to brightness than colors](http://vanseodesign.com/web-design/color-luminance/), you can test it for yourself, look at this picture.
+시각은 [색상보다 명암에 더 민감하며](http://vanseodesign.com/web-design/color-luminance/), 이를 테스트 해볼 수 있습니다. 이 사진을 보세요.  
 
 ![luminance vs color](/i/luminance_vs_color.png "luminance vs color")
 
-If you are unable to see that the colors of the **squares A and B are identical** on the left side, that's fine, it's our brain playing tricks on us to **pay more attention to light and dark than color**. There is a connector, with the same color, on the right side so we (our brain) can easily spot that in fact, they're the same color.
+만일 왼쪽의 이미지에서 사각형 **A와 B가 동일한 색상**이라는 사실을 눈치채지 못하셨다면 정상입니다. 우리의 뇌는 **색상보다는 명암에 더 신경쓰도록** 만들기 때문이지요. 오른쪽의 사진에서는 같은 색상을 연결해주는 커넥터가 있기 때문에 우리의 뇌는 두 사각형이 동일한 색상이라는 사실을 쉽게 파악할 수 있습니다.  
 
-> **Simplistic explanation of how our eyes work**
-> The [eye is a complex organ](http://www.biologymad.com/nervoussystem/eyenotes.htm), it is composed of many parts but we are mostly interested in the cones and rods cells. The eye [contains about 120 million rod cells and 6 million cone cells](https://en.wikipedia.org/wiki/Photoreceptor_cell).
+> **시각은 어떻게 동작하는가에 대한 간단한 설명**  
+> 
+> [눈은 복잡한 장기이며](http://www.biologymad.com/nervoussystem/eyenotes.htm), 많은 것들로 구성되어 있으나 여기서는 대부분은 원추세포와 간상세포에 집중합니다. 눈은 [약 1억 2천개의 간상세포와 6백만개의 원추세포로 구성되어 있습니다](https://en.wikipedia.org/wiki/Photoreceptor_cell).
+> **더 간단하게 설명하기 위해**, 색상과 명암을 눈의 각 기능들에 입력한다고 가정해봅시다.
+> **[간상세포](https://en.wikipedia.org/wiki/Rod_cell) 는 대부분 빛에 반응하는 반면에**, **[원추세포](https://en.wikipedia.org/wiki/Cone_cell)는 색상에 반응합니다**. 서로 다른 색소를 지닌 세 가지 타입의 원추 세포가 존재합니다: [S-cones (파란색), M-cones (초록색) and L-cones (빨간색)](https://upload.wikimedia.org/wikipedia/commons/1/1e/Cones_SMJ2_E.svg).
 >
-> To **oversimplify**, let's try to put colors and brightness in the eye's parts function. The **[rod cells](https://en.wikipedia.org/wiki/Rod_cell) are mostly responsible for brightness** while the **[cone cells](https://en.wikipedia.org/wiki/Cone_cell) are responsible for color**, there are three types of cones, each with different pigment, namely: [S-cones (Blue), M-cones (Green) and L-cones (Red)](https://upload.wikimedia.org/wikipedia/commons/1/1e/Cones_SMJ2_E.svg).
->
-> Since we have many more rod cells (brightness) than cone cells (color), one can infer that we are more capable of distinguishing dark and light than colors.
+> 간상 세포(명암)가 원추 세포(색상)보다 많기 때문에, 색상보다 명암을 더 잘 구분할 것이라는 사실을 짐작할 수 있을 것입니다.  
 >
 > ![eyes composition](/i/eyes.jpg "eyes composition")
 >
-> **Contrast sensitivity functions**
+> **대비 인식 능력**
 >
-> Researchers of experimental psychology and many other fields have developed many theories on human vision. And one of them is called Contrast sensitivity functions. They are related to spatio and temporal of the light and their value presents at given init light, how much change is required before an observer reported there was a change. Notice the plural of the word "function", this is for the reason that we can measure Contrast sensitivity functions with not only black-white but also colors. The result of these experiments shows that in most cases our eyes are more sensitive to brightness than color.
+> 실험 심리학 및 다른 분야들의 연구자들은 사람의 시각에 대한 많은 이론을 개발했습니다. 그 중 하나를 대비 인식 능력이라고 부릅니다. 이것들은 빛의 공간과 시간과 관련 있으며, 주어진 초기에 관측한 빛이 나타내는 값이, 관측자가 변화가 있다는 사실을 말하기까지 얼마나 많은 변화가 필요한지에 대한 것입니다. `function`이 복수형으로 되어 있는데, 그 이유는 바로 대비 인식 능력은 명암 뿐만 아니라 색상도 관계되어 있기 때문입니다. 이 실험의 결과는 대부분의 경우에 우리의 눈이 색상보다 명암에 더 민감하다는 사실을 말해줍니다.  
 
-Once we know that we're more sensitive to **luma** (the brightness in an image) we can try to exploit it.
+이제 **루마**(이미지의 명도)에 더 민감하다는 사실을 알게되었으므로 이를 이용해볼 수 있습니다.  
 
-### Color model
+### 색상 모델
 
-We first learned [how to color images](#basic-terminology) work using the **RGB model**, but there are other models too. In fact, there is a model that separates luma (brightness) from  chrominance (colors) and it is known as **YCbCr**<sup>*</sup>.
+초반에 배웠던 **RGB 모델**을 이용한 [이미지에 색상 지정하는 방법](#basic-terminology)외에도 다른 모델들도 있다는 것을 배웠습니다. 사실 모델 중 크로미넌스(색상)로부터 루마(명도)를 분리하는 모델이 있습니다. 이는 **YCbCr**<sup>*</sup>이라고도 알려져있습니다.
 
-> <sup>*</sup> there are more models which do the same separation.
+> <sup>*</sup> 이와 같은 방식을 사용하는 다른 모델들도 존재합니다.  
 
-This color model uses **Y** to represent the brightness and two color channels **Cb** (chroma blue) and **Cr** (chroma red). The [YCbCr](https://en.wikipedia.org/wiki/YCbCr) can be derived from RGB and it also can be converted back to RGB. Using this model we can create full colored images as we can see down below.
+이 색상 모델은 명도를 표현하는 **Y**와 두 가지 색상 채널인 **Cb**(크로마 블루)와 **Cr**(크로마 레드)를 사용합니다. [YCbCr](https://en.wikipedia.org/wiki/YCbCr)은 RGB로부터 유도 가능하며, 또한 반대로 RGB로 역변환도 가능합니다. 이 모델을 사용하여 아래에 보이는 이미지와 같은 완전한 색상의 이미지를 만들 수 있습니다. 
 
 ![ycbcr example](/i/ycbcr.png "ycbcr example")
 
-### Converting between YCbCr and RGB
+### YCbCr <-> RGB 변환
 
-Some may argue, how can we produce all the **colors without using the green**?
+논쟁이 있을 수 있는데요, **어떻게 초록색을 사용하지 않고** 모든 색상을 표현할 수 있을까요?   
 
-To answer this question, we'll walk through a conversion from RGB to YCbCr. We'll use the coefficients from the **[standard BT.601](https://en.wikipedia.org/wiki/Rec._601)** that was recommended by the **[group ITU-R<sup>*</sup>](https://en.wikipedia.org/wiki/ITU-R)** . The first step is to **calculate the luma**, we'll use the constants suggested by ITU and replace the RGB values.
+이 질문에 답하기 위해 RGB를 YCbCr로 변환하는 일을 같이 해봅시다. **[ITU-R 그룹<sup>*</sup>](https://en.wikipedia.org/wiki/ITU-R)** 에서 권장하는 **[표준 BT.601](https://en.wikipedia.org/wiki/Rec._601)** 계수를 사용할 것입니다. 첫 번째 단계는 **루마 계산**입니다. ITU에서 제안한 상수를 사용하고 RGB 값을 대체할 것입니다.
+
 
 ```
 Y = 0.299R + 0.587G + 0.114B
 ```
 
-Once we had the luma, we can **split the colors** (chroma blue and red):
+루마를 얻었으니 이제 **색상 분리**(크로마 블루, 크로마 레드)를 할 수 있습니다:
 
 ```
 Cb = 0.564(B - Y)
 Cr = 0.713(R - Y)
 ```
 
-And we can also **convert it back** and even get the **green by using YCbCr**.
+또한 이를 **역변환** 가능하며 **YCbCr을 사용하여 초록색**을 얻을 수도 있습니다.  
 
 ```
 R = Y + 1.402Cr
@@ -212,65 +216,64 @@ B = Y + 1.772Cb
 G = Y - 0.344Cb - 0.714Cr
 ```
 
-> <sup>*</sup> groups and standards are common in digital video, they usually define what are the standards, for instance, [what is 4K? what frame rate should we use? resolution? color model?](https://en.wikipedia.org/wiki/Rec._2020)
-
-Generally, **displays** (monitors, TVs, screens and etc) utilize **only the RGB model**, organized in different manners, see some of them magnified below:
+> <sup>*</sup> 무엇이 표준인지 정의합니다. 가령 [4K란 무엇인가? 어떤 프레임 레이트를 사용해야 하는가? 해상도는? 컬러 모델은?](https://en.wikipedia.org/wiki/Rec._2020)과 같은 것들입니다.  
+일반적으로 **디스플레이**(모니터, TV, 스크린 등)는 **오직 RGB 모델**만 활용하며 이를 각자 다른 방식으로 배열합니다. 확대된 모습은 다음과 같습니다:  
 
 ![pixel geometry](/i/new_pixel_geometry.jpg "pixel geometry")
 
-### Chroma subsampling
+### 크로마 서브샘플링
 
-With the image represented as luma and chroma components, we can take advantage of the human visual system's greater sensitivity for luma resolution rather than chroma to selectively remove information. **Chroma subsampling** is the technique of encoding images using **less resolution for chroma than for luma**.
-
+루마와 크로마로 표현되는 이미지를 인간의 시각이 크로마보다 루마 해상도에 민감하다는 사실을 이용하여 선택적으로 정보를 제거하는데에 있어 이점을 취할 수 있습니다. **크로마 서브샘플링**은 **루마 대비 크로마 정보를 줄여** 이미지를 인코딩하는 기술입니다.  
 
 ![ycbcr subsampling resolutions](/i/ycbcr_subsampling_resolution.png "ycbcr subsampling resolutions")
 
+얼마만큼의 크로마 해상도를 줄여야 하는 것일까요?! 이미 답은 나와 있습니다. 해상도와 병합(`final color = Y + Cb + Cr`)을 다루는 스키마가 이미 존재합니다.  
 
-How much should we reduce the chroma resolution?! It turns out that there are already some schemas that describe how to handle resolution and the merge (`final color = Y + Cb + Cr`).
+이러한 스키마는 서브 샘플링 시스템으로 알려져있으며 루마 픽셀의 `a x 2` 블록에 대한 크로마 해상도를 정의하는 3 부분의 비율 `a:x:y`로 정의됩니다.  
 
-These schemas are known as subsampling systems and are expressed as a 3 part ratio - `a:x:y` which defines the chroma resolution in relation to a `a x 2` block of luma pixels.
+ * `a`는 수평 샘플링 레퍼런스입니다. (일반적으로 4)
+ * `x`는 `a` 픽셀의 행(row)의 크로마 샘플 수입니다. (`a`에 대한 수평해상도)
+ * `y`는 `a` 픽셀의 첫 번째와 두 번째 행 사이의 크로마 샘플의 변화에 대한 개수입니다.  
 
- * `a` is the horizontal sampling reference (usually 4)
- * `x` is the number of chroma samples in the first row of `a` pixels (horizontal resolution in relation to `a`)
- * `y` is the number of changes of chroma samples between the first and seconds rows of `a` pixels.
+> 예외적으로 4:1:0은 각각의 루마 해상도의 `4 x 4`블록 내의 단일 크로마 샘플을 제공합니다.  
 
-> An exception to this exists with 4:1:0, which provides a single chroma sample within each `4 x 4` block of luma resolution.
+현대 코덱에 사용되는 보편적인 기법은 **4:4:4(서브 샘플링 없음)**, **4:2:2, 4:1:1, 4:2:0, 4:1:0 and 3:1:1**입니다.  
 
-Common schemes used in modern codecs are: **4:4:4** *(no subsampling)*, **4:2:2, 4:1:1, 4:2:0, 4:1:0 and 3:1:1**.
-
-> **YCbCr 4:2:0 merge**
+> **YCbCr 4:2:0 병합**
 >
-> Here's a merged piece of an image using YCbCr 4:2:0, notice that we only spend 12 bits per pixel.
+> 여기에 YCbCr 4:2:0을 사용한 이미지의 병합된 조각입니다. 픽셀 당 12 비트만 소모했을 뿐이라는 사실을 기억하세요. 
 >
 > ![YCbCr 4:2:0 merge](/i/ycbcr_420_merge.png "YCbCr 4:2:0 merge")
 
-You can see the same image encoded by the main chroma subsampling types, images in the first row are the final YCbCr while the last row of images shows the chroma resolution. It's indeed a great win for such small loss.
+동일한 이미지에 대해 주요한 크로마 서브샘플링 타입들로 인코딩한 이미지를 보실 수 있을겁니다. 첫 번째 행의 이미지들은 최종 YCbCr 이미지이며 두 번째 열의 이미지들은 크로마 해상도를 나타냅니다. 적은 손실로 훌륭한 결과를 얻었습니다.  
 
 ![chroma subsampling examples](/i/chroma_subsampling_examples.jpg "chroma subsampling examples")
 
-Previously we had calculated that we needed [278GB of storage to keep a video file with one hour at 720p resolution and 30fps](#redundancy-removal). If we use **YCbCr 4:2:0** we can cut **this size in half (139 GB)**<sup>*</sup> but it is still far from ideal.
+앞서 우리는 [한 시간 분량의 720p 해상도에 30fps인 영상을 저장하기 위해 278GB가 필요하다고 계산](#redundancy-removal)하였습니다. **YCbCr 4:2:0**을 사용하면 이를 **절반(139GB)의 크기**<sup>*</sup>로 줄일 수 있습니다. 하지만 아직 그리 이상적이진 않네요.  
 
-> <sup>*</sup> we found this value by multiplying width, height, bits per pixel and fps. Previously we needed 24 bits, now we only need 12.
+> <sup>*</sup> 이 값은 width, height, 픽셀 당 비트 수 그리고 fps를 곱하여 얻었습니다. 이전에는 24비트가 필요했지만 이젠 12비트면 됩니다.  
 
 <br/>
 
-> ### Hands-on: Check YCbCr histogram
-> You can [check the YCbCr histogram with ffmpeg.](/encoding_pratical_examples.md#generates-yuv-histogram) This scene has a higher blue contribution, which is showed by the [histogram](https://en.wikipedia.org/wiki/Histogram).
+> ### 실습: YCbCr 히스토그램 확인하기
+> [ffmpeg로 YCbCr 히스토그램을 확인할 수 있습니다.](/encoding_pratical_examples.md#generates-yuv-histogram) 이 장면은 [히스토그램](https://en.wikipedia.org/wiki/Histogram)에 보여지는 바와 같이 파란색 비율이 높습니다.  
 >
 > ![ycbcr color histogram](/i/yuv_histogram.png "ycbcr color histogram")
 
-## Frame types
+## 프레임 유형
 
-Now we can move on and try to eliminate the **redundancy in time** but before that let's establish some basic terminology. Suppose we have a movie with 30fps, here are its first 4 frames.
+이제 계속해서 **시간 상에서의 중복 제거**를 할 수도 있지만 그 전에 몇 가지 기본적인 용어를 정립해보겠습니다. 30fps의 영화가 있다고 가정해봅시다. 여기에 이 영화의 첫 번째부분의 4장의 프레임이 있습니다.  
 
 ![ball 1](/i/smw_background_ball_1.png "ball 1") ![ball 2](/i/smw_background_ball_2.png "ball 2") ![ball 3](/i/smw_background_ball_3.png "ball 3")
 ![ball 4](/i/smw_background_ball_4.png "ball 4")
 
-We can see **lots of repetitions** within frames like **the blue background**, it doesn't change from frame 0 to frame 3. To tackle this problem, we can **abstractly categorize** them as three types of frames.
+**파란색 배경**과 같이 프레임 내에 **많은 중복**을 볼 수 있을겁니다. 프레임 0부터 3까지 변한게 없지요. 이 문제를 해결하기 위해 프레임을 세 가지 유형으로 **추상적으로 분류**할 수 있습니다.  
 
-### I Frame (intra, keyframe)
+### I Frame (인트라, 키프레임)
 
 An I-frame (reference, keyframe, intra) is a **self-contained frame**. It doesn't rely on anything to be rendered, an I-frame looks similar to a static photo. The first frame is usually an I-frame but we'll see I-frames inserted regularly among other types of frames.
+
+`I-frame(레퍼런스, 키프레임, 인트라)`은 **자기 자신을 포함한 프레임**입니다. 렌더링 하기 위해 어떤 것에도 의존적이지 않지요. I-frame은 마치 정적인 사진같습니다. 첫 번째 프레임은 보통 I-frame입니다. 하지만 I-frame은 일반적으로 다른 유형의 프레임의 사이사이에 삽입된다는 사실을 볼 수 있을 겁니다.  
 
 ![ball 1](/i/smw_background_ball_1.png "ball 1")
 
