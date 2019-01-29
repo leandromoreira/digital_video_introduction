@@ -43,7 +43,7 @@ All the **hands-on should be performed from the folder you cloned** this reposit
     - [I Frame (인트라, 키프레임)](#i-frame-%EC%9D%B8%ED%8A%B8%EB%9D%BC-%ED%82%A4%ED%94%84%EB%A0%88%EC%9E%84)
     - [P Frame (predicted)](#p-frame-predicted)
     - [B Frame (bi-predictive)](#b-frame-bi-predictive)
-    - [Summary](#summary)
+    - [요약](#요약)
   - [Temporal redundancy (inter prediction)](#temporal-redundancy-inter-prediction)
   - [Spatial redundancy (intra prediction)](#spatial-redundancy-intra-prediction)
 - [How does a video codec work?](#how-does-a-video-codec-work)
@@ -271,44 +271,41 @@ G = Y - 0.344Cb - 0.714Cr
 
 ### I Frame (인트라, 키프레임)
 
-An I-frame (reference, keyframe, intra) is a **self-contained frame**. It doesn't rely on anything to be rendered, an I-frame looks similar to a static photo. The first frame is usually an I-frame but we'll see I-frames inserted regularly among other types of frames.
-
 `I-frame(레퍼런스, 키프레임, 인트라)`은 **자기 자신을 포함한 프레임**입니다. 렌더링 하기 위해 어떤 것에도 의존적이지 않지요. I-frame은 마치 정적인 사진같습니다. 첫 번째 프레임은 보통 I-frame입니다. 하지만 I-frame은 일반적으로 다른 유형의 프레임의 사이사이에 삽입된다는 사실을 볼 수 있을 겁니다.  
 
 ![ball 1](/i/smw_background_ball_1.png "ball 1")
 
 ### P Frame (predicted)
 
-A P-frame takes advantage of the fact that almost always the current picture can be **rendered using the previous frame.** For instance, in the second frame, the only change was the ball that moved forward. We can **rebuild frame 1, only using the difference and referencing to the previous frame**.
+`P-frame`은 거의 항상 **이전의 프레임을 이용하여 렌더링 될 수 있다는 점**을 이점으로 취할 수 있습니다. 예를ㄷ를어 두 번째 프레임에서 변화라곤 공이 앞으로 움직인 것 뿐입니다. **변경된 부분을 사용해서 이 전의 프레임을 참고하여 프레임 1번을 다시 만들 수 있지요.**
 
 ![ball 1](/i/smw_background_ball_1.png "ball 1") <-  ![ball 2](/i/smw_background_ball_2_diff.png "ball 2")
 
-> #### Hands-on: A video with a single I-frame
-> Since a P-frame uses less data why can't we encode an entire [video with a single I-frame and all the rest being P-frames?](/encoding_pratical_examples.md#1-i-frame-and-the-rest-p-frames)
+> #### 실습: I-frame이 한장 뿐인 동영상
+> P-frame이 데이터를 적게 사용하는데 왜 전체를 [I-frame 한장에 나머지 전부가 p-frame인 영상](/encoding_pratical_examples.md#1-i-frame-and-the-rest-p-frames)으로 인코딩하지 않을까요?
 >
-> After you encoded this video, start to watch it and do a **seek for an advanced** part of the video, you'll notice **it takes some time** to really move to that part. That's because a **P-frame needs a reference frame** (I-frame for instance) to be rendered.
+> 이 비디오를 인코딩하고 영상을 시작해서 비디오의 **앞부분으로 이동**해보면, 이동하는데 **시간이 좀 걸리는 사실**을 알게될겁니다. 왜냐하면 **P-frame은 렌더링하기 위해 레퍼런스 프레임(가령 I-frame)이 필요하기 때문**입니다.  
 >
-> Another quick test you can do is to encode a video using a single I-Frame and then [encode it inserting an I-frame each 2s](/encoding_pratical_examples.md#1-i-frames-per-second-vs-05-i-frames-per-second) and **check the size of each rendition**.
+> 빨리 테스트 해볼 수 있는 다른 방법은 I-frame 한 장으로 비디오를 인코딩한 뒤, [2초 간격으로 I-frame을 삽입하여 인코딩한 뒤](/encoding_pratical_examples.md#1-i-frames-per-second-vs-05-i-frames-per-second) **각 렌디션의 사이즈를 확인해보세요.**
 
 ### B Frame (bi-predictive)
 
-What about referencing the past and future frames to provide even a better compression?! That's basically what a B-frame is.
+이전과 앞의 프레임을 참조하여 더 나은 압축률을 제공할 수 있다면?! 그것이 바로 B-Frame이라는 것입니다.
 
 ![ball 1](/i/smw_background_ball_1.png "ball 1") <-  ![ball 2](/i/smw_background_ball_2_diff.png "ball 2") -> ![ball 3](/i/smw_background_ball_3.png "ball 3")
 
-> #### Hands-on: Compare videos with B-frame
-> You can generate two renditions, first with B-frames and other with [no B-frames at all](/encoding_pratical_examples.md#no-b-frames-at-all) and check the size of the file as well as the quality.
+> #### 실습: B-frame으로 비디오 비교하기
+> 두 개의 렌디션을 생성해, 첫 번째에는 B-frame을 주고 다른 것에는 [B-frame을 주지 않고](/encoding_pratical_examples.md#no-b-frames-at-all) 퀄리티를 비롯하여 파일 사이즈도 확인을 해보세요.
 
-### Summary
+### 요약
 
-These frames types are used to **provide better compression**. We'll look how this happens in the next section, but for now we can think of **I-frame as expensive while P-frame is cheaper but the cheapest is the B-frame.**
+이러한 프레임들은 **더 나은 압축 성능을 제공**하는데 사용됩니다. 어떻게 이런 일이 가능한지 다음 섹션에서 알아볼 거에요. 하지만 여러분은 이제 **I-frame은 코스트가 높고 P-frame은 좀 더 낮고 B-frame이 제일 낮다는 사실**에 대해 생각할 수 있게 되었습니다.  
 
 ![frame types example](/i/frame_types.png "frame types example")
 
 ## Temporal redundancy (inter prediction)
 
 Let's explore the options we have to reduce the **repetitions in time**, this type of redundancy can be solved with techniques of **inter prediction**.
-
 
 We will try to **spend fewer bits** to encode the sequence of frames 0 and 1.
 
