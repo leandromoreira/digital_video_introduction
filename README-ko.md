@@ -43,11 +43,11 @@ All the **hands-on should be performed from the folder you cloned** this reposit
     - [I Frame (인트라, 키프레임)](#i-frame-%EC%9D%B8%ED%8A%B8%EB%9D%BC-%ED%82%A4%ED%94%84%EB%A0%88%EC%9E%84)
     - [P Frame (predicted)](#p-frame-predicted)
     - [B Frame (bi-predictive)](#b-frame-bi-predictive)
-    - [요약](#요약)
-  - [Temporal redundancy (inter prediction)](#temporal-redundancy-inter-prediction)
-  - [Spatial redundancy (intra prediction)](#spatial-redundancy-intra-prediction)
-- [How does a video codec work?](#how-does-a-video-codec-work)
-  - [What? Why? How?](#what-why-how)
+    - [요약](#%EC%9A%94%EC%95%BD)
+  - [시간적 중복 (인터 프리딕션)](#%EC%8B%9C%EA%B0%84%EC%A0%81-%EC%A4%91%EB%B3%B5-%EC%9D%B8%ED%84%B0-%ED%94%84%EB%A6%AC%EB%94%95%EC%85%98)
+  - [공간적 중복 (인트라 프리딕션)](#%EA%B3%B5%EA%B0%84%EC%A0%81-%EC%A4%91%EB%B3%B5-%EC%9D%B8%ED%8A%B8%EB%9D%BC-%ED%94%84%EB%A6%AC%EB%94%95%EC%85%98)
+- [코덱은 어떻게 동작할까요?](#%EC%BD%94%EB%8D%B1%EC%9D%80-%EC%96%B4%EB%96%BB%EA%B2%8C-%EB%8F%99%EC%9E%91%ED%95%A0%EA%B9%8C%EC%9A%94)
+  - [무엇을? 왜? 어떻게?](#%EB%AC%B4%EC%97%87%EC%9D%84-%EC%99%9C-%EC%96%B4%EB%96%BB%EA%B2%8C)
   - [History](#history)
   - [A generic codec](#a-generic-codec)
   - [1st step - picture partitioning](#1st-step---picture-partitioning)
@@ -109,7 +109,7 @@ All the **hands-on should be performed from the folder you cloned** this reposit
 >
 > [이미지 필터(외곽선 검출, 강조, 블러)](/filters_are_easy.ipynb)에 대해 학습할 수 있습니다.
 
-이미지나 비디오를 다루다보면 볼 수 있는 또 다른 속성인 **종횡비(aspect ratio)**가 있습니다. 이는 이미지나 픽셀의 폭과 높이의 비례 관계를 간단하게 표현하는 방법입니다.  
+이미지나 비디오를 다루다보면 볼 수 있는 또 다른 속성인 **종횡비(aspect ratio)** 가 있습니다. 이는 이미지나 픽셀의 폭과 높이의 비례 관계를 간단하게 표현하는 방법입니다.  
 
 사람들이 이 영상 혹은 사진은 **16x9**야라고 한다면 이는 일반적으로 **화면 종횡비(DAR)** 에 대한 이야기를 하는 것입니다. 반면에 각각의 픽셀의 서로 다른 형태에 대한 것은 **픽셀 종횡비(PAR)** 라고 부릅니다.  
 
@@ -303,43 +303,45 @@ G = Y - 0.344Cb - 0.714Cr
 
 ![frame types example](/i/frame_types.png "frame types example")
 
-## Temporal redundancy (inter prediction)
+## 시간적 중복 (인터 프리딕션)
 
-Let's explore the options we have to reduce the **repetitions in time**, this type of redundancy can be solved with techniques of **inter prediction**.
+반드시 줄여야 하는 **시간 상에서의 반복**에 대해 알아봅시다. 이러한 중복의 유형은 **인터 프리딕션**이라는 기법을 활용해 해결할 수 있습니다.  
 
-We will try to **spend fewer bits** to encode the sequence of frames 0 and 1.
+프레임 0과 1의 시퀀스를 **더 적은 비트를 활용해** 인코딩 해볼 것 입니다.  
 
 ![original frames](/i/original_frames.png "original frames")
 
 One thing we can do it's a subtraction, we simply **subtract frame 1 from frame 0** and we get just what we need to **encode the residual**.
 
+시도해 볼 수 있는 한 가지는 바로 제거입니다. 단순히 **프레임 0에서 프레임 1을 빼면** 오로지 **남은 부분만 인코딩**하면 됩니다.  
+
 ![delta frames](/i/difference_frames.png "delta frames")
 
-But what if I tell you that there is a **better method** which uses even fewer bits?! First, let's treat the `frame 0` as a collection of well-defined partitions and then we'll try to match the blocks from `frame 0` on `frame 1`. We can think of it as **motion estimation**.
+하지만 이보다 더 적은 비트를 사용하는 **더 나은 방법**이 있다면 어떠시겠나요? 우선, `frame 0`을 잘 정의된 파티션의 집합으로 여기고, `frame 0`에 `frame 1`을 매칭시켜보세요. 이를 **모션 추정**으로 생각할 수 있지요.  
 
-> ### Wikipedia - block motion compensation
-> "**Block motion compensation** divides up the current frame into non-overlapping blocks, and the motion compensation vector **tells where those blocks come from** (a common misconception is that the previous frame is divided up into non-overlapping blocks, and the motion compensation vectors tell where those blocks move to). The source blocks typically overlap in the source frame. Some video compression algorithms assemble the current frame out of pieces of several different previously-transmitted frames."
+> ### 위키페디아 - 블록 모션 보정
+> "**블록 모션 보정**은 현재 프레임을 겹치지 않은 블록으로 분할하고, 모션 보정 벡터가 **블록이 어디에서 왔는지 알려줍니다.** (일반적인 오개념으로 이전의 프레임이 겹치지 않은 블록으로 분할되어 있고, 모션 보정 벡터가 이 블록들이 어디로 이동할 지 알려주는 정보라고 여기는 것이 있습니다.) 원본 블록은 일반적으로 원본 프레임에 겹칩니다. 몇몇의 비디오 압축 알고리즘은 서로 다른 이전에 전송된 프레임의 일부 조각을 현재 프레임과 합칩니다."
 
 ![delta frames](/i/original_frames_motion_estimation.png "delta frames")
 
-We could estimate that the ball moved from `x=0, y=25` to `x=6, y=26`, the **x** and **y** values are the **motion vectors**. One **further step** we can do to save bits is to **encode only the motion vector difference** between the last block position and the predicted, so the final motion vector would be `x=6 (6-0), y=1 (26-25)`
+여기서 `x=0, y=25`에서 `x=6, y=26`으로 공이 움직였다고 추정할 수 있습니다. **x**와 **y**의 값들이 **모션 벡터**입니다. 비트를 절약할 수 있는 **추가적인 단계**로는 최종 블록의 위치와 예측되는 벡터의 **모션 벡터의 차이만 인코딩 하는 것**입니다. 따라서 최종적인 모션 벡터는 `x=6 (6-0), y=1 (26-25)`가 될 것입니다.  
 
-> In a real-world situation, this **ball would be sliced into n partitions** but the process is the same.
+> 현실 세계에서는 이 **공이 n개의 파티션으로 조각**나지만 과정은 동일합니다.  
 
-The objects on the frame **move in a 3D way**, the ball can become smaller when it moves to the background. It's normal that **we won't find the perfect match** to the block we tried to find a match. Here's a superposed view of our estimation vs the real picture.
+프레임 상의 객체는 **3차원 상으로 움직이며**, 이 공이 배경으로 이동하는 경우에 더 작아질 수도 있습니다. 일치점을 찾으려 했던 블록과 **완전히 일치하는 것을 찾을 수 없는 일은** 일반적이지요.  
 
 ![motion estimation](/i/motion_estimation.png "motion estimation")
 
-But we can see that when we apply **motion estimation** the **data to encode is smaller** than using simply delta frame techniques.
+그럼에도 **모션 추정**을 적용하는 것이 단순히 델타 프레임 기법을 사용하는 것 보다 **인코딩 할 데이터가 더 적다는** 사실입니다.
 
 ![motion estimation vs delta ](/i/comparison_delta_vs_motion_estimation.png "motion estimation delta")
 
-> ### How real motion compensation would look
-> This technique is applied to all blocks, very often a ball would be partitioned in more than one block.
+> ### 모션 보정은 실제로 어떻게 보이는가
+> 이 기법은 모든 블록에 대해 적용되며, 공이 매우 빈번하게 하나 이상의 블록에서 분할됩니다.
 >  ![real world motion compensation](/i/real_world_motion_compensation.png "real world motion compensation")
 > Source: https://web.stanford.edu/class/ee398a/handouts/lectures/EE398a_MotionEstimation_2012.pdf
 
-You can [play around with these concepts using jupyter](/frame_difference_vs_motion_estimation_plus_residual.ipynb).
+[주피터를 활용하여 이러한 기법들을 실험해볼 수 있습니다](/frame_difference_vs_motion_estimation_plus_residual.ipynb).
 
 > #### Hands-on: See the motion vectors
 > We can [generate a video with the inter prediction (motion vectors)  with ffmpeg.](/encoding_pratical_examples.md#generate-debug-video)
@@ -350,47 +352,47 @@ You can [play around with these concepts using jupyter](/frame_difference_vs_mot
 >
 > ![inter prediction intel video pro analyzer](/i/inter_prediction_intel_video_pro_analyzer.png "inter prediction intel video pro analyzer")
 
-## Spatial redundancy (intra prediction)
+## 공간적 중복 (인트라 프리딕션)
 
-If we analyze **each frame** in a video we'll see that there are also **many areas that are correlated**.
+영상의 **각각의 프레임을** 분석해보면 **많은 영역이 연관되어 있다는 사실**을 발견할 수 있을겁니다.  
 
 ![](/i/repetitions_in_space.png)
 
-Let's walk through an example. This scene is mostly composed of blue and white colors.
+예제를 살펴보죠. 이 장면은 대부분 파란색과 하얀색으로 구성되어 있습니다.  
 
 ![](/i/smw_bg.png)
 
-This is an `I-frame` and we **can't use previous frames** to predict from but we still can compress it. We will encode the red block selection. If we **look at its neighbors**, we can **estimate** that there is a **trend of colors around it**.
+이는 `I-frame`이며 **이전의 프레임을 사용하여** 예측할 수는 없지만, 여전히 압축할 여지는 남아 있지요. **빨간 블록 부분을** 인코딩해볼거에요. **인접한 부분을 살펴보면**, **블록 주변의 색상의 경향을 추산**할 수 있습니다.  
 
 ![](/i/smw_bg_block.png)
 
-We will **predict** that the frame will continue to **spread the colors vertically**, it means that the colors of the **unknown pixels will hold the values of its neighbors**.
+프레임이 계속하여 **수직으로 색상이 확산될 것**이라고 예측할 것입니다. 이 의미는 **블록의 인접한 값을 알 수 없는 픽셀의** 색상이 지니고 있다는 것이지요.  
 
 ![](/i/smw_bg_prediction.png)
 
-Our **prediction can be wrong**, for that reason we need to apply this technique (**intra prediction**) and then **subtract the real values** which gives us the residual block, resulting in a much more compressible matrix compared to the original.
+**예측이 틀렸을 수도 있습니다.** 그 이유는 바로 이 기법(**인트라 프리딕션**)을 적용한 뒤 잔여 블록을 반환하는 **실제 값을 빼야할** 필요가 있기 때문에, 원본과 비교했을 때 훨씬 더 압축률이 높은 행렬이 생성됩니다.  
 
 ![](/i/smw_residual.png)
 
-> #### Hands-on: Check intra predictions
-> You can [generate a video with macro blocks and their predictions with ffmpeg.](/encoding_pratical_examples.md#generate-debug-video) Please check the ffmpeg documentation to understand the [meaning of each block color](https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors#AnalyzingMacroblockTypes).
->
+> #### 실습: 인트라 프리딕션 확인해보기
+> [매크로 블록과 프리딕션을 사용해 ffmpeg로 영상을 생성할 수 있습니다.](/encoding_pratical_examples.md#generate-debug-video) [각 블록의 색상의 의미](https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors#AnalyzingMacroblockTypes)를 ffmpeg 문서를 확인해 이해해보세요.  
+> 
 > ![intra prediction (macro blocks) with ffmpeg](/i/macro_blocks_ffmpeg.png "inter prediction (motion vectors) with ffmpeg")
 >
-> Or we can use the [Intel Video Pro Analyzer](https://software.intel.com/en-us/intel-video-pro-analyzer) (which is paid but there is a free trial version which limits you to only the first 10 frames).
+> 혹은 [Intel Video Pro Analyzer](https://software.intel.com/en-us/intel-video-pro-analyzer)(유료지만 처음 10 프레임 제한이 걸려 있는 무료 트라이얼 버전도 있습니다)를 사용해보세요.
 >
 > ![intra prediction intel video pro analyzer](/i/intra_prediction_intel_video_pro_analyzer.png "intra prediction intel video pro analyzer")
 
-# How does a video codec work?
+# 코덱은 어떻게 동작할까요?
 
-## What? Why? How?
+## 무엇을? 왜? 어떻게?
 
-**What?** It's a piece of software / hardware that compresses or decompresses digital video. **Why?** Market and society demands higher quality videos with limited bandwidth or storage. Remember when we [calculated the needed bandwidth](#basic-terminology) for 30 frames per second, 24 bits per pixel, resolution of a 480x240 video? It was **82.944 Mbps** with no compression applied. It's the only way to deliver HD/FullHD/4K in TVs and the Internet. **How?** We'll take a brief look at the major techniques here.
+**무엇을?** 코덱은 디지털 비디오를 압축 혹은 해제하는 소프트웨어/하드웨어 입니다. **왜?** 시장과 사회는 제한적인 대역폭과 스토리지를 활용한 높은 퀄리티의 영상을 필요로 합니다. 30fps, 픽셀당 24비트, 480x240 해상도의 비디오에 [필요한 대역폭 계산](#%EA%B8%B0%EC%B4%88-%EC%9A%A9%EC%96%B4)을 떠올려보세요. 압축을 하지 않은 경우 **82.944 Mbps**였지요. TV와 인터넷에서 HD/FullHD/4K를 전송할 유일한 방법입니다. **어떻게?** 여기서는 주요 기법들에 대해 간략히 살펴볼 것입니다.  
 
-> **CODEC vs Container**
->
-> One common mistake that beginners often do is to confuse digital video CODEC and [digital video container](https://en.wikipedia.org/wiki/Digital_container_format). We can think of **containers** as a wrapper format which contains metadata of the video (and possible audio too), and the **compressed video** can be seen as its payload.
->
+> **코덱 vs 컨테이너**
+> 
+> 초심자들이 흔히 범하는 실수 중 하나로 디지털 비디오 코덱과 [디지털 비디오 컨테이너](https://en.wikipedia.org/wiki/Digital_container_format)를 혼동하는 것입니다. **컨테이너**를 비디오의 메타 데이터(오디오 포함)를 포함하는 래퍼 포맷으로 여길 수 있으며 **압축된 비디오**를 컨테이너의 페이로드로 볼 수도 있습니다.  
+> 
 > Usually, the extension of a video file defines its video container. For instance, the file `video.mp4` is probably a **[MPEG-4 Part 14](https://en.wikipedia.org/wiki/MPEG-4_Part_14)** container and a file named `video.mkv` it's probably a **[matroska](https://en.wikipedia.org/wiki/Matroska)**. To be completely sure about the codec and container format we can use [ffmpeg or mediainfo](/encoding_pratical_examples.md#inspect-stream).
 
 ## History
