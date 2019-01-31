@@ -48,11 +48,11 @@ All the **hands-on should be performed from the folder you cloned** this reposit
   - [공간적 중복 (인트라 프리딕션)](#%EA%B3%B5%EA%B0%84%EC%A0%81-%EC%A4%91%EB%B3%B5-%EC%9D%B8%ED%8A%B8%EB%9D%BC-%ED%94%84%EB%A6%AC%EB%94%95%EC%85%98)
 - [코덱은 어떻게 동작할까요?](#%EC%BD%94%EB%8D%B1%EC%9D%80-%EC%96%B4%EB%96%BB%EA%B2%8C-%EB%8F%99%EC%9E%91%ED%95%A0%EA%B9%8C%EC%9A%94)
   - [무엇을? 왜? 어떻게?](#%EB%AC%B4%EC%97%87%EC%9D%84-%EC%99%9C-%EC%96%B4%EB%96%BB%EA%B2%8C)
-  - [History](#history)
-  - [A generic codec](#a-generic-codec)
-  - [1st step - picture partitioning](#1st-step---picture-partitioning)
-  - [2nd step - predictions](#2nd-step---predictions)
-  - [3rd step - transform](#3rd-step---transform)
+  - [역사](#%EC%97%AD%EC%82%AC)
+  - [일반 코덱](#%EC%9D%BC%EB%B0%98-%EC%BD%94%EB%8D%B1)
+  - [첫 번째 스텝 - 사진 파티셔닝](#%EC%B2%AB-%EB%B2%88%EC%A7%B8-%EC%8A%A4%ED%85%9D---%EC%82%AC%EC%A7%84-%ED%8C%8C%ED%8B%B0%EC%85%94%EB%8B%9D)
+  - [두 번째 스텝 - 프리딕션](#%EB%91%90-%EB%B2%88%EC%A7%B8-%EC%8A%A4%ED%85%9D---%ED%94%84%EB%A6%AC%EB%94%95%EC%85%98)
+  - [세 번째 스탭 - 변환](#%EC%84%B8-%EB%B2%88%EC%A7%B8-%EC%8A%A4%ED%83%AD---%EB%B3%80%ED%99%98)
   - [4th step - quantization](#4th-step---quantization)
   - [5th step - entropy coding](#5th-step---entropy-coding)
     - [VLC coding:](#vlc-coding)
@@ -391,90 +391,88 @@ One thing we can do it's a subtraction, we simply **subtract frame 1 from frame 
 
 > **코덱 vs 컨테이너**
 > 
-> 초심자들이 흔히 범하는 실수 중 하나로 디지털 비디오 코덱과 [디지털 비디오 컨테이너](https://en.wikipedia.org/wiki/Digital_container_format)를 혼동하는 것입니다. **컨테이너**를 비디오의 메타 데이터(오디오 포함)를 포함하는 래퍼 포맷으로 여길 수 있으며 **압축된 비디오**를 컨테이너의 페이로드로 볼 수도 있습니다.  
+> 초심자들이 흔히 범하는 실수 중 하나로 디지털 동영상 코덱과 [디지털 비디오 컨테이너](https://en.wikipedia.org/wiki/Digital_container_format)를 혼동하는 것입니다. **컨테이너**를 동영상의 메타 데이터(오디오 포함)를 포함하는 래퍼 포맷으로 여길 수 있으며 **압축된 비디오**를 컨테이너의 페이로드로 볼 수도 있습니다.  
 > 
-> Usually, the extension of a video file defines its video container. For instance, the file `video.mp4` is probably a **[MPEG-4 Part 14](https://en.wikipedia.org/wiki/MPEG-4_Part_14)** container and a file named `video.mkv` it's probably a **[matroska](https://en.wikipedia.org/wiki/Matroska)**. To be completely sure about the codec and container format we can use [ffmpeg or mediainfo](/encoding_pratical_examples.md#inspect-stream).
+> 일반적으로 동영상 파일의 확장자는 비디오 파일의 동영상 컨테이너를 정의합니다. 예를들어 `video.mp4` 파일은 **[MPEG-4 Part 14](https://en.wikipedia.org/wiki/MPEG-4_Part_14)** 컨테이너일 것이고 파일 이름은 `video.mkv`로 **[matroska](https://en.wikipedia.org/wiki/Matroska)** 일 것입니다. 코덱과 컨테이너 포멧을 정확히 확인하려면 [ffmpeg나 mediainfo](/encoding_pratical_examples.md#inspect-stream)를 사용하면 됩니다.  
 
-## History
+## 역사
 
-Before we jump into the inner workings of a generic codec, let's look back to understand a little better about some old video codecs.
+일반적인 코덱의 내부 동작을 파헤치기에 앞서, 구세대 동영상 코덱에 대해 좀 더 자세히 살펴보도록 합시다.  
 
-The video codec [H.261](https://en.wikipedia.org/wiki/H.261)  was born in 1990 (technically 1988), and it was designed to work with **data rates of 64 kbit/s**. It already uses ideas such as chroma subsampling, macro block, etc. In the year of 1995, the **H.263** video codec standard was published and continued to be extended until 2001.
+비디오 코덱인 [H.261](https://en.wikipedia.org/wiki/H.261)는 1990년(정확히는 1988년)에 탄생하였으며 **64 kibt/s의 데이터 전송비**로 동작하기 위해 설계되었습니다. 이 코덱에서 이미 크로마 서브샘플링, 매크로 블록 등의 아이디어를 사용했습니다. 1995년, **H.263** 비디오 코덱 표준이 탄생하였으며 2001년까지 지속적으로 확장되었습니다.  
 
-In 2003 the first version of **H.264/AVC** was completed. In the same year, a company called **TrueMotion** released their video codec as a **royalty-free** lossy video compression called **VP3**. In 2008, **Google bought** this company, releasing **VP8** in the same year. In December of 2012, Google released the **VP9** and it's  **supported by roughly ¾ of the browser market** (mobile included).
+**H.264/AVC**의 첫 버전은 2003년에 완성되었습니다. 같은 해에, **TrueMotion**이라는 회사가 **로얄티가 없는** **VP3**이라 부르는 영상 압축 코덱을 공개하였습니다. 2008년, **구글이 이 회사를 인수하고** 같은 해에 **VP8**을 공개하였습니다. 2012년 12월, 구글은 **VP9**을 출시하였으며 VP9은 **브라우저 시장의 약 ¾(모바일 포함)에서 지원됩니다.**
 
- **[AV1](https://en.wikipedia.org/wiki/AOMedia_Video_1)** is a new **royalty-free** and open source video codec that's being designed by the [Alliance for Open Media (AOMedia)](http://aomedia.org/), which is composed of the **companies: Google, Mozilla, Microsoft, Amazon, Netflix, AMD, ARM, NVidia, Intel and Cisco** among others. The **first version** 0.1.0 of the reference codec was **published on April 7, 2016**.
+ **[AV1](https://en.wikipedia.org/wiki/AOMedia_Video_1)** 은 **구글, 모질라, 마이크로소프트, 아마존, 넷플릭스, AMD, ARM, 엔비디아, 인텔 그리고 시스코**를 비롯한 여러 회사로 구성된 [오픈 미디어 연합 (AOMedia)](http://aomedia.org/)이 설계를 주도하는 **로얄티 없는** 새로운 오픈 소스 동영상 코덱입니다.  
 
 ![codec history timeline](/i/codec_history_timeline.png "codec history timeline")
 
-> #### The birth of AV1
+> #### AV1의 탄생
 >
-> Early 2015, Google was working on [VP10](https://en.wikipedia.org/wiki/VP9#Successor:_from_VP10_to_AV1), Xiph (Mozilla) was working on [Daala](https://xiph.org/daala/) and Cisco open-sourced its royalty-free video codec called [Thor](https://tools.ietf.org/html/draft-fuldseth-netvc-thor-03).
+> 2015년 초, 구글은 [VP10](https://en.wikipedia.org/wiki/VP9#Successor:_from_VP10_to_AV1)를, Xiph(모질라)는 [Daala](https://xiph.org/daala/) 그리고 시스코는 [Thor](https://tools.ietf.org/html/draft-fuldseth-netvc-thor-03)라는 로얄티 프리 비디오 코덱을 만들었습니다.  
 >
-> Then MPEG LA first announced annual caps for HEVC (H.265) and fees 8 times higher than H.264 but soon they changed the rules again:
-> * **no annual cap**,
-> * **content fee** (0.5% of revenue) and
-> * **per-unit fees about 10 times higher than h264**.
+> MPEG LA는 HEVC(H.265)에 대한 애뉴얼 캡을 발표하고, H.264보다 8배 높은 수수료를 발표했으나 태세전환을 하고 규칙을 변경했습니다:
+> * **애뉴얼 캡 없음**,
+> * **컨텐츠 수수료** (수익의 0.5%) 그리고
+> * **단위당 수수료는 H.264보다 약 10배 높음**.
 >
-> The [alliance for open media](http://aomedia.org/about-us/) was created by companies from hardware manufacturer (Intel, AMD, ARM , Nvidia, Cisco), content delivery (Google, Netflix, Amazon), browser maintainers (Google, Mozilla), and others.
+> [오픈 미디어 연합](http://aomedia.org/about-us/)은 하드웨어 제조사(인텔, AMD, ARM, 엔비디아, 시스코), 컨텐츠 딜리버리(구글, 넷플릭스, 아마존), 브라우저 메인테이너(구글, 모질라)를 비롯한 다른 여러 회사들에 의해 설립되었습니다. 
+> 
+> 이 회사들은 동일한 목표를 가지고 있었으며, 로얄티 프리의 동영상 코덱과 훨씬 [단순한 특허 라이센스](http://aomedia.org/license/patent/)로 무장한 AV1의 탄생이였죠. **티모시 B. 테리베리**는 [AV1 컨셉, 라이센스 모델, 현황](https://www.youtube.com/watch?v=lzPaldsmJbk)에 대한 멋진 프리젠테이션을 진행했습니다. 이 섹션의 출처이기도 하지요.  
 >
-> The companies had a common goal, a royalty-free video codec and then AV1 was born with a much [simpler patent license](http://aomedia.org/license/patent/). **Timothy B. Terriberry** did an awesome presentation, which is the source of this section, about the [AV1 conception, license model and its current state](https://www.youtube.com/watch?v=lzPaldsmJbk).
->
-> You'll be surprised to know that you can **analyze the AV1 codec through your browser**, go to http://aomanalyzer.org/
->
+> **브라우저로 AV1 코덱을 분석** 가능하다는 사실을 알게되면 아주 놀라실거에요. http://aomanalyzer.org/ 에 방문해보세요.
 > ![av1 browser analyzer](/i/av1_browser_analyzer.png "av1 browser analyzer")
 >
-> PS: If you want to learn more about the history of the codecs you must learn the basics behind [video compression patents](https://www.vcodex.com/video-compression-patents/).
+> 추신: 코덱의 역사에 대해 더 자세히 알고 싶으면 [동영상 압축 특허](https://www.vcodex.com/video-compression-patents/)에 대한 기초를 공부하셔야합니다.  
 
-## A generic codec
+## 일반 코덱
 
-We're going to introduce the **main mechanics behind a generic video codec** but most of these concepts are useful and used in modern codecs such as VP9, AV1 and HEVC. Be sure to understand that we're going to simplify things a LOT. Sometimes we'll use a real example (mostly H.264) to demonstrate a technique.
+**일반 코덱의 바탕이 되는 주요 메커니즘을** 소개할 것이며, 이러한 컨셉들의 대부분은 유용하고 VP9, AV1, HEVC와 같은 현대 코덱들에서 사용됩니다. 설명을 아주 굉장히 단순화한다는 점 양해 부탁드립니다. 글의 간간히 현업 예제(대부분 H.264)를 시연해볼 것입니다.    
 
-## 1st step - picture partitioning
+## 첫 번째 스텝 - 사진 파티셔닝
 
-The first step is to **divide the frame** into several **partitions, sub-partitions** and beyond.
+첫 번째 단계는 **프레임을 여러개의 파티션, 서브 파티션** 그 이상으로 **분할**하는 것입니다.   
 
 ![picture partitioning](/i/picture_partitioning.png "picture partitioning")
 
-**But why?** There are many reasons, for instance, when we split the picture we can work the predictions more precisely, using small partitions for the small moving parts while using bigger partitions to a static background.
+**그런데 왜?** 많은 이유가 있어요. 예로, 사진을 분할하게 되면 정적인 배경에 커다란 파티션을 사용하고, 적은 움직임들에 대해서는 작은 파티션을 사용하면 프리딕션을 보다 더 정확하게 수행할 수 있답니다.   
 
-Usually, the CODECs **organize these partitions** into slices (or tiles), macro (or coding tree units) and many sub-partitions. The max size of these partitions varies, HEVC sets 64x64 while AVC uses 16x16 but the sub-partitions can reach sizes of 4x4.
+일반적으로 코덱은 **이러한 파티션들을 슬라이스(혹은 타일), 매크로(혹은 코딩 트리 유닛) 그리고 수 많은 서브 파티션**으로 정리를 합니다. 이러한 파티션의 최대 크기는 다양한데, AVC는 16x16을 사용하는 반면 HEVC는 64x64를 설정하지만 서브 파티션들은 4x4의 사이즈까지도 사용합니다.  
 
-Remember that we learned how **frames are typed**?! Well, you can **apply those ideas to blocks** too, therefore we can have I-Slice, B-Slice, I-Macroblock and etc.
+앞서 공부한 **프레임 유형**을 떠올려봅시다. **이러한 아이디어들을 블록들에도** 적용해볼 수 있지요. 그러므로 I-Slice, B-Slice, I-Macroblock등을 이용할 수 있습니다.  
 
-> ### Hands-on: Check partitions
-> We can also use the [Intel Video Pro Analyzer](https://software.intel.com/en-us/intel-video-pro-analyzer) (which is paid but there is a free trial version which limits you to only the first 10 frames). Here are [VP9 partitions](/encoding_pratical_examples.md#transcoding) analyzed.
->
+> ### 실습: 파티션 확인해보기
+> 여기서도 [Intel Video Pro Analyzer](https://software.intel.com/en-us/intel-video-pro-analyzer)(유료도 있지만 첫 10프레임 제약의 무료 트라이얼 버전도 있음)를 사용할 것입니다. [VP9 파티션](/encoding_pratical_examples.md#transcoding) 분석본입니다. 
+> 
 > ![VP9 partitions view intel video pro analyzer ](/i/paritions_view_intel_video_pro_analyzer.png "VP9 partitions view intel video pro analyzer")
 
-## 2nd step - predictions
+## 두 번째 스텝 - 프리딕션
 
-Once we have the partitions, we can make predictions over them. For the [inter prediction](#temporal-redundancy-inter-prediction) we need **to send the motion vectors and the residual** and the [intra prediction](#spatial-redundancy-intra-prediction) we'll **send the prediction direction and the residual** as well.
+파티션을 확보하고 나면, 이제 이에 대한 프리딕션을 수행할 수 있습니다. [인터 프리딕션](#temporal-redundancy-inter-prediction)에 대해서는 **모션 벡터와 나머지**를 전송해야하고, [인트라 프리딕션](#spatial-redundancy-intra-prediction)에 대해서는 **프리딕션의 방향과 나머지를 전송할 것입니다.**
 
-## 3rd step - transform
+## 세 번째 스탭 - 변환
 
-After we get the residual block (`predicted partition - real partition`), we can **transform** it in a way that lets us know which **pixels we can discard** while keeping the **overall quality**. There are some transformations for this exact behavior.
+잔여 블록(`예측된 파티션 - 실제 파티션`)을 확보하고 난 후에는 **변환**을 통하여 **전반적인 품질을** 유지하면서 **버려야 할 픽셀**을 알 수 있게됩니다. 이 정확한 동작을 위한 몇 가지 변환들이 존재합니다.  
 
-Although there are [other transformations](https://en.wikipedia.org/wiki/List_of_Fourier-related_transforms#Discrete_transforms), we'll look more closely at the discrete cosine transform (DCT). The [**DCT**](https://en.wikipedia.org/wiki/Discrete_cosine_transform) main features are:
+[다른 다양한 변환](https://en.wikipedia.org/wiki/List_of_Fourier-related_transforms#Discrete_transforms)들이 존재하지만, 여기서는 이산 코사인 변환(DCT)에 대해 주도 면밀히 살펴볼 것입니다. [**DCT**](https://en.wikipedia.org/wiki/Discrete_cosine_transform)의 주된 성질로는:
 
-* **converts** blocks of **pixels** into  same-sized blocks of **frequency coefficients**.
-* **compacts** energy, making it easy to eliminate spatial redundancy.
-* is **reversible**, a.k.a. you can reverse to pixels.
+* **픽셀들의** 블록을 동일한 사이즈의 **주파수 계수**의 블록으로 변환함
+* 에너지를 **압축**하여 공간적 중복을 쉽게 제거함
+* **가역적임**. 바꿔말해 픽셀로 되돌릴 수 있다는 뜻
 
-> On 2 Feb 2017, Cintra, R. J. and Bayer, F. M have published their paper [DCT-like Transform for Image Compression
-Requires 14 Additions Only](https://arxiv.org/abs/1702.00817).
+> 2017년 2월 2일, 신트라 R.J. 와 바이엘 F.M은 [14개의 덧셈만 필요로하는 이미지 압축에 대한 DCT 유사 변환](https://arxiv.org/abs/1702.00817)을 논문으로 발표하였습니다. (역자: 8-포인트 직교 근사 이산 코사인 변환으로, 곱셈이나 비트 시프트가 필요가 없음)  
 
-Don't worry if you didn't understand the benefits from every bullet point, we'll try to make some experiments in order to see the real value from it.
+모든 불렛에 소개된 이점들에 대해 이해하지 못한다고 해서 걱정할 필요는 없습니다. 실제 값을 확인하기 위해 몇 가지 실험을 해볼거에요.  
 
-Let's take the following **block of pixels** (8x8):
+다음 **픽셀의 블록** (8x8)을 사용해볼 것입니다:
 
 ![pixel values matrix](/i/pixel_matrice.png "pixel values matrix")
 
-Which renders to the following block image (8x8):
+렌더링된 블록 이미지는 다음과 같습니다(8x8):  
 
 ![pixel values matrix](/i/gray_image.png "pixel values matrix")
 
-When we **apply the DCT** over this block of pixels and we get the **block of coefficients** (8x8):
+픽셀의 블록에 대하여 **이산 코사인 변환을 수행하면** **계수의 블록**(8x8)을 얻게됩니다:
 
 ![coefficients values](/i/dct_coefficient_values.png "coefficients values")
 
