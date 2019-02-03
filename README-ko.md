@@ -53,23 +53,23 @@ All the **hands-on should be performed from the folder you cloned** this reposit
   - [첫 번째 스텝 - 사진 파티셔닝](#%EC%B2%AB-%EB%B2%88%EC%A7%B8-%EC%8A%A4%ED%85%9D---%EC%82%AC%EC%A7%84-%ED%8C%8C%ED%8B%B0%EC%85%94%EB%8B%9D)
   - [두 번째 스텝 - 프리딕션](#%EB%91%90-%EB%B2%88%EC%A7%B8-%EC%8A%A4%ED%85%9D---%ED%94%84%EB%A6%AC%EB%94%95%EC%85%98)
   - [세 번째 스탭 - 변환](#%EC%84%B8-%EB%B2%88%EC%A7%B8-%EC%8A%A4%ED%83%AD---%EB%B3%80%ED%99%98)
-  - [4th step - quantization](#4th-step---quantization)
-  - [5th step - entropy coding](#5th-step---entropy-coding)
+  - [네 번째 단계 - 양자화](#%EB%84%A4-%EB%B2%88%EC%A7%B8-%EB%8B%A8%EA%B3%84---%EC%96%91%EC%9E%90%ED%99%94)
+  - [다섯번째 단계 - 엔트로피 인코딩](#%EB%8B%A4%EC%84%AF%EB%B2%88%EC%A7%B8-%EB%8B%A8%EA%B3%84---%EC%97%94%ED%8A%B8%EB%A1%9C%ED%94%BC-%EC%9D%B8%EC%BD%94%EB%94%A9)
     - [VLC coding:](#vlc-coding)
-    - [Arithmetic coding:](#arithmetic-coding)
-  - [6th step - bitstream format](#6th-step---bitstream-format)
-    - [H.264 bitstream](#h264-bitstream)
-  - [Review](#review)
-  - [How does H.265 achieve a better compression ratio than H.264?](#how-does-h265-achieve-a-better-compression-ratio-than-h264)
-- [Online streaming](#online-streaming)
-  - [General architecture](#general-architecture)
-  - [Progressive download and adaptive streaming](#progressive-download-and-adaptive-streaming)
-  - [Content protection](#content-protection)
+    - [산술적 코딩:](#%EC%82%B0%EC%88%A0%EC%A0%81-%EC%BD%94%EB%94%A9)
+  - [여섯번째 단계 - 비트 스트림 포맷](#%EC%97%AC%EC%84%AF%EB%B2%88%EC%A7%B8-%EB%8B%A8%EA%B3%84---%EB%B9%84%ED%8A%B8-%EC%8A%A4%ED%8A%B8%EB%A6%BC-%ED%8F%AC%EB%A7%B7)
+    - [H.264 비트스트림](#h264-%EB%B9%84%ED%8A%B8%EC%8A%A4%ED%8A%B8%EB%A6%BC)
+  - [리뷰](#%EB%A6%AC%EB%B7%B0)
+  - [어떻게 H.265는 H.264보다 더 높은 압축률을 달성했는가](#%EC%96%B4%EB%96%BB%EA%B2%8C-h265%EB%8A%94-h264%EB%B3%B4%EB%8B%A4-%EB%8D%94-%EB%86%92%EC%9D%80-%EC%95%95%EC%B6%95%EB%A5%A0%EC%9D%84-%EB%8B%AC%EC%84%B1%ED%96%88%EB%8A%94%EA%B0%80)
+- [온라인 스트리밍](#%EC%98%A8%EB%9D%BC%EC%9D%B8-%EC%8A%A4%ED%8A%B8%EB%A6%AC%EB%B0%8D)
+  - [일반적인 아키텍쳐](#%EC%9D%BC%EB%B0%98%EC%A0%81%EC%9D%B8-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90)
+  - [점진적 다운로드와 적응형 스트리밍](#%EC%A0%90%EC%A7%84%EC%A0%81-%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C%EC%99%80-%EC%A0%81%EC%9D%91%ED%98%95-%EC%8A%A4%ED%8A%B8%EB%A6%AC%EB%B0%8D)
+  - [컨텐츠 보호](#%EC%BB%A8%ED%85%90%EC%B8%A0-%EB%B3%B4%ED%98%B8)
     - [DRM](#drm)
       - [Main systems](#main-systems)
-      - [What?](#what)
-      - [Why?](#why)
-      - [How?](#how)
+      - [무엇인가?](#%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80)
+      - [왜?](#%EC%99%9C)
+      - [어떻게?](#%EC%96%B4%EB%96%BB%EA%B2%8C)
 - [How to use jupyter](#how-to-use-jupyter)
 - [Conferences](#conferences)
 - [References](#references)
@@ -476,45 +476,45 @@ One thing we can do it's a subtraction, we simply **subtract frame 1 from frame 
 
 ![coefficients values](/i/dct_coefficient_values.png "coefficients values")
 
-And if we render this block of coefficients, we'll get this image:
+그리고 이 계수의 블록을 렌더링하면 다음과 같은 이미지를 얻게 됩니다:
 
 ![dct coefficients image](/i/dct_coefficient_image.png "dct coefficients image")
 
-As you can see it looks nothing like the original image, we might notice that the **first coefficient** is very different from all the others. This first coefficient is known as the DC coefficient which represents of **all the samples** in the input array, something **similar to an average**.
+보시는 바와 같이 원본 이미지같이 생기진 않죠. 눈치 채셨을지 모르겠지만 **첫 번째 계수**는 다른 모든 것들과 아주 다릅니다. 첫 번째 계수는 DC 계수로, 입력 배열에서 **샘플의 모든 것**을 표현하며 **평균과 유사합니다.**  
 
-This block of coefficients has an interesting property which is that it separates the high-frequency components from the low frequency.
+이 계수 블록은 흥미로운 성질을 가지고 있는데, 높은 주파수 성분을 낮은 주파수 성분과 분리한다는 점이지요.  
 
 ![dct frequency coefficients property](/i/dctfrequ.jpg "dct frequency coefficients property")
 
-In an image, **most of the energy** will be concentrated in the [**lower frequencies**](https://web.archive.org/web/20150129171151/https://www.iem.thm.de/telekom-labor/zinke/mk/mpeg2beg/whatisit.htm), so if we transform an image into its frequency components and **throw away the higher frequency coefficients**, we can **reduce the amount of data** needed to describe the image without sacrificing too much image quality.
+이미지 상에서, **에너지의 대부분은** [**낮은 주파수**](https://web.archive.org/web/20150129171151/https://www.iem.thm.de/telekom-labor/zinke/mk/mpeg2beg/whatisit.htm)에 집중되기 때문에, 이미지를 주파수 성분으로 변환하고 **높은 주파수 계수를 날려버리면**, 이미지 품질을 그리 많이 희생하지 않고도 이미지를 표현하는데 필요한 **데이터의 양을 줄일 수 있습니다.**  
 
-> frequency means how fast a signal is changing
+> 주파수는 신호가 얼마나 빠르게 변화하는가를 의미합니다.  
 
-Let's try to apply the knowledge we acquired in the test by converting the original image to its frequency (block of coefficients) using DCT and then throwing away part of the least important coefficients.
+테스트에서 얻은 지식을 활용하여 DCT를 사용해 원본 이미지를 주파수(계수 블록)를 변환 후 중요하지 않은 계수들을 날려봅시다. 
 
-First, we convert it to its **frequency domain**.
+우선, 이를 **주파수 영역**으로 변환합니다.  
 
 ![coefficients values](/i/dct_coefficient_values.png "coefficients values")
 
-Next, we discard part (67%) of the coefficients, mostly the bottom right part of it.
+다음으로, 오른쪽 하단의 대부분에 해당되는 계수의 부분(67%)를 버립니다.  
 
 ![zeroed coefficients](/i/dct_coefficient_zeroed.png "zeroed coefficients")
 
-Finally, we reconstruct the image from this discarded block of coefficients (remember, it needs to be reversible) and compare it to the original.
+마침내, 폐기한 계수 블록으로부터 이미지를 재구성해보고 이를 원본과 비교해봅시다. (명심하세요. 이는 가역적이여야 합니다.)
 
 ![original vs quantized](/i/original_vs_quantized.png "original vs quantized")
 
-As we can see it resembles the original image but it introduced lots of differences from the original, we **throw away 67.1875%** and we still were able to get at least something similar to the original. We could more intelligently discard the coefficients to have a better image quality but that's the next topic.
+여러분이 보시는 바와 같이 원본 이미지와 닮긴 했지만 원본과 비교하면 다른 부분이 많이 보입니다. **67.1875%를 날려버리고도** 원본과 유사한 무언가를 얻을 수 있었지요. 더 높은 이미지 품질을 위해 더 똑똑한 방법으로 계수를 폐기하는 방법도 있지만 이는 다음의 주제입니다.   
 
-> **Each coefficient is formed using all the pixels**
+> **각 계수는 모든 픽셀을 사용하여 만듭니다**
 >
-> It's important to note that each coefficient doesn't directly map to a single pixel but it's a weighted sum of all pixels. This amazing graph shows how the first and second coefficient is calculated, using weights which are unique for each index.
+> 여기서 기억하셔야 할 중요한 점은 각 계수가 각각의 픽셀과 직접적으로 매핑되지는 않으나 계수는 모든 픽셀의 가중치 합이라는 점입니다. 다음 이 놀라운 도식은 어떻게 첫 번째와 두 번째 계수가 각 인덱스에 대한 고유한 가중치를 사용하여 계산되는지 보여줍니다.  
 >
 > ![dct calculation](/i/applicat.jpg "dct calculation")
 >
-> Source: https://web.archive.org/web/20150129171151/https://www.iem.thm.de/telekom-labor/zinke/mk/mpeg2beg/whatisit.htm
+> 출처: https://web.archive.org/web/20150129171151/https://www.iem.thm.de/telekom-labor/zinke/mk/mpeg2beg/whatisit.htm
 >
-> You can also try to [visualize the DCT by looking at a simple image](/dct_better_explained.ipynb) formation over the DCT basis. For instance, here's the [A character being formed](https://en.wikipedia.org/wiki/Discrete_cosine_transform#Example_of_IDCT) using each coefficient weight.
+> 또한 DCT를 기반으로 [간단한 이미지 형성을 보며 DCT를 시각화](/dct_better_explained.ipynb)해볼 수도 있습니다. 그 예로 각 계수 가중치를 사용하여 [알파벳 A가 형성되는 모습입니다.](https://en.wikipedia.org/wiki/Discrete_cosine_transform#Example_of_IDCT)
 >
 > ![](https://upload.wikimedia.org/wikipedia/commons/5/5e/Idct-animation.gif )
 
@@ -523,145 +523,144 @@ As we can see it resembles the original image but it introduced lots of differen
 
 <br/>
 
-> ### Hands-on: throwing away different coefficients
-> You can play around with the [DCT transform](/uniform_quantization_experience.ipynb).
+> ### 실습: 다른 계수 날리기
+> [DCT 변환](/uniform_quantization_experience.ipynb)
 
-## 4th step - quantization
+## 네 번째 단계 - 양자화
 
-When we throw away some of the coefficients, in the last step (transform), we kinda did some form of quantization. This step is where we chose to lose information (the **lossy part**) or in simple terms, we'll **quantize coefficients to achieve compression**.
+몇몇 계수를 버릴 때 마지막 단계(변환)에서 일종의 양자화를 수행하였습니다. 이 단계에서는 잃을 정보(간단한 용어로 **손실부**)를 선택하고, **계수를 양자화 하여 압축을 합니다.**
 
-How can we quantize a block of coefficients? One simple method would be a uniform quantization, where we take a block, **divide it by a single value** (10) and round this value.
+어떻게 계수 블록을 양자화 시킬까요? 간단한 방법으로는 균일 양자화가 있습니다. 균일 양자화는 블록을 가지고 **단일 값(10)으로 이를 나누어** 이 값을 내림합니다.    
 
 ![quantize](/i/quantize.png "quantize")
 
-How can we **reverse** (re-quantize) this block of coefficients? We can do that by **multiplying the same value** (10) we divide it first.
+이 계수 블록을 어떻게 **변환**(재양자화) 할까요? 처음에 나누었던 값과 **동일한 값을 곱하여** 수행할 수 있습니다.  
 
 ![re-quantize](/i/re-quantize.png "re-quantize")
 
-This **approach isn't the best** because it doesn't take into account the importance of each coefficient, we could use a **matrix of quantizers** instead of a single value, this matrix can exploit the property of the DCT, quantizing most the bottom right and less the upper left, the [JPEG uses a similar approach](https://www.hdm-stuttgart.de/~maucher/Python/MMCodecs/html/jpegUpToQuant.html), you can check [source code to see this matrix](https://github.com/google/guetzli/blob/master/guetzli/jpeg_data.h#L40).
+**이 방법이 최선은 아닙니다.** 왜냐하면 각 계수의 중요성을 고려하지 않았기 때문입니다. 단일 값 대신 **양자화 행렬**을 사용할 수 있습니다. 이 행렬은 DCT의 특성을 이용하는 것으로, 우측 하단의 대부분을 양자화하고 좌측 상단은 덜한다는 특성으로, [JPEG가 이와 유사한 방법을 사용합니다](https://www.hdm-stuttgart.de/~maucher/Python/MMCodecs/html/jpegUpToQuant.html). [이 행렬을 소스코드](https://github.com/google/guetzli/blob/master/guetzli/jpeg_data.h#L40)에서 확인할 수 있습니다.  
 
-> ### Hands-on: quantization
-> You can play around with the [quantization](/dct_experiences.ipynb).
+> ### 실습: 양자화
+> [양자화](/dct_experiences.ipynb)를 실습해보실 수 있습니다.
 
-## 5th step - entropy coding
+## 다섯번째 단계 - 엔트로피 인코딩
 
-After we quantized the data (image blocks/slices/frames) we still can compress it in a lossless way. There are many ways (algorithms) to compress data. We're going to briefly experience some of them, for a deeper understanding you can read the amazing book [Understanding Compression: Data Compression for Modern Developers](https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/).
+데이터(이미지 블록/슬라이스/프레임)를 양자화 하고 나면 손실 없이 압축할 수 있는 방법이 여전히 남아 있습니다. 데이터를 압축하는 많은 방법(알고리즘)이 존재합니다. 여기서는 그 중 일부를 간략히 알아볼 것입니다. 더 깊은 이해를 바란다면 [압축에 대한 이해: 현대 개발자를 위한 데이터 압축](https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/)이라는 놀라운 책을 읽어보세요.  
 
 ### VLC coding:
 
-Let's suppose we have a stream of the symbols: **a**, **e**, **r** and **t** and their probability (from 0 to 1) is represented by this table.
+심볼 스트림이 있다고 가정해봅시다: **a**, **e**, **r**, **t**이며 이 심볼들에 대한 확률(0과 1사이)은 다음 테이블에 표현됩니다.  
+|             | a   | e   | r    | t   |
+|-------------|-----|-----|------|-----|
+| 확률         | 0.3 | 0.3 | 0.2 |  0.2 |
+
+가장 가능성이 크고 큰 코드부터 낮은 것까지 고유한 이진 코드(작은 값 추천)를 할당할 수 있습니다.  
 
 |             | a   | e   | r    | t   |
 |-------------|-----|-----|------|-----|
-| probability | 0.3 | 0.3 | 0.2 |  0.2 |
+| 확률         | 0.3 | 0.3 | 0.2 | 0.2 |
+| 이진 코드     | 0 | 10 | 110 | 1110 |
 
-We can assign unique binary codes (preferable small) to the most probable and bigger codes to the least probable ones.
+스트림 **eat**를 압축해봅시다. 각 심볼당 8비트를 소비한다고 가정하면 압축하지 않은 경우에 24비트를 소비하게 됩니다. 하지만 각각의 심볼을 코드로 대체하면 공간을 절약할 수 있습니다.  
 
-|             | a   | e   | r    | t   |
-|-------------|-----|-----|------|-----|
-| probability | 0.3 | 0.3 | 0.2 | 0.2 |
-| binary code | 0 | 10 | 110 | 1110 |
+첫 번째 단계는 `10`에 해당하는 심볼 **e**를 인코딩하고 두 번째 심볼 **a**를 더하고(산술 연산 아님) `[10][0]` 마지막으로 최종 압축된 비트스트림을 `[10][0][1110]` 혹은 `1001110`으로 만드는 심볼 **t**를 붙여주면 오직 **7비트**만 필요로 합니다. (원본보다 3.4배 적은 공간)
 
-Let's compress the stream **eat**, assuming we would spend 8 bits for each symbol, we would spend **24 bits** without any compression. But in case we replace each symbol for its code we can save space.
+각각의 코드는 반드시 고유한 접두사 코드여야 하며 [허프만이 이러한 숫자들을 찾는 데 도움이 됩니다.](https://en.wikipedia.org/wiki/Huffman_coding) 몇 가지 문제가 있음에도 **비디오 코덱들은 여전히 이 방법을 제공**하며 압축을 필요로하는 많은 애플리케이션들을 위한 알고리즘이기도 합니다.  
 
-The first step is to encode the symbol **e** which is `10` and the second symbol is **a** which is added (not in a mathematical way) `[10][0]` and finally the third symbol **t** which makes our final compressed bitstream to be `[10][0][1110]` or `1001110` which only requires **7 bits** (3.4 times less space than the original).
+엔코더와 디코더 모두 **반드시 이 코드가 있는 심볼 테이블을 알고 있어야 합니다.** 그러므로 테이블도 함께 보내야하죠.  
 
-Notice that each code must be a unique prefixed code [Huffman can help you to find these numbers](https://en.wikipedia.org/wiki/Huffman_coding). Though it has some issues there are [video codecs that still offers](https://en.wikipedia.org/wiki/Context-adaptive_variable-length_coding) this method and it's the  algorithm for many applications which requires compression.
+### 산술적 코딩:
 
-Both encoder and decoder **must know** the symbol table with its code, therefore, you need to send the table too.
-
-### Arithmetic coding:
-
-Let's suppose we have a stream of the symbols: **a**, **e**, **r**, **s** and **t** and their probability is represented by this table.
+심볼 스트림이 있다고 가정해봅시다: **a**, **e**, **r**, **s**, **t**이며 이 들의 확률은 다음 테이블과 같이 표현됩니다.  
 
 |             | a   | e   | r    | s    | t   |
 |-------------|-----|-----|------|------|-----|
-| probability | 0.3 | 0.3 | 0.15 | 0.05 | 0.2 |
+| 확률 | 0.3 | 0.3 | 0.15 | 0.05 | 0.2 |
 
-With this table in mind, we can build ranges containing all the possible symbols sorted by the most frequents.
+이 테이블을 참고하여 빈도순으로 정렬된 모든 심볼을 포함하는 범위를 만들 수 있습니다.  
 
 ![initial arithmetic range](/i/range.png "initial arithmetic range")
 
-Now let's encode the stream **eat**, we pick the first symbol **e** which is located within the subrange **0.3 to 0.6** (but not included) and we take this subrange and split it again using the same proportions used before but within this new range.
+이제 스트림 **eat**를 인코딩해보죠. 하위 범위 **0.3부터 0.6** 안에 있는 (그러나 포함되진 않음) 첫 번째 심볼 **e**를 선택하고 이 하위 범위를 가지고 이전에 사용한 것과 동일한 비율로 분할해 새로운 범위 내에서 다시 분할합니다.  
 
 ![second sub range](/i/second_subrange.png "second sub range")
 
-Let's continue to encode our stream **eat**, now we take the second symbol **a** which is within the new subrange **0.3 to 0.39** and then we take our last symbol **t** and we do the same process again and we get the last subrange **0.354 to 0.372**.
+스트림 **eat**를 이어서 인코딩 해봅시다. 새로운 하위 범위 **0.3부터 0.39**에 포함된 두 번째 심볼 **e**를 취한 뒤 마지막 심볼 **t**로 동일한 과정을 반복하여 마지막 하위 범주인 **0.354부터 0.372**를 얻게됩니다.  
 
 ![final arithmetic range](/i/arithimetic_range.png "final arithmetic range")
 
-We just need to pick a number within the last subrange **0.354 to 0.372**, let's choose **0.36** but we could choose any number within this subrange. With **only** this number we'll be able to recover our original stream **eat**. If you think about it, it's like if we were drawing a line within ranges of ranges to encode our stream.
+마지막 하위 범위인 **0.354부터 0.372**내에 있는 숫자를 선택해봅시다. **0.36**을 골라보죠. 이 하위 범주에 내에 있는 수라면 어떤 것이든 상관 없습니다. 그리고 **이 숫자만 있으면** 원본 스트림인 **eat**를 복구할 수 있습니다. 이는 스트림을 인코딩할 범위의 범위 안에 선을 긋는 것과 같습니다.  
 
 ![final range traverse](/i/range_show.png "final range traverse")
 
-The **reverse process** (A.K.A. decoding) is equally easy, with our number **0.36** and our original range we can run the same process but now using this number to reveal the stream encoded behind this number.
+**역과정** (소위 말하는 디코딩)은 인코딩과 동일하게 간단합니다. 선택했던 숫자인 **0.36**으로 동일한 과정을 통하여 원래의 범위를 구하는데, 이번에는 이 숫자를 인코딩된 스트림을 밝혀내는데 사용합니다.
 
-With the first range, we notice that our number fits at the slice, therefore, it's our first symbol, now we split this subrange again, doing the same process as before, and we'll notice that **0.36** fits the symbol **a** and after we repeat the process we came to the last symbol **t** (forming our original encoded stream *eat*).
+첫 번째 범위에서 앞서 선택한 숫자(0.36)가 슬라이스와 일치한다는 사실을 알 수 있습니다. 그러므로 이게 첫 번째 심볼이며 이제 하위 범위로 분할할 차례입니다. 이전과 동일한 과정으로 **0.36**이 심볼 **a**와 일치한다는 사실을 파악할 수 잇죠. 이 과정을 반복하고 나면 마지막 심볼인 **t**에 이르게 됩니다. (원본의 인코딩 된 스트림 *eat*를 구성함) 
 
-Both encoder and decoder **must know** the symbol probability table, therefore you need to send the table.
+엔코더와 디코더 모두 심볼 확률 테이블에 대해 **반드시 알고 있어야 합니다.** 그러므로 이 테이블도 보내야겠죠.
 
-Pretty neat, isn't it? People are damn smart to come up with a such solution, some [video codecs use](https://en.wikipedia.org/wiki/Context-adaptive_binary_arithmetic_coding) this technique (or at least offer it as an option).
+깔끔하쥬? 그쥬? 이 해법을 떠올린 사람들은 겁나 똑똑합니다. 몇몇 [비디오 코덱](https://en.wikipedia.org/wiki/Context-adaptive_binary_arithmetic_coding)은 이 기법을 사용합니다. (적어도 이를 옵션으로 제공하거나 말이죠)
 
-The idea is to lossless compress the quantized bitstream, for sure this article is missing tons of details, reasons, trade-offs and etc. But [you should learn more](https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/) as a developer. Newer codecs are trying to use different [entropy coding algorithms like ANS.](https://en.wikipedia.org/wiki/Asymmetric_Numeral_Systems)
+이 아이디어는 무손실로 양자화된 비트스트림을 압축하는 것입니다. 이 글은 아주 많은 세부사항, 이유, 절충안 등등이 생략되어 있습니다. 그러나 개발자로서 [더 배우셔야 합니다](https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/). 최신 코덱은 다른 종류의 [ANS와 같은 엔트로피 코딩 알고리즘](https://en.wikipedia.org/wiki/Asymmetric_Numeral_Systems)을 사용하려는 시도를 하고 있습니다.  
 
-> ### Hands-on: CABAC vs CAVLC
-> You can [generate two streams, one with CABAC and other with CAVLC](https://github.com/leandromoreira/introduction_video_technology/blob/master/encoding_pratical_examples.md#cabac-vs-cavlc) and **compare the time** it took to generate each of them as well as **the final size**.
+> ### 예제: CABAC vs CAVLC
+> [CABAC와 CAVLC 이 두 개의 스트림을 생성](https://github.com/leandromoreira/introduction_video_technology/blob/master/encoding_pratical_examples.md#cabac-vs-cavlc)하고 각각의 스트림이 생성하는데 소모하는 **시간을 비교**해 보세요. 또, **결과물의 사이즈도** 비교해보세요.  
 
-## 6th step - bitstream format
+## 여섯번째 단계 - 비트 스트림 포맷
 
-After we did all these steps we need to **pack the compressed frames and context to these steps**. We need to explicitly inform to the decoder about **the decisions taken by the encoder**, such as bit depth, color space, resolution, predictions info (motion vectors, intra prediction direction), profile, level, frame rate, frame type, frame number and much more.
+이 모든 과정을 마친 후에는 **압축된 프레임과 이 과정들에 대한 컨텍스트를 패킹**해야합니다. **엔코더가 결정한 내용들**, 가령 비트 깊이, 색공간, 해상도, 프리딕션 정보(모션 벡터, 인트라 프리딕션 방향), 프로파일, 레벨, 프레임레이트, 프레임 타입, 프레임 넘버 등의 무수히 많은 정보들에 대하여 디코더에게 이를 명시적으로 알려주어야 합니다. 
 
-We're going to study, superficially, the H.264 bitstream. Our first step is to [generate a minimal  H.264 <sup>*</sup> bitstream](/encoding_pratical_examples.md#generate-a-single-frame-h264-bitstream), we can do that using our own repository and [ffmpeg](http://ffmpeg.org/).
+이제 겉핥기로 H.264 비트스트림을 공부해볼거에요. 첫 번째 단계는 [미니멀한 H.264 <sup>*</sup> 비트스트림](/encoding_pratical_examples.md#generate-a-single-frame-h264-bitstream)을 생성하는 것으로, 이 저장소와 [ffmpeg](http://ffmpeg.org/)를 사용하면 되지요.  
 
 ```
 ./s/ffmpeg -i /files/i/minimal.png -pix_fmt yuv420p /files/v/minimal_yuv420.h264
 ```
 
-> <sup>*</sup> ffmpeg adds, by default, all the encoding parameter as a **SEI NAL**, soon we'll define what is a NAL.
+> <sup>*</sup> ffmpeg는 기본 값으로 모든 인코딩 파라미터에 **SEI NAL**을 붙이는데 NAL이 무엇인지 곧 정의 해볼 것입니다.  
 
-This command will generate a raw h264 bitstream with a **single frame**, 64x64, with color space yuv420 and using the following image as the frame.
+이 명령어는 **단일 프레임**, 64x64, 색공간 yuv420의 로우 h264 비트스트림을 생성하며 프레임으로는 다음 이미지를 사용할거에요.   
 
 > ![used frame to generate minimal h264 bitstream](/i/minimal.png "used frame to generate minimal h264 bitstream")
 
-### H.264 bitstream
+### H.264 비트스트림
 
-The AVC (H.264) standard defines that the information will be sent in **macro frames** (in the network sense), called **[NAL](https://en.wikipedia.org/wiki/Network_Abstraction_Layer)** (Network Abstraction Layer). The main goal of the NAL is the provision of a "network-friendly" video representation, this standard must work on TVs (stream based), the Internet (packet based) among others.
+AVC(H.264) 표준은 **[NAL](https://en.wikipedia.org/wiki/Network_Abstraction_Layer)** (네트워크 추상 계층)이라 부르는 **매크로 프레임** (네트워크 용어)에 전송하는 정보를 정의합니다. NAL의 주된 목적은 "네트워크 친화적"인 비디오 표현의 프로비전으로, 이 표준은 반드시 TV(스트림 기반), 인터넷(패킷 기반) 등을 비롯한 것들에서 반드시 동작해야합니다.  
 
 ![NAL units H.264](/i/nal_units.png "NAL units H.264")
 
-There is a **[synchronization marker](https://en.wikipedia.org/wiki/Frame_synchronization)** to define the boundaries of the NAL's units. Each synchronization marker holds a value of `0x00 0x00 0x01` except to the very first one which is `0x00 0x00 0x00 0x01`. If we run the **hexdump** on the generated h264 bitstream, we can identify at least three NALs in the beginning of the file.
+NAL 유닛의 경계를 정의하는 [동기화 마커](https://en.wikipedia.org/wiki/Frame_synchronization)라는 것이 있습니다. 각 동기화 마커는 맨 첫 번째인 `0x00 0x00 0x00 0x01`를 제외하고 `0x00 0x00 0x01`의 값을 가집니다. 앞서 생성한 h264 비트스트림에 **hexdump**를 떠보면, 파일 시작 부분에 세계의 `NAL`을 확인할 수 있습니다.  
 
 ![synchronization marker on NAL units](/i/minimal_yuv420_hex.png "synchronization marker on NAL units")
 
-As we said before, the decoder needs to know not only the picture data but also the details of the video, frame, colors, used parameters, and others. The **first byte** of each NAL defines its category and **type**.
+앞서 말씀드린 바와 같이, 디코더는 사진 정보 뿐만 아니라 비디오의 세부사항, 색, 사용된 파라미터 등의 여러 정보를 필요로 합니다. 각 NAL의 **첫 번째 바이트**는 이에 대한 카테고리와 **타입**을 정의합니다.  
 
 | NAL type id  | Description  |
 |---  |---|
-| 0  |  Undefined |
-| 1  |  Coded slice of a non-IDR picture |
-| 2  |  Coded slice data partition A |
-| 3  |  Coded slice data partition B |
-| 4  |  Coded slice data partition C |
-| 5  |  **IDR** Coded slice of an IDR picture |
-| 6  |  **SEI** Supplemental enhancement information |
-| 7  |  **SPS** Sequence parameter set |
-| 8  |  **PPS** Picture parameter set |
-| 9  |  Access unit delimiter |
-| 10 |  End of sequence |
-| 11 |  End of stream |
+| 0  |  정의되지 않음 |
+| 1  |  인코딩된 non-IDR 사진 슬라이스 |
+| 2  |  인코딩된 슬라이스 데이터 파티션 A |
+| 3  |  인코딩된 슬라이스 데이터 파티션 B |
+| 4  |  인코딩된 슬라이스 데이터 파티션 C |
+| 5  |  **IDR** 인코딩의 IDR 사진 슬라이스 |
+| 6  |  **SEI** 추가 보완 정보 |
+| 7  |  **SPS** 시퀀스 파라미터 셋 |
+| 8  |  **PPS** 사진 파라미터 셋 |
+| 9  |  엑세스 단위 델리미터 |
+| 10 |  시퀀스의 끝 |
+| 11 |  스트림의 끝 |
 | ... |  ... |
 
-Usually, the first NAL of a bitstream is a **SPS**, this type of NAL is responsible for informing the general encoding variables like **profile**, **level**, **resolution** and others.
+보편적으로 비트스트림의 첫 번째 NAL은 **SPS**입니다. 이 타입은 **프로파일**, **레벨**, **해상도** 등과 같은 일반적인 인코딩 변수를 알려주는 역할을 합니다.  
 
-If we skip the first synchronization marker we can decode the **first byte** to know what **type of NAL** is the first one.
+동기화 마커를 건너 뛰는 경우 **첫 번째 바이트**를 디코드하여 **어떤 타입의 NAL**이 첫 번째 바이트인지 알아낼 수 있습니다.  
 
-For instance the first byte after the synchronization marker is `01100111`, where the first bit (`0`) is to the field **forbidden_zero_bit**, the next 2 bits (`11`) tell us the field **nal_ref_idc** which indicates whether this NAL is a reference field or not and the rest 5 bits (`00111`) inform us the field **nal_unit_type**, in this case, it's a **SPS** (7) NAL unit.
+동기화 마커 다음의 첫 번째 바이트는 `01100111`입니다. 이 첫 번째 비트(`0`)는 **forbidden_zero_bit**에 해당하며, 다음 2비트(`11`)는 해당 필드가 이 NAL이 레퍼런스 필드인지 아닌지를 가리키는 **nal_ref_idc**를 알려주며, 나머지 5비트(`00111`)은 `nal_unit_type` 필드를 알려줍니다. 이 경우에는 **SPS** (7) NAL 유닛입니다.  
 
-The second byte (`binary=01100100, hex=0x64, dec=100`) of an SPS NAL is the field **profile_idc** which shows the profile that the encoder has used, in this case, we used  the **[constrained high-profile](https://en.wikipedia.org/wiki/H.264/MPEG-4_AVC#Profiles)**, it's a high profile without the support of B (bi-predictive) slices.
+SPS NAL의 두 번째 바이트(`binary=01100100, hex=0x64, dec=100`)는 인코더가 사용한 프로파일을 보여주는 **profile_idc** 필드로, 이 경우에는 **[constrained high-profile](https://en.wikipedia.org/wiki/H.264/MPEG-4_AVC#Profiles)** 를 사용했습니다. 이는 B(bi-predictive) 슬라이스의 지원이 없는 하이프로파일입니다.  
 
 ![SPS binary view](/i/minimal_yuv420_bin.png "SPS binary view")
 
-When we read the H.264 bitstream spec for an SPS NAL we'll find many values for the **parameter name**, **category** and a **description**, for instance, let's look at `pic_width_in_mbs_minus_1` and `pic_height_in_map_units_minus_1` fields.
+SPS NAL에 대한 H.264 비트스트림 스펙을 읽는 경우, **파라미터 이름**, **카테고리** 그리고 **디스크립션**에 대한 많은 값을 참고할 것입니다. 예를들어 `pic_width_in_mbs_minus_1`와 `pic_height_in_map_units_minus_1`필드를 봅시다.
 
 | Parameter name  | Category  |  Description  |
 |---  |---|---|
@@ -670,66 +669,66 @@ When we read the H.264 bitstream spec for an SPS NAL we'll find many values for 
 
 > **ue(v)**: unsigned integer [Exp-Golomb-coded](https://pythonhosted.org/bitstring/exp-golomb.html)
 
-If we do some math with the value of these fields we will end up with the **resolution**. We can represent a `1920 x 1080` using a `pic_width_in_mbs_minus_1` with the value of `119 ( (119 + 1) * macroblock_size = 120 * 16 = 1920) `, again saving space, instead of encode `1920` we did it with `119`.
+이 필드들의 값으로 계산을 때려보면, **해상도**에 이르게 됩니다. `119 ( (119 + 1) * macroblock_size = 120 * 16 = 1920) `의 값과 `pic_width_in_mbs_minus_1`를 사용하여 `1920 x 1080`를 표현할 수 있습니다. `1920`을 인코딩하는 대신 `119`를 사용하여 또 공간을 절약한것이지요.  
 
-If we continue to examine our created video with a binary view (ex: `xxd -b -c 11 v/minimal_yuv420.h264`), we can skip to the last NAL which is the frame itself.
+바이너리 뷰(ex: `xxd -b -c 11 v/minimal_yuv420.h264`)로 앞서 생성한 비디오를 계속하여 검사하는 경우, frame 자체를 의미하는 마지막 NAL은 생략할 수 있습니다.  
 
 ![h264 idr slice header](/i/slice_nal_idr_bin.png "h264 idr slice header")
 
-We can see its first 6 bytes values: `01100101 10001000 10000100 00000000 00100001 11111111`. As we already know the first byte tell us about what type of NAL it is, in this case, (`00101`) it's an **IDR Slice (5)** and we can further inspect it:
+앞서 생성한 비디오의 첫 번째 6바이트의 값을 볼 수 있습니다: `01100101 10001000 10000100 00000000 00100001 11111111`. 이미 아는 바와 같이 첫 번째 바이트는 NAL의 타입을 의미하며, 이 경우에는 (`00101`)이며 이는 **IDR Slice (5)** 이고 더 자세히 확인해보면:  
 
 ![h264 slice header spec](/i/slice_header.png "h264 slice header spec")
 
-Using the spec info we can decode what type of slice (**slice_type**), the frame number (**frame_num**) among others important fields.
+스펙 정보를 바탕으로 슬라스의 타입(**slice_type**), 프레임 번호(**frame_num**)을 비롯한 다른 중요한 필드들을 디코딩할 수 있습니다.  
 
-In order to get the values of some fields (`ue(v), me(v), se(v) or te(v)`) we need to decode it using a special decoder called [Exponential-Golomb](https://pythonhosted.org/bitstring/exp-golomb.html), this method is **very efficient to encode variable values**, mostly when there are many default values.
+몇몇 필드(`ue(v), me(v), se(v) 혹은 te(v)`)의 값을 얻기 위해, [Exponential-Golomb](https://pythonhosted.org/bitstring/exp-golomb.html)라 부르는 특별한 디코더를 사용하여 이를 디코딩할 수 있습니다. 이 방법은 대부분 수많은 기본 값들이 존재하는 경우에 **변수 값을 인코딩하는데에 있어 매우 효과적입니다.**
 
-> The values of **slice_type** and **frame_num** of this video are 7 (I slice) and 0 (the first frame).
+> **slice_type**의 값과 이 비디오의 **frame_num**는 각각 7(I slice)과 0 (첫 번째 프레임)입니다.
 
-We can see the **bitstream as a protocol** and if you want or need to learn more about this bitstream please refer to the [ITU H.264 spec.]( http://www.itu.int/rec/T-REC-H.264-201610-I) Here's a macro diagram which shows where the picture data (compressed YUV) resides.
+**비트스트림을 프로토콜**로 볼 수 있으며 이 비트스트림에 대하여 더 공부하고 싶으시다면 [ITU H.264 spec.](http://www.itu.int/rec/T-REC-H.264-201610-I)를 살펴보세요. 다음은 사진 데이터(압축된 YUV)가 어디에 위치하는지 나타내는 매크로 다이어그램입니다.  
 
 ![h264 bitstream macro diagram](/i/h264_bitstream_macro_diagram.png "h264 bitstream macro diagram")
 
-We can explore others bitstreams like the [VP9 bitstream](https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.6-20160331-draft.pdf), [H.265 (HEVC)](http://handle.itu.int/11.1002/1000/11885-en?locatt=format:pdf) or even our **new best friend** [**AV1** bitstream](https://medium.com/@mbebenita/av1-bitstream-analyzer-d25f1c27072b#.d5a89oxz8
-), [do they all look similar? No](http://www.gpac-licensing.com/2016/07/12/vp9-av1-bitstream-format/), but once you learned one you can easily get the others.
+[VP9 bitstream](https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.6-20160331-draft.pdf), [H.265 (HEVC)](http://handle.itu.int/11.1002/1000/11885-en?locatt=format:pdf)와 같은 다른 비트스트림에 대해서도 살펴볼 수 있습니다. 혹은 우리의 새 베프 [**AV1** bitstream](https://medium.com/@mbebenita/av1-bitstream-analyzer-d25f1c27072b#.d5a89oxz8
+)도 말이죠. [모든 비트스트림들이 비슷할까요? 응 아니야](http://www.gpac-licensing.com/2016/07/12/vp9-av1-bitstream-format/), 하지만 한 번 터득하고 나면 다른 것들도 쉽게 배울 수 있습니다.  
 
-> ### Hands-on: Inspect the H.264 bitstream
-> We can [generate a single frame video](https://github.com/leandromoreira/introduction_video_technology/blob/master/encoding_pratical_examples.md#generate-a-single-frame-video) and use  [mediainfo](https://en.wikipedia.org/wiki/MediaInfo) to inspect its H.264 bitstream. In fact, you can even see the [source code that parses h264 (AVC)](https://github.com/MediaArea/MediaInfoLib/blob/master/Source/MediaInfo/Video/File_Avc.cpp) bitstream.
->
+> ### 실습: H.264 비트스트림 살펴보기
+> [단일 프레임의 비디오를 만들고](https://github.com/leandromoreira/introduction_video_technology/blob/master/encoding_pratical_examples.md#generate-a-single-frame-video) [mediainfo](https://en.wikipedia.org/wiki/MediaInfo)를 사용하여 생성한 비디오의 H.264 비트스트림을 조사해볼 수 있습니다. 게다가 [h264(AVC)를 파싱하는 소스코드](https://github.com/MediaArea/MediaInfoLib/blob/master/Source/MediaInfo/Video/File_Avc.cpp)도 볼 수 있지요.  
+> 
 > ![mediainfo details h264 bitstream](/i/mediainfo_details_1.png "mediainfo details h264 bitstream")
 >
-> We can also use the [Intel Video Pro Analyzer](https://software.intel.com/en-us/intel-video-pro-analyzer) which is paid but there is a free trial version which limits you to only the first 10 frames but that's okay for learning purposes.
+> [Intel Video Pro Analyzer](https://software.intel.com/en-us/intel-video-pro-analyzer)는 유료이긴 하지만 트라이얼 버전에서는 초반의 10프레임 제한으로 사용해보실 수 있습니다. 학습 용도로는 충분합니다.  
 >
 > ![intel video pro analyzer details h264 bitstream](/i/intel-video-pro-analyzer.png "intel video pro analyzer details h264 bitstream")
 
-## Review
+## 리뷰
 
-We'll notice that many of the **modern codecs uses this same model we learned**. In fact, let's look at the Thor video codec block diagram, it contains all the steps we studied. The idea is that you now should be able to at least understand better the innovations and papers for the area.
+**현대 코덱의 대부분은 지금까지 학습한 것과 동일한 모델을 사용한다는 사실**을 명심해주세요. 실제로 Thor 비디오 코덱의 블록 다이어 그램을 살펴봅시다. 여기에는 앞서 학습한 모든 단계가 포함되어 있습니다. 이 아이디어는 이 분야에 대한 혁신과 논문들에 대해 최소한의 이해를 필요로 합니다.  
 
 ![thor_codec_block_diagram](/i/thor_codec_block_diagram.png "thor_codec_block_diagram")
 
-Previously we had calculated that we needed [139GB of storage to keep a video file with one hour at 720p resolution and 30fps](#chroma-subsampling) if we use the techniques we learned here, like **inter and intra prediction, transform, quantization, entropy coding and other** we can achieve, assuming we are spending **0.031 bit per pixel**, the same perceivable quality video **requiring only 367.82MB vs 139GB** of store.
+이전에 계산했던 [한 시간 분량의 720p 해상도를 가진 30fps 비디오를 저장하기 위해 139GB의 용량](#%ED%81%AC%EB%A1%9C%EB%A7%88-%EC%84%9C%EB%B8%8C%EC%83%98%ED%94%8C%EB%A7%81)이 필요했었습니다. 여기서 배운 **인터 프리딕션, 인트라 프리딕션, 변환, 양자화, 엔트로피 코딩 등**의 기법을 사용하면, 대략 **픽셀 당 0.031비트**를 소비하며, 볼 수 있을만한 수준의 품질을 비디오에 **139GB와 달리 367.82MB의 용량만을 필요로** 합니다. 
 
-> We choose to use **0.031 bit per pixel** based on the example video provided here.
+> 여기서 제공된 예제 비디오를 기반으로 **픽셀 당 0.031비트**를 사용하도록 선택하였습니다..
 
-## How does H.265 achieve a better compression ratio than H.264?
+## 어떻게 H.265는 H.264보다 더 높은 압축률을 달성했는가
 
-Now that we know more about how codecs work, then it is easy to understand how new codecs are able to deliver higher resolutions with fewer bits.
+이제 코덱이 어떻게 동작하는지에 대해 많이 배웠으니, 새로운 코덱들이 적은 비트를 가지고 더 높은 해상도를 제공하는 방법들에 대해 쉽게 이해하실 수 있을거에요.  
 
-We will compare AVC and HEVC, let's keep in mind that it is almost always a trade-off between more CPU cycles (complexity) and compression rate.
+AVC와 HEVC를 비교해볼텐데요, CPU 싸이클(복잡도)와 압축률 간에는 항상 트레이드 오프가 존재한다는 사실을 명심하세요.  
 
-HEVC has bigger and more **partitions** (and **sub-partitions**) options than AVC, more **intra predictions directions**, **improved entropy coding** and more, all these improvements made H.265 capable to compress 50% more than H.264.
+HEVC는 AVC에 비해 더 크고 더 많은 **파티션(그리고 서브 파티션)** 옵션, **인트라 프리딕션 방향**, **향상된 엔트로피 코딩** 등을 가지고 있습니다. 이러한 모든 향상은 H.265가 H.264보다 50% 높은 압축 성능을 발휘할 수 있게 해주었죠.  
 
 ![h264 vs h265](/i/avc_vs_hevc.png "H.264 vs H.265")
 
-# Online streaming
-## General architecture
+# 온라인 스트리밍
+## 일반적인 아키텍쳐
 
 ![general architecture](/i/general_architecture.png "general architecture")
 
 [TODO]
 
-## Progressive download and adaptive streaming
+## 점진적 다운로드와 적응형 스트리밍
 
 ![progressive download](/i/progressive_download.png "progressive download")
 
@@ -737,17 +736,17 @@ HEVC has bigger and more **partitions** (and **sub-partitions**) options than AV
 
 [TODO]
 
-## Content protection
+## 컨텐츠 보호
 
-We can use **a simple token system** to protect the content. The user without a token tries to request a video and the CDN forbids her or him while a user with a valid token can play the content, it works pretty similarly to most of the web authentication systems.
+**간단한 토큰 시스템**을 사용하여 컨텐츠를 보호할 수 있습니다. 토큰이 없는 사용자가 비디오를 요청하면 CDN은 사용자를 막고, 유효한 토큰을 지닌 사용자라면 컨텐츠를 재생할 수 있도록 말이죠. 이는 대부분의 웹 인증 시스템과 굉장히 유사합니다.  
 
 ![token protection](/i/token_protection.png "token_protection")
 
-The sole use of this token system still allows a user to download a video and distribute it. Then the **DRM (digital rights management)** systems can be used to try to avoid this.
+이 토큰 시스템만 사용하면 사용자가 비디오를 다운로드 받아 배포가 가능합니다. 그러나 **DRM(디지털 저작권 관리)** 시스템은 이를 막을 수 있습니다.  
 
 ![drm](/i/drm.png "drm")
 
-In real life production systems, people often use both techniques to provide authorization and authentication.
+실제 현업의 시스템과 실무자들은 두 기법을 사용하여 인증과 인가를 제공합니다.   
 
 ### DRM
 #### Main systems
@@ -757,34 +756,33 @@ In real life production systems, people often use both techniques to provide aut
 * WV - [**Widevine**](http://www.widevine.com/)
 
 
-#### What?
+#### 무엇인가?
 
-DRM means Digital rights management, it's a way **to provide copyright protection for digital media**, for instance, digital video and audio. Although it's used in many places [it's not universally accepted](https://en.wikipedia.org/wiki/Digital_rights_management#DRM-free_works).
+DRM은 디지털 저작권 관리를 의미하며, **디지털 미디어에 대한 권리 보호**를 제공합니다. 많은 곳에서 사용되고 있으나 [보편적으로는 수긍받지 못하고 있습니다](https://en.wikipedia.org/wiki/Digital_rights_management#DRM-free_works).
 
-#### Why?
+#### 왜?
 
-Content creator (mostly studios) want to protect its intelectual property against copy to prevent unauthorized redistribution of digital media.
+컨텐츠 제작자(대부분 스튜디오들)들은 저작물의 무단 배포를 막아 자신의 지적 재산권을 보호하고자 합니다.    
 
-#### How?
+#### 어떻게?
 
-We're going to describe an abstract and generic form of DRM in a very simplified way.
+극도로 간략화된 DRM의 추상적이고 일반적인 형태만 소개할 것입니다.  
 
-Given a **content C1** (i.e. an hls or dash video streaming), with a **player P1** (i.e. shaka-clappr, exo-player or ios) in a **device D1** (i.e. a smartphone, TV, tablet or desktop/notebook) using a **DRM system DRM1** (widevine, playready or FairPlay).
+**컨텐츠 C1**(예를들어 HLS나 dash 비디오 스트리밍)을 **DRM 시스템 DRM1**(와이드바인, 플레이레디, 페어플레이)을 사용하는 **디바이스 D1**(예를들어 스마트폰, TV, 태블릿, 데스크탑, 노트북)에서 **플레이어 P1**(예를들어 샤카 클래퍼, 엑소 플레이어, ios)로 본다고 해봅시다.  
 
-The content C1 is encrypted with a **symmetric-key K1** from the system DRM1, generating the **encrypted content C'1**.
+컨텐츠 C1은 시스템 DRM1의 **대칭키 K1**으로 암호화되어 **암호화된 컨텐츠 C'1**을 생성합니다.  
 
 ![drm general flow](/i/drm_general_flow.jpeg "drm general flow")
 
-The player P1, of a device D1, has two keys (asymmetric), a **private key PRK1** (this key is protected<sup>1</sup> and only known by **D1**) and a **public key PUK1**.
+디바이스 D1의 플레이어 P1은 **비밀키 PRK1**(이 키는 보호되어 있으며<sup>1</sup> **D1**만 알고 있음)와 **공개키 PUK1**라는 두 개의 키(비대칭)를 가지고 있습니다.  
 
-> **<sup>1</sup>protected**: this protection can be **via hardware**, for instance, this key can be stored inside a special (read-only) chip that works like [a black-box](https://en.wikipedia.org/wiki/Black_box) to provide decryption, or **by software** (less safe), the DRM system provides means to know which type of protection a given device has.
+> **<sup>1</sup>보호됨**: [블랙박스](https://en.wikipedia.org/wiki/Black_box)처럼 동작하는 내부의 특별한(읽기 전용) 칩에 저장된 키로 해독을 제공하는 **하드웨어를 통한** 방법이 있고, 혹은 DRM 시스템이 제공하는 **소프트웨어를 통한**(덜 안전함) 방법이 있습니다. 이 보호는 해당 디바이스가 어떤 방법(하드웨어적, 소프트웨어적)을 가지고 있는지 알 수 있습니다.  
 
-
-When the **player P1 wants to play** the **content C'1**, it needs to deal with the **DRM system DRM1**, giving its public key **PUK1**. The DRM system DRM1 returns the **key K1 encrypted** with the client''s public key **PUK1**. In theory, this response is something that **only D1 is capable of decrypting**.
+**플레이어 P1이 컨텐츠 C'1을 보고 싶은 경우**, 공개키 **PUK1**를 부여한 **DRM 시스템 DRM1**를 통해 처리해야합니다. DRM시스템 DRM1는 클라이언트의 공개키 **PUK1**를 가지고 **암호화된 키 K1**을 반환합니다. 이론적으로 이 응답은 **D1만이 해독할 수 있습니다**.
 
 `K1P1D1 = enc(K1, PUK1)`
 
-**P1** uses its DRM local system (it could be a [SOC](https://en.wikipedia.org/wiki/System_on_a_chip), a specialized hardware or software), this system is **able to decrypt** the content using its private key PRK1, it can decrypt **the symmetric-key K1 from the K1P1D1** and **play C'1**. At best case, the keys are not exposed through RAM.
+**P1**은 DRM 로컬 시스템([SOC](https://en.wikipedia.org/wiki/System_on_a_chip)가 해당될 수 있으며, 특화된 하드웨어나 소프트웨어)을 사용하며, 이 시스템은 비밀키 PRK1을 사용한 컨텐츠를 **해독 가능**합니다. **K1P1D1로부터 비대칭 키 K1**를 해독할 수 있으며 **C'1을 재생할 수 있습니다**. 가장 좋은 점은 RAM을 통해 이 키들이 노출이 되지 않는 다는 것이지요.  
 
  ```
  K1 = dec(K1P1D1, PRK1)
