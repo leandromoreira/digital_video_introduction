@@ -877,6 +877,7 @@ Encoding Concepts:
 * http://www.adobe.com/devnet/adobe-media-server/articles/h264_encoding.html
 * https://prezi.com/8m7thtvl4ywr/mp3-and-aac-explained/
 * https://blogs.gnome.org/rbultje/2016/12/13/overview-of-the-vp9-video-codec/
+* https://videoblerg.wordpress.com/2017/11/10/ffmpeg-and-how-to-use-it-wrong/
 
 Video Sequences for Testing:
 
