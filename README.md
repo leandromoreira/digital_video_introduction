@@ -864,6 +864,7 @@ Non-ITU Codecs:
 * https://people.xiph.org/~jm/daala/revisiting/
 * https://www.youtube.com/watch?v=lzPaldsmJbk
 * https://fosdem.org/2017/schedule/event/om_av1/
+* https://jmvalin.ca/papers/AV1_tools.pdf
 
 Encoding Concepts:
 
