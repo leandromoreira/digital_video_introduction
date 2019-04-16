@@ -1,3 +1,8 @@
+[🇨🇳](/README-cn.md "Simplified Chinese")
+[🇯🇵](/README-ja.md "Japanese")
+[🇮🇹](/README-it.md "Italian")
+[🇰🇷](/README-ko.md "Korean")
+
 [![license](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)
 
 # Introduzione
@@ -170,9 +175,9 @@ Se nell'immagine a sinistra non riesci a vedere che **i colori dei quadrati A e 
 >
 > ![Composizione dell'occhio](/i/eyes.jpg "Composizione dell'occhio")
 >
-> **Funzioni di sensibilità al contrasto**
+> **Curve di sensibilità al contrasto**
 >
-> Ricercatori di psicologia sperimentale e altri campi hanno sviluppato molte teorie sull'occhio umano. Una di queste si chiama "funzioni di sensibilità al contrasto". Queste funzioni riguardano il legame spaziotemporale della luce, il loro valore con una certa quantità di luce iniziale, e quanto cambiamento è richiesto prima che un osservatore si accorga che c'è stato un cambiamento. Il plurale della parola "funzioni" è dovuto al fatto che possiamo usare queste funzioni non solo per studiare il bianco e il nero, ma anche i colori. Il risultato di questi esperimenti mostra che nella maggior parte dei casi l'occhio è più sensibile alla luce che al colore.
+> I ricercatori di psicologia sperimentale (e altri campi) hanno sviluppato molte teorie sull'occhio umano. Una di queste si chiama "curve di sensibilità al contrasto", e studia le funzioni che descrivono il legame spaziotemporale della luce, il loro valore data una certa quantità di luce iniziale, e quanto cambiamento è richiesto prima che un osservatore si accorga che c'è stato un cambiamento. Il plurale della parola "curve" è dovuto al fatto che possiamo usare queste funzioni non solo per studiare il bianco e il nero, ma anche i colori. Il risultato di questi esperimenti mostra che nella maggior parte dei casi l'occhio è più sensibile alla luce che al colore.
 
 Ora che sappiamo che siamo più sensibili alla lumimanza (la luminosità di un'immagine), possiamo provare a sfruttare questo fatto.
 
@@ -371,7 +376,7 @@ La **predizione che abbiamo fatto può essere sbagliata**, per cui dopo aver app
 ![](/i/smw_residual.png)
 
 > #### Esercizio: vedere la predizione intra-frame
-> Puoi [generare un video con i macro-blocchi e le sue predizioni con ffmpeg](/encoding_pratical_examples.md#generate-debug-video). Consulta la documentazione di ffmpeg per comprendere meglio [il significato dei colori dei blocchi](https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors).
+> Puoi [generare un video con i macro-blocchi e le sue predizioni con ffmpeg](/encoding_pratical_examples.md#generate-debug-video). Consulta la documentazione di ffmpeg per comprendere meglio [il significato dei colori dei blocchi](https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors#AnalyzingMacroblockTypes).
 >
 > ![Predizione intra-frame (macro-blocchi) con ffmpeg](/i/macro_blocks_ffmpeg.png "Predizione intra-frame (macro-blocchi) con ffmpeg")
 >
@@ -848,6 +853,7 @@ Codec non ITU:
 * https://people.xiph.org/~jm/daala/revisiting/
 * https://www.youtube.com/watch?v=lzPaldsmJbk
 * https://fosdem.org/2017/schedule/event/om_av1/
+* https://jmvalin.ca/papers/AV1_tools.pdf
 
 Concetti di codifica:
 
@@ -861,6 +867,7 @@ Concetti di codifica:
 * http://www.adobe.com/devnet/adobe-media-server/articles/h264_encoding.html
 * https://prezi.com/8m7thtvl4ywr/mp3-and-aac-explained/
 * https://blogs.gnome.org/rbultje/2016/12/13/overview-of-the-vp9-video-codec/
+* https://videoblerg.wordpress.com/2017/11/10/ffmpeg-and-how-to-use-it-wrong/
 
 Sequenze video per i test:
 
