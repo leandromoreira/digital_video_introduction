@@ -870,6 +870,7 @@ DRMの抽象的で一般的な形式を、とても単純な方法で説明し�
 
 その他:
 
+* https://github.com/Eyevinn/streaming-onboarding
 * http://stackoverflow.com/a/24890903
 * http://stackoverflow.com/questions/38094302/how-to-understand-header-of-h264
 * http://techblog.netflix.com/2016/08/a-large-scale-comparison-of-x264-x265.html
