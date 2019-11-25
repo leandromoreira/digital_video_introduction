@@ -836,6 +836,14 @@ Books:
 * https://www.amazon.com/Practical-Guide-Video-Audio-Compression/dp/0240806301/ref=sr_1_3?s=books&ie=UTF8&qid=1486396914&sr=1-3&keywords=A+PRACTICAL+GUIDE+TO+VIDEO+AUDIO
 * https://www.amazon.com/Video-Encoding-Numbers-Eliminate-Guesswork/dp/0998453005/ref=sr_1_1?s=books&ie=UTF8&qid=1486396940&sr=1-1&keywords=jan+ozer
 
+Onboarding material:
+
+* https://github.com/Eyevinn/streaming-onboarding
+* https://howvideo.works/
+* https://www.aws.training/Details/eLearning?id=17775
+* https://www.aws.training/Details/eLearning?id=17887
+* https://www.aws.training/Details/Video?id=24750
+
 Bitstream Specifications:
 
 * http://www.itu.int/rec/T-REC-H.264-201610-I
