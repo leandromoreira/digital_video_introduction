@@ -247,6 +247,8 @@ These schemas are known as subsampling systems and are expressed as a 3 part rat
 
 Common schemes used in modern codecs are: **4:4:4** *(no subsampling)*, **4:2:2, 4:1:1, 4:2:0, 4:1:0 and 3:1:1**.
 
+> You can follow some discussions [to learn more about Chroma Subsampling](https://github.com/leandromoreira/digital_video_introduction/issues?q=YCbCr).
+
 > **YCbCr 4:2:0 merge**
 >
 > Here's a merged piece of an image using YCbCr 4:2:0, notice that we only spend 12 bits per pixel.
