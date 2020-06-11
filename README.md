@@ -27,6 +27,7 @@ All the **hands-on should be performed from the folder you cloned** this reposit
 * added DRM system
 * released version 1.0.0
 * added simplified Chinese translation
+* added FFmpeg oscilloscope filter example
 
 # Index
 
@@ -274,6 +275,13 @@ Previously we had calculated that we needed [278GB of storage to keep a video fi
 
 Watch this incredible video explaining what is luma and learn about luminance, gamma, and color.
 [![Analog Luma - A history and explanation of video](http://img.youtube.com/vi/Ymt47wXUDEU/0.jpg)](http://www.youtube.com/watch?v=Ymt47wXUDEU)
+
+> ### Hands-on: Check YCbCr intensity
+> You can visualize the Y intensity for a given line of a video using [FFmpeg's oscilloscope filter](https://ffmpeg.org/ffmpeg-filters.html#oscilloscope).
+> ```bash
+> ffplay -f lavfi -i 'testsrc2=size=1280x720:rate=30000/1001,format=yuv420p' -vf oscilloscope=x=0.5:y=200/720:s=1:c=1
+> ```
+> ![y color oscilloscope](/i/ffmpeg_oscilloscope.png "y color oscilloscope")
 
 ## Frame types
 
