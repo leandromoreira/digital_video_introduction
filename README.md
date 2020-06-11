@@ -271,7 +271,7 @@ Previously we had calculated that we needed [278GB of storage to keep a video fi
 >
 > ![ycbcr color histogram](/i/yuv_histogram.png "ycbcr color histogram")
 
-### Color, luma, luminance, gama video review
+### Color, luma, luminance, gamma video review
 
 Watch this incredible video explaining what is luma and learn about luminance, gamma, and color.
 [![Analog Luma - A history and explanation of video](http://img.youtube.com/vi/Ymt47wXUDEU/0.jpg)](http://www.youtube.com/watch?v=Ymt47wXUDEU)
