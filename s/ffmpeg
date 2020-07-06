@@ -1,2 +1,2 @@
 #!/bin/bash
-docker run --rm -v $(pwd):/files jrottenberg/ffmpeg $@
+docker run --rm -v $(pwd):/files jrottenberg/ffmpeg:3.3 $@
