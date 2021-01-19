@@ -17,12 +17,12 @@ cd digital_video_introduction
 
 Todos os **exercícios práticos devem ser executados da pasta que você clonou originalmente** esse repositório. Para os **exemplos que utilizam Jupyter**, você deve inicializar o servidor utilizando `./s/start_jupyter.sh` e acessar a URL no seu browser.
 
-# Changelog
+# Registro de alterações
 
-* added DRM system
-* released version 1.0.0
-* added simplified Chinese translation
-* added FFmpeg oscilloscope filter example
+* Adicionado detalhes sobre sistemas de DRM (Digital Rights Management)
+* Versão 1.0.0 lançada 
+* Adicionado tradução para chinês simplificado
+* Adicionado exemplo de filtro osciloscópio de FFmpeg
 
 # Index
 
