@@ -13,7 +13,7 @@ git clone https://github.com/leandromoreira/digital_video_introduction.git
 cd digital_video_introduction
 ./setup.sh
 ```
-> **ATENCÃO**: quando você ver um comando `./s/ffmpeg` ou `./s/mediainfo`, isso quer dizer que estamos executando uma **versão dentro de um container** daquele programa, sendo assim, esse programa já possui todas as dependências instaladas e configuradas para sua execução.
+> **ATENCÃO**: quando você ver um comando `./s/ffmpeg` ou `./s/mediainfo`, isso quer dizer que estamos executando uma **versão do programa dentro de um container**, sendo assim, esse programa já possui todas as dependências instaladas e configuradas para sua execução.
 
 Todos os **exercícios práticos devem ser executados da pasta que você clonou originalmente** esse repositório. Para os **exemplos que utilizam Jupyter**, você deve inicializar o servidor utilizando `./s/start_jupyter.sh` e acessar a URL no seu browser.
 
