@@ -81,7 +81,7 @@ Todos os **exercícios práticos devem ser executados da pasta que você clonou 
 
 # Terminologia Básica
 
-Uma **imagem** podem ser pensada como uma **matriz 2d**. Se nós começamos a pensar sobre **cores**, podemos extrapolar essa idéia inicial e podemos ver essa imagem como uma **matriz 3d** onde as **dimensões adicionais** são utilizadas para armazenar **informações de cor**.
+Uma **imagem** podem ser pensada como uma **matriz 2d**. Se nós começamos a pensar sobre **cores**, podemos extrapolar essa idéia inicial e ver essa imagem como uma **matriz 3d** onde as **dimensões adicionais** são utilizadas para armazenar **informações de cor**.
 
 Se escolhemos representar essas cores com [cores primárias (vermelho, verde and azul)](https://pt.wikipedia.org/wiki/Cor_prim%C3%A1ria), podemos definir três planos: o primeiro plano para o **vermelho**, o segundo para o **verde** e o último para a cor **azul**.
 
@@ -89,12 +89,12 @@ Se escolhemos representar essas cores com [cores primárias (vermelho, verde and
 
 Iremos chamar cada ponto nessa matriz de **um pixel** (picture element). Um pixel representa a **intensidade** (geralmente um valor numérico) de uma dada cor. Por exemplo, um **pixel vermelho** significa 0 de verde, 0 de azul e o máximo de vermelho. O **pixel cor rosa** pode ser formado a partir de uma combinação de três cores. Usando uma representação numérica de 0 até 255, onde o pixel rosa é definido por **Vermelho=255, Verde=192 e Azul=203**.
 
-> #### Other ways to encode a color image
-> Many other possible models may be used to represent the colors that make up an image. We could, for instance, use an indexed palette where we'd only need a single byte to represent each pixel instead of the 3 needed when using the RGB model. In such a model we could use a 2D matrix instead of a 3D matrix to represent our color, this would save on memory but yield fewer color options.
+> #### Outras maneiras de codificar uma imagem colorida
+> Muitos outros possíveis modelos podem ser utilizados para representar uma imagem colorida. Nós podemos, por exemplo, utilizar uma paleta indexada de cores, onde um único byte representa cada pixel, ao invés de três bytes quando utilizando o modelo RGB. Em um modelo como esse, podemos utilizar uma matriz 2D ao invés de uma matriz 3D para representar cor. Dessa maneira, nós iremos salvar memória mas teremos potencialmente menos opções de cores.
 >
-> ![NES palette](/i/nes-color-palette.png "NES palette")
+> ![paleta do NES](/i/nes-color-palette.png "Paleta de cores do NES")
 
-For instance, look at the picture down below. The first face is fully colored. The others are the red, green, and blue planes (shown as gray tones).
+Por exemplo, olhe para a figura abaixo. O primeiro rosto ali é totalmente colorido. Os outros rostos são planos vermelho, verde e azul (mostrados em tons de cinza).
 
 ![RGB channels intensity](/i/rgb_channels_intensity.png "RGB channels intensity")
 
