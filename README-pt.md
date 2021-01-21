@@ -79,15 +79,15 @@ Todos os **exercícios práticos devem ser executados da pasta que você clonou 
 - [Conferências](#conferences)
 - [Referências](#references)
 
-# Basic terminology
+# Terminologia Básica
 
-An **image** can be thought of as a **2D matrix**. If we think about **colors**, we can extrapolate this idea seeing this image as a **3D matrix** where the **additional dimensions** are used to provide **color data**.
+Uma **imagem** podem ser pensada como uma **matriz 2d**. Se nós começamos a pensar sobre **cores**, podemos extrapolar essa idéia inicial e podemos ver essa imagem como uma **matriz 3d** onde as **dimensões adicionais** são utilizadas para armazenar **informações de cor**.
 
-If we chose to represent these colors using the [primary colors (red, green and blue)](https://en.wikipedia.org/wiki/Primary_color), we define three planes: the first one for **red**, the second for **green**, and the last one for the **blue** color.
+Se escolhemos representar essas cores com [cores primárias (vermelho, verde and azul)](https://pt.wikipedia.org/wiki/Cor_prim%C3%A1ria), podemos definir três planos: o primeiro plano para o **vermelho**, o segundo para o **verde** e o último para a cor **azul**.
 
-![an image is a 3d matrix RGB](/i/image_3d_matrix_rgb.png "An image is a 3D matrix")
+![uma imagem é uma matriz 3D RGB](/i/image_3d_matrix_rgb.png "Uma imagem é uma matriz 3D")
 
-We'll call each point in this matrix **a pixel** (picture element). One pixel represents the **intensity** (usually a numeric value) of a given color. For example, a **red pixel** means 0 of green, 0 of blue and maximum of red. The **pink color pixel** can be formed with a combination of the three colors. Using a representative numeric range from 0 to 255, the pink pixel is defined by **Red=255, Green=192 and Blue=203**.
+Iremos chamar cada ponto nessa matriz de **um pixel** (picture element). Um pixel representa a **intensidade** (geralmente um valor numérico) de uma dada cor. Por exemplo, um **pixel vermelho** significa 0 de verde, 0 de azul e o máximo de vermelho. O **pixel cor rosa** pode ser formado a partir de uma combinação de três cores. Usando uma representação numérica de 0 até 255, onde o pixel rosa é definido por **Vermelho=255, Verde=192 e Azul=203**.
 
 > #### Other ways to encode a color image
 > Many other possible models may be used to represent the colors that make up an image. We could, for instance, use an indexed palette where we'd only need a single byte to represent each pixel instead of the 3 needed when using the RGB model. In such a model we could use a 2D matrix instead of a 3D matrix to represent our color, this would save on memory but yield fewer color options.
