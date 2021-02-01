@@ -96,11 +96,11 @@ Iremos chamar cada ponto nessa matriz de **um pixel** (picture element). Um pixe
 
 Por exemplo, olhe para a figura abaixo. O primeiro rosto ali é totalmente colorido. Os outros rostos são planos vermelho, verde e azul (mostrados em tons de cinza).
 
-![RGB channels intensity](/i/rgb_channels_intensity.png "RGB channels intensity")
+![Intensidade de canais de cores RGB](/i/rgb_channels_intensity.png "Intensidade de canais de cores RGB")
 
-We can see that the **red color** will be the one that **contributes more** (the brightest parts in the second face) to the final color while the **blue color** contribution can be mostly **only seen in Mario's eyes** (last face) and part of his clothes, see how **all planes contribute less** (darkest parts) to the **Mario's mustache**.
+Nós podemos ver que a **cor vermelha** será a cor que **contribuíra mais** (as partes mais brilhantes no segundo rosto) para a cor final, enquanto que a contribuição da **cor azul** pode ser vista **mais concentrada nos olhos do Mário** (último rosto) e em algumas partes de suas roupas. Perceba como **todos os planos de cores** (partes escuras) contribuem menos para o **bigode do Mário**.
 
-And each color intensity requires a certain amount of bits, this quantity is known as **bit depth**. Let's say we spend **8 bits** (accepting values from 0 to 255) per color (plane), therefore we have a **color depth** of **24 bits** (8 bits * 3 planes R/G/B), and we can also infer that we could use 2 to the power of 24 different colors.
+Cada intensidade de cor requer um determinada quantidade de bits, essa quantidade é chamada de **profundidade de bit**. Digamos que vamos gastar **8 bits** (tendo como valores válidos 0 até 255) por cor (plano), dessa forma, nós temos uma **profundidade de cor** de **24 bits** (8 bits vezes 3 planos RGB). Também podemos inferir que podemos utilizar 2 na 24 (2^24) diferentes cores.
 
 > **It's great** to learn [how an image is captured from the world to the bits](http://www.cambridgeincolour.com/tutorials/camera-sensors.htm).
 
