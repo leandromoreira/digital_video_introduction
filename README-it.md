@@ -417,7 +417,7 @@ Nel 2003 la prima versione del codec **H.264/AVC** fu completata. Nello stesso a
 > * **commissione sui contenuti** (lo 0,5% delle entrate)
 > * **commissioni per unità circa 10 volte più alte di H.264**.
 >
-> La [*Alliance for Open Media*](http://aomedia.org/about-us/) è stata creata da aziende produttrici di hardware (Intel, AMD, ARM , Nvidia, Cisco), aziende che forniscono contenuti (Google, Netflix, Amazon), browser (Google, Mozilla), e altre.
+> La [*Alliance for Open Media*](http://aomedia.org/about/) è stata creata da aziende produttrici di hardware (Intel, AMD, ARM , Nvidia, Cisco), aziende che forniscono contenuti (Google, Netflix, Amazon), browser (Google, Mozilla), e altre.
 >
 > Le aziende si sono poste un obiettivo comune: un video codec royalty-free. È quindi nato AV1, con un [sistema di licenze molto più semplice](http://aomedia.org/license/patent/). **Timothy B. Terriberry** ha fatto [un'ottima presentazione](https://www.youtube.com/watch?v=lzPaldsmJbk) (fonte di questa sezione) sul concepimento di AV1, il modello di licenza e lo stato attuale del codec.
 >
