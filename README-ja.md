@@ -415,7 +415,7 @@ Iフレーム(参照、キーフレーム、イントラ)は**自己完結的な
 > * **コンテンツ料金** (収入の0.5%)
 > * **h264より10倍高い単位あたり料金**
 >
-> [alliance for open media](http://aomedia.org/about-us/)はハードウェアメーカー(Intel、AMD、ARM、Nvidia、Cisco)、コンテンツ配信 (Google、Netflix、Amazon)、ブラウザ開発(Google, Mozilla)、その他の会社によって作られました。
+> [alliance for open media](http://aomedia.org/about/)はハードウェアメーカー(Intel、AMD、ARM、Nvidia、Cisco)、コンテンツ配信 (Google、Netflix、Amazon)、ブラウザ開発(Google, Mozilla)、その他の会社によって作られました。
 >
 > これらの会社にはロイヤリティーフリーのビデオコーデックという共通の目的があり、AV1はより [簡単な特許ライセンス](http://aomedia.org/license/patent/)で誕生しました。**Timothy B. Terriberry**が [AV1の概念、ライセンスモデル、現状](https://www.youtube.com/watch?v=lzPaldsmJbk)についての素晴らしいプレゼンテーションを行いました。この節はこのプレゼンテーションを元に書いています。
 >
