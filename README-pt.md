@@ -104,9 +104,9 @@ Cada intensidade de cor requer um determinada quantidade de bits, essa quantidad
 
 > **É ótimo** para aprender [como uma imagem se transforma em bits](http://www.cambridgeincolour.com/tutorials/camera-sensors.htm).
 
-Another property of an image is the **resolution**, which is the number of pixels in one dimension. It is often presented as width × height, for example, the **4×4** image below.
+Uma outra propriedade de uma imagem é a **resolução**, que é basicamente o número de pixels em uma dimensão. É geralmente representada por altura x largura, por exemplo: a imagem **4x4** abaixo:
 
-![image resolution](/i/resolution.png "image resolution")
+![resolução da imagem](/i/resolution.png "resolução da imagem")
 
 > #### Hands-on: play around with image and color
 > You can [play around with image and colors](/image_as_3d_array.ipynb) using [jupyter](#how-to-use-jupyter) (python, numpy, matplotlib and etc).
