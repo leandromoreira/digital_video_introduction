@@ -108,10 +108,10 @@ Uma outra propriedade de uma imagem é a **resolução**, que é basicamente o n
 
 ![resolução da imagem](/i/resolution.png "resolução da imagem")
 
-> #### Hands-on: play around with image and color
-> You can [play around with image and colors](/image_as_3d_array.ipynb) using [jupyter](#how-to-use-jupyter) (python, numpy, matplotlib and etc).
+> #### Prática: brincando com imagens e cores
+> Você pode [brincar com imagens e cores](/image_as_3d_array.ipynb) utilizando [jupyter](#how-to-use-jupyter) (python, numpy, matplotlib, etc).
 >
-> You can also learn [how image filters (edge detection, sharpen, blur...) work](/filters_are_easy.ipynb).
+> Você também pode aprender [como filtros de imagem (detecção de bordas, nitidez, desfoque...) funcionam](/filters_are_easy.ipynb).
 
 Another property we can see while working with images or video is the **aspect ratio** which simply describes the proportional relationship between width and height of an image or pixel.
 
