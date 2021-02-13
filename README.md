@@ -784,7 +784,7 @@ In real life production systems, people often use both techniques to provide aut
 
 #### What?
 
-DRM means Digital rights management, it's a way **to provide copyright protection for digital media**, for instance, digital video and audio. Although it's used in many places [it's not universally accepted](https://en.wikipedia.org/wiki/Digital_rights_management#DRM-free_works).
+DRM means [Digital rights management](https://sander.saares.eu/categories/drm-is-not-a-black-box/), it's a way **to provide copyright protection for digital media**, for instance, digital video and audio. Although it's used in many places [it's not universally accepted](https://en.wikipedia.org/wiki/Digital_rights_management#DRM-free_works).
 
 #### Why?
 
@@ -964,3 +964,4 @@ Miscellaneous:
 * https://www.youtube.com/watch?v=Lto-ajuqW3w&list=PLzH6n4zXuckpKAj1_88VS-8Z6yn9zX_P6
 * https://www.youtube.com/watch?v=LWxu4rkZBLw
 * https://web.stanford.edu/class/ee398a/handouts/lectures/EE398a_MotionEstimation_2012.pdf
+* https://sander.saares.eu/categories/drm-is-not-a-black-box/
