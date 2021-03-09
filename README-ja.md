@@ -22,6 +22,7 @@ cd digital_video_introduction
 * DRMシステムの追加
 * 1.0.0版のリリース
 * 簡体字訳の追加
+* FFmpeg oscilloscopeフィルターの例を追加
 
 # 目次
 
@@ -259,6 +260,19 @@ G = Y - 0.344Cb - 0.714Cr
 > [ffmpegでYCbCrヒストグラムを調べる](/encoding_pratical_examples.md#generates-yuv-histogram)ことができます。 このシーンでは青の寄与率がより高くなっています。  [ヒストグラム](https://en.wikipedia.org/wiki/Histogram)でそのことが示されます。
 >
 > ![ycbcr color histogram](/i/yuv_histogram.png "ycbcrカラーヒストグラム")
+
+### 色、輝度、明るさ、ガンマについての映像
+
+輝度や明るさ、ガンマ、色について解説している素晴らしい動画があります。ぜひご覧ください。
+
+[![Analog Luma - A history and explanation of video](http://img.youtube.com/vi/Ymt47wXUDEU/0.jpg)](http://www.youtube.com/watch?v=Ymt47wXUDEU)	[![Analog Luma - A history and explanation of video](http://img.youtube.com/vi/Ymt47wXUDEU/0.jpg)](http://www.youtube.com/watch?v=Ymt47wXUDEU)
+
+> ### ハンズオン: YCbCr 強度を調べる
+> [FFmpegのoscilloscope filter](https://ffmpeg.org/ffmpeg-filters.html#oscilloscope)を使って、映像のYの強度を可視化できます。
+> ```bash
+> ffplay -f lavfi -i 'testsrc2=size=1280x720:rate=30000/1001,format=yuv420p' -vf oscilloscope=x=0.5:y=200/720:s=1:c=1
+> ```
+> ![y color oscilloscope](/i/ffmpeg_oscilloscope.png "y color oscilloscope")
 
 ## フレームの種類
 
