@@ -471,7 +471,7 @@ Iフレーム(参照、キーフレーム、イントラ)は**自己完結的な
 [他の変換](https://en.wikipedia.org/wiki/List_of_Fourier-related_transforms#Discrete_transforms)もありますが、離散コサイン変換(DCT)をしっかり見ていきます。[**DCT**](https://en.wikipedia.org/wiki/Discrete_cosine_transform)の主な特徴は:
 
 * **ピクセル**ブロックを同じサイズの**周波数係数**ブロックに**変換する**。
-* エネルギーを**圧縮**して、空間的冗長性を削減しやすくする。
+* エネルギーを**偏らせて**、空間的冗長性を削減しやすくする。
 * **元に戻せる**、またはピクセルに戻せる
 
 > 2017年2月2日にCintra, R. J.とBayer, F. Mが[14加算のみの画像圧縮用DCT近似変換](https://arxiv.org/abs/1702.00817)という論文を発表しました。
