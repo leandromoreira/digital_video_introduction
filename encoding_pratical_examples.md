@@ -202,7 +202,7 @@ It generates a video with motion vector over the video.
 Get `images` from `1s video`:
 
 ```
-./s/ffmpeg -y -i /files/v/small_bunny_1080p_30fps.mp4 -ss 00:01:24 -t 00:00:01  /files/v/smallest_bunny_1080p_30fps_%3d.jpg
+./s/ffmpeg -y -i /files/v/small_bunny_1080p_30fps.mp4 -t 00:00:01  /files/v/smallest_bunny_1080p_30fps_%3d.jpg
 ```
 
 ## Generate video from images
