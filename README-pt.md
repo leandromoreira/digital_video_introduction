@@ -113,18 +113,18 @@ Uma outra propriedade de uma imagem é a **resolução**, que é basicamente o n
 >
 > Você também pode aprender [como filtros de imagem (detecção de bordas, nitidez, desfoque...) funcionam](/filters_are_easy.ipynb).
 
-Another property we can see while working with images or video is the **aspect ratio** which simply describes the proportional relationship between width and height of an image or pixel.
+Uma outra propriedade que podemos perceber enquanto trabalhamos com imagens ou vídeo é a **proporção da tela** que descreve um relacionamento proporcional entre altura e largura de uma imagem ou pixel.
 
-When people says this movie or picture is **16x9** they usually are referring to the **Display Aspect Ratio (DAR)**, however we also can have different shapes of individual pixels, we call this **Pixel Aspect Ratio (PAR)**.
+Quando as pessoas falam que um filme ou foto é **16x9** geralmente elas estão se referindo ao  **Display Aspect Ratio (DAR)**, entretanto nós também podemos ter diferentes formas de pixels e podemos chamar isso de **Pixel Aspect Ratio (PAR)**.
 
 ![display aspect ratio](/i/DAR.png "display aspect ratio")
 
 ![pixel aspect ratio](/i/PAR.png "pixel aspect ratio")
 
-> #### DVD is DAR 4:3
-> Although the real resolution of a DVD is 704x480 it still keeps a 4:3 aspect ratio because it has a PAR of 10:11 (704x10/480x11)
+> #### DVD é DAR 4:3
+> Mesmo que a resolução real de um DVD seja 704x480, a proporção é mantida em 4:3 considerando que esse filme possui PAR de 10:11 (704x10/480x11)
 
-Finally, we can define a **video** as a **succession of *n* frames** in **time** which can be seen as another dimension, *n* is the frame rate or frames per second (FPS).
+Finalmente, podemos definir um **vídeo** como uma **sucessão de *n* frames** no **tempo** que podemos perceber como uma outra dimensão, onde *n* é a quantidade de quadros por segundo ou frames per second (FPS).
 
 ![video](/i/video.png "video")
 
