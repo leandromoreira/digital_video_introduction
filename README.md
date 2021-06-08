@@ -443,7 +443,7 @@ In 2003 the first version of **H.264/AVC** was completed. In the same year, a co
 >
 > The companies had a common goal, a royalty-free video codec and then AV1 was born with a much [simpler patent license](http://aomedia.org/license/patent/). **Timothy B. Terriberry** did an awesome presentation, which is the source of this section, about the [AV1 conception, license model and its current state](https://www.youtube.com/watch?v=lzPaldsmJbk).
 >
-> You'll be surprised to know that you can **analyze the AV1 codec through your browser**, go to http://aomanalyzer.org/
+> You'll be surprised to know that you can **analyze the AV1 codec through your browser**, go to https://arewecompressedyet.com/analyzer/
 >
 > ![av1 browser analyzer](/i/av1_browser_analyzer.png "av1 browser analyzer")
 >
