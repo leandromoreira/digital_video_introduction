@@ -414,7 +414,7 @@ Our **prediction can be wrong**, for that reason we need to apply this technique
 
 > **CODEC vs Container**
 >
-> One common mistake that beginners often do is to confuse digital video CODEC and [digital video container](https://en.wikipedia.org/wiki/Digital_container_format). We can think of **containers** as a wrapper format which contains metadata of the video (and possible audio too), and the **compressed video** can be seen as its payload.
+> One common mistake that beginners often do is to confuse digital video CODEC and [digital video container](https://en.wikipedia.org/wiki/Digital_container_format). And one more common mistake that so many often do is to confuse video CODEC and [coding Format](https://en.wikipedia.org/wiki/Video_coding_format). Video coding formats are described in specifications, and software or hardware to encode/decode data in a given video coding format from/to uncompressed video are implementations of those specifications. For example H.264 (specification) is a video coding format and all software or hardware implementations of this coding format such as x264, OpenH264 are referred as CODEC. We can think of **containers** as a wrapper format which contains metadata of the video (and possible audio too), and the **compressed video** can be seen as its payload.
 >
 > Usually, the extension of a video file defines its video container. For instance, the file `video.mp4` is probably a **[MPEG-4 Part 14](https://en.wikipedia.org/wiki/MPEG-4_Part_14)** container and a file named `video.mkv` it's probably a **[matroska](https://en.wikipedia.org/wiki/Matroska)**. To be completely sure about the codec and container format we can use [ffmpeg or mediainfo](/encoding_pratical_examples.md#inspect-stream).
 
