@@ -261,6 +261,11 @@ G = Y - 0.344Cb - 0.714Cr
 >
 > ![ycbcr 颜色直方图](/i/yuv_histogram.png "ycbcr 颜色直方图")
 
+### 颜色, 亮度, 视频亮度, 伽马 视频回顾
+
+观看这段精彩的视频，它解释什么是亮度并了解视频亮度、伽马和颜色。
+[![模拟亮度 - 视频的历史和解释](http://img.youtube.com/vi/Ymt47wXUDEU/0.jpg)](http://www.youtube.com/watch?v=Ymt47wXUDEU)
+
 ## 帧类型
 
 现在我们进一步消除`时间冗余`，但在这之前让我们来确定一些基本术语。假设我们一段 30fps 的影片，这是最开始的 4 帧。
