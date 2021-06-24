@@ -116,7 +116,7 @@ cd digital_video_introduction
 >
 > 你可以使用 [jupyter](#如何使用-jupyter)（python, numpy, matplotlib 等等）[玩转图像](/image_as_3d_array.ipynb)。
 >
-> 你也可以学习[图像滤镜（边缘检测，磨皮，模糊。。。）的原理](/filters_are_easy.ipynb)。
+> 你也可以学习[图像滤镜（边缘检测，锐化，模糊。。。）的原理](/filters_are_easy.ipynb)。
 
 图像或视频还有一个属性是宽高比，它简单地描述了图像或像素的宽度和高度之间的比例关系。
 
