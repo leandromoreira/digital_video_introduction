@@ -23,6 +23,7 @@ cd digital_video_introduction
 * 增加 DRM 系统
 * 发布版本 1.0.0
 * 添加简体中文翻译
+* 添加FFmpeg oscilloscope滤镜示例
 
 # 目录
 
@@ -265,6 +266,13 @@ G = Y - 0.344Cb - 0.714Cr
 
 观看这段精彩的视频，它解释什么是亮度并了解视频亮度、伽马和颜色。
 [![模拟亮度 - 视频的历史和解释](http://img.youtube.com/vi/Ymt47wXUDEU/0.jpg)](http://www.youtube.com/watch?v=Ymt47wXUDEU)
+
+> ### 自己动手: 检查 YCbCr 强度
+> 你可以使用[FFmpeg's oscilloscope滤镜](https://ffmpeg.org/ffmpeg-filters.html#oscilloscope)可视化给定视频行的Y强度.
+> ```bash
+> ffplay -f lavfi -i 'testsrc2=size=1280x720:rate=30000/1001,format=yuv420p' -vf oscilloscope=x=0.5:y=200/720:s=1:c=1
+> ```
+> ![y 颜色示波器](/i/ffmpeg_oscilloscope.png "y 颜色 示波器")
 
 ## 帧类型
 
