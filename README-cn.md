@@ -427,7 +427,7 @@ P 帧利用了一个事实：当前的画面几乎总能**使用之前的一帧�
 >
 > 这些公司有一个共同目标，一个免版税的视频编解码器，所以 AV1 诞生时使用了一个更[简单的专利许可证](http://aomedia.org/license/patent/)。**Timothy B. Terriberry** 做了一个精彩的介绍，[关于 AV1 的概念，许可证模式和它当前的状态](https://www.youtube.com/watch?v=lzPaldsmJbk)，就是本节的来源。
 >
-> 前往 [http://aomanalyzer.org/](http://aomanalyzer.org/)， 你会惊讶于**使用你的浏览器就可以分析 AV1 编解码器**。
+> 前往 [https://arewecompressedyet.com/analyzer/](https://arewecompressedyet.com/analyzer/)， 你会惊讶于**使用你的浏览器就可以分析 AV1 编解码器**。
 > ![av1 浏览器分析器](/i/av1_browser_analyzer.png "浏览器分析器")
 >
 > 附：如果你想了解更多编解码器的历史，你需要了解[视频压缩专利](https://www.vcodex.com/video-compression-patents/)背后的基本知识。
