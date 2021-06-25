@@ -410,13 +410,13 @@ P 帧利用了一个事实：当前的画面几乎总能**使用之前的一帧�
 
 在 2003 年 **H.264/AVC** 的第一版被完成。在同一年，一家叫做 **TrueMotion** 的公司发布了他们的**免版税**有损视频压缩的视频编解码器，称为 **VP3**。在 2008 年，**Google 收购了**这家公司，在同一年发布 **VP8**。在 2012 年 12 月，Google 发布了 **VP9**，**市面上大约有 3/4 的浏览器**（包括手机）支持。
 
-[AV1](https://en.wikipedia.org/wiki/AOMedia_Video_1) 是由 **Google, Mozilla, Microsoft, Amazon, Netflix, AMD, ARM, NVidia, Intel, Cisco** 等公司组成的[开放媒体联盟（AOMedia）](http://aomedia.org/)设计的一种新的视频编解码器，免版税，开源。**第一版** 0.1.0 参考编解码器**发布于 2016 年 4 月 7 号**。
+[AV1](https://en.wikipedia.org/wiki/AOMedia_Video_1) 是由 **Google, Mozilla, Microsoft, Amazon, Netflix, AMD, ARM, NVidia, Intel, Cisco** 等公司组成的[开放媒体联盟（AOMedia）](http://aomedia.org/)设计的一种新的免版税和开源的视频编解码器。**第一版** 0.1.0 参考编解码器**发布于 2016 年 4 月 7 号**。
 
 ![编解码器历史线路图](/i/codec_history_timeline.png "编解码器历史线路图")
 
 > ### AV1 的诞生
 >
-> 2015 年早期，Google 正在 VP10 上工作，Xiph (Mozilla) 正在 Daala 上工作，Cisco 开源了它的称为 Thor 的免版税视频编解码器。
+> 2015 年早期，Google 正在开发VP10，Xiph (Mozilla) 正在开发Daala，Cisco 开源了其称为 Thor 的免版税视频编解码器。
 >
 > 接着 MPEG LA 宣布了 HEVC (H.265) 每年版税的的上限，比 H.264 高 8 倍，但很快他们又再次改变了条款：
 > *	**不设年度收费上限**
