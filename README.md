@@ -397,6 +397,8 @@ Our **prediction can be wrong**, for that reason we need to apply this technique
 
 ![](/i/smw_residual.png)
 
+There are many different types of this sort of prediction. The one you see pictured here is a form of straight planar prediction, where the pixels from the row above the block are copied row to row within the block. Planar prediction also can involve an angular component, where pixels from both the left and the top are used to help predict the current block. And there is also DC prediction, which involves taking the average of the samples right above and to the left of the block. 
+
 > #### Hands-on: Check intra predictions
 > You can [generate a video with macro blocks and their predictions with ffmpeg.](/encoding_pratical_examples.md#generate-debug-video) Please check the ffmpeg documentation to understand the [meaning of each block color](https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors#AnalyzingMacroblockTypes).
 >
@@ -424,7 +426,7 @@ Before we jump into the inner workings of a generic codec, let's look back to un
 
 The video codec [H.261](https://en.wikipedia.org/wiki/H.261)  was born in 1990 (technically 1988), and it was designed to work with **data rates of 64 kbit/s**. It already uses ideas such as chroma subsampling, macro block, etc. In the year of 1995, the **H.263** video codec standard was published and continued to be extended until 2001.
 
-In 2003 the first version of **H.264/AVC** was completed. In the same year, a company called **TrueMotion** released their video codec as a **royalty-free** lossy video compression called **VP3**. In 2008, **Google bought** this company, releasing **VP8** in the same year. In December of 2012, Google released the **VP9** and it's  **supported by roughly ¾ of the browser market** (mobile included).
+In 2003 the first version of **H.264/AVC** was completed. In the same year, **On2 Technologies)**  (formerly known as the Duck Corporation) released their video codec as a **royalty-free** lossy video compression called **VP3**. In 2008, **Google bought** this company, releasing **VP8** in the same year. In December of 2012, Google released the **VP9** and it's  **supported by roughly ¾ of the browser market** (mobile included).
 
  **[AV1](https://en.wikipedia.org/wiki/AOMedia_Video_1)** is a new **royalty-free** and open source video codec that's being designed by the [Alliance for Open Media (AOMedia)](http://aomedia.org/), which is composed of the **companies: Google, Mozilla, Microsoft, Amazon, Netflix, AMD, ARM, NVidia, Intel and Cisco** among others. The **first version** 0.1.0 of the reference codec was **published on April 7, 2016**.
 
@@ -743,7 +745,7 @@ Now that we know more about how codecs work, then it is easy to understand how n
 
 We will compare AVC and HEVC, let's keep in mind that it is almost always a trade-off between more CPU cycles (complexity) and compression rate.
 
-HEVC has bigger and more **partitions** (and **sub-partitions**) options than AVC, more **intra predictions directions**, **improved entropy coding** and more, all these improvements made H.265 capable to compress 50% more than H.264.
+HEVC has bigger and more **partitions** (and **sub-partitions**) options than AVC, more **intra predictions directions/angles**, **improved entropy coding** and more, all these improvements made H.265 capable to compress 50% more than H.264.
 
 ![h264 vs h265](/i/avc_vs_hevc.png "H.264 vs H.265")
 
@@ -837,6 +839,8 @@ Online Courses and Tutorials:
 * https://people.xiph.org/~tterribe/pubs/lca2012/auckland/intro_to_video1.pdf
 * https://xiph.org/video/vid1.shtml
 * https://xiph.org/video/vid2.shtml
+* https://wiki.multimedia.cx
+* https://mahanstreamer.net
 * http://slhck.info/ffmpeg-encoding-course
 * http://www.cambridgeincolour.com/tutorials/camera-sensors.htm
 * http://www.slideshare.net/vcodex/a-short-history-of-video-coding
@@ -849,6 +853,7 @@ Books:
 
 * https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/ref=sr_1_1?s=books&ie=UTF8&qid=1486395327&sr=1-1
 * https://www.amazon.com/H-264-Advanced-Video-Compression-Standard/dp/0470516925
+* https://www.amazon.com/High-Efficiency-Video-Coding-HEVC/dp/3319068946
 * https://www.amazon.com/Practical-Guide-Video-Audio-Compression/dp/0240806301/ref=sr_1_3?s=books&ie=UTF8&qid=1486396914&sr=1-3&keywords=A+PRACTICAL+GUIDE+TO+VIDEO+AUDIO
 * https://www.amazon.com/Video-Encoding-Numbers-Eliminate-Guesswork/dp/0998453005/ref=sr_1_1?s=books&ie=UTF8&qid=1486396940&sr=1-1&keywords=jan+ozer
 
@@ -876,6 +881,7 @@ Software:
 * https://ffmpeg.org/
 * https://ffmpeg.org/ffmpeg-all.html
 * https://ffmpeg.org/ffprobe.html
+* https://mediaarea.net/en/MediaInfo
 * https://trac.ffmpeg.org/wiki/
 * https://software.intel.com/en-us/intel-video-pro-analyzer
 * https://medium.com/@mbebenita/av1-bitstream-analyzer-d25f1c27072b#.d5a89oxz8
