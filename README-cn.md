@@ -23,6 +23,7 @@ cd digital_video_introduction
 * 增加 DRM 系统
 * 发布版本 1.0.0
 * 添加简体中文翻译
+* 添加FFmpeg oscilloscope滤镜示例
 
 # 目录
 
@@ -40,7 +41,7 @@ cd digital_video_introduction
     + [色度子采样](#色度子采样)
     + [自己动手：检查 YCbCr 直方图](#自己动手检查-ycbcr-直方图)
   * [帧类型](#帧类型)
-    + [I 帧（内部，关键帧）](#i-帧内部关键帧)
+    + [I 帧（帧内，关键帧）](#i-帧帧内关键帧)
     + [P 帧（预测）](#p-帧预测)
       - [自己动手：具有单个 I 帧的视频](#自己动手具有单个-i-帧的视频)
     + [B 帧（双向预测）](#b-帧双向预测)
@@ -115,7 +116,7 @@ cd digital_video_introduction
 >
 > 你可以使用 [jupyter](#如何使用-jupyter)（python, numpy, matplotlib 等等）[玩转图像](/image_as_3d_array.ipynb)。
 >
-> 你也可以学习[图像滤镜（边缘检测，磨皮，模糊。。。）的原理](/filters_are_easy.ipynb)。
+> 你也可以学习[图像滤镜（边缘检测，锐化，模糊。。。）的原理](/filters_are_easy.ipynb)。
 
 图像或视频还有一个属性是宽高比，它简单地描述了图像或像素的宽度和高度之间的比例关系。
 
@@ -253,13 +254,25 @@ G = Y - 0.344Cb - 0.714Cr
 
 ![色度子采样例子](/i/chroma_subsampling_examples.jpg "色度子采样例子")
 
-前面我们计算过我们需要 [278GB 去存储一个一小时长，分辨率在720p和30fps的视频文件](#消除冗余)。如果我们使用 `YCbCr 4:2:0` 我们能剪掉`一半的大小（139GB）`<sup>*</sup>，但仍然不够理想。
+前面我们计算过我们需要 [278GB 去存储一个一小时长，分辨率在720p和30fps的视频文件](#消除冗余)。如果我们使用 `YCbCr 4:2:0` 我们能减少`一半的大小（139GB）`<sup>*</sup>，但仍然不够理想。
 > <sup>*</sup> 我们通过将宽、高、颜色深度和 fps 相乘得出这个值。前面我们需要 24 bit，现在我们只需要 12 bit。
 
 > ### 自己动手：检查 YCbCr 直方图
 > 你可以[使用 ffmpeg 检查 YCbCr 直方图](/encoding_pratical_examples.md#generates-yuv-histogram)。这个场景有更多的蓝色贡献，由[直方图](https://en.wikipedia.org/wiki/Histogram)显示。
 >
 > ![ycbcr 颜色直方图](/i/yuv_histogram.png "ycbcr 颜色直方图")
+
+### 颜色, 亮度, 视频亮度, 伽马 视频回顾
+
+观看这段精彩的视频，它解释什么是亮度并了解视频亮度、伽马和颜色。
+[![模拟亮度 - 视频的历史和解释](http://img.youtube.com/vi/Ymt47wXUDEU/0.jpg)](http://www.youtube.com/watch?v=Ymt47wXUDEU)
+
+> ### 自己动手: 检查 YCbCr 强度
+> 你可以使用[FFmpeg's oscilloscope滤镜](https://ffmpeg.org/ffmpeg-filters.html#oscilloscope)可视化给定视频行的Y强度.
+> ```bash
+> ffplay -f lavfi -i 'testsrc2=size=1280x720:rate=30000/1001,format=yuv420p' -vf oscilloscope=x=0.5:y=200/720:s=1:c=1
+> ```
+> ![y 颜色示波器](/i/ffmpeg_oscilloscope.png "y 颜色 示波器")
 
 ## 帧类型
 
@@ -270,7 +283,7 @@ G = Y - 0.344Cb - 0.714Cr
 
 我们可以在帧内看到**很多重复内容**，如**蓝色背景**，从 0 帧到第 3 帧它都没有变化。为了解决这个问题，我们可以将它们**抽象地分类**为三种类型的帧。
 
-### I 帧（帧内编码，关键帧）
+### I 帧（帧内，关键帧）
 
 I 帧（可参考，关键帧，帧内编码）是一个**自足的帧**。它不依靠任何东西来渲染，I 帧与静态图片相似。第一帧通常是 I 帧，但我们将看到 I 帧被定期插入其它类型的帧之间。
 
@@ -397,13 +410,13 @@ P 帧利用了一个事实：当前的画面几乎总能**使用之前的一帧�
 
 在 2003 年 **H.264/AVC** 的第一版被完成。在同一年，一家叫做 **TrueMotion** 的公司发布了他们的**免版税**有损视频压缩的视频编解码器，称为 **VP3**。在 2008 年，**Google 收购了**这家公司，在同一年发布 **VP8**。在 2012 年 12 月，Google 发布了 **VP9**，**市面上大约有 3/4 的浏览器**（包括手机）支持。
 
-[AV1](https://en.wikipedia.org/wiki/AOMedia_Video_1) 是由 **Google, Mozilla, Microsoft, Amazon, Netflix, AMD, ARM, NVidia, Intel, Cisco** 等公司组成的[开放媒体联盟（AOMedia）](http://aomedia.org/)设计的一种新的视频编解码器，免版税，开源。**第一版** 0.1.0 参考编解码器**发布于 2016 年 4 月 7 号**。
+[AV1](https://en.wikipedia.org/wiki/AOMedia_Video_1) 是由 **Google, Mozilla, Microsoft, Amazon, Netflix, AMD, ARM, NVidia, Intel, Cisco** 等公司组成的[开放媒体联盟（AOMedia）](http://aomedia.org/)设计的一种新的免版税和开源的视频编解码器。**第一版** 0.1.0 参考编解码器**发布于 2016 年 4 月 7 号**。
 
 ![编解码器历史线路图](/i/codec_history_timeline.png "编解码器历史线路图")
 
 > ### AV1 的诞生
 >
-> 2015 年早期，Google 正在 VP10 上工作，Xiph (Mozilla) 正在 Daala 上工作，Cisco 开源了它的称为 Thor 的免版税视频编解码器。
+> 2015 年早期，Google 正在开发VP10，Xiph (Mozilla) 正在开发Daala，Cisco 开源了其称为 Thor 的免版税视频编解码器。
 >
 > 接着 MPEG LA 宣布了 HEVC (H.265) 每年版税的的上限，比 H.264 高 8 倍，但很快他们又再次改变了条款：
 > *	**不设年度收费上限**
@@ -414,7 +427,7 @@ P 帧利用了一个事实：当前的画面几乎总能**使用之前的一帧�
 >
 > 这些公司有一个共同目标，一个免版税的视频编解码器，所以 AV1 诞生时使用了一个更[简单的专利许可证](http://aomedia.org/license/patent/)。**Timothy B. Terriberry** 做了一个精彩的介绍，[关于 AV1 的概念，许可证模式和它当前的状态](https://www.youtube.com/watch?v=lzPaldsmJbk)，就是本节的来源。
 >
-> 前往 [http://aomanalyzer.org/](http://aomanalyzer.org/)， 你会惊讶于**使用你的浏览器就可以分析 AV1 编解码器**。
+> 前往 [https://arewecompressedyet.com/analyzer/](https://arewecompressedyet.com/analyzer/)， 你会惊讶于**使用你的浏览器就可以分析 AV1 编解码器**。
 > ![av1 浏览器分析器](/i/av1_browser_analyzer.png "浏览器分析器")
 >
 > 附：如果你想了解更多编解码器的历史，你需要了解[视频压缩专利](https://www.vcodex.com/video-compression-patents/)背后的基本知识。
@@ -501,7 +514,7 @@ P 帧利用了一个事实：当前的画面几乎总能**使用之前的一帧�
 
 > ### 使用全部像素形成每个系数
 >  
-> 重要的是要注意，每个系数并不直接映射到单个像素，但它是所有像素的加权和。这个神奇的图形展示了如何计算出第一和第二个系数，使用每个唯一的索引做权重。
+> 需要注意的是，每个系数并不直接映射到单个像素，而是所有像素的加权和。这个神奇的图形展示了如何使用每个指数唯一的权重来计算第一个和第二个系数。
 >
 > ![dct 计算](/i/applicat.jpg "dct 计算")
 >
@@ -602,7 +615,7 @@ P 帧利用了一个事实：当前的画面几乎总能**使用之前的一帧�
 
 ## 第六步 - 比特流格式
 
-完成所有这些步之后，我们需要将**压缩过的帧和内容打包进去**。需要明确告知解码器**编码定义**，如颜色深度，颜色空间，分辨率，预测信息（运动向量，帧内预测方向），配置<sup>\*</sup>，层级<sup>\*</sup>，帧率，帧类型，帧号等等更多信息。
+完成所有这些步之后，我们需要将**压缩过的帧和内容打包进去**。需要明确告知解码器**编码定义**，如颜色深度，颜色空间，分辨率，预测信息（运动向量，帧内预测方向），档次<sup>\*</sup>，级别<sup>\*</sup>，帧率，帧类型，帧号等等更多信息。
 > <sup>*</sup> 译注：原文为 profile 和 level，没有通用的译名
 
 我们将简单地学习 H.264 比特流。第一步是[生成一个小的 H.264<sup>\*</sup> 比特流](/encoding_pratical_examples.md#generate-a-single-frame-h264-bitstream)，可以使用本 repo 和 [ffmpeg](http://ffmpeg.org/) 来做。
@@ -644,13 +657,13 @@ AVC (H.264) 标准规定信息将在宏帧（网络概念上的）内传输，�
 | 11 |  End of stream |
 | ... |  ... |
 
-通常，比特流的第一个 NAL 是 **SPS**，这个类型的 NAL 负责传达通用编码参数，如**配置，层级，分辨率**等。
+通常，比特流的第一个 NAL 是 **SPS**，这个类型的 NAL 负责传达通用编码参数，如**档次，级别，分辨率**等。
 
 如果我们跳过第一个同步标记，就可以通过解码**第一个字节**来了解第一个 **NAL 的类型**。
 
 例如同步标记之后的第一个字节是 `01100111`，第一位（`0`）是 **forbidden_zero_bit** 字段，接下来的两位（`11`）告诉我们是 **nal_ref_idc** 字段，其表示该 NAL 是否是参考字段，其余 5 位（`00111`）告诉我们是 **nal_unit_type** 字段，在这个例子里是 NAL 单元 **SPS** (7)。
 
-SPS NAL 的第 2 位 (`binary=01100100, hex=0x64, dec=100`) 是 **profile_idc** 字段，显示编码器使用的配置，在这个例子里，我们使用[受限高配置](https://en.wikipedia.org/wiki/H.264/MPEG-4_AVC#Profiles)，一种没有 B（双向预测） 切片支持的高配置。
+SPS NAL 的第 2 位 (`binary=01100100, hex=0x64, dec=100`) 是 **profile_idc** 字段，显示编码器使用的配置，在这个例子里，我们使用[高阶档次](https://en.wikipedia.org/wiki/H.264/MPEG-4_AVC#Profiles)，一种没有 B（双向预测） 切片支持的高阶档次。
 
 ![SPS 二进制视图](/i/minimal_yuv420_bin.png "SPS 二进制视图")
 
