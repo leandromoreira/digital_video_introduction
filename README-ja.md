@@ -392,6 +392,8 @@ Iフレーム(参照、キーフレーム、イントラ)は**自己完結的な
 
 ![](/i/smw_residual.png)
 
+他にも様々な予測方法があります。ここで紹介した方法は、直線状に並んだ領域の予測を行い、ブロックの上の行のピクセルをブロック内の各行にコピーしていました。ここにさらに角度成分を加え、左隣のピクセルの値も利用してブロック内のピクセル値を予測する方法もあります。また左隣と上隣のピクセル値の平均を利用する、DC予測という方法もあります。
+
 > #### ハンズオン: イントラ予測を調べる
 > [ffmpegでマクロブロックとそれらの予測付きのビデオを生成する](/encoding_pratical_examples.md#generate-debug-video)ことができます。[それぞれのブロックの色の意味](https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors#AnalyzingMacroblockTypes)を理解するためにffmpegのドキュメントを調べてください。
 >
@@ -419,7 +421,7 @@ Iフレーム(参照、キーフレーム、イントラ)は**自己完結的な
 
 ビデオコーデックである[H.261](https://en.wikipedia.org/wiki/H.261)は1990年(厳密には1988年)に生まれました。H.261は**64 kbit/sのデータレート**で動作するように設計されました。クロマサブサンプリングやマクロブロックなどの考えをすでに使っていました。1995年に、**H.263**ビデオコーデック標準が発表され2001年まで拡張され続けました。
 
-2003年に**H.264/AVC**の初版が完成しました。同じ年に**TrueMotion**と呼ばれる会社が、**ロイヤリティーフリー**で非可逆ビデオ圧縮の **VP3**と呼ばれるビデオコーデックをリリースしました。2008年にこの会社を**Googleが買収**し、同じ年に**VP8**をリリースしました。2012年の12月にGoogleが**VP9**をリリースしました。VP9は(モバイルを含む)**ブラウザ市場のおよそ¾でサポートされています**。
+2003年に**H.264/AVC**の初版が完成しました。同じ年に **On2 Technologies** (旧Duck Corporation)という会社が、**ロイヤリティーフリー**で非可逆ビデオ圧縮の **VP3**と呼ばれるビデオコーデックをリリースしました。2008年にこの会社を**Googleが買収**し、同じ年に**VP8**をリリースしました。2012年の12月にGoogleが**VP9**をリリースしました。VP9は(モバイルを含む)**ブラウザ市場のおよそ¾でサポートされています**。
 
 **[AV1](https://en.wikipedia.org/wiki/AOMedia_Video_1)**は新しい**ロイヤリティーフリー**でオープンソースのビデオコーデックで、[Alliance for Open Media (AOMedia)](http://aomedia.org/)によって設計されました。AOMediaは**複数の会社: Google、Mozilla、Microsoft、Amazon、Netflix、AMD、ARM、NVidia、Intel、Cisco**と他のいくつかの会社から成り立っています。リファレンスコーデックの**初版** 0.1.0が**2016年4月7日に公開されました**。
 
@@ -732,7 +734,7 @@ SPS NALについてH.264ビットストリーム仕様を読むと、**パラメ
 
 AVCとHEVCを比較してみましょう。より多くのCPUサイクル(複雑さ)と圧縮率は、ほとんどいつでもトレードオフであることを心に止めておきましょう。
 
-HEVCはAVCに比べて、より大きく、より多くの**パーティション** (と **サブパーティション**)のオプションを持っています。そしてより多くの**イントラ予測方向**、**改善されたエントロピー符号化**やその他を持っています。これら全ての改良のおかげで、H.265はH.264に比べて50%以上の圧縮をすることができるのです。
+HEVCはAVCに比べて、より大きく、より多くの**パーティション** (と **サブパーティション**)のオプションを持っています。そしてより多くの**方向性イントラ予測や角度イントラ予測**、**改善されたエントロピー符号化**やその他を持っています。これら全ての改良のおかげで、H.265はH.264に比べて50%以上の圧縮をすることができるのです。
 
 ![H.264 vs H.265](/i/avc_vs_hevc.png "h264対h265")
 
@@ -825,6 +827,8 @@ DRMの抽象的で一般的な形式を、とても単純な方法で説明し�
 * https://people.xiph.org/~tterribe/pubs/lca2012/auckland/intro_to_video1.pdf
 * https://xiph.org/video/vid1.shtml
 * https://xiph.org/video/vid2.shtml
+* https://wiki.multimedia.cx
+* https://mahanstreamer.net
 * http://slhck.info/ffmpeg-encoding-course
 * http://www.cambridgeincolour.com/tutorials/camera-sensors.htm
 * http://www.slideshare.net/vcodex/a-short-history-of-video-coding
@@ -837,6 +841,7 @@ DRMの抽象的で一般的な形式を、とても単純な方法で説明し�
 
 * https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/ref=sr_1_1?s=books&ie=UTF8&qid=1486395327&sr=1-1
 * https://www.amazon.com/H-264-Advanced-Video-Compression-Standard/dp/0470516925
+* https://www.amazon.com/High-Efficiency-Video-Coding-HEVC/dp/3319068946
 * https://www.amazon.com/Practical-Guide-Video-Audio-Compression/dp/0240806301/ref=sr_1_3?s=books&ie=UTF8&qid=1486396914&sr=1-3&keywords=A+PRACTICAL+GUIDE+TO+VIDEO+AUDIO
 * https://www.amazon.com/Video-Encoding-Numbers-Eliminate-Guesswork/dp/0998453005/ref=sr_1_1?s=books&ie=UTF8&qid=1486396940&sr=1-1&keywords=jan+ozer
 
@@ -856,6 +861,8 @@ DRMの抽象的で一般的な形式を、とても単純な方法で説明し�
 * https://ffmpeg.org/
 * https://ffmpeg.org/ffmpeg-all.html
 * https://ffmpeg.org/ffprobe.html
+* https://mediaarea.net/en/MediaInfo
+* https://www.jongbel.com/
 * https://trac.ffmpeg.org/wiki/
 * https://software.intel.com/en-us/intel-video-pro-analyzer
 * https://medium.com/@mbebenita/av1-bitstream-analyzer-d25f1c27072b#.d5a89oxz8
