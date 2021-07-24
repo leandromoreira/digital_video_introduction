@@ -196,7 +196,7 @@ cd digital_video_introduction
 
 ### YCbCr 和 RGB 之间的转换
 
-有人可能会问，在**不使用绿色（色度）**的情况下，我们如何表现出所有的色彩？
+有人可能会问，在 **不使用绿色(色度)** 的情况下，我们如何表现出所有的色彩？
 
 为了回答这个问题，我们将介绍从 RGB 到 YCbCr 的转换。我们将使用 [ITU-R 小组](https://en.wikipedia.org/wiki/ITU-R)*建议的[标准 BT.601](https://en.wikipedia.org/wiki/Rec._601) 中的系数。
 
