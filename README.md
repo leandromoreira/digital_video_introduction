@@ -695,7 +695,7 @@ When we read the H.264 bitstream spec for an SPS NAL we'll find many values for 
 | pic_width_in_mbs_minus_1 |  0 | ue(v) |
 | pic_height_in_map_units_minus_1 |  0 | ue(v) |
 
-> **ue(v)**: unsigned integer [Exp-Golomb-coded](https://pythonhosted.org/bitstring/exp-golomb.html)
+> **ue(v)**: unsigned integer [Exp-Golomb-coded](https://ghostarchive.org/archive/JBwdI)
 
 If we do some math with the value of these fields we will end up with the **resolution**. We can represent a `1920 x 1080` using a `pic_width_in_mbs_minus_1` with the value of `119 ( (119 + 1) * macroblock_size = 120 * 16 = 1920) `, again saving space, instead of encode `1920` we did it with `119`.
 
@@ -709,7 +709,7 @@ We can see its first 6 bytes values: `01100101 10001000 10000100 00000000 001000
 
 Using the spec info we can decode what type of slice (**slice_type**), the frame number (**frame_num**) among others important fields.
 
-In order to get the values of some fields (`ue(v), me(v), se(v) or te(v)`) we need to decode it using a special decoder called [Exponential-Golomb](https://pythonhosted.org/bitstring/exp-golomb.html), this method is **very efficient to encode variable values**, mostly when there are many default values.
+In order to get the values of some fields (`ue(v), me(v), se(v) or te(v)`) we need to decode it using a special decoder called [Exponential-Golomb](https://ghostarchive.org/archive/JBwdI), this method is **very efficient to encode variable values**, mostly when there are many default values.
 
 > The values of **slice_type** and **frame_num** of this video are 7 (I slice) and 0 (the first frame).
 
@@ -891,7 +891,7 @@ Non-ITU Codecs:
 
 * https://aomedia.googlesource.com/
 * https://github.com/webmproject/libvpx/tree/master/vp9
-* https://people.xiph.org/~xiphmont/demo/daala/demo1.shtml
+* https://ghostarchive.org/archive/0W0d8 (was: https://people.xiph.org/~xiphmont/demo/daala/demo1.shtml)
 * https://people.xiph.org/~jm/daala/revisiting/
 * https://www.youtube.com/watch?v=lzPaldsmJbk
 * https://fosdem.org/2017/schedule/event/om_av1/
@@ -925,7 +925,7 @@ Miscellaneous:
 * http://vanseodesign.com/web-design/color-luminance/
 * http://www.biologymad.com/nervoussystem/eyenotes.htm
 * http://www.compression.ru/video/codec_comparison/h264_2012/mpeg4_avc_h264_video_codecs_comparison.pdf
-* http://www.csc.villanova.edu/~rschumey/csc4800/dct.html
+* https://web.archive.org/web/20100728070421/http://www.csc.villanova.edu/~rschumey/csc4800/dct.html (was: http://www.csc.villanova.edu/~rschumey/csc4800/dct.html)
 * http://www.explainthatstuff.com/digitalcameras.html
 * http://www.hkvstar.com
 * http://www.hometheatersound.com/
