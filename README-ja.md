@@ -685,7 +685,7 @@ SPS NALについてH.264ビットストリーム仕様を読むと、**パラメ
 | pic_width_in_mbs_minus_1 |  0 | ue(v) |
 | pic_height_in_map_units_minus_1 |  0 | ue(v) |
 
-> **ue(v)**: 符号なし整数 [Exp-Golomb-coded](https://pythonhosted.org/bitstring/exp-golomb.html)
+> **ue(v)**: 符号なし整数 [Exp-Golomb-coded](https://ghostarchive.org/archive/JBwdI)
 
 これらのフィールドの値に対してある計算をすると、**解像度**を得ることができます。`1920 x 1080`を`pic_width_in_mbs_minus_1`が`119 ( (119 + 1) * macroblock_size = 120 * 16 = 1920) `として表現することができます。空間をさらに節約するために、`1920`を符号化する代わりに、`119`を使っています。
 
@@ -699,7 +699,7 @@ SPS NALについてH.264ビットストリーム仕様を読むと、**パラメ
 
 仕様の情報を使い、スライスのタイプ (**slice_type**)、フレーム番号(**frame_num**)や他の重要なフィールドを復号することができます。
 
-いくつかのフィールドの値を得るために(`ue(v)、me(v)、se(v)、te(v)`)、それを[Exponential-Golomb](https://pythonhosted.org/bitstring/exp-golomb.html)と呼ばれる特別なデコーダーを使って、デコードする必要があります。この方法は、デフォルト値が多いケースではたいてい、**変数値を符号化するのにとても効率的**です。
+いくつかのフィールドの値を得るために(`ue(v)、me(v)、se(v)、te(v)`)、それを[Exponential-Golomb](https://ghostarchive.org/archive/JBwdI)と呼ばれる特別なデコーダーを使って、デコードする必要があります。この方法は、デフォルト値が多いケースではたいてい、**変数値を符号化するのにとても効率的**です。
 
 > このビデオの**slice_type**と**frame_num**の値は7 (Iスライス)と0 (最初のフレーム)です。
 
@@ -871,7 +871,7 @@ DRMの抽象的で一般的な形式を、とても単純な方法で説明し�
 
 * https://aomedia.googlesource.com/
 * https://github.com/webmproject/libvpx/tree/master/vp9
-* https://people.xiph.org/~xiphmont/demo/daala/demo1.shtml
+* https://ghostarchive.org/archive/0W0d8 (was: https://people.xiph.org/~xiphmont/demo/daala/demo1.shtml)
 * https://people.xiph.org/~jm/daala/revisiting/
 * https://www.youtube.com/watch?v=lzPaldsmJbk
 * https://fosdem.org/2017/schedule/event/om_av1/
@@ -903,7 +903,7 @@ DRMの抽象的で一般的な形式を、とても単純な方法で説明し�
 * http://vanseodesign.com/web-design/color-luminance/
 * http://www.biologymad.com/nervoussystem/eyenotes.htm
 * http://www.compression.ru/video/codec_comparison/h264_2012/mpeg4_avc_h264_video_codecs_comparison.pdf
-* http://www.csc.villanova.edu/~rschumey/csc4800/dct.html
+* https://web.archive.org/web/20100728070421/http://www.csc.villanova.edu/~rschumey/csc4800/dct.html (was: http://www.csc.villanova.edu/~rschumey/csc4800/dct.html)
 * http://www.explainthatstuff.com/digitalcameras.html
 * http://www.hkvstar.com
 * http://www.hometheatersound.com/
