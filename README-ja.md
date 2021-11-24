@@ -440,7 +440,7 @@ Iフレーム(参照、キーフレーム、イントラ)は**自己完結的な
 >
 > これらの会社にはロイヤリティーフリーのビデオコーデックという共通の目的があり、AV1はより [簡単な特許ライセンス](http://aomedia.org/license/patent/)で誕生しました。**Timothy B. Terriberry**が [AV1の概念、ライセンスモデル、現状](https://www.youtube.com/watch?v=lzPaldsmJbk)についての素晴らしいプレゼンテーションを行いました。この節はこのプレゼンテーションを元に書いています。
 >
-> **ブラウザーを使ってAV1コーデックを分析**できることを知って驚くことでしょう。http://aomanalyzer.org/ を見てください。
+> **ブラウザーを使ってAV1コーデックを分析**できることを知って驚くことでしょう。https://arewecompressedyet.com/analyzer/ を見てください。
 >
 > ![av1 browser analyzer](/i/av1_browser_analyzer.png "av1ブラウザーアナライザー")
 >
