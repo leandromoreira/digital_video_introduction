@@ -421,7 +421,7 @@ Nel 2003 la prima versione del codec **H.264/AVC** fu completata. Nello stesso a
 >
 > Le aziende si sono poste un obiettivo comune: un video codec royalty-free. È quindi nato AV1, con un [sistema di licenze molto più semplice](http://aomedia.org/license/patent/). **Timothy B. Terriberry** ha fatto [un'ottima presentazione](https://www.youtube.com/watch?v=lzPaldsmJbk) (fonte di questa sezione) sul concepimento di AV1, il modello di licenza e lo stato attuale del codec.
 >
-> Ti sorprenderà sapere che puoi **analizzare il codec AV1 tramite il tuo browser**, andando alla pagina http://aomanalyzer.org/
+> Ti sorprenderà sapere che puoi **analizzare il codec AV1 tramite il tuo browser**, andando alla pagina https://arewecompressedyet.com/analyzer/
 >
 > ![av1 browser analyzer](/i/av1_browser_analyzer.png "av1 browser analyzer")
 >

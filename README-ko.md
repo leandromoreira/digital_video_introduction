@@ -416,7 +416,7 @@ G = Y - 0.344Cb - 0.714Cr
 > 
 > 이 회사들은 동일한 목표를 가지고 있었으며, 로얄티 프리의 동영상 코덱과 훨씬 [단순한 특허 라이센스](http://aomedia.org/license/patent/)로 무장한 AV1의 탄생이였죠. **티모시 B. 테리베리**는 [AV1 컨셉, 라이센스 모델, 현황](https://www.youtube.com/watch?v=lzPaldsmJbk)에 대한 멋진 프리젠테이션을 진행했습니다. 이 섹션의 출처이기도 하지요.  
 >
-> **브라우저로 AV1 코덱을 분석** 가능하다는 사실을 알게되면 아주 놀라실거에요. http://aomanalyzer.org/ 에 방문해보세요.
+> **브라우저로 AV1 코덱을 분석** 가능하다는 사실을 알게되면 아주 놀라실거에요. https://arewecompressedyet.com/analyzer/ 에 방문해보세요.
 > ![av1 browser analyzer](/i/av1_browser_analyzer.png "av1 browser analyzer")
 >
 > 추신: 코덱의 역사에 대해 더 자세히 알고 싶으면 [동영상 압축 특허](https://www.vcodex.com/video-compression-patents/)에 대한 기초를 공부하셔야합니다.  
