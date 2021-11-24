@@ -270,7 +270,7 @@ G = Y - 0.344Cb - 0.714Cr
 
 輝度や明るさ、ガンマ、色について解説している素晴らしい動画があります。ぜひご覧ください。
 
-[![Analog Luma - A history and explanation of video](http://img.youtube.com/vi/Ymt47wXUDEU/0.jpg)](http://www.youtube.com/watch?v=Ymt47wXUDEU)	[![Analog Luma - A history and explanation of video](http://img.youtube.com/vi/Ymt47wXUDEU/0.jpg)](http://www.youtube.com/watch?v=Ymt47wXUDEU)
+[![Analog Luma - A history and explanation of video](http://img.youtube.com/vi/Ymt47wXUDEU/0.jpg)](http://www.youtube.com/watch?v=Ymt47wXUDEU)
 
 > ### ハンズオン: YCbCr 強度を調べる
 > [FFmpegのoscilloscope filter](https://ffmpeg.org/ffmpeg-filters.html#oscilloscope)を使って、映像のYの強度を可視化できます。
