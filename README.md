@@ -507,7 +507,7 @@ And if we render this block of coefficients, we'll get this image:
 
 ![dct coefficients image](/i/dct_coefficient_image.png "dct coefficients image")
 
-As you can see it looks nothing like the original image, we might notice that the **first coefficient** is very different from all the others. This first coefficient is known as the DC coefficient which represents of **all the samples** in the input array, something **similar to an average**.
+As you can see it looks nothing like the original image, we might notice that the **first coefficient** is very different from all the others. This first coefficient is known as the DC coefficient which represents **all the samples** in the input array, something **similar to an average**.
 
 This block of coefficients has an interesting property which is that it separates the high-frequency components from the low frequency.
 
