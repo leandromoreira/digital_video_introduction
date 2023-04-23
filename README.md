@@ -30,6 +30,7 @@ All the **hands-on should be performed from the folder you cloned** this reposit
 * released version 1.0.0
 * added simplified Chinese translation
 * added FFmpeg oscilloscope filter example
+* added Brazilian Portuguese translation
 
 # Index
 
