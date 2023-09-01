@@ -1,3 +1,4 @@
+[🇺🇸](/README.md "English")
 [🇨🇳](/README-cn.md "Simplified Chinese")
 [🇯🇵](/README-ja.md "Japanese")
 [🇮🇹](/README-it.md "Italian")
