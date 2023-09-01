@@ -135,7 +135,7 @@ Cuando las personas dicen que una película o imagen es **16x9** usualmente se e
 > #### DVD es DAR 4:3
 > La resolución del formato de DVD es 704x480, igualmente mantiente una relación de aspecto (DAR) de 4:3 porque tiene PAR de 10:11 (704x10/480x11)
 
-Finalmente, podemos definir a un **vídeo** como una **sucesión de *n* cuadros** en el **tiempo**, la cual la podemos definir como otra dimensión, *n* es el *frame rate* o cuadros por segundo (**FPS**, del inglés *frames per second*).
+Finalmente, podemos definir a un **vídeo** como una **sucesión de *n* fotogramas** en el **tiempo**, la cual la podemos definir como otra dimensión, *n* es el *frame rate* o fotogramas por segundo (**FPS**, del inglés *frames per second*).
 
 ![video](/i/video.png "video")
 
@@ -143,17 +143,17 @@ El número necesario de bits por segundo para mostrar un vídeo es llamado **bit
 
 > bit rate = ancho * alto * bit depth * FPS
 
-Por ejemplo, un vídeo de 30 cuadros por segundo, 24 bits por píxel, 480x240 de resolución necesitaría de **82,944,000 bits por segundo** o 82.944 Mbps (30x480x240x24) si no queremos aplicar ningún tipo de compresión.
+Por ejemplo, un vídeo de 30 fotogramas por segundo, 24 bits por píxel, 480x240 de resolución necesitaría de **82,944,000 bits por segundo** o 82.944 Mbps (30x480x240x24) si no queremos aplicar ningún tipo de compresión.
 
 Cuando el **bit rate** es casi constante es llamado bit rate constante (**CBR**, del inglés *constant bit rate*), pero también puede ser variable por lo que lo llamaremos bit rate variable (**VBR**, del inglés *variable bit rate*).
 
-> La siguiente gráfica muestra como utilizando VBR no se necesita gastar demasiados bits para un cuadro es negro.
+> La siguiente gráfica muestra como utilizando VBR no se necesita gastar demasiados bits para un fotograma es negro.
 >
 > ![constrained vbr](/i/vbr.png "constrained vbr")
 
-En otros tiempos, unos ingenieros idearon una técnica para duplicar la canidad de cuadros por segundo percividos en una pantalla **sin consumir ancho de banda adicional**. Esta técnica es conocida como **vídeo entrelazado** (*interlaced video*); básicamente envía la mitad de la pantalla en un "cuadro" y la otra mitad en el siguiente "cuadro".  
+En otros tiempos, unos ingenieros idearon una técnica para duplicar la cantidad de fotogramas por segundo percividos en una pantalla **sin consumir ancho de banda adicional**. Esta técnica es conocida como **vídeo entrelazado** (*interlaced video*); básicamente envía la mitad de la pantalla en un "fotograma" y la otra mitad en el siguiente "fotograma".  
 
-Hoy en día, las pantallas representan imágenes principalmente utilizando la **técnica de escaneo progresivo** (*progressive vídeo*). El vídeo progresivo es una forma de mostrar, almacenar o transmitir imágenes en movimiento en la que todas las líneas de cada cuadro se dibujan en secuencia.
+Hoy en día, las pantallas representan imágenes principalmente utilizando la **técnica de escaneo progresivo** (*progressive vídeo*). El vídeo progresivo es una forma de mostrar, almacenar o transmitir imágenes en movimiento en la que todas las líneas de cada fotograma se dibujan en secuencia.
 
 ![entrelazado vs. progresivo](/i/interlaced_vs_progressive.png "entrelazado vs. progresivo")
 
@@ -168,7 +168,7 @@ Aprendimos que no es factible utilizar vídeo sin ninguna compresión; **un solo
 
 > <sup>*</sup> Encontramos este número multiplicando 1280 x 720 x 24 x 30 x 3600 (ancho, alto, bits por píxel, fps y tiempo en segundos).
 
-Para hacerlo, podemos **aprovechar cómo funciona nuestra visión**. Somos mejores para distinguir el brillo que los colores, las **repeticiones en el tiempo**, un vídeo contiene muchas imágenes con pocos cambios, y las **repeticiones dentro de la imagen**, cada cuadro también contiene muchas áreas que utilizan colores iguales o similares.
+Para hacerlo, podemos **aprovechar cómo funciona nuestra visión**. Somos mejores para distinguir el brillo que los colores, las **repeticiones en el tiempo**, un vídeo contiene muchas imágenes con pocos cambios, y las **repeticiones dentro de la imagen**, cada fotograma también contiene muchas áreas que utilizan colores iguales o similares.
 
 ## Colores, Luminancia y nuestros ojos
 Nuestros ojos son [más sensibles al brillo que a los colores](http://vanseodesign.com/web-design/color-luminance/), puedes comprobarlo por ti mismo, mira esta imagen.
@@ -226,7 +226,7 @@ B = Y + 1.772Cb
 G = Y - 0.344Cb - 0.714Cr
 ```
 
-> <sup>*</sup> Los grupos y estándares son comunes en el vídeo digital y suelen definir cuáles son los estándares, por ejemplo, [¿qué es 4K? ¿qué frecuencia de cuadro debemos usar? ¿resolución? ¿modelo de color?](https://en.wikipedia.org/wiki/Rec._2020)
+> <sup>*</sup> Los grupos y estándares son comunes en el vídeo digital y suelen definir cuáles son los estándares, por ejemplo, [¿qué es 4K? ¿qué FPS debemos usar? ¿resolución? ¿modelo de color?](https://en.wikipedia.org/wiki/Rec._2020)
 
 Generalmente, las **pantallas** (monitores, televisores, etc.) utilizan **solo el modelo RGB**, organizado de diferentes maneras, como se muestra a continuación:
 
