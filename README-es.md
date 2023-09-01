@@ -8,40 +8,41 @@
 
 [![license](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)
 
-# Intro
+# Introducción
 
-A gentle introduction to video technology, although it's aimed at software developers / engineers, we want to make it easy **for anyone to learn**. This idea was born during a [mini workshop for newcomers to video technology](https://docs.google.com/presentation/d/17Z31kEkl_NGJ0M66reqr9_uTG6tI5EDDVXpdPKVuIrs/edit#slide=id.p).
+Esto es una breve introducción a la tecnología de vídeo, principalmente dirigido a desarrolladores o ingenieros de software. La intención es que sea **fácil de aprender para cualquier persona**. La idea nació durante un [breve taller para personas nuevas en vídeo](https://docs.google.com/presentation/d/17Z31kEkl_NGJ0M66reqr9_uTG6tI5EDDVXpdPKVuIrs/edit#slide=id.p).
 
-The goal is to introduce some digital video concepts with a **simple vocabulary, lots of visual elements and practical examples** when possible, and make this knowledge available everywhere. Please, feel free to send corrections, suggestions and improve it.
+El objetivo es introducir algunos conceptos de vídeo digital con un **vocabulario simple, muchas figuras y ejemplos prácticos** en cuanto sea posible, y dejar disponible este conocimiento. Por favor, siéntete libre de enviar correcciones, sugerencias y mejoras.
 
-There will be **hands-on** sections which require you to have **docker installed** and this repository cloned.
+Habrán **prácticas** que requiere tener instalado **docker** y este repositorio clonado. 
 
 ```bash
 git clone https://github.com/leandromoreira/digital_video_introduction.git
 cd digital_video_introduction
 ./setup.sh
 ```
-> **WARNING**: when you see a `./s/ffmpeg` or `./s/mediainfo` command, it means we're running a **containerized version** of that program, which already includes all the needed requirements.
+> **ADVERTENCIA**: cuando observes el comando `./s/ffmpeg` o `./s/mediainfo`, significa que estamos ejecutando la **versión contenerizada** del mismo, que a su vez incluye todos los requerimientos necesarios.
 
-All the **hands-on should be performed from the folder you cloned** this repository. For the **jupyter examples** you must start the server `./s/start_jupyter.sh` and copy the URL and use it in your browser.
+Todas las **prácticas deberán ser ejecutadas desde el directorio donde has clonado** este repositorio. Para ejecutar los **ejemplos de jupyter** deberás primero iniciar el servicio `./s/start_jupyter.sh`, copiar la URL y pegarla en tu navegador.
 
-# Changelog
+# Control de cambios
 
-* added DRM system
-* released version 1.0.0
-* added simplified Chinese translation
-* added FFmpeg oscilloscope filter example
-* added Brazilian Portuguese translation
+* Detalles sobre sistemas DRM
+* Versión 1.0.0 liberada
+* Traducción a Chino Simplificado
+* Ejemplo de FFmpeg oscilloscope filter
+* Traducción a Portugués (Brasil)
+* Traducción a Español
 
-# Index
+# Tabla de contenidos
 
-- [Intro](#intro)
-- [Index](#index)
-- [Basic terminology](#basic-terminology)
-  * [Other ways to encode a color image](#other-ways-to-encode-a-color-image)
-  * [Hands-on: play around with image and color](#hands-on-play-around-with-image-and-color)
-  * [DVD is DAR 4:3](#dvd-is-dar-43)
-  * [Hands-on: Check video properties](#hands-on-check-video-properties)
+- [Introducción](#introducción)
+- [Tabla de contenidos](#tabla-de-contenidos)
+- [Terminología Básica](#terminología-básica)
+  * [Otras formas de codificar una imagen a color](#otras-formas-de-codificar-una-imagen-a-color)
+  * [Práctica: juguemos con una imagen y colores](#práctica-juguemos-con-una-imagen-y-colores)
+  * [DVD es DAR 4:3](#dvd-es-dar-43)
+  * [Práctica: Verifiquemos las propiedades del vídeo](#práctica-verifiquemos-las-propiedades-del-vídeo)
 - [Redundancy removal](#redundancy-removal)
   * [Colors, Luminance and our eyes](#colors-luminance-and-our-eyes)
     + [Color model](#color-model)
@@ -88,77 +89,77 @@ All the **hands-on should be performed from the folder you cloned** this reposit
 - [Conferences](#conferences)
 - [References](#references)
 
-# Basic terminology
+# Terminología Básica
 
-An **image** can be thought of as a **2D matrix**. If we think about **colors**, we can extrapolate this idea seeing this image as a **3D matrix** where the **additional dimensions** are used to provide **color data**.
+Una **imagen** puede ser pensada como una **matriz 2D**. Si pensamos en **colores**, podemos extrapolar este concepto a que una imagen es una **matriz 3D** donde la **dimensión adicional** es usada para indicar la **información de color**.
 
-If we chose to represent these colors using the [primary colors (red, green and blue)](https://en.wikipedia.org/wiki/Primary_color), we define three planes: the first one for **red**, the second for **green**, and the last one for the **blue** color.
+Si elegimos representar esos colores usando los [colores primarios (rojo, verde y azul)](https://es.wikipedia.org/wiki/Color_primario), definimos tres planos: el primero para el **rojo**, el segundo para el **verde**, y el último para el **azul**.
 
-![an image is a 3d matrix RGB](/i/image_3d_matrix_rgb.png "An image is a 3D matrix")
+![una imagen es una matriz 3D RGB](/i/image_3d_matrix_rgb.png "Una imagen es una matriz 3D")
 
-We'll call each point in this matrix **a pixel** (picture element). One pixel represents the **intensity** (usually a numeric value) of a given color. For example, a **red pixel** means 0 of green, 0 of blue and maximum of red. The **pink color pixel** can be formed with a combination of the three colors. Using a representative numeric range from 0 to 255, the pink pixel is defined by **Red=255, Green=192 and Blue=203**.
+Llamaremos a cada punto en esta matriz **un píxel** (del inglés, *picture element*). Un píxel representa la **intensidad** (usualmente un valor numérico) de un color dado. Por ejemplo, un **píxel rojo** significa 0 de verde, 0 de azul y el máximo de rojo. El **píxel de color rosa** puede formarse de la combinación de estos tres colores. Usando la representación numérica con un rango desde 0 a 255, el píxel rosa es definido como **Rojo=255, Verde=192 y Azul=203**.
 
-> #### Other ways to encode a color image
-> Many other possible models may be used to represent the colors that make up an image. We could, for instance, use an indexed palette where we'd only need a single byte to represent each pixel instead of the 3 needed when using the RGB model. In such a model we could use a 2D matrix instead of a 3D matrix to represent our color, this would save on memory but yield fewer color options.
+> #### Otras formas de codificar una imagen a color
+> Otros modelos pueden ser utilizados para representar los colores que forman una imagen. Por ejemplo, podemos usar una paleta indexada donde necesitaremos solamente un byte para representar cada píxel en vez de los 3 necesarios cuando usamos el modelo RGB. En un modelo como este, podemos utilizar una matriz 2D para representar nuestros colores, esto nos ayudaría a ahorrar memoria aunque tendríamos menos colores para representar.
 >
 > ![NES palette](/i/nes-color-palette.png "NES palette")
 
-For instance, look at the picture down below. The first face is fully colored. The others are the red, green, and blue planes (shown as gray tones).
+Observemos la figura que se encuentra a continuación. La primer cara muestra todos los colores utilizados. Mientras las demás muestran a intencidad de cada plano rojo, verde y azul (representado en escala de grises).
 
-![RGB channels intensity](/i/rgb_channels_intensity.png "RGB channels intensity")
+![Intensidad de los canales RGB](/i/rgb_channels_intensity.png "Intensidad de los canales RGB")
 
-We can see that the **red color** will be the one that **contributes more** (the brightest parts in the second face) to the final color while the **blue color** contribution can be mostly **only seen in Mario's eyes** (last face) and part of his clothes, see how **all planes contribute less** (darkest parts) to the **Mario's mustache**.
+Podemos ver que el **color rojo** es el que **contribuye más** (las partes más brillantes en la segunda cara) mientras que en la cuarta cara observamos que el **color azul** su contribución se **limita a los ojos de Mario** y parte de su ropa. También podemos observar como **todos los planos no contribuyen demasiado** (partes oscuras) al **bigote de Mario**.
 
-And each color intensity requires a certain amount of bits, this quantity is known as **bit depth**. Let's say we spend **8 bits** (accepting values from 0 to 255) per color (plane), therefore we have a **color depth** of **24 bits** (8 bits * 3 planes R/G/B), and we can also infer that we could use 2 to the power of 24 different colors.
+Cada intensidad de color requiere de una cantidad de bits para ser representada, esa cantidad es conocida como **bit depth**. Digamos que utilizamos **8 bits** (aceptando valores entre 0 y 255) por color (plano), entonces tendremos una **color depth** (profundidad de color) de **24 bits** (8 bits * 3 planos R/G/B), por lo que podemos inferir que tenemos disponibles 2^24 colores diferentes.
 
-> **It's great** to learn [how an image is captured from the world to the bits](http://www.cambridgeincolour.com/tutorials/camera-sensors.htm).
+> **Es asombroso** aprender [como una imagen es capturada desde el Mundo a los bits](http://www.cambridgeincolour.com/tutorials/camera-sensors.htm).
 
-Another property of an image is the **resolution**, which is the number of pixels in one dimension. It is often presented as width × height, for example, the **4×4** image below.
+Otra propiedad de una images es la **resolución**, que es el número de píxeles en una dimensión. Frecuentemente es presentado como ancho × alto (*width × height*), por ejemplo, la siguiente imagen es **4×4**.
 
 ![image resolution](/i/resolution.png "image resolution")
 
-> #### Hands-on: play around with image and color
-> You can [play around with image and colors](/image_as_3d_array.ipynb) using [jupyter](#how-to-use-jupyter) (python, numpy, matplotlib and etc).
+> #### Práctica: juguemos con una imagen y colores
+> Puedes [jugar con una imagen y colores](/image_as_3d_array.ipynb) usando [jupyter](#how-to-use-jupyter) (python, numpy, matplotlib, etc).
 >
-> You can also learn [how image filters (edge detection, sharpen, blur...) work](/filters_are_easy.ipynb).
+> También puedes aprender [cómo funcionan los filtros de imágenes (edge detection, sharpen, blur...)](/filters_are_easy.ipynb).
 
-Another property we can see while working with images or video is the **aspect ratio** which simply describes the proportional relationship between width and height of an image or pixel.
+Trabajando con imágenes o vídeos, te encontrarás con otra propiedad llamada **aspect ratio** (relación de aspecto) que simplemente describe la relación proporcional que existe entre el ancho y alto de una imagen o píxel.
 
-When people says this movie or picture is **16x9** they usually are referring to the **Display Aspect Ratio (DAR)**, however we also can have different shapes of individual pixels, we call this **Pixel Aspect Ratio (PAR)**.
+Cuando las personas dicen que una película o imagen es **16x9** usualmente se están refiriendo a la relación de aspecto de la pantalla (**Display Aspect Ratio (DAR)**), sin embargo podemos tener diferentes formas para cada píxel, a ello le llamamos relación de aspecto del píxel (**Pixel Aspect Ratio (PAR)**).
 
 ![display aspect ratio](/i/DAR.png "display aspect ratio")
 
 ![pixel aspect ratio](/i/PAR.png "pixel aspect ratio")
 
-> #### DVD is DAR 4:3
-> Although the real resolution of a DVD is 704x480 it still keeps a 4:3 aspect ratio because it has a PAR of 10:11 (704x10/480x11)
+> #### DVD es DAR 4:3
+> La resolución del formato de DVD es 704x480, igualmente mantiente una relación de aspecto (DAR) de 4:3 porque tiene PAR de 10:11 (704x10/480x11)
 
-Finally, we can define a **video** as a **succession of *n* frames** in **time** which can be seen as another dimension, *n* is the frame rate or frames per second (FPS).
+Finalmente, podemos definir a un **vídeo** como una **sucesión de *n* cuadros** en el **tiempo**, la cual la podemos definir como otra dimensión, *n* es el *frame rate* o cuadros por segundo (**FPS**, del inglés *frames per second*).
 
 ![video](/i/video.png "video")
 
-The number of bits per second needed to show a video is its **bit rate**.
+El número necesario de bits por segundo para mostrar un vídeo es llamado **bit rate**.
 
-> bit rate = width * height * bit depth * frames per second
+> bit rate = ancho * alto * bit depth * FPS
 
-For example, a video with 30 frames per second, 24 bits per pixel, resolution of 480x240 will need **82,944,000 bits per second** or 82.944 Mbps (30x480x240x24) if we don't employ any kind of compression.
+Por ejemplo, un vídeo de 30 cuadros por segundo, 24 bits por píxel, 480x240 de resolución necesitaría de **82,944,000 bits por segundo** o 82.944 Mbps (30x480x240x24) si no queremos aplicar ningún tipo de compresión.
 
-When the **bit rate** is nearly constant it's called constant bit rate (**CBR**) but it also can vary then called variable bit rate (**VBR**).
+Cuando el **bit rate** es casi constante es llamado bit rate constante (**CBR**, del inglés *constant bit rate*), pero también puede ser variable por lo que lo llamaremos bit rate variable (**VBR**, del inglés *variable bit rate*).
 
-> This graph shows a constrained VBR which doesn't spend too many bits while the frame is black.
+> La siguiente gráfica muestra como utilizando VBR no se necesita gastar demasiados bits para un cuadro es negro.
 >
 > ![constrained vbr](/i/vbr.png "constrained vbr")
 
-In the early days, engineers came up with a technique for doubling the perceived frame rate of a video display **without consuming extra bandwidth**. This technique is known as **interlaced video**; it basically sends half of the screen in 1 "frame" and the other half in the next "frame".
+En otros tiempos, unos ingenieros idearon una técnica para duplicar la canidad de cuadros por segundo percividos en una pantalla **sin consumir ancho de banda adicional**. Esta técnica es conocida como **vídeo entrelazado** (*interlaced video*); básicamente envía la mitad de la pantalla en un "cuadro" y la otra mitad en el siguiente "cuadro".  
 
-Today screens render mostly using **progressive scan technique**. Progressive is a way of displaying, storing, or transmitting moving images in which all the lines of each frame are drawn in sequence.
+Hoy en día, las pantallas representan imágenes principalmente utilizando la **técnica de escaneo progresivo** (*progressive vídeo*). El vídeo progresivo es una forma de mostrar, almacenar o transmitir imágenes en movimiento en la que todas las líneas de cada cuadro se dibujan en secuencia.
 
-![interlaced vs progressive](/i/interlaced_vs_progressive.png "interlaced vs progressive")
+![entrelazado vs. progresivo](/i/interlaced_vs_progressive.png "entrelazado vs. progresivo")
 
-Now we have an idea about how an **image** is represented digitally, how its **colors** are arranged, how many **bits per second** do we spend to show a video, if it's constant (CBR)  or variable (VBR), with a given **resolution** using a given **frame rate** and many other terms such as interlaced, PAR and others.
+Ahora ya tenemos una idea acerca de cómo una **imagen** es representada digitalmente, cómo sus **colores** son codificados, cuántos **bits por segundo** necesitamos para mostrar un vídeo, si es constante (CBR) o variable (VBR), con una **resolución** dada a determinado **frame rate** y otros términos como entrelazado, PAR, etc.
 
-> #### Hands-on: Check video properties
-> You can [check most of the  explained properties with ffmpeg or mediainfo.](https://github.com/leandromoreira/introduction_video_technology/blob/master/encoding_pratical_examples.md#inspect-stream)
+> #### Práctica: Verifiquemos las propiedades del vídeo
+> Puedes [verificar la mayoría de las propiedades mencionadas con ffmpeg o mediainfo.](https://github.com/leandromoreira/introduction_video_technology/blob/master/encoding_pratical_examples.md#inspect-stream)
 
 # Redundancy removal
 
