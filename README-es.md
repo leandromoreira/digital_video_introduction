@@ -44,10 +44,10 @@ Todas las **prácticas deberán ser ejecutadas desde el directorio donde has clo
   * [Práctica: juguemos con una imagen y colores](#práctica-juguemos-con-una-imagen-y-colores)
   * [DVD es DAR 4:3](#dvd-es-dar-43)
   * [Práctica: Verifiquemos las propiedades del vídeo](#práctica-verifiquemos-las-propiedades-del-vídeo)
-- [Redundancy removal](#redundancy-removal)
-  * [Colors, Luminance and our eyes](#colors-luminance-and-our-eyes)
-    + [Color model](#color-model)
-    + [Converting between YCbCr and RGB](#converting-between-ycbcr-and-rgb)
+- [Eliminación de Redundancias](#eliminación-de-redundancias)
+  * [Colores, Luminancia y nuestros ojos](#colores-luinancia-y-nuestros-ojos)
+    + [Modelo de color](#modelo-de-color)
+    + [Conversiones entre YCbCr y RGB](#conversiones-entre-ycbcr-y-rgb)
     + [Chroma subsampling](#chroma-subsampling)
     + [Hands-on: Check YCbCr histogram](#hands-on-check-ycbcr-histogram)
   * [Frame types](#frame-types)
@@ -162,65 +162,63 @@ Ahora ya tenemos una idea acerca de cómo una **imagen** es representada digital
 > #### Práctica: Verifiquemos las propiedades del vídeo
 > Puedes [verificar la mayoría de las propiedades mencionadas con ffmpeg o mediainfo.](https://github.com/leandromoreira/introduction_video_technology/blob/master/encoding_pratical_examples.md#inspect-stream)
 
-# Redundancy removal
+# Eliminación de Redundancias
 
-We learned that it's not feasible to use video without any compression; **a single one hour video** at 720p resolution with 30fps would **require 278GB<sup>*</sup>**. Since **using solely lossless data compression algorithms** like DEFLATE (used in PKZIP, Gzip, and PNG), **won't** decrease the required bandwidth sufficiently we need to find other ways to compress the video.
+Aprendimos que no es factible utilizar vídeo sin ninguna compresión; **un solo vídeo de una hora** a una resolución de 720p y 30fps **requeriría 278GB<sup>*</sup>**. Dado que **utilizar únicamente algoritmos de compresión de datos sin pérdida** como DEFLATE (utilizado en PKZIP, Gzip y PNG), **no disminuiría** suficientemente el ancho de banda necesario, debemos encontrar otras formas de comprimir el vídeo.
 
-> <sup>*</sup> We found this number by multiplying 1280 x 720 x 24 x 30 x 3600 (width, height, bits per pixel, fps and time in seconds)
+> <sup>*</sup> Encontramos este número multiplicando 1280 x 720 x 24 x 30 x 3600 (ancho, alto, bits por píxel, fps y tiempo en segundos).
 
-In order to do this, we can **exploit how our vision works**. We're better at distinguishing brightness than colors, the **repetitions in time**, a video contains a lot of images with few changes, and the **repetitions within the image**, each frame also contains many areas using the same or similar color.
+Para hacerlo, podemos **aprovechar cómo funciona nuestra visión**. Somos mejores para distinguir el brillo que los colores, las **repeticiones en el tiempo**, un vídeo contiene muchas imágenes con pocos cambios, y las **repeticiones dentro de la imagen**, cada cuadro también contiene muchas áreas que utilizan colores iguales o similares.
 
-## Colors, Luminance and our eyes
-
-Our eyes are [more sensitive to brightness than colors](http://vanseodesign.com/web-design/color-luminance/), you can test it for yourself, look at this picture.
+## Colores, Luminancia y nuestros ojos
+Nuestros ojos son [más sensibles al brillo que a los colores](http://vanseodesign.com/web-design/color-luminance/), puedes comprobarlo por ti mismo, mira esta imagen.
 
 ![luminance vs color](/i/luminance_vs_color.png "luminance vs color")
 
-If you are unable to see that the colors of the **squares A and B are identical** on the left side, that's fine, it's our brain playing tricks on us to **pay more attention to light and dark than color**. There is a connector, with the same color, on the right side so we (our brain) can easily spot that in fact, they're the same color.
+Si no puedes ver que los colores de los **cuadrados A y B son idénticos** en el lado izquierdo, no te preocupes, es nuestro cerebro jugándonos una pasada para que **prestemos más atención a la luz y la oscuridad que al color**. Hay un conector, del mismo color, en el lado derecho para que nosotros (nuestro cerebro) podamos identificar fácilmente que, de hecho, son del mismo color.
 
-> **Simplistic explanation of how our eyes work**
-> The [eye is a complex organ](http://www.biologymad.com/nervoussystem/eyenotes.htm), it is composed of many parts but we are mostly interested in the cones and rods cells. The eye [contains about 120 million rod cells and 6 million cone cells](https://en.wikipedia.org/wiki/Photoreceptor_cell).
+> **Explicación simplista de cómo funcionan nuestros ojos**
+> El [ojo es un órgano complejo](http://www.biologymad.com/nervoussystem/eyenotes.htm), compuesto por muchas partes, pero principalmente nos interesan las células de conos y bastones. El ojo [contiene alrededor de 120 millones de células de bastones y 6 millones de células de conos](https://en.wikipedia.org/wiki/Photoreceptor_cell).
 >
-> To **oversimplify**, let's try to put colors and brightness in the eye's parts function. The **[rod cells](https://en.wikipedia.org/wiki/Rod_cell) are mostly responsible for brightness** while the **[cone cells](https://en.wikipedia.org/wiki/Cone_cell) are responsible for color**, there are three types of cones, each with different pigment, namely: [S-cones (Blue), M-cones (Green) and L-cones (Red)](https://upload.wikimedia.org/wikipedia/commons/1/1e/Cones_SMJ2_E.svg).
+> Para **simplificar absurdamente**, intentemos relacionar los colores y el brillo con las funciones de las partes del ojo. Los **[bastones](https://es.wikipedia.org/wiki/Bast%C3%B3n_(c%C3%A9lula)) son principalmente responsables del brillo**, mientras que los **[conos](https://es.wikipedia.org/wiki/Cono_(c%C3%A9lula)) son responsables del color**. Hay tres tipos de conos, cada uno con un pigmento diferente, a saber: [Tipo S (azul), Tipo M (verde) y Tipo L (rojos)](https://upload.wikimedia.org/wikipedia/commons/1/1e/Cones_SMJ2_E.svg).
 >
-> Since we have many more rod cells (brightness) than cone cells (color), one can infer that we are more capable of distinguishing dark and light than colors.
+> Dado que tenemos muchas más células de bastones (brillo) que células de conos (color), se puede inferir que somos más capaces de distinguir el contraste entre la luz y la oscuridad que los colores.
 >
 > ![eyes composition](/i/eyes.jpg "eyes composition")
 >
-> **Contrast sensitivity functions**
+> **Funciones de sensibilidad al contraste**
 >
-> Researchers of experimental psychology and many other fields have developed many theories on human vision. And one of them is called Contrast sensitivity functions. They are related to spatio and temporal of the light and their value presents at given init light, how much change is required before an observer reported there was a change. Notice the plural of the word "function", this is for the reason that we can measure Contrast sensitivity functions with not only black-white but also colors. The result of these experiments shows that in most cases our eyes are more sensitive to brightness than color.
+> Los investigadores de psicología experimental y muchas otras disciplinas han desarrollado varias teorías sobre la visión humana. Una de ellas se llama funciones de sensibilidad al contraste. Están relacionadas con el espacio y el tiempo de la luz y su valor se presenta en una luz inicial dada, cuánto cambio se requiere antes de que un observador informe que ha habido un cambio. Observa el plural de la palabra "función", esto se debe a que podemos medir las funciones de sensibilidad al contraste no solo con blanco y negro, sino también con colores. El resultado de estos experimentos muestra que en la mayoría de los casos nuestros ojos son más sensibles al brillo que al color.
 
-Once we know that we're more sensitive to **luma** (the brightness in an image) we can try to exploit it.
+Una vez que sabemos que somos más sensibles a la **luminancia** (*luma*, el brillo en una imagen), podemos aprovecharlo.
+### Modelo de color
 
-### Color model
+Primero aprendimos [cómo funcionan las imágenes en color](#terminología-básica) utilizando el **modelo RGB**, pero existen otros modelos también. De hecho, hay un modelo que separa la luminancia (brillo) de la crominancia (colores) y se conoce como **YCbCr**<sup>*</sup>.
 
-We first learned [how to color images](#basic-terminology) work using the **RGB model**, but there are other models too. In fact, there is a model that separates luma (brightness) from  chrominance (colors) and it is known as **YCbCr**<sup>*</sup>.
+> <sup>*</sup> hay más modelos que hacen la misma separación.
 
-> <sup>*</sup> there are more models which do the same separation.
-
-This color model uses **Y** to represent the brightness and two color channels **Cb** (chroma blue) and **Cr** (chroma red). The [YCbCr](https://en.wikipedia.org/wiki/YCbCr) can be derived from RGB and it also can be converted back to RGB. Using this model we can create full colored images as we can see down below.
+Este modelo de color utiliza **Y** para representar el brillo y dos canales de color, **Cb** (croma azul) y **Cr** (croma rojo). El [YCbCr](https://es.wikipedia.org/wiki/YCbCr) se puede derivar a partir de RGB y también se puede convertir de nuevo a RGB. Utilizando este modelo, podemos crear imágenes a todo color, como podemos ver a continuación.
 
 ![ycbcr example](/i/ycbcr.png "ycbcr example")
 
-### Converting between YCbCr and RGB
+### Conversiones entre YCbCr y RGB
 
-Some may argue, how can we produce all the **colors without using the green**?
+Algunos pueden preguntarse, ¿cómo podemos producir **todos los colores sin usar el verde**?
 
-To answer this question, we'll walk through a conversion from RGB to YCbCr. We'll use the coefficients from the **[standard BT.601](https://en.wikipedia.org/wiki/Rec._601)** that was recommended by the **[group ITU-R<sup>*</sup>](https://en.wikipedia.org/wiki/ITU-R)** . The first step is to **calculate the luma**, we'll use the constants suggested by ITU and replace the RGB values.
+Para responder a esta pregunta, vamos a realizar una conversión de RGB a YCbCr. Utilizaremos los coeficientes del **[estándar BT.601](https://en.wikipedia.org/wiki/Rec._601)** que fue recomendado por el **[grupo ITU-R<sup>*</sup>](https://en.wikipedia.org/wiki/ITU-R)**. El primer paso es **calcular la luminancia**, utilizaremos las constantes sugeridas por la ITU y sustituiremos los valores RGB.
 
 ```
 Y = 0.299R + 0.587G + 0.114B
 ```
 
-Once we had the luma, we can **split the colors** (chroma blue and red):
+Una vez obtenida la luminancia, podemos **separar los colores** (croma azul y croma rojo):
 
 ```
 Cb = 0.564(B - Y)
 Cr = 0.713(R - Y)
 ```
 
-And we can also **convert it back** and even get the **green by using YCbCr**.
+Y también podemos **covertirlo de vuelta** e incluse obtener el **verde utilizando YCbCr**.
 
 ```
 R = Y + 1.402Cr
@@ -228,9 +226,9 @@ B = Y + 1.772Cb
 G = Y - 0.344Cb - 0.714Cr
 ```
 
-> <sup>*</sup> groups and standards are common in digital video, they usually define what are the standards, for instance, [what is 4K? what frame rate should we use? resolution? color model?](https://en.wikipedia.org/wiki/Rec._2020)
+> <sup>*</sup> Los grupos y estándares son comunes en el vídeo digital y suelen definir cuáles son los estándares, por ejemplo, [¿qué es 4K? ¿qué frecuencia de cuadro debemos usar? ¿resolución? ¿modelo de color?](https://en.wikipedia.org/wiki/Rec._2020)
 
-Generally, **displays** (monitors, TVs, screens and etc) utilize **only the RGB model**, organized in different manners, see some of them magnified below:
+Generalmente, las **pantallas** (monitores, televisores, etc.) utilizan **solo el modelo RGB**, organizado de diferentes maneras, como se muestra a continuación:
 
 ![pixel geometry](/i/new_pixel_geometry.jpg "pixel geometry")
 
