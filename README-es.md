@@ -49,14 +49,16 @@ Todas las **prácticas deberán ser ejecutadas desde el directorio donde has clo
     + [Modelo de color](#modelo-de-color)
     + [Conversiones entre YCbCr y RGB](#conversiones-entre-ycbcr-y-rgb)
     + [Chroma subsampling](#chroma-subsampling)
-    + [Hands-on: Check YCbCr histogram](#hands-on-check-ycbcr-histogram)
-  * [Frame types](#frame-types)
+    + [Práctica: Observemos el histograma YCbCr](#práctica-observemos-el-histograma-ycbcr)
+    + [Color, luma, luminancia, gamma](#color-luma-luminancia-gamma)
+    + [Práctica: Observa la intensidad YCbCr](#práctica-observa-la-intensidad-ycbcr)
+  * [Tipos de fotogramas](#tipos-de-fotogramas)
     + [I Frame (intra, keyframe)](#i-frame-intra-keyframe)
     + [P Frame (predicted)](#p-frame-predicted)
-      - [Hands-on: A video with a single I-frame](#hands-on-a-video-with-a-single-i-frame)
+      - [Práctica: Un vídeo con un solo I-frame](#práctica-un-vídeo-con-un-solo-i-frame)
     + [B Frame (bi-predictive)](#b-frame-bi-predictive)
-      - [Hands-on: Compare videos with B-frame](#hands-on-compare-videos-with-b-frame)
-    + [Summary](#summary)
+      - [Práctica: Compara vídeos con B-frame](#práctica-compara-videos-con-b-frame)
+    + [Resumen](#resumen)
   * [Temporal redundancy (inter prediction)](#temporal-redundancy-inter-prediction)
       - [Hands-on: See the motion vectors](#hands-on-see-the-motion-vectors)
   * [Spatial redundancy (intra prediction)](#spatial-redundancy-intra-prediction)
@@ -234,99 +236,99 @@ Generalmente, las **pantallas** (monitores, televisores, etc.) utilizan **solo e
 
 ### Chroma subsampling
 
-With the image represented as luma and chroma components, we can take advantage of the human visual system's greater sensitivity for luma resolution rather than chroma to selectively remove information. **Chroma subsampling** is the technique of encoding images using **less resolution for chroma than for luma**.
-
+Con la imagen representada en componentes de luminancia y crominancia, podemos aprovechar la mayor sensibilidad del sistema visual humano a la resolución de luminancia en lugar de la crominancia para eliminar selectivamente información. El **chroma subsampling** es la técnica de codificar imágenes utilizando **menor resolución para la crominancia que para la luminancia**.
 
 ![ycbcr subsampling resolutions](/i/ycbcr_subsampling_resolution.png "ycbcr subsampling resolutions")
 
 
-How much should we reduce the chroma resolution?! It turns out that there are already some schemas that describe how to handle resolution and the merge (`final color = Y + Cb + Cr`).
+¿Cuánto debemos reducir la resolución de la crominancia? Resulta que ya existen algunos esquemas que describen cómo manejar la resolución y la combinación (`color final = Y + Cb + Cr`).
 
-These schemas are known as subsampling systems and are expressed as a 3 part ratio - `a:x:y` which defines the chroma resolution in relation to a `a x 2` block of luma pixels.
+Estos esquemas se conocen como sistemas de *subsampling* y se expresan como una relación de 3 partes: `a:x:y`, que define la resolución de la crominancia en relación con un bloque `a x 2` de píxeles de luminancia.
 
- * `a` is the horizontal sampling reference (usually 4)
- * `x` is the number of chroma samples in the first row of `a` pixels (horizontal resolution in relation to `a`)
- * `y` is the number of changes of chroma samples between the first and seconds rows of `a` pixels.
+ * `a` es la referencia de muestreo horizontal (generalmente 4).
+ * `x` es el número de muestras de crominancia en la primera fila de `a` píxeles (resolución horizontal en relación con `a`).
+ * `y` es el número de cambios de muestras de crominancia entre la primera y segunda filas de a píxeles.
 
-> An exception to this exists with 4:1:0, which provides a single chroma sample within each `4 x 4` block of luma resolution.
+> Una excepción a esto es el 4:1:0, que proporciona una sola muestra de crominancia dentro de cada bloque de `4 x 4` píxeles de resolución de luminancia.
 
-Common schemes used in modern codecs are: **4:4:4** *(no subsampling)*, **4:2:2, 4:1:1, 4:2:0, 4:1:0 and 3:1:1**.
+Los esquemas comunes utilizados en códecs modernos son: **4:4:4** *(sin subsampling)*, **4:2:2, 4:1:1, 4:2:0, 4:1:0 y 3:1:1**.
 
-> You can follow some discussions [to learn more about Chroma Subsampling](https://github.com/leandromoreira/digital_video_introduction/issues?q=YCbCr).
+> Puedes seguir algunas discusiones para [aprender más sobre el Chroma Subsampling](https://github.com/leandromoreira/digital_video_introduction/issues?q=YCbCr).
 
-> **YCbCr 4:2:0 merge**
+> **Fusión YCbCr 4:2:0**
 >
-> Here's a merged piece of an image using YCbCr 4:2:0, notice that we only spend 12 bits per pixel.
+> Aquí tienes una parte fusionada de una imagen utilizando YCbCr 4:2:0, observa que solo utilizamos 12 bits por píxel.
 >
 > ![YCbCr 4:2:0 merge](/i/ycbcr_420_merge.png "YCbCr 4:2:0 merge")
 
-You can see the same image encoded by the main chroma subsampling types, images in the first row are the final YCbCr while the last row of images shows the chroma resolution. It's indeed a great win for such small loss.
+Puedes ver la misma imagen codificada por los principales tipos de *chroma subsampling*, las imágenes en la primera fila son las YCbCr finales, mientras que la última fila de imágenes muestra la resolución de crominancia. Es realmente una gran ganancia con una pérdida tan pequeña.
 
 ![chroma subsampling examples](/i/chroma_subsampling_examples.jpg "chroma subsampling examples")
 
-Previously we had calculated that we needed [278GB of storage to keep a video file with one hour at 720p resolution and 30fps](#redundancy-removal). If we use **YCbCr 4:2:0** we can cut **this size in half (139 GB)**<sup>*</sup> but it is still far from ideal.
+Anteriormente habíamos calculado que necesitábamos [278 GB de almacenamiento para mantener un archivo de video con una hora de resolución de 720p y 30 fps](#eliminación-de-redundancias). Si usamos **YCbCr 4:2:0**, podemos reducir **este tamaño a la mitad (139 GB)**<sup>*</sup>, pero aún está lejos del ideal.
 
-> <sup>*</sup> we found this value by multiplying width, height, bits per pixel and fps. Previously we needed 24 bits, now we only need 12.
+> <sup>*</sup> encontramos este valor multiplicando el ancho, alto, bits por píxel y fps. Anteriormente necesitábamos 24 bits, ahora solo necesitamos 12.
 
 <br/>
 
-> ### Hands-on: Check YCbCr histogram
-> You can [check the YCbCr histogram with ffmpeg.](/encoding_pratical_examples.md#generates-yuv-histogram) This scene has a higher blue contribution, which is showed by the [histogram](https://en.wikipedia.org/wiki/Histogram).
+> ### Práctica: Observemos el histograma YCbCr
+> Puedes [observar el histograma YCbCr con ffmpeg](/encoding_pratical_examples.md#generates-yuv-histogram). Esta excena tiene una mayor contribución de azul la cual se muestra en el [histograma](https://es.wikipedia.org/wiki/Histograma).
 >
 > ![ycbcr color histogram](/i/yuv_histogram.png "ycbcr color histogram")
 
-### Color, luma, luminance, gamma video review
+### Color, luma, luminancia, gamma
 
-Watch this incredible video explaining what is luma and learn about luminance, gamma, and color.
+Mira este increíble video que explica qué es la luma y aprende sobre luminancia, gamma y color.
+**Vídeo en Inglés**
 [![Analog Luma - A history and explanation of video](http://img.youtube.com/vi/Ymt47wXUDEU/0.jpg)](http://www.youtube.com/watch?v=Ymt47wXUDEU)
 
-> ### Hands-on: Check YCbCr intensity
-> You can visualize the Y intensity for a given line of a video using [FFmpeg's oscilloscope filter](https://ffmpeg.org/ffmpeg-filters.html#oscilloscope).
+> ### Práctica: Observa la intensidad YCbCr
+> Puedes visualizar la intensidad Y (luma) para una línea específica de un vídeo utilizando el [filtro de osciloscopio de FFmpeg](https://ffmpeg.org/ffmpeg-filters.html#oscilloscope).
 > ```bash
 > ffplay -f lavfi -i 'testsrc2=size=1280x720:rate=30000/1001,format=yuv420p' -vf oscilloscope=x=0.5:y=200/720:s=1:c=1
 > ```
 > ![y color oscilloscope](/i/ffmpeg_oscilloscope.png "y color oscilloscope")
 
-## Frame types
+## Tipos de fotogramas
 
-Now we can move on and try to eliminate the **redundancy in time** but before that let's establish some basic terminology. Suppose we have a movie with 30fps, here are its first 4 frames.
+Ahora podemos continuar y tratar de eliminar la **redundancia en el tiempo**, pero antes de hacerlo, establezcamos algunas terminologías básicas. Supongamos que tenemos una película con 30 fps. Aquí están sus primeros 4 fotogramas.
 
 ![ball 1](/i/smw_background_ball_1.png "ball 1") ![ball 2](/i/smw_background_ball_2.png "ball 2") ![ball 3](/i/smw_background_ball_3.png "ball 3")
 ![ball 4](/i/smw_background_ball_4.png "ball 4")
 
-We can see **lots of repetitions** within frames like **the blue background**, it doesn't change from frame 0 to frame 3. To tackle this problem, we can **abstractly categorize** them as three types of frames.
+Podemos ver **muchas repeticiones** dentro de los fotogramas, como **el fondo azul**, que no cambia del fotograma 0 al fotograma 3. Para abordar este problema, podemos **categorizarlos abstractamente** en tres tipos de fotogramas.
 
 ### I Frame (intra, keyframe)
 
-An I-frame (reference, keyframe, intra) is a **self-contained frame**. It doesn't rely on anything to be rendered, an I-frame looks similar to a static photo. The first frame is usually an I-frame but we'll see I-frames inserted regularly among other types of frames.
+Un *I-frame* (*reference*, *keyframe*, *intra*, en español fotograma o cuadro de referencia) es un **fotograma autónomo**. No depende de nada para ser renderizado, un *I-frame* se parece a una fotografía estática. Por lo general, el primer fotograma es un *I-frame*, pero veremos *I-frames* insertados regularmente entre otros tipos de fotogramas.
 
 ![ball 1](/i/smw_background_ball_1.png "ball 1")
 
 ### P Frame (predicted)
 
-A P-frame takes advantage of the fact that almost always the current picture can be **rendered using the previous frame.** For instance, in the second frame, the only change was the ball that moved forward. We can **rebuild frame 1, only using the difference and referencing to the previous frame**.
+Un *P-frame* (en español, fotograma o cuadro predictivo) aprovecha el hecho de que casi siempre l**a imagen actual se puede renderizar utilizando el fotograma anterior**. Por ejemplo, en el segundo fotograma, el único cambio fue que la pelota se movió hacia adelante. Podemos **reconstruir el fotograma 1, utilizando solo la diferencia y haciendo referencia al fotograma anterior**.
 
 ![ball 1](/i/smw_background_ball_1.png "ball 1") <-  ![ball 2](/i/smw_background_ball_2_diff.png "ball 2")
 
-> #### Hands-on: A video with a single I-frame
-> Since a P-frame uses less data why can't we encode an entire [video with a single I-frame and all the rest being P-frames?](/encoding_pratical_examples.md#1-i-frame-and-the-rest-p-frames)
+> #### Práctica: Un vídeo con un solo I-frame
+> Dado que un fotograma P utiliza menos datos, ¿por qué no podemos codificar un [video entero con un solo *I-frame* y todos los demás siendo *P-frames*?](/encoding_pratical_examples.md#1-i-frame-and-the-rest-p-frames)
 >
-> After you encoded this video, start to watch it and do a **seek for an advanced** part of the video, you'll notice **it takes some time** to really move to that part. That's because a **P-frame needs a reference frame** (I-frame for instance) to be rendered.
+> Después de codificar este vídeo, comienza a verlo y **busca una parte avanzada** del vídeo; notarás que **toma algo de tiempo** llegar realmente a esa parte. Esto se debe a que un ***P-frame* necesita un fotograma de referencia** (como un *I-frame*, por ejemplo) para renderizarse.
 >
-> Another quick test you can do is to encode a video using a single I-Frame and then [encode it inserting an I-frame each 2s](/encoding_pratical_examples.md#1-i-frames-per-second-vs-05-i-frames-per-second) and **check the size of each rendition**.
+> Otra prueba rápida que puedes hacer es codificar un vídeo utilizando un solo *I-frame* y luego [codificarlo insertando un *I-frame* cada 2 segundos](/encoding_pratical_examples.md#1-i-frames-per-second-vs-05-i-frames-per-second) y **comprobar el tamaño de cada versión**.
 
 ### B Frame (bi-predictive)
 
-What about referencing the past and future frames to provide even a better compression?! That's basically what a B-frame is.
+¿Qué pasa si hacemos referencia a los fotogramas pasados y futuros para proporcionar una compresión aún mejor? Eso es básicamente lo que hace un *B-frame*.
 
 ![ball 1](/i/smw_background_ball_1.png "ball 1") <-  ![ball 2](/i/smw_background_ball_2_diff.png "ball 2") -> ![ball 3](/i/smw_background_ball_3.png "ball 3")
 
-> #### Hands-on: Compare videos with B-frame
-> You can generate two renditions, first with B-frames and other with [no B-frames at all](/encoding_pratical_examples.md#no-b-frames-at-all) and check the size of the file as well as the quality.
+> #### Práctica: Compara vídeos con B-frame
+> Puedes generar dos versiones, una con *B-frames* y otra sin ningún [*B-frame* en absoluto](/encoding_pratical_examples.md#no-b-frames-at-all) y verificar el tamaño del archivo y la calidad.
 
-### Summary
+### Resumen
 
-These frames types are used to **provide better compression**. We'll look how this happens in the next section, but for now we can think of **I-frame as expensive while P-frame is cheaper but the cheapest is the B-frame.**
+Estos tipos de fotogramas se utilizan para **proporcionar una mejor compresión**. Veremos cómo sucede esto en la próxima sección, pero por ahora podemos pensar en un ***I-frame* como costoso, un *P-frame* como más económico y el más económico es el *B-frame*.**
 
 ![frame types example](/i/frame_types.png "frame types example")
 
