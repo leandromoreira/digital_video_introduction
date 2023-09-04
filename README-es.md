@@ -59,10 +59,10 @@ Todas las **prácticas deberán ser ejecutadas desde el directorio donde has clo
     + [B Frame (bi-predictive)](#b-frame-bi-predictive)
       - [Práctica: Compara vídeos con B-frame](#práctica-compara-videos-con-b-frame)
     + [Resumen](#resumen)
-  * [Temporal redundancy (inter prediction)](#temporal-redundancy-inter-prediction)
-      - [Hands-on: See the motion vectors](#hands-on-see-the-motion-vectors)
-  * [Spatial redundancy (intra prediction)](#spatial-redundancy-intra-prediction)
-      - [Hands-on: Check intra predictions](#hands-on-check-intra-predictions)
+  * [Redundancia Temporal (inter prediction)](#redundancia-temporal-inter-prediction)
+      - [Práctica: Observa los vectores de movimiento](#práctica-observa-los-vectores-de-movimiento)
+  * [Redundancia Espacial (intra prediction)](#redundancia-espacial-intra-prediction)
+      - [Práctica: Observa las intra predictions](#práctica-observa-las-intra-predictions)
 - [How does a video codec work?](#how-does-a-video-codec-work)
   * [What? Why? How?](#what-why-how)
   * [History](#history)
@@ -332,84 +332,83 @@ Estos tipos de fotogramas se utilizan para **proporcionar una mejor compresión*
 
 ![frame types example](/i/frame_types.png "frame types example")
 
-## Temporal redundancy (inter prediction)
+## Redundancia temporal (inter prediction)
 
-Let's explore the options we have to reduce the **repetitions in time**, this type of redundancy can be solved with techniques of **inter prediction**.
+Vamos a explorar las opciones que tenemos para reducir las **repeticiones en el tiempo**, este tipo de redundancia se puede resolver con técnicas de **interpredicción**.
 
-
-We will try to **spend fewer bits** to encode the sequence of frames 0 and 1.
+Intentaremos **utilizar menos bits** para codificar la secuencia de los fotogramas 0 y 1.
 
 ![original frames](/i/original_frames.png "original frames")
 
-One thing we can do it's a subtraction, we simply **subtract frame 1 from frame 0** and we get just what we need to **encode the residual**.
+Una cosa que podemos hacer es una resta, simplemente **restamos el fotograma 1 del fotograma 0** y obtenemos lo que necesitamos para **codificar el residual**.
 
 ![delta frames](/i/difference_frames.png "delta frames")
 
-But what if I tell you that there is a **better method** which uses even fewer bits?! First, let's treat the `frame 0` as a collection of well-defined partitions and then we'll try to match the blocks from `frame 0` on `frame 1`. We can think of it as **motion estimation**.
+Pero, ¿qué pasa si te digo que hay un **método mejor** que utiliza incluso menos bits? Primero, tratemos el `fotograma 0` como una colección de particiones bien definidas y luego intentaremos emparejar los bloques del `fotograma 0` en el `fotograma 1`. Podemos pensar en ello como una **estimación de movimiento**.
 
-> ### Wikipedia - block motion compensation
-> "**Block motion compensation** divides up the current frame into non-overlapping blocks, and the motion compensation vector **tells where those blocks come from** (a common misconception is that the previous frame is divided up into non-overlapping blocks, and the motion compensation vectors tell where those blocks move to). The source blocks typically overlap in the source frame. Some video compression algorithms assemble the current frame out of pieces of several different previously-transmitted frames."
+> ### Wikipedia - compensación de movimiento por bloques
+> "La **compensación de movimiento por bloques** divide el fotograma actual en bloques no superpuestos, y el vector de compensación de movimiento **indica de dónde provienen esos bloques** (una idea errónea común es que el fotograma anterior se divide en bloques no superpuestos y los vectores de compensación de movimiento indican hacia dónde se mueven esos bloques). Los bloques de origen suelen superponerse en el fotograma fuente. Algunos algoritmos de compresión de vídeo ensamblan el fotograma actual a partir de piezas de varios fotogramas previamente transmitidos."
 
 ![delta frames](/i/original_frames_motion_estimation.png "delta frames")
 
-We could estimate that the ball moved from `x=0, y=25` to `x=6, y=26`, the **x** and **y** values are the **motion vectors**. One **further step** we can do to save bits is to **encode only the motion vector difference** between the last block position and the predicted, so the final motion vector would be `x=6 (6-0), y=1 (26-25)`
+Podríamos estimar que la pelota se movió de `x=0, y=25` a `x=6, y=26`, los valores de **x** e **y** son los **vectores de movimiento**. Un **paso adicional** que podemos dar para ahorrar bits es **codificar solo la diferencia del vector de movimiento** entre la última posición del bloque y la predicción, por lo que el vector de movimiento final sería `x=6 (6-0), y=1 (26-25)`.
 
-> In a real-world situation, this **ball would be sliced into n partitions** but the process is the same.
+> En una situación del mundo real, esta **pelota se dividiría en n particiones**, pero el proceso es el mismo.
 
-The objects on the frame **move in a 3D way**, the ball can become smaller when it moves to the background. It's normal that **we won't find the perfect match** to the block we tried to find a match. Here's a superposed view of our estimation vs the real picture.
+Los objetos en el fotograma se **mueven de manera tridimensional**, la pelota puede volverse más pequeña cuando se mueve al fondo. Es normal que no encontremos una coincidencia perfecta con el bloque que intentamos encontrar. Aquí hay una vista superpuesta de nuestra estimación frente a la imagen real.
 
 ![motion estimation](/i/motion_estimation.png "motion estimation")
 
-But we can see that when we apply **motion estimation** the **data to encode is smaller** than using simply delta frame techniques.
+Pero podemos ver que cuando aplicamos la **estimación de movimiento**, los **datos a codificar son más pequeños** que cuando simplemente usamos técnicas de fotograma delta.
 
 ![motion estimation vs delta ](/i/comparison_delta_vs_motion_estimation.png "motion estimation delta")
 
-> ### How real motion compensation would look
-> This technique is applied to all blocks, very often a ball would be partitioned in more than one block.
+> ### Cómo se vería la compensación de movimiento real
+> Esta técnica se aplica a todos los bloques, muy a menudo una pelota se dividiría en más de un bloque.
 >  ![real world motion compensation](/i/real_world_motion_compensation.png "real world motion compensation")
-> Source: https://web.stanford.edu/class/ee398a/handouts/lectures/EE398a_MotionEstimation_2012.pdf
+> Fuente: https://web.stanford.edu/class/ee398a/handouts/lectures/EE398a_MotionEstimation_2012.pdf
 
-You can [play around with these concepts using jupyter](/frame_difference_vs_motion_estimation_plus_residual.ipynb).
+Puedes [experimentar con estos conceptos utilizando jupyter](/frame_difference_vs_motion_estimation_plus_residual.ipynb).
 
-> #### Hands-on: See the motion vectors
-> We can [generate a video with the inter prediction (motion vectors)  with ffmpeg.](/encoding_pratical_examples.md#generate-debug-video)
+> #### Práctica: Observa los vectores de movimiento
+> Podemos [generar un vídeo con la interpredicción (vectores de movimiento) con ffmpeg.](/encoding_pratical_examples.md#generate-debug-video)
 >
 > ![inter prediction (motion vectors) with ffmpeg](/i/motion_vectors_ffmpeg.png "inter prediction (motion vectors) with ffmpeg")
 >
-> Or we can use the [Intel Video Pro Analyzer](https://software.intel.com/en-us/intel-video-pro-analyzer) (which is paid but there is a free trial version which limits you to only work with the first 10 frames).
+> O podemos usar el [Intel Video Pro Analyzer](https://software.intel.com/en-us/intel-video-pro-analyzer) (que es de pago, pero hay una versión de prueba gratuita que te limita a trabajar solo con los primeros 10 fotogramas).
 >
 > ![inter prediction intel video pro analyzer](/i/inter_prediction_intel_video_pro_analyzer.png "inter prediction intel video pro analyzer")
 
-## Spatial redundancy (intra prediction)
+## Redundancia Espacial (intra prediction)
 
-If we analyze **each frame** in a video we'll see that there are also **many areas that are correlated**.
+Si analizamos **cada fotograma** en un vídeo, veremos que también hay **muchas áreas que están correlacionadas**.
 
 ![](/i/repetitions_in_space.png)
 
-Let's walk through an example. This scene is mostly composed of blue and white colors.
+Vamos a través de un ejemplo. Esta escena está compuesta principalmente por colores azules y blancos.
 
 ![](/i/smw_bg.png)
 
-This is an `I-frame` and we **can't use previous frames** to predict from but we still can compress it. We will encode the red block selection. If we **look at its neighbors**, we can **estimate** that there is a **trend of colors around it**.
+Este es un `I-frame` y **no podemos usar fotogramas anteriores** para hacer una predicción, pero aún podemos comprimirlo. Codificaremos la selección de bloques en rojo. Si **observamos a sus vecinos**, podemos **estimar** que hay una **tendencia de colores a su alrededor**.
 
 ![](/i/smw_bg_block.png)
 
-We will **predict** that the frame will continue to **spread the colors vertically**, it means that the colors of the **unknown pixels will hold the values of its neighbors**.
+Vamos a **predecir** que el fotograma continuará **extendiendo los colores verticalmente**, lo que significa que los colores de los **píxeles desconocidos mantendrán los valores de sus vecinos**.
 
 ![](/i/smw_bg_prediction.png)
 
-Our **prediction can be wrong**, for that reason we need to apply this technique (**intra prediction**) and then **subtract the real values** which gives us the residual block, resulting in a much more compressible matrix compared to the original.
+Nuestra **predicción puede ser incorrecta**, por esa razón necesitamos aplicar esta técnica (**intra prediction**) y luego **restar los valores reales**, lo que nos da el bloque residual, lo que resulta en una matriz mucho más compresible en comparación con la original.
 
 ![](/i/smw_residual.png)
 
-There are many different types of this sort of prediction. The one you see pictured here is a form of straight planar prediction, where the pixels from the row above the block are copied row to row within the block. Planar prediction also can involve an angular component, where pixels from both the left and the top are used to help predict the current block. And there is also DC prediction, which involves taking the average of the samples right above and to the left of the block. 
+Existen muchos tipos diferentes de este tipo de predicción. La que se muestra aquí es una forma de predicción plana recta, donde los píxeles de la fila superior del bloque se copian fila por fila dentro del bloque. La predicción plana también puede tener una componente angular, donde se utilizan píxeles tanto de la izquierda como de la parte superior para ayudar a predecir el bloque actual. Y también existe la predicción DC, que implica tomar el promedio de las muestras justo arriba y a la izquierda del bloque.
 
-> #### Hands-on: Check intra predictions
-> You can [generate a video with macro blocks and their predictions with ffmpeg.](/encoding_pratical_examples.md#generate-debug-video) Please check the ffmpeg documentation to understand the [meaning of each block color](https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors#AnalyzingMacroblockTypes).
+> #### Práctica: Observa las intra predictions
+> Puedes [generar con ffmpeg un vídeo con macrobloques y sus predicciones.](/encoding_pratical_examples.md#generate-debug-video) Por favor verifica la documentación de ffmpeg para comprender el [significado de cada bloque de color](https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors#AnalyzingMacroblockTypes).
 >
 > ![intra prediction (macro blocks) with ffmpeg](/i/macro_blocks_ffmpeg.png "inter prediction (motion vectors) with ffmpeg")
 >
-> Or we can use the [Intel Video Pro Analyzer](https://software.intel.com/en-us/intel-video-pro-analyzer) (which is paid but there is a free trial version which limits you to only work with the first 10 frames).
+> O puedes usar [Intel Video Pro Analyzer](https://software.intel.com/en-us/intel-video-pro-analyzer) (que es de pago, pero hay una versión de prueba gratuita que te limita a trabajar solo con los primeros 10 fotogramas).
 >
 > ![intra prediction intel video pro analyzer](/i/intra_prediction_intel_video_pro_analyzer.png "intra prediction intel video pro analyzer")
 
