@@ -68,18 +68,18 @@ Todas las **prácticas deberán ser ejecutadas desde el directorio donde has clo
   * [Historia](#historia)
     + [El nacimiento de AV1](#el-nacimiento-de-av1)
   * [Un códec genérico](#un-códec-genérico)
-  * [1st step - picture partitioning](#1st-step---picture-partitioning)
-    + [Hands-on: Check partitions](#hands-on-check-partitions)
-  * [2nd step - predictions](#2nd-step---predictions)
-  * [3rd step - transform](#3rd-step---transform)
-    + [Hands-on: throwing away different coefficients](#hands-on-throwing-away-different-coefficients)
-  * [4th step - quantization](#4th-step---quantization)
-    + [Hands-on: quantization](#hands-on-quantization)
-  * [5th step - entropy coding](#5th-step---entropy-coding)
-    + [VLC coding](#vlc-coding)
-    + [Arithmetic coding](#arithmetic-coding)
-    + [Hands-on: CABAC vs CAVLC](#hands-on-cabac-vs-cavlc)
-  * [6th step - bitstream format](#6th-step---bitstream-format)
+  * [Paso 1 - Particionado de imágenes](#paso-1---particionado-de-imágenes)
+    + [Práctica: Verificar particiones](#práctica-verificar-particiones)
+  * [Paso 2 - Predicciones](#paso-2---predicciones)
+  * [Paso 3 - Transformación](#paso-3---transformación)
+    + [Práctica: Descartar diferentes coeficientes](#práctica-descartar-diferentes-coeficientes)
+  * [Paso 4 - Cuantización](#paso-4---cuantización)
+    + [Práctica: Cuantización](#práctica-cuantización)
+  * [Paso 5 - Codificación de la entropía](#paso-5---codificación-de-la-entropía)
+    + [Codificación VLC](#codificación-vlc)
+    + [Codificación aritmética](#codificación-aritmética)
+    + [Práctica: CABAC vs CAVLC](#práctica-cabac-vs-cavlc)
+  * [Paso 6 - formato *bitstream*](#paso-6---formato-bitstream)
     + [H.264 bitstream](#h264-bitstream)
     + [Hands-on: Inspect the H.264 bitstream](#hands-on-inspect-the-h264-bitstream)
   * [Review](#review)
@@ -459,93 +459,92 @@ En 2003 se completó la primera versión de **H.264/AVC**. En el mismo año, **O
 
 Vamos a presentar los **mecanismos principales detrás de un códec de vídeo genérico**, pero la mayoría de estos conceptos son útiles y se utilizan en códecs modernos como VP9, AV1 y HEVC. Asegúrate de entender que vamos a simplificar las cosas MUCHO. A veces usaremos un ejemplo real (principalmente H.264) para demostrar una técnica.
 
-## 1st step - picture partitioning
+## Paso 1 - Particionado de imágenes
 
-The first step is to **divide the frame** into several **partitions, sub-partitions** and beyond.
+El primer paso es **dividir el fotograma** en varias **particiones, sub-particiones** y más allá.
 
 ![picture partitioning](/i/picture_partitioning.png "picture partitioning")
 
-**But why?** There are many reasons, for instance, when we split the picture we can work the predictions more precisely, using small partitions for the small moving parts while using bigger partitions to a static background.
+Pero, **¿por qué?**. Hay muchas razones, por ejemplo, cuando dividimos la imagen, podemos trabajar las predicciones de manera más precisa, utilizando pequeñas particiones para las partes móviles y particiones más grandes para un fondo estático.
 
-Usually, the CODECs **organize these partitions** into slices (or tiles), macro (or coding tree units) and many sub-partitions. The max size of these partitions varies, HEVC sets 64x64 while AVC uses 16x16 but the sub-partitions can reach sizes of 4x4.
+Por lo general, los códecs **organizan estas particiones** en *slices* (o *tiles*), macrobloques (o unidades de árbol de codificación) y muchas sub-particiones. El tamaño máximo de estas particiones varía, HEVC establece 64x64 mientras que AVC usa 16x16, pero las sub-particiones pueden alcanzar tamaños de 4x4.
 
-Remember that we learned how **frames are typed**?! Well, you can **apply those ideas to blocks** too, therefore we can have I-Slice, B-Slice, I-Macroblock and etc.
+¿Recuerdas que aprendimos cómo se **clasifican los fotogramas**? Bueno, también puedes **aplicar esas ideas a los bloques**, por lo tanto, podemos tener *I-Slice*, *B-Slice*, *I-Macroblock*, etc.
 
-> ### Hands-on: Check partitions
-> We can also use the [Intel Video Pro Analyzer](https://software.intel.com/en-us/intel-video-pro-analyzer) (which is paid but there is a free trial version which limits you to only work with the first 10 frames). Here are [VP9 partitions](/encoding_pratical_examples.md#transcoding) analyzed.
+> ### Práctica: Verificar particiones
+> Podemos usar [Intel Video Pro Analyzer](https://software.intel.com/en-us/intel-video-pro-analyzer)  (que es de pago, pero hay una versión de prueba gratuita que limita el trabajo a los primeros 10 fotogramas). Aquí se analizan las [particiones de VP90](/encoding_pratical_examples.md#transcoding).
 >
 > ![VP9 partitions view intel video pro analyzer ](/i/paritions_view_intel_video_pro_analyzer.png "VP9 partitions view intel video pro analyzer")
 
-## 2nd step - predictions
+## Paso 2 - Predicciones
 
-Once we have the partitions, we can make predictions over them. For the [inter prediction](#temporal-redundancy-inter-prediction) we need **to send the motion vectors and the residual** and the [intra prediction](#spatial-redundancy-intra-prediction) we'll **send the prediction direction and the residual** as well.
+Una vez que tenemos las particiones, podemos hacer predicciones sobre ellas. Para la [inter prediction](#redundancia-temporal-inter-prediction), necesitamos **enviar los vectores de movimiento y el residual**, y para la [intra prediction](#redundancia-espacial-intra-prediction), **enviaremos la dirección de predicción y el residual** también.
 
-## 3rd step - transform
+## Paso 3 - Transformación
 
-After we get the residual block (`predicted partition - real partition`), we can **transform** it in a way that lets us know which **pixels we can discard** while keeping the **overall quality**. There are some transformations for this exact behavior.
+Después de obtener el bloque residual (`partición predicha - partición real`), podemos **transformarlo** de tal manera que nos permita saber cuáles **píxeles podemos descartar** mientras mantenemos la **calidad general**. Hay algunas transformaciones para este comportamiento específico.
 
-Although there are [other transformations](https://en.wikipedia.org/wiki/List_of_Fourier-related_transforms#Discrete_transforms), we'll look more closely at the discrete cosine transform (DCT). The [**DCT**](https://en.wikipedia.org/wiki/Discrete_cosine_transform) main features are:
+Aunque existen [otras transformaciones](https://en.wikipedia.org/wiki/List_of_Fourier-related_transforms#Discrete_transforms), examinaremos más de cerca la transformada coseno discreta (DCT). Las principales características de la [**DCT**](https://en.wikipedia.org/wiki/Discrete_cosine_transform) son las siguientes:
 
-* **converts** blocks of **pixels** into  same-sized blocks of **frequency coefficients**.
-* **compacts** energy, making it easy to eliminate spatial redundancy.
-* is **reversible**, a.k.a. you can reverse to pixels.
+* **convierte** bloques de **píxeles** en bloques del mismo tamaño de los **coeficientes de frecuencia**.
+* **compacta** la energía, lo que facilita eliminar la redundancia espacial.
+* es **reversible**, es decir, se puede revertir a píxeles.
 
-> On 2 Feb 2017, Cintra, R. J. and Bayer, F. M have published their paper [DCT-like Transform for Image Compression
-Requires 14 Additions Only](https://arxiv.org/abs/1702.00817).
+> El 2 de febrero de 2017, Cintra, R. J. y Bayer, F. M publicaron su artículo [DCT-like Transform for Image Compression Requires 14 Additions Only](https://arxiv.org/abs/1702.00817).
 
-Don't worry if you didn't understand the benefits from every bullet point, we'll try to make some experiments in order to see the real value from it.
+No te preocupes si no comprendiste los beneficios de cada punto, intentaremos realizar algunos experimentos para ver el valor real de esto.
 
-Let's take the following **block of pixels** (8x8):
+Tomemos el siguiente **bloque de píxeles** (8x8):
 
 ![pixel values matrix](/i/pixel_matrice.png "pixel values matrix")
 
-Which renders to the following block image (8x8):
+Lo cual se representa en la siguiente imagen de bloque (8x8):
 
 ![pixel values matrix](/i/gray_image.png "pixel values matrix")
 
-When we **apply the DCT** over this block of pixels and we get the **block of coefficients** (8x8):
+Cuando **aplicamos la DCT** a este bloque de píxeles, obtenemos el **bloque de coeficientes** (8x8):
 
 ![coefficients values](/i/dct_coefficient_values.png "coefficients values")
 
-And if we render this block of coefficients, we'll get this image:
+Y si representamos este bloque de coeficientes, obtendremos esta imagen:
 
 ![dct coefficients image](/i/dct_coefficient_image.png "dct coefficients image")
 
-As you can see it looks nothing like the original image, we might notice that the **first coefficient** is very different from all the others. This first coefficient is known as the DC coefficient which represents **all the samples** in the input array, something **similar to an average**.
+Como puedes ver, no se parece en nada a la imagen original, podríamos notar que el **primer coeficiente** es muy diferente de todos los demás. Este primer coeficiente se conoce como el coeficiente DC, que representa **todas las muestras** en el array de entrada, algo **similar a un promedio**.
 
-This block of coefficients has an interesting property which is that it separates the high-frequency components from the low frequency.
+Este bloque de coeficientes tiene una propiedad interesante, que es que separa los componentes de alta frecuencia de los de baja frecuencia.
 
 ![dct frequency coefficients property](/i/dctfrequ.jpg "dct frequency coefficients property")
 
-In an image, **most of the energy** will be concentrated in the [**lower frequencies**](https://web.archive.org/web/20150129171151/https://www.iem.thm.de/telekom-labor/zinke/mk/mpeg2beg/whatisit.htm), so if we transform an image into its frequency components and **throw away the higher frequency coefficients**, we can **reduce the amount of data** needed to describe the image without sacrificing too much image quality.
+En una imagen, la **mayor parte de la energía** se concentrará en las [**frecuencias más bajas**](https://web.archive.org/web/20150129171151/https://www.iem.thm.de/telekom-labor/zinke/mk/mpeg2beg/whatisit.htm), por lo que si transformamos una imagen en sus componentes de frecuencia y **eliminamos los coeficientes de frecuencia más altos**, podemos r**educir la cantidad de datos necesarios** para describir la imagen sin sacrificar demasiada calidad de imagen.
 
-> frequency means how fast a signal is changing
+> La frecuencia significa cuán rápido cambia una señal.
 
-Let's try to apply the knowledge we acquired in the test by converting the original image to its frequency (block of coefficients) using DCT and then throwing away part of the least important coefficients.
+Intentemos aplicar el conocimiento que adquirimos en la prueba, convirtiendo la imagen original a su dominio de frecuencia (bloque de coeficientes) usando DCT y luego descartando parte (67%) de los coeficientes menos importantes, principalmente la parte inferior derecha.
 
-First, we convert it to its **frequency domain**.
+Primero, lo convertimos a su **dominio de frecuencia**.
 
 ![coefficients values](/i/dct_coefficient_values.png "coefficients values")
 
-Next, we discard part (67%) of the coefficients, mostly the bottom right part of it.
+A continuación, descartamos parte (67%) de los coeficientes, principalmente la parte inferior derecha.
 
 ![zeroed coefficients](/i/dct_coefficient_zeroed.png "zeroed coefficients")
 
-Finally, we reconstruct the image from this discarded block of coefficients (remember, it needs to be reversible) and compare it to the original.
+Finalmente, reconstruimos la imagen a partir de este bloque de coeficientes descartados (recuerda, debe ser reversible) y la comparamos con la original.
 
 ![original vs quantized](/i/original_vs_quantized.png "original vs quantized")
 
-As we can see it resembles the original image but it introduced lots of differences from the original, we **throw away 67.1875%** and we still were able to get at least something similar to the original. We could more intelligently discard the coefficients to have a better image quality but that's the next topic.
+Como podemos ver, se asemeja a la imagen original pero introduce muchas diferencias con respecto a la original. **Descartamos el 67.1875%** y aún así pudimos obtener algo similar a la original. Podríamos descartar de manera más inteligente los coeficientes para tener una mejor calidad de imagen, pero eso es el próximo tema.
 
-> **Each coefficient is formed using all the pixels**
+> **Cada coeficiente se forma utilizando todos los píxeles**
 >
-> It's important to note that each coefficient doesn't directly map to a single pixel but it's a weighted sum of all pixels. This amazing graph shows how the first and second coefficient is calculated, using weights which are unique for each index.
+> Es importante destacar que cada coeficiente no se asigna directamente a un solo píxel, sino que es una suma ponderada de todos los píxeles. Este gráfico asombroso muestra cómo se calcula el primer y segundo coeficiente, utilizando pesos únicos para cada índice.
 >
 > ![dct calculation](/i/applicat.jpg "dct calculation")
 >
-> Source: https://web.archive.org/web/20150129171151/https://www.iem.thm.de/telekom-labor/zinke/mk/mpeg2beg/whatisit.htm
+> Fuente: https://web.archive.org/web/20150129171151/https://www.iem.thm.de/telekom-labor/zinke/mk/mpeg2beg/whatisit.htm
 >
-> You can also try to [visualize the DCT by looking at a simple image](/dct_better_explained.ipynb) formation over the DCT basis. For instance, here's the [A character being formed](https://en.wikipedia.org/wiki/Discrete_cosine_transform#Example_of_IDCT) using each coefficient weight.
+> También puedes intentar [visualizar la DCT mirando una imagen simple](/dct_better_explained.ipynb) formada sobre la base de la DCT. Por ejemplo, aquí tienes cómo [se forma el carácter A](https://en.wikipedia.org/wiki/Discrete_cosine_transform#Example_of_IDCT) utilizando el peso de cada coeficiente.
 >
 > ![](https://upload.wikimedia.org/wikipedia/commons/5/5e/Idct-animation.gif )
 
@@ -554,103 +553,103 @@ As we can see it resembles the original image but it introduced lots of differen
 
 <br/>
 
-> ### Hands-on: throwing away different coefficients
-> You can play around with the [DCT transform](/uniform_quantization_experience.ipynb).
+> ### Práctica: Descartar diferentes coeficientes
+> Puedes jugar con la [transformación DCT](/uniform_quantization_experience.ipynb).
 
-## 4th step - quantization
+## Paso 4 - Cuantización
 
-When we throw away some of the coefficients, in the last step (transform), we kinda did some form of quantization. This step is where we chose to lose information (the **lossy part**) or in simple terms, we'll **quantize coefficients to achieve compression**.
+Cuando descartamos algunos de los coeficientes en el último paso (transformación), de alguna manera hicimos una forma de cuantización. En este paso es donde elegimos perder información (la **parte perdida**) o, en términos simples, **cuantificamos coeficientes para lograr la compresión**.
 
-How can we quantize a block of coefficients? One simple method would be a uniform quantization, where we take a block, **divide it by a single value** (10) and round this value.
+¿Cómo podemos cuantificar un bloque de coeficientes? Un método simple sería una cuantificación uniforme, donde tomamos un bloque, lo **dividimos por un valor único** (10) y redondeamos este valor.
 
 ![quantize](/i/quantize.png "quantize")
 
-How can we **reverse** (re-quantize) this block of coefficients? We can do that by **multiplying the same value** (10) we divide it first.
+¿Cómo podemos **revertir** (re-cuantificar) este bloque de coeficientes? Podemos hacerlo **multiplicando el mismo valor** (10) por el que lo dividimos inicialmente.
 
 ![re-quantize](/i/re-quantize.png "re-quantize")
 
-This **approach isn't the best** because it doesn't take into account the importance of each coefficient, we could use a **matrix of quantizers** instead of a single value, this matrix can exploit the property of the DCT, quantizing most the bottom right and less the upper left, the [JPEG uses a similar approach](https://www.hdm-stuttgart.de/~maucher/Python/MMCodecs/html/jpegUpToQuant.html), you can check [source code to see this matrix](https://github.com/google/guetzli/blob/master/guetzli/jpeg_data.h#L40).
+Este **enfoque no es el mejor** porque no tiene en cuenta la importancia de cada coeficiente. Podríamos usar una **matriz de cuantizadores** en lugar de un solo valor. Esta matriz puede explotar la propiedad de la DCT, cuantificando más los coeficientes de la parte inferior derecha y menos los de la parte superior izquierda. El [JPEG utiliza un enfoque similar](https://www.hdm-stuttgart.de/~maucher/Python/MMCodecs/html/jpegUpToQuant.html); puedes consultar el [código fuente para ver esta matriz](https://github.com/google/guetzli/blob/master/guetzli/jpeg_data.h#L40).
 
-> ### Hands-on: quantization
-> You can play around with the [quantization](/dct_experiences.ipynb).
+> ### Práctica: Cuantización
+> Puedes experimentar con la [cuantización aquí](/dct_experiences.ipynb).
 
-## 5th step - entropy coding
+## Paso 5 - Codificación de la entropía
 
-After we quantized the data (image blocks/slices/frames) we still can compress it in a lossless way. There are many ways (algorithms) to compress data. We're going to briefly experience some of them, for a deeper understanding you can read the amazing book [Understanding Compression: Data Compression for Modern Developers](https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/).
+Después de cuantificar los datos (bloques/slices/fotogramas de imágenes), aún podemos comprimirlos de manera sin pérdida. Hay muchas formas (algoritmos) de comprimir datos. Vamos a experimentar brevemente con algunos de ellos. Para una comprensión más profunda, puedes leer el increíble libro [Understanding Compression: Data Compression for Modern Developers](https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/).
 
-### VLC coding:
+### Codificación VLC
 
-Let's suppose we have a stream of the symbols: **a**, **e**, **r** and **t** and their probability (from 0 to 1) is represented by this table.
-
-|             | a   | e   | r    | t   |
-|-------------|-----|-----|------|-----|
-| probability | 0.3 | 0.3 | 0.2 |  0.2 |
-
-We can assign unique binary codes (preferable small) to the most probable and bigger codes to the least probable ones.
+Supongamos que tenemos una secuencia de símbolos: **a**, **e**, **r** y **t**; y su probabilidad (de 0 a 1) se representa en esta tabla.
 
 |             | a   | e   | r    | t   |
 |-------------|-----|-----|------|-----|
-| probability | 0.3 | 0.3 | 0.2 | 0.2 |
-| binary code | 0 | 10 | 110 | 1110 |
+| probabilidad| 0.3 | 0.3 | 0.2 |  0.2 |
 
-Let's compress the stream **eat**, assuming we would spend 8 bits for each symbol, we would spend **24 bits** without any compression. But in case we replace each symbol for its code we can save space.
+Podemos asignar códigos binarios únicos (preferiblemente pequeños) a los más probables y códigos más grandes a los menos probables.
 
-The first step is to encode the symbol **e** which is `10` and the second symbol is **a** which is added (not in a mathematical way) `[10][0]` and finally the third symbol **t** which makes our final compressed bitstream to be `[10][0][1110]` or `1001110` which only requires **7 bits** (3.4 times less space than the original).
+|             | a   | e   | r    | t   |
+|-------------|-----|-----|------|-----|
+| probabilidad | 0.3 | 0.3 | 0.2 | 0.2 |
+| código binario | 0 | 10 | 110 | 1110 |
 
-Notice that each code must be a unique prefixed code [Huffman can help you to find these numbers](https://en.wikipedia.org/wiki/Huffman_coding). Though it has some issues there are [video codecs that still offers](https://en.wikipedia.org/wiki/Context-adaptive_variable-length_coding) this method and it's the  algorithm for many applications which requires compression.
+Comprimamos la secuencia **eat**, asumiendo que gastaríamos 8 bits para cada símbolo, gastaríamos **24 bits** sin ninguna compresión. Pero en caso de que reemplacemos cada símbolo por su código, podemos ahorrar espacio.
 
-Both encoder and decoder **must know** the symbol table with its code, therefore, you need to send the table too.
+El primer paso es codificar el símbolo **e**, que es `10`, y el segundo símbolo es **a**, que se agrega (no en un sentido matemático) como `[10][0]`, y finalmente el tercer símbolo **t**, lo que hace que nuestra secuencia de bits comprimida final sea `[10][0][1110]` o `1001110`, que solo requiere **7 bits** (3.4 veces menos espacio que el original).
 
-### Arithmetic coding:
+Observa que cada código debe ser un código único y prefijado [Huffman puede ayudarte a encontrar estos números](https://en.wikipedia.org/wiki/Huffman_coding). Aunque tiene algunos problemas, todavía hay [códecs de vídeo que ofrecen este método](https://en.wikipedia.org/wiki/Context-adaptive_variable-length_coding) y es el algoritmo para muchas aplicaciones que requieren compresión.
 
-Let's suppose we have a stream of the symbols: **a**, **e**, **r**, **s** and **t** and their probability is represented by this table.
+Tanto el codificador como el decodificador **deben conocer** la tabla de símbolos con sus códigos, por lo tanto, también debes enviar la tabla.
 
-|             | a   | e   | r    | s    | t   |
-|-------------|-----|-----|------|------|-----|
-| probability | 0.3 | 0.3 | 0.15 | 0.05 | 0.2 |
+### Codificación aritmética
 
-With this table in mind, we can build ranges containing all the possible symbols sorted by the most frequents.
+Supongamos que tenemos una secuencia de símbolos: **a**, **e**, **r**, **s** y **t**; y su probabilidad se representa en esta tabla.
+
+|              | a   | e   | r    | s    | t   |
+|--------------|-----|-----|------|------|-----|
+| probabilidad | 0.3 | 0.3 | 0.15 | 0.05 | 0.2 |
+
+Con esta tabla en mente, podemos construir rangos que contengan todos los posibles símbolos ordenados por los más frecuentes.
 
 ![initial arithmetic range](/i/range.png "initial arithmetic range")
 
-Now let's encode the stream **eat**, we pick the first symbol **e** which is located within the subrange **0.3 to 0.6** (but not included) and we take this subrange and split it again using the same proportions used before but within this new range.
+Ahora codifiquemos la secuencia **eat**, tomamos el primer símbolo **e**, que se encuentra dentro del subrango **0.3 a 0.6** (pero no se incluye), y tomamos este subrango y lo dividimos nuevamente utilizando las mismas proporciones utilizadas anteriormente, pero dentro de este nuevo rango.
 
 ![second sub range](/i/second_subrange.png "second sub range")
 
-Let's continue to encode our stream **eat**, now we take the second symbol **a** which is within the new subrange **0.3 to 0.39** and then we take our last symbol **t** and we do the same process again and we get the last subrange **0.354 to 0.372**.
+Continuemos codificando nuestra secuencia **eat**, ahora tomamos el segundo símbolo **a**, que está dentro del nuevo subrango **0.3 a 0.39**, y luego tomamos nuestro último símbolo **t** y hacemos el mismo proceso nuevamente y obtenemos el último subrango **0.354 a 0.372**.
 
 ![final arithmetic range](/i/arithimetic_range.png "final arithmetic range")
 
-We just need to pick a number within the last subrange **0.354 to 0.372**, let's choose **0.36** but we could choose any number within this subrange. With **only** this number we'll be able to recover our original stream **eat**. If you think about it, it's like if we were drawing a line within ranges of ranges to encode our stream.
+Solo necesitamos elegir un número dentro del último subrango **0.354 a 0.372**, elijamos **0.36**, pero podríamos elegir cualquier número dentro de este subrango. Con **solo** este número podremos recuperar nuestra secuencia original **eat**. Si lo piensas, es como si estuviéramos dibujando una línea dentro de rangos de rangos para codificar nuestra secuencia.
 
 ![final range traverse](/i/range_show.png "final range traverse")
 
-The **reverse process** (A.K.A. decoding) is equally easy, with our number **0.36** and our original range we can run the same process but now using this number to reveal the stream encoded behind this number.
+El **proceso inverso** (también conocido como decodificación) es igualmente sencillo, con nuestro número **0.36** y nuestro rango original, podemos realizar el mismo proceso pero ahora usando este número para revelar la secuencia codificada original detrás de este número.
 
-With the first range, we notice that our number fits at the slice, therefore, it's our first symbol, now we split this subrange again, doing the same process as before, and we'll notice that **0.36** fits the symbol **a** and after we repeat the process we came to the last symbol **t** (forming our original encoded stream *eat*).
+Con el primer rango, notamos que nuestro número encaja en la porción, por lo tanto, es nuestro primer símbolo, ahora dividimos este subrango nuevamente, haciendo el mismo proceso que antes, y notamos que **0.36** encaja en el símbolo **a**, y después de repetir el proceso llegamos al último símbolo **t** (formando nuestra secuencia original codificada *eat*).
 
-Both encoder and decoder **must know** the symbol probability table, therefore you need to send the table.
+Tanto el codificador como el decodificador **tienen que conocer** la tabla de probabilidades de los símbolos, por lo tanto, también debes enviar la tabla.
 
-Pretty neat, isn't it? People are damn smart to come up with a such solution, some [video codecs use](https://en.wikipedia.org/wiki/Context-adaptive_binary_arithmetic_coding) this technique (or at least offer it as an option).
+¿Bastante ingenioso, verdad? Las personas son realmente inteligentes para idear una solución así. Algunos [códecs de vídeo utilizan esta técnica](https://en.wikipedia.org/wiki/Context-adaptive_binary_arithmetic_coding) (o al menos la ofrecen como opción).
 
-The idea is to lossless compress the quantized bitstream, for sure this article is missing tons of details, reasons, trade-offs and etc. But [you should learn more](https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/) as a developer. Newer codecs are trying to use different [entropy coding algorithms like ANS.](https://en.wikipedia.org/wiki/Asymmetric_Numeral_Systems)
+La idea es comprimir sin pérdidas el flujo de bits cuantificados. Sin duda, este artículo carece de muchos detalles, razones, compensaciones, etc. Pero [puedes aprender más](https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/). Los códecs más nuevos están tratando de utilizar diferentes[ algoritmos de codificación de entropía como ANS.](https://en.wikipedia.org/wiki/Asymmetric_Numeral_Systems)
 
-> ### Hands-on: CABAC vs CAVLC
-> You can [generate two streams, one with CABAC and other with CAVLC](https://github.com/leandromoreira/introduction_video_technology/blob/master/encoding_pratical_examples.md#cabac-vs-cavlc) and **compare the time** it took to generate each of them as well as **the final size**.
+> ### Práctica: CABAC vs CAVLC
+> Puedes [generar 2 streams, uno con CABAC y otro con CAVLC](https://github.com/leandromoreira/introduction_video_technology/blob/master/encoding_pratical_examples.md#cabac-vs-cavlc) y **compara cuánto tiempo** toma generar cada uno de ellos, como así también el **tamaño final**.
 
-## 6th step - bitstream format
+## Paso 6 - formato *bitstream*
 
-After we did all these steps we need to **pack the compressed frames and context to these steps**. We need to explicitly inform to the decoder about **the decisions taken by the encoder**, such as bit depth, color space, resolution, predictions info (motion vectors, intra prediction direction), profile, level, frame rate, frame type, frame number and much more.
+Después de completar todos estos pasos, necesitamos **empaquetar los fotogramas comprimidos y el contexto de estos pasos**. Debemos informar explícitamente al decodificador sobre **las decisiones tomadas por el codificador**, como el bit depth, el espacio de color, la resolución, la información de predicciones (vectores de movimiento, dirección de intra prediction), perfil, nivel, fps, tipo de fotograma, número de fotograma y mucho más.
 
-We're going to study, superficially, the H.264 bitstream. Our first step is to [generate a minimal  H.264 <sup>*</sup> bitstream](/encoding_pratical_examples.md#generate-a-single-frame-h264-bitstream), we can do that using our own repository and [ffmpeg](http://ffmpeg.org/).
+Vamos a estudiar superficialmente el *bitstream* de H.264. Nuestro primer paso es [generar un *bitstream* H.264<sup>*</sup> mínimo](/encoding_pratical_examples.md#generate-a-single-frame-h264-bitstream), lo podemos hacer utilizando nuestro propio repositorio y [ffmpeg](http://ffmpeg.org/).
 
 ```
 ./s/ffmpeg -i /files/i/minimal.png -pix_fmt yuv420p /files/v/minimal_yuv420.h264
 ```
 
-> <sup>*</sup> ffmpeg adds, by default, all the encoding parameter as a **SEI NAL**, soon we'll define what is a NAL.
+> <sup>*</sup> fmpeg agrega, por defecto, todos los parámetros de codificación como un **SEI NAL**, pronto definiremos qué es un NAL.
 
-This command will generate a raw h264 bitstream with a **single frame**, 64x64, with color space yuv420 and using the following image as the frame.
+Este comando generará un *bitstream* H.264 en bruto con un **único fotograma**, de 64x64 píxeles, con espacio de color yuv420, utilizando la siguiente imagen como fotograma.
 
 > ![used frame to generate minimal h264 bitstream](/i/minimal.png "used frame to generate minimal h264 bitstream")
 
