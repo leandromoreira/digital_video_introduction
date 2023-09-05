@@ -63,11 +63,11 @@ Todas las **prácticas deberán ser ejecutadas desde el directorio donde has clo
       - [Práctica: Observa los vectores de movimiento](#práctica-observa-los-vectores-de-movimiento)
   * [Redundancia Espacial (intra prediction)](#redundancia-espacial-intra-prediction)
       - [Práctica: Observa las intra predictions](#práctica-observa-las-intra-predictions)
-- [How does a video codec work?](#how-does-a-video-codec-work)
-  * [What? Why? How?](#what-why-how)
-  * [History](#history)
-    + [The birth of AV1](#the-birth-of-av1)
-  * [A generic codec](#a-generic-codec)
+- [¿Cómo funciona un códec de vídeo?](#cómo-funciona-un-códec-de-vídeo)
+  * [¿Qué? ¿Por qué? ¿Cómo?](#qué-por-qué-cómo)
+  * [Historia](#historia)
+    + [El nacimiento de AV1](#el-nacimiento-de-av1)
+  * [Un códec genérico](#un-códec-genérico)
   * [1st step - picture partitioning](#1st-step---picture-partitioning)
     + [Hands-on: Check partitions](#hands-on-check-partitions)
   * [2nd step - predictions](#2nd-step---predictions)
@@ -412,52 +412,52 @@ Existen muchos tipos diferentes de este tipo de predicción. La que se muestra a
 >
 > ![intra prediction intel video pro analyzer](/i/intra_prediction_intel_video_pro_analyzer.png "intra prediction intel video pro analyzer")
 
-# How does a video codec work?
+# ¿Cómo funciona un códec de vídeo?
 
-## What? Why? How?
+## ¿Qué? ¿Por qué? ¿Cómo?
 
-**What?** It's a piece of software / hardware that compresses or decompresses digital video. **Why?** Market and society demands higher quality videos with limited bandwidth or storage. Remember when we [calculated the needed bandwidth](#basic-terminology) for 30 frames per second, 24 bits per pixel, resolution of a 480x240 video? It was **82.944 Mbps** with no compression applied. It's the only way to deliver HD/FullHD/4K in TVs and the Internet. **How?** We'll take a brief look at the major techniques here.
+**¿Qué?** Es un software o hardware que comprime o descomprime vídeo digital. **¿Por qué?** El mercado y la sociedad demandan vídeos de mayor calidad con ancho de banda o almacenamiento limitados. ¿Recuerdas cuando [calculamos el ancho de banda necesario](#terminología-básica) para 30 fps, 24 bits por píxel, resolución de un vídeo de 480x240? Fueron **82.944 Mbps** sin aplicar compresión. Es la única forma de entregar HD/FullHD/4K en televisores e Internet. **¿Cómo?** Echaremos un vistazo breve a las técnicas principales aquí.
 
-> **CODEC vs Container**
+> **CODEC vs Contenedor**
 >
-> One common mistake that beginners often do is to confuse digital video CODEC and [digital video container](https://en.wikipedia.org/wiki/Digital_container_format). We can think of **containers** as a wrapper format which contains metadata of the video (and possible audio too), and the **compressed video** can be seen as its payload.
+> Un error común que cometen los principiantes es confundir el CODEC de vídeo digital y el [contenedor de vídeo digital](https://en.wikipedia.org/wiki/Container_format). Podemos pensar en los **contenedores** como un formato que contiene metadatos del vídeo (y posiblemente también audio), y el **vídeo comprimido** se puede ver como su contenido.
 >
-> Usually, the extension of a video file defines its video container. For instance, the file `video.mp4` is probably a **[MPEG-4 Part 14](https://en.wikipedia.org/wiki/MPEG-4_Part_14)** container and a file named `video.mkv` it's probably a **[matroska](https://en.wikipedia.org/wiki/Matroska)**. To be completely sure about the codec and container format we can use [ffmpeg or mediainfo](/encoding_pratical_examples.md#inspect-stream).
+> Por lo general, la extensión de un archivo de vídeo define su contenedor de vídeo. Por ejemplo, el archivo `video.mp4` probablemente es un contenedor **[MPEG-4 Part 14](https://en.wikipedia.org/wiki/MP4_file_format)** y un archivo llamado `video.mkv` probablemente es un **[matroska](https://en.wikipedia.org/wiki/Matroska)**. Para estar completamente seguro sobre el códec y el formato del contenedor, podemos usar [ffmpeg o mediainfo](/encoding_pratical_examples.md#inspect-stream).
 
-## History
+## Historia
 
-Before we jump into the inner workings of a generic codec, let's look back to understand a little better about some old video codecs.
+Antes de adentrarnos en el funcionamiento interno de un códec genérico, echemos un vistazo atrás para comprender un poco mejor algunos códecs de vídeo antiguos.
 
-The video codec [H.261](https://en.wikipedia.org/wiki/H.261)  was born in 1990 (technically 1988), and it was designed to work with **data rates of 64 kbit/s**. It already uses ideas such as chroma subsampling, macro block, etc. In the year of 1995, the **H.263** video codec standard was published and continued to be extended until 2001.
+El códec de vídeo [H.261](https://en.wikipedia.org/wiki/H.261) nació en 1990 (técnicamente en 1988) y fue diseñado para trabajar con **tasas de datos de 64 kbit/s**. Ya utilizaba ideas como el *chroma subsampling*, el macrobloque, etc. En el año 1995, se publicó el estándar de códec de vídeo **H.263** y continuó siendo extendido hasta 2001.
 
-In 2003 the first version of **H.264/AVC** was completed. In the same year, **On2 Technologies**  (formerly known as the Duck Corporation) released their video codec as a **royalty-free** lossy video compression called **VP3**. In 2008, **Google bought** this company, releasing **VP8** in the same year. In December of 2012, Google released the **VP9** and it's  **supported by roughly ¾ of the browser market** (mobile included).
+En 2003 se completó la primera versión de **H.264/AVC**. En el mismo año, **On2 Technologies** (anteriormente conocida como Duck Corporation) lanzó su códec de vídeo como una compresión de vídeo con pérdida **libre de regalías** llamada **VP3**. En 2008, **Google compró** esta empresa y lanzó **VP8** en el mismo año. En diciembre de 2012, Google lanzó **VP9**, el cual es **compatible con aproximadamente el ¾ del mercado de navegadores** (incluyendo móviles).
 
- **[AV1](https://en.wikipedia.org/wiki/AOMedia_Video_1)** is a new **royalty-free** and open source video codec that's being designed by the [Alliance for Open Media (AOMedia)](http://aomedia.org/), which is composed of the **companies: Google, Mozilla, Microsoft, Amazon, Netflix, AMD, ARM, NVidia, Intel and Cisco** among others. The **first version** 0.1.0 of the reference codec was **published on April 7, 2016**.
+  **[AV1](https://en.wikipedia.org/wiki/AOMedia_Video_1)** es un nuevo códec de vídeo **libre de regalías** y de código abierto que está siendo diseñado por la [Alliance for Open Media (AOMedia)](http://aomedia.org/), la cual está compuesta por **empresas como Google, Mozilla, Microsoft, Amazon, Netflix, AMD, ARM, NVidia, Intel y Cisco**, entre otras. La **primera versión**, 0.1.0 del códec de referencia, **se publicó el 7 de abril de 2016**.
 
 ![codec history timeline](/i/codec_history_timeline.png "codec history timeline")
 
-> #### The birth of AV1
+> #### El nacimiento de AV1
 >
-> Early 2015, Google was working on [VP10](https://en.wikipedia.org/wiki/VP9#Successor:_from_VP10_to_AV1), Xiph (Mozilla) was working on [Daala](https://xiph.org/daala/) and Cisco open-sourced its royalty-free video codec called [Thor](https://tools.ietf.org/html/draft-fuldseth-netvc-thor-03).
+> A principios de 2015, Google estaba trabajando en [VP10](https://en.wikipedia.org/wiki/VP9#Successor:_from_VP10_to_AV1), Xiph (Mozilla) estaba trabajando en [Daala](https://xiph.org/daala/) y Cisco lanzó su códec de video libre de regalías llamado [Thor](https://tools.ietf.org/html/draft-fuldseth-netvc-thor-03).
 >
-> Then MPEG LA first announced annual caps for HEVC (H.265) and fees 8 times higher than H.264 but soon they changed the rules again:
-> * **no annual cap**,
-> * **content fee** (0.5% of revenue) and
-> * **per-unit fees about 10 times higher than h264**.
+> Entonces, MPEG LA anunció por primera vez límites anuales para HEVC (H.265) y tarifas 8 veces más altas que H.264, pero pronto cambiaron las reglas nuevamente:
+> * **sin límite anual**,
+> * **tarifa por contenido** (0.5% de los ingresos) y
+> * **tarifas por unidad aproximadamente 10 veces más altas que H.264**.
 >
-> The [alliance for open media](http://aomedia.org/about/) was created by companies from hardware manufacturer (Intel, AMD, ARM , Nvidia, Cisco), content delivery (Google, Netflix, Amazon), browser maintainers (Google, Mozilla), and others.
+> La [Alliance for Open Media](http://aomedia.org/about/) fue creada por empresas de fabricantes de hardware (Intel, AMD, ARM, Nvidia, Cisco), distribución de contenido (Google, Netflix, Amazon), mantenimiento de navegadores (Google, Mozilla) y otros.
 >
-> The companies had a common goal, a royalty-free video codec and then AV1 was born with a much [simpler patent license](http://aomedia.org/license/patent/). **Timothy B. Terriberry** did an awesome presentation, which is the source of this section, about the [AV1 conception, license model and its current state](https://www.youtube.com/watch?v=lzPaldsmJbk).
+> Las empresas tenían un objetivo común, un códec de vídeo libre de regalías, y así nació AV1 con una [licencia de patente mucho más simple](http://aomedia.org/license/patent/). **Timothy B. Terriberry** hizo una excelente presentación, que es la fuente de esta sección, sobre la [concepción de AV1, el modelo de licencia y su estado actual](https://www.youtube.com/watch?v=lzPaldsmJbk).
 >
-> You'll be surprised to know that you can **analyze the AV1 codec through your browser**, go to https://arewecompressedyet.com/analyzer/
+> Te sorprenderá saber que puedes **analizar el códec AV1 a través de tu navegador**, visita https://arewecompressedyet.com/analyzer/
 >
 > ![av1 browser analyzer](/i/av1_browser_analyzer.png "av1 browser analyzer")
 >
-> PS: If you want to learn more about the history of the codecs you must learn the basics behind [video compression patents](https://www.vcodex.com/video-compression-patents/).
+> PD: Si deseas aprender más sobre la historia de los códecs, debes comprender los conceptos básicos detrás de las [patentes de compresión de vídeo](https://www.vcodex.com/video-compression-patents/).
 
-## A generic codec
+## Un códec genérico
 
-We're going to introduce the **main mechanics behind a generic video codec** but most of these concepts are useful and used in modern codecs such as VP9, AV1 and HEVC. Be sure to understand that we're going to simplify things a LOT. Sometimes we'll use a real example (mostly H.264) to demonstrate a technique.
+Vamos a presentar los **mecanismos principales detrás de un códec de vídeo genérico**, pero la mayoría de estos conceptos son útiles y se utilizan en códecs modernos como VP9, AV1 y HEVC. Asegúrate de entender que vamos a simplificar las cosas MUCHO. A veces usaremos un ejemplo real (principalmente H.264) para demostrar una técnica.
 
 ## 1st step - picture partitioning
 
