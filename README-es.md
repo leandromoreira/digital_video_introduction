@@ -81,9 +81,9 @@ Todas las **prácticas deberán ser ejecutadas desde el directorio donde has clo
     + [Práctica: CABAC vs CAVLC](#práctica-cabac-vs-cavlc)
   * [Paso 6 - formato *bitstream*](#paso-6---formato-bitstream)
     + [H.264 bitstream](#h264-bitstream)
-    + [Hands-on: Inspect the H.264 bitstream](#hands-on-inspect-the-h264-bitstream)
-  * [Review](#review)
-  * [How does H.265 achieve a better compression ratio than H.264?](#how-does-h265-achieve-a-better-compression-ratio-than-h264)
+    + [Práctica: Inspeccionar el *bitstream* H.264](#práctica-inspeccionar-el-bitstream-h264)
+  * [Repaso](#repaso)
+  * [¿Cómo logra H.265 una mejor relación de compresión que H.264?](#cómo-logra-h265-una-mejor-relación-de-compresión-que-h264)
 - [Online streaming](#online-streaming)
   * [General architecture](#general-architecture)
   * [Progressive download and adaptive streaming](#progressive-download-and-adaptive-streaming)
@@ -655,15 +655,15 @@ Este comando generará un *bitstream* H.264 en bruto con un **único fotograma**
 
 ### H.264 bitstream
 
-The AVC (H.264) standard defines that the information will be sent in **macro frames** (in the network sense), called **[NAL](https://en.wikipedia.org/wiki/Network_Abstraction_Layer)** (Network Abstraction Layer). The main goal of the NAL is the provision of a "network-friendly" video representation, this standard must work on TVs (stream based), the Internet (packet based) among others.
+El estándar AVC (H.264) define que la información se enviará en **macro frames** (en el sentido de red), llamadas **[NAL](https://en.wikipedia.org/wiki/Network_Abstraction_Layer)** (Network Abstraction Layer). El objetivo principal de la NAL es proporcionar una representación de vídeo "amigable para la red". Este estándar debe funcionar en televisores (basados en transmisión) y en Internet (basado en paquetes), entre otros.
 
 ![NAL units H.264](/i/nal_units.png "NAL units H.264")
 
-There is a **[synchronization marker](https://en.wikipedia.org/wiki/Frame_synchronization)** to define the boundaries of the NAL's units. Each synchronization marker holds a value of `0x00 0x00 0x01` except to the very first one which is `0x00 0x00 0x00 0x01`. If we run the **hexdump** on the generated h264 bitstream, we can identify at least three NALs in the beginning of the file.
+Hay un **[marcador de sincronización](https://en.wikipedia.org/wiki/Frame_synchronization)** para definir los límites de las unidades NAL. Cada marcador de sincronización tiene un valor de `0x00 0x00 0x01`, excepto el primero, que es `0x00 0x00 0x00 0x01`. Si ejecutamos el comando **hexdump** en el flujo de bits H.264 generado, podemos identificar al menos tres NAL al principio del archivo.
 
 ![synchronization marker on NAL units](/i/minimal_yuv420_hex.png "synchronization marker on NAL units")
 
-As we said before, the decoder needs to know not only the picture data but also the details of the video, frame, colors, used parameters, and others. The **first byte** of each NAL defines its category and **type**.
+Como mencionamos antes, el decodificador necesita conocer no solo los datos de la imagen, sino también los detalles del vídeo, el fotograma, los colores, los parámetros utilizados y otros. El primer byte de cada NAL define su categoría y **tipo**.
 
 | NAL type id  | Description  |
 |---  |---|
@@ -681,17 +681,17 @@ As we said before, the decoder needs to know not only the picture data but also 
 | 11 |  End of stream |
 | ... |  ... |
 
-Usually, the first NAL of a bitstream is a **SPS**, this type of NAL is responsible for informing the general encoding variables like **profile**, **level**, **resolution** and others.
+Normalmente, el primer NAL de un flujo de bits es un **SPS** (Sequence Parameter Set). Este tipo de NAL es responsable de proporcionar información sobre las variables de codificación generales como **perfil**, **nivel**, **resolución** y otros.
 
-If we skip the first synchronization marker we can decode the **first byte** to know what **type of NAL** is the first one.
+Si omitimos el primer marcador de sincronización, podemos decodificar el **primer byte** para saber qué **tipo de NAL** es el primero.
 
-For instance the first byte after the synchronization marker is `01100111`, where the first bit (`0`) is to the field **forbidden_zero_bit**, the next 2 bits (`11`) tell us the field **nal_ref_idc** which indicates whether this NAL is a reference field or not and the rest 5 bits (`00111`) inform us the field **nal_unit_type**, in this case, it's a **SPS** (7) NAL unit.
+Por ejemplo, el primer byte después del marcador de sincronización es `01100111`, donde el primer bit (`0`) es el campo **forbidden_zero_bit**, los siguientes 2 bits (`11`) nos indican el campo **nal_ref_idc**, que indica si este NAL es un campo de referencia o no, y los siguientes 5 bits (`00111`) nos informan sobre el campo **nal_unit_type**, en este caso, es un NAL de tipo **SPS** (7).
 
-The second byte (`binary=01100100, hex=0x64, dec=100`) of an SPS NAL is the field **profile_idc** which shows the profile that the encoder has used, in this case, we used the **[high profile](https://en.wikipedia.org/wiki/H.264/MPEG-4_AVC#Profiles)**. Also the third byte contains several flags which determine the exact profile (like constrained or progressive). But in our case the third byte is 0x00 and therefore the encoder has used just high profile.
+El segundo byte (`binary=01100100, hex=0x64, dec=100`) de un NAL SPS es el campo **profile_idc**, que muestra el perfil que el codificador ha utilizado. En este caso, hemos utilizado el **[high profile](https://en.wikipedia.org/wiki/H.264/MPEG-4_AVC#Profiles)**. Además, el tercer byte contiene varias banderas que determinan el perfil exacto (como restringido o progresivo). Pero en nuestro caso, el tercer byte es 0x00 y, por lo tanto, el codificador ha utilizado solo el *high profile*.
 
 ![SPS binary view](/i/minimal_yuv420_bin.png "SPS binary view")
 
-When we read the H.264 bitstream spec for an SPS NAL we'll find many values for the **parameter name**, **category** and a **description**, for instance, let's look at `pic_width_in_mbs_minus_1` and `pic_height_in_map_units_minus_1` fields.
+Cuando leemos la especificación de flujo de bits H.264 para un NAL SPS, encontraremos muchos valores para el **parameter name**, **category** y **description**. Por ejemplo, veamos los campos `pic_width_in_mbs_minus_1` y `pic_height_in_map_units_minus_1`.
 
 | Parameter name  | Category  |  Description  |
 |---  |---|---|
@@ -700,55 +700,54 @@ When we read the H.264 bitstream spec for an SPS NAL we'll find many values for 
 
 > **ue(v)**: unsigned integer [Exp-Golomb-coded](https://ghostarchive.org/archive/JBwdI)
 
-If we do some math with the value of these fields we will end up with the **resolution**. We can represent a `1920 x 1080` using a `pic_width_in_mbs_minus_1` with the value of `119 ( (119 + 1) * macroblock_size = 120 * 16 = 1920) `, again saving space, instead of encode `1920` we did it with `119`.
+Si realizamos algunos cálculos con el valor de estos campos, obtendremos la **resolución**. Podemos representar `1920 x 1080` usando un valor de `pic_width_in_mbs_minus_1` de `119 ((119 + 1) * macroblock_size = 120 * 16 = 1920)`, nuevamente ahorrando espacio, en lugar de codificar `1920`, lo hicimos con `119`.
 
-If we continue to examine our created video with a binary view (ex: `xxd -b -c 11 v/minimal_yuv420.h264`), we can skip to the last NAL which is the frame itself.
+Si continuamos examinando nuestro vídeo creado con una vista binaria (por ejemplo, `xxd -b -c 11 v/minimal_yuv420.h264`), podemos saltar al último NAL que es el propio cuadro.
 
 ![h264 idr slice header](/i/slice_nal_idr_bin.png "h264 idr slice header")
 
-We can see its first 6 bytes values: `01100101 10001000 10000100 00000000 00100001 11111111`. As we already know the first byte tell us about what type of NAL it is, in this case, (`00101`) it's an **IDR Slice (5)** and we can further inspect it:
+Podemos ver los valores de sus primeros 6 bytes: `01100101 10001000 10000100 00000000 00100001 11111111`. Como ya sabemos, el primer byte nos dice qué tipo de NAL es, en este caso, (`00101`) es un **IDR Slice (5)** y podemos inspeccionarlo más a fondo:
 
 ![h264 slice header spec](/i/slice_header.png "h264 slice header spec")
 
-Using the spec info we can decode what type of slice (**slice_type**), the frame number (**frame_num**) among others important fields.
+Utilizando la información de la especificación, podemos decodificar qué tipo de slice (**slice_type**), el número de fotograma (**frame_num**) y otros campos importantes.
 
-In order to get the values of some fields (`ue(v), me(v), se(v) or te(v)`) we need to decode it using a special decoder called [Exponential-Golomb](https://ghostarchive.org/archive/JBwdI), this method is **very efficient to encode variable values**, mostly when there are many default values.
+Para obtener los valores de algunos campos (`ue(v), me(v), se(v) o te(v)`), debemos decodificarlos utilizando un decodificador especial llamado [Exponential-Golomb](https://ghostarchive.org/archive/JBwdI). Este método es **muy eficiente para codificar valores variables**, sobre todo cuando hay muchos valores predeterminados.
 
-> The values of **slice_type** and **frame_num** of this video are 7 (I slice) and 0 (the first frame).
+> Los valores de **slice_type** y **frame_num** de este vídeo son 7 (I slice) y 0 (el primer fotograma).
 
-We can see the **bitstream as a protocol** and if you want or need to learn more about this bitstream please refer to the [ITU H.264 spec.]( http://www.itu.int/rec/T-REC-H.264-201610-I) Here's a macro diagram which shows where the picture data (compressed YUV) resides.
+Podemos ver el ***bitstream* como un protocolo**, y si deseas aprender más sobre este *bitstream*, consulta la especificación [ITU H.264]( http://www.itu.int/rec/T-REC-H.264-201610-I). Aquí tienes un diagrama macro que muestra dónde reside los datos de la imagen (YUV comprimido).
 
 ![h264 bitstream macro diagram](/i/h264_bitstream_macro_diagram.png "h264 bitstream macro diagram")
 
-We can explore others bitstreams like the [VP9 bitstream](https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.6-20160331-draft.pdf), [H.265 (HEVC)](http://handle.itu.int/11.1002/1000/11885-en?locatt=format:pdf) or even our **new best friend** [**AV1** bitstream](https://medium.com/@mbebenita/av1-bitstream-analyzer-d25f1c27072b#.d5a89oxz8
-), [do they all look similar? No](http://www.gpac-licensing.com/2016/07/12/vp9-av1-bitstream-format/), but once you learned one you can easily get the others.
+Podemos explorar otros *bitstreams* como el [*bitstreams* VP9](https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.6-20160331-draft.pdf), [H.265 (HEVC)](http://handle.itu.int/11.1002/1000/11885-en?locatt=format:pdf) o incluso nuestro **nuevo mejor amigo** el [*bitstream* AV1](https://medium.com/@mbebenita/av1-bitstream-analyzer-d25f1c27072b#.d5a89oxz8), [¿se ven todos similares, no?](http://www.gpac-licensing.com/2016/07/12/vp9-av1-bitstream-format/) Pero una vez que aprendes uno, puedes entender fácilmente los demás.
 
-> ### Hands-on: Inspect the H.264 bitstream
-> We can [generate a single frame video](https://github.com/leandromoreira/introduction_video_technology/blob/master/encoding_pratical_examples.md#generate-a-single-frame-video) and use  [mediainfo](https://en.wikipedia.org/wiki/MediaInfo) to inspect its H.264 bitstream. In fact, you can even see the [source code that parses h264 (AVC)](https://github.com/MediaArea/MediaInfoLib/blob/master/Source/MediaInfo/Video/File_Avc.cpp) bitstream.
+> ### Práctica: Inspeccionar el *bitstream* H.264
+> Podemos [generar un video de un solo fotograma](https://github.com/leandromoreira/introduction_video_technology/blob/master/encoding_pratical_examples.md#generate-a-single-frame-video) y usar [mediainfo](https://en.wikipedia.org/wiki/MediaInfo) para inspeccionar su *bitstream* H.264. De hecho, incluso puedes ver el [código fuente que analiza el *bitstream* h264 (AVC)](https://github.com/MediaArea/MediaInfoLib/blob/master/Source/MediaInfo/Video/File_Avc.cpp).
 >
 > ![mediainfo details h264 bitstream](/i/mediainfo_details_1.png "mediainfo details h264 bitstream")
 >
-> We can also use the [Intel Video Pro Analyzer](https://software.intel.com/en-us/intel-video-pro-analyzer) which is paid but there is a free trial version which limits you to only work with the first 10 frames but that's okay for learning purposes.
+> También podemos utilizar el [Intel Video Pro Analyzer](https://software.intel.com/en-us/intel-video-pro-analyzer) que es de pago, pero hay una versión de prueba gratuita que limita el trabajo a solo los primeros 10 fotogramas, lo cual está bien para fines de aprendizaje.
 >
 > ![intel video pro analyzer details h264 bitstream](/i/intel-video-pro-analyzer.png "intel video pro analyzer details h264 bitstream")
 
-## Review
+## Repaso
 
-We'll notice that many of the **modern codecs uses this same model we learned**. In fact, let's look at the Thor video codec block diagram, it contains all the steps we studied. The idea is that you now should be able to at least understand better the innovations and papers for the area.
+Es evidente que muchos de los **códecs modernos utilizan el mismo modelo que aprendimos**. De hecho, echemos un vistazo al diagrama de bloques del códec de vídeo Thor, que contiene todos los pasos que estudiamos. La idea es que ahora deberías ser capaz de al menos comprender mejor las innovaciones y los documentos de esta área.
 
 ![thor_codec_block_diagram](/i/thor_codec_block_diagram.png "thor_codec_block_diagram")
 
-Previously we had calculated that we needed [139GB of storage to keep a video file with one hour at 720p resolution and 30fps](#chroma-subsampling) if we use the techniques we learned here, like **inter and intra prediction, transform, quantization, entropy coding and other** we can achieve, assuming we are spending **0.031 bit per pixel**, the same perceivable quality video **requiring only 367.82MB vs 139GB** of store.
+Anteriormente calculamos que necesitaríamos [139GB de almacenamiento para mantener un archivo de vídeo de una hora a una resolución de 720p y 30 fps](#chroma-subsampling) si utilizamos las técnicas que aprendimos aquí, como **inter e intra predictions, transformación, cuantización, codificación de entropía y otras**. Podemos lograrlo, asumiendo que estamos utilizando **0.031 bit por píxel**, el mismo vídeo de calidad perceptible **requiriendo solo 367.82MB en lugar de 139GB** de almacenamiento.
 
-> We choose to use **0.031 bit per pixel** based on the example video provided here.
+> Elegimos usar **0.031 bit por píxel** basándonos en el ejemplo de vídeo proporcionado aquí.
 
-## How does H.265 achieve a better compression ratio than H.264?
+## ¿Cómo logra H.265 una mejor relación de compresión que H.264?
 
-Now that we know more about how codecs work, then it is easy to understand how new codecs are able to deliver higher resolutions with fewer bits.
+Ahora que sabemos más sobre cómo funcionan los códecs, es fácil entender cómo los nuevos códecs pueden ofrecer mayores resoluciones con menos bits.
 
-We will compare AVC and HEVC, let's keep in mind that it is almost always a trade-off between more CPU cycles (complexity) and compression rate.
+Compararemos AVC y HEVC, ten en cuenta que casi siempre hay un equilibrio entre más ciclos de CPU (complejidad) y la velocidad de compresión.
 
-HEVC has bigger and more **partitions** (and **sub-partitions**) options than AVC, more **intra predictions directions/angles**, **improved entropy coding** and more, all these improvements made H.265 capable to compress 50% more than H.264.
+HEVC tiene más opciones de **particiones** (y **sub-particiones**) que AVC, más **direcciones/ángulos de intra predictions**, **codificación de entropía mejorada** y más, todas estas mejoras hicieron que H.265 fuera capaz de comprimir un 50% más que H.264.
 
 ![h264 vs h265](/i/avc_vs_hevc.png "H.264 vs H.265")
 
