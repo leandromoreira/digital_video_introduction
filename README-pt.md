@@ -400,7 +400,7 @@ Nossa **previsão pode estar errada**, por essa razão, precisamos aplicar essa 
 Existem muitos tipos diferentes desse tipo de previsão. O que você vê aqui na imagem é uma forma de previsão planar direta, onde os pixels da linha acima do bloco são copiados linha por linha dentro do bloco. A previsão planar também pode envolver um componente angular, onde pixels tanto da esquerda quanto da parte superior são usados para ajudar a prever o bloco atual. E há também a previsão DC, que envolve a média das amostras imediatamente acima e à esquerda do bloco.
 
 > #### Prática: Verifique intra prediction
-> Você pode [gerar um vídeo com macroblocos e suas previsões usando o ffmpeg.](/encoding_pratical_examples.md#generate-debug-video) Por favor, verifique a documentação do ffmpeg para entender o [significado de cada cor de bloco](https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors#AnalyzingMacroblockTypes).
+> Você pode [gerar um vídeo com macroblocos e suas previsões usando o ffmpeg.](/encoding_pratical_examples.md#generate-debug-video) Por favor, verifique a documentação do ffmpeg para entender o [significado de cada cor de bloco](https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors?version=7#AnalyzingMacroblockTypes).
 >
 > ![intra prediction (macro blocks) with ffmpeg](/i/macro_blocks_ffmpeg.png "inter prediction (motion vectors) with ffmpeg")
 >

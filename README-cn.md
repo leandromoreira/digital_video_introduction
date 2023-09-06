@@ -382,7 +382,7 @@ P 帧利用了一个事实：当前的画面几乎总能**使用之前的一帧�
 ![smw 残差](/i/smw_residual.png "smw 残差")
 
 > ### 自己动手：查看帧内预测
-> 你可以[使用 ffmpeg 生成包含宏块及预测的视频](/encoding_pratical_examples.md#generate-debug-video)。请查看 ffmpeg 文档以了解[每个块颜色的含义](https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors)。
+> 你可以[使用 ffmpeg 生成包含宏块及预测的视频](/encoding_pratical_examples.md#generate-debug-video)。请查看 ffmpeg 文档以了解[每个块颜色的含义](https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors?version=7)。
 >
 > ![ffmpeg 帧内预测（宏块）](/i/macro_blocks_ffmpeg.png "ffmpeg 帧内预测（宏块）")
 >

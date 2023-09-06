@@ -376,7 +376,7 @@ La **predizione che abbiamo fatto può essere sbagliata**, per cui dopo aver app
 ![](/i/smw_residual.png)
 
 > #### Esercizio: vedere la predizione intra-frame
-> Puoi [generare un video con i macro-blocchi e le sue predizioni con ffmpeg](/encoding_pratical_examples.md#generate-debug-video). Consulta la documentazione di ffmpeg per comprendere meglio [il significato dei colori dei blocchi](https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors#AnalyzingMacroblockTypes).
+> Puoi [generare un video con i macro-blocchi e le sue predizioni con ffmpeg](/encoding_pratical_examples.md#generate-debug-video). Consulta la documentazione di ffmpeg per comprendere meglio [il significato dei colori dei blocchi](https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors?version=7#AnalyzingMacroblockTypes).
 >
 > ![Predizione intra-frame (macro-blocchi) con ffmpeg](/i/macro_blocks_ffmpeg.png "Predizione intra-frame (macro-blocchi) con ffmpeg")
 >

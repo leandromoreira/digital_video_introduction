@@ -371,7 +371,7 @@ G = Y - 0.344Cb - 0.714Cr
 ![](/i/smw_residual.png)
 
 > #### 실습: 인트라 프리딕션 확인해보기
-> [매크로 블록과 프리딕션을 사용해 ffmpeg로 영상을 생성할 수 있습니다.](/encoding_pratical_examples.md#generate-debug-video) [각 블록의 색상의 의미](https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors#AnalyzingMacroblockTypes)를 ffmpeg 문서를 확인해 이해해보세요.  
+> [매크로 블록과 프리딕션을 사용해 ffmpeg로 영상을 생성할 수 있습니다.](/encoding_pratical_examples.md#generate-debug-video) [각 블록의 색상의 의미](https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors?version=7#AnalyzingMacroblockTypes)를 ffmpeg 문서를 확인해 이해해보세요.  
 > 
 > ![intra prediction (macro blocks) with ffmpeg](/i/macro_blocks_ffmpeg.png "inter prediction (motion vectors) with ffmpeg")
 >
