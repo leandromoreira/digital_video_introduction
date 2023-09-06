@@ -187,7 +187,7 @@ It generates a video with color histogram as an overlay.
 
 ## Generate debug video
 
-It generates a video with macro blocks debug over the video. Please refer to https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors to understand the meaning of each block color.
+It generates a video with macro blocks debug over the video. Please refer to https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors?version=7 to understand the meaning of each block color.
 ```
 ./s/ffmpeg -debug vis_mb_type -i /files/v/small_bunny_1080p_30fps.mp4 /files/v/small_bunny_1080p_30fps_vis_mb.mp4
 ```

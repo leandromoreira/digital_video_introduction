@@ -395,7 +395,7 @@ Iフレーム(参照、キーフレーム、イントラ)は**自己完結的な
 他にも様々な予測方法があります。ここで紹介した方法は、直線状に並んだ領域の予測を行い、ブロックの上の行のピクセルをブロック内の各行にコピーしていました。ここにさらに角度成分を加え、左隣のピクセルの値も利用してブロック内のピクセル値を予測する方法もあります。また左隣と上隣のピクセル値の平均を利用する、DC予測という方法もあります。
 
 > #### ハンズオン: イントラ予測を調べる
-> [ffmpegでマクロブロックとそれらの予測付きのビデオを生成する](/encoding_pratical_examples.md#generate-debug-video)ことができます。[それぞれのブロックの色の意味](https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors#AnalyzingMacroblockTypes)を理解するためにffmpegのドキュメントを調べてください。
+> [ffmpegでマクロブロックとそれらの予測付きのビデオを生成する](/encoding_pratical_examples.md#generate-debug-video)ことができます。[それぞれのブロックの色の意味](https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors?version=7#AnalyzingMacroblockTypes)を理解するためにffmpegのドキュメントを調べてください。
 >
 > ![intra prediction (macro blocks) with ffmpeg](/i/macro_blocks_ffmpeg.png "ffmpegでインター予測 (動きベクトル)")
 >
