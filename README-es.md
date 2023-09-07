@@ -85,12 +85,12 @@ Todas las **prácticas deberán ser ejecutadas desde el directorio donde has clo
   * [Repaso](#repaso)
   * [¿Cómo logra H.265 una mejor relación de compresión que H.264?](#cómo-logra-h265-una-mejor-relación-de-compresión-que-h264)
 - [Online streaming](#online-streaming)
-  * [General architecture](#general-architecture)
-  * [Progressive download and adaptive streaming](#progressive-download-and-adaptive-streaming)
-  * [Content protection](#content-protection)
-- [How to use jupyter](#how-to-use-jupyter)
-- [Conferences](#conferences)
-- [References](#references)
+  * [Arquitectura general](#arquitectura-general)
+  * [Descarga progresiva y streaming adaptativo](#descarga-progresiva-y-streaming-adaptativo)
+  * [Protección de contenido](#protección-de-contenido)
+- [¿Cómo usar jupyter?](#cómo-usar-jupyter)
+- [Conferencias](#conferencias)
+- [Referencias](#referencias)
 
 # Terminología Básica
 
@@ -752,13 +752,13 @@ HEVC tiene más opciones de **particiones** (y **sub-particiones**) que AVC, má
 ![h264 vs h265](/i/avc_vs_hevc.png "H.264 vs H.265")
 
 # Online streaming
-## General architecture
+## Arquitectura general
 
 ![general architecture](/i/general_architecture.png "general architecture")
 
 [TODO]
 
-## Progressive download and adaptive streaming
+## Descarga progresiva y streaming adaptativo
 
 ![progressive download](/i/progressive_download.png "progressive download")
 
@@ -766,54 +766,53 @@ HEVC tiene más opciones de **particiones** (y **sub-particiones**) que AVC, má
 
 [TODO]
 
-## Content protection
+## Protección de contenido
 
-We can use **a simple token system** to protect the content. The user without a token tries to request a video and the CDN forbids her or him while a user with a valid token can play the content, it works pretty similarly to most of the web authentication systems.
+Podemos utilizar **un sistema de tokens simple** para proteger el contenido. El usuario sin un token intenta solicitar un video y la CDN (Red de Entrega de Contenido, del inglés *Content Delivery Network*) le prohíbe el acceso, mientras que un usuario con un token válido puede reproducir el contenido, funciona de manera bastante similar a la mayoría de los sistemas de autenticación web.
 
 ![token protection](/i/token_protection.png "token_protection")
 
-The sole use of this token system still allows a user to download a video and distribute it. Then the **DRM (digital rights management)** systems can be used to try to avoid this.
+El uso exclusivo de este sistema de tokens todavía permite que un usuario descargue un video y lo distribuya. Es aquí dónde, los sistemas de **DRM (gestión de derechos digitales, del inglés *digital rights management*)** se pueden utilizar para tratar de evitar esto.
 
 ![drm](/i/drm.png "drm")
 
-In real life production systems, people often use both techniques to provide authorization and authentication.
+En los sistemas de producción del mundo real, a menudo se utilizan ambas técnicas para proporcionar autorización y autenticación.
 
 ### DRM
-#### Main systems
+#### Soluciones principales
 
 * FPS - [**FairPlay Streaming**](https://developer.apple.com/streaming/fps/)
 * PR - [**PlayReady**](https://www.microsoft.com/playready/)
 * WV - [**Widevine**](http://www.widevine.com/)
 
 
-#### What?
+#### ¿Qué es?
 
-DRM means [Digital rights management](https://sander.saares.eu/categories/drm-is-not-a-black-box/), it's a way **to provide copyright protection for digital media**, for instance, digital video and audio. Although it's used in many places [it's not universally accepted](https://en.wikipedia.org/wiki/Digital_rights_management#DRM-free_works).
+DRM significa [*Digital Rights Management* o gestión de derechos digitales](https://sander.saares.eu/categories/drm-is-not-a-black-box/), es una forma de proporcionar protección de derechos de autor para medios digitales, como vídeo y audio digitales. Aunque se utiliza en muchos lugares, no es universalmente aceptado.
 
-#### Why?
+#### ¿Por qué?
 
-Content creator (mostly studios) want to protect its intelectual property against copy to prevent unauthorized redistribution of digital media.
+Los creadores de contenido (principalmente estudios) desean proteger su propiedad intelectual contra la copia para prevenir la redistribución no autorizada de medios digitales.
 
-#### How?
+#### ¿Cómo?
 
-We're going to describe an abstract and generic form of DRM in a very simplified way.
+Vamos a describir una forma abstracta y genérica de DRM de manera muy simplificada.
 
-Given a **content C1** (i.e. an hls or dash video streaming), with a **player P1** (i.e. shaka-clappr, exo-player or ios) in a **device D1** (i.e. a smartphone, TV, tablet or desktop/notebook) using a **DRM system DRM1** (widevine, playready or FairPlay).
+Dado un **contenido C1** (por ejemplo, un vídeo en streaming HLS o DASH), con un **reproductor P1** (por ejemplo, shaka-clappr, exo-player o iOS) en un **dispositivo D1** (por ejemplo, un teléfono inteligente, una televisión, una tableta o una computadora de escritorio/portátil) utilizando un **sistema DRM llamado DRM1** (widevine, playready o FairPlay).
 
-The content C1 is encrypted with a **symmetric-key K1** from the system DRM1, generating the **encrypted content C'1**.
+El contenido C1 está encriptado con una **clave simétrica K1** del sistema DRM1, generando el **contenido encriptado C'1**.
 
 ![drm general flow](/i/drm_general_flow.jpeg "drm general flow")
 
-The player P1, of a device D1, has two keys (asymmetric), a **private key PRK1** (this key is protected<sup>1</sup> and only known by **D1**) and a **public key PUK1**.
+El reproductor P1, de un dispositivo D1, tiene dos claves (asimétricas), una **clave privada PRK1** (esta clave está protegida<sup>1</sup> y solo la conoce **D1**) y una **clave pública PUK1**.
 
-> **<sup>1</sup>protected**: this protection can be **via hardware**, for instance, this key can be stored inside a special (read-only) chip that works like [a black-box](https://en.wikipedia.org/wiki/Black_box) to provide decryption, or **by software** (less safe), the DRM system provides means to know which type of protection a given device has.
+> <sup>1</sup>Protegida: esta protección puede ser **mediante hardware**, por ejemplo, esta clave puede almacenarse dentro de un chip especial (de solo lectura) que funciona como [una caja negra](https://en.wikipedia.org/wiki/Black_box) para proporcionar la descifrado, o **por software** (menos seguro), el sistema DRM proporciona medios para saber qué tipo de protección tiene un dispositivo dado.
 
-
-When the **player P1 wants to play** the **content C'1**, it needs to deal with the **DRM system DRM1**, giving its public key **PUK1**. The DRM system DRM1 returns the **key K1 encrypted** with the client''s public key **PUK1**. In theory, this response is something that **only D1 is capable of decrypting**.
+Cuando el **reproductor P1 quiere reproducir** el **contenido C'1**, debe interactuar con el **sistema DRM DRM1**, proporcionando su clave pública **PUK1**. El sistema DRM DRM1 devuelve la **clave K1 cifrada** con la clave pública del cliente **PUK1**. En teoría, esta respuesta es algo que **solo D1 es capaz de descifrar**.
 
 `K1P1D1 = enc(K1, PUK1)`
 
-**P1** uses its DRM local system (it could be a [SOC](https://en.wikipedia.org/wiki/System_on_a_chip), a specialized hardware or software), this system is **able to decrypt** the content using its private key PRK1, it can decrypt **the symmetric-key K1 from the K1P1D1** and **play C'1**. At best case, the keys are not exposed through RAM.
+**P1** utiliza su sistema local de DRM (puede ser un [SOC](https://en.wikipedia.org/wiki/System_on_a_chip), hardware especializado o software), este sistema es **capaz de descifrar** el contenido utilizando su clave privada PRK1, puede descifrar **la clave simétrica K1 de la K1P1D1** y **reproducir C'1**. En el mejor caso, las claves no se exponen a través de la RAM.
 
  ```
  K1 = dec(K1P1D1, PRK1)
@@ -823,19 +822,19 @@ When the **player P1 wants to play** the **content C'1**, it needs to deal with 
 
 ![drm decoder flow](/i/drm_decoder_flow.jpeg "drm decoder flow")
 
-# How to use jupyter
+# ¿Cómo usar jupyter?
 
-Make sure you have **docker installed** and just run `./s/start_jupyter.sh` and follow the instructions on the terminal.
+Asegúrate de tener **docker instalado**, ejecuta `./s/start_jupyter.sh` y sigue las instrucciones en la consola.
 
-# Conferences
+# Conferencias
 
-* [DEMUXED](https://demuxed.com/) - you can [check the last 2 events presentations.](https://www.youtube.com/channel/UCIc_DkRxo9UgUSTvWVNCmpA).
+* [DEMUXED](https://demuxed.com/) - puedes [mirar las ediciones pasadas aquí.](https://www.youtube.com/channel/UCIc_DkRxo9UgUSTvWVNCmpA).
 
-# References
+# Referencias
 
-The richest content is here, it's where all the info we saw in this text was extracted, based or inspired by. You can deepen your knowledge with these amazing links, books, videos and etc.
+El contenido más rico se encuentra aquí, es de donde se extrajo, basó o inspiró toda la información que vimos en este texto. Puedes profundizar tu conocimiento con estos increíbles enlaces, libros, vídeos, etc.
 
-Online Courses and Tutorials:
+Cursos online y tutoriales:
 
 * https://www.coursera.org/learn/digital/
 * https://people.xiph.org/~tterribe/pubs/lca2012/auckland/intro_to_video1.pdf
@@ -851,7 +850,7 @@ Online Courses and Tutorials:
 * http://www.slideshare.net/MadhawaKasun/audio-compression-23398426
 * http://inst.eecs.berkeley.edu/~ee290t/sp04/lectures/02-Motion_Compensation_girod.pdf
 
-Books:
+Libros:
 
 * https://www.amazon.com/Understanding-Compression-Data-Modern-Developers/dp/1491961538/ref=sr_1_1?s=books&ie=UTF8&qid=1486395327&sr=1-1
 * https://www.amazon.com/H-264-Advanced-Video-Compression-Standard/dp/0470516925
@@ -859,7 +858,7 @@ Books:
 * https://www.amazon.com/Practical-Guide-Video-Audio-Compression/dp/0240806301/ref=sr_1_3?s=books&ie=UTF8&qid=1486396914&sr=1-3&keywords=A+PRACTICAL+GUIDE+TO+VIDEO+AUDIO
 * https://www.amazon.com/Video-Encoding-Numbers-Eliminate-Guesswork/dp/0998453005/ref=sr_1_1?s=books&ie=UTF8&qid=1486396940&sr=1-1&keywords=jan+ozer
 
-Onboarding material:
+Material de *onboarding*:
 
 * https://github.com/Eyevinn/streaming-onboarding
 * https://howvideo.works/
@@ -867,7 +866,7 @@ Onboarding material:
 * https://www.aws.training/Details/eLearning?id=17887
 * https://www.aws.training/Details/Video?id=24750
 
-Bitstream Specifications:
+Especificaciones de *Bitstream*:
 
 * http://www.itu.int/rec/T-REC-H.264-201610-I
 * http://www.itu.int/ITU-T/recommendations/rec.aspx?rec=12904&lang=en
@@ -889,7 +888,7 @@ Software:
 * https://software.intel.com/en-us/intel-video-pro-analyzer
 * https://medium.com/@mbebenita/av1-bitstream-analyzer-d25f1c27072b#.d5a89oxz8
 
-Non-ITU Codecs:
+Códecs *Non-ITU*:
 
 * https://aomedia.googlesource.com/
 * https://github.com/webmproject/libvpx/tree/master/vp9
@@ -899,7 +898,7 @@ Non-ITU Codecs:
 * https://fosdem.org/2017/schedule/event/om_av1/
 * https://jmvalin.ca/papers/AV1_tools.pdf
 
-Encoding Concepts:
+Conceptos de codificación:
 
 * http://x265.org/hevc-h265/
 * http://slhck.info/video/2017/03/01/rate-control.html
@@ -913,12 +912,12 @@ Encoding Concepts:
 * https://blogs.gnome.org/rbultje/2016/12/13/overview-of-the-vp9-video-codec/
 * https://videoblerg.wordpress.com/2017/11/10/ffmpeg-and-how-to-use-it-wrong/
 
-Video Sequences for Testing:
+Ejemplos de vídeos para pruebas:
 
 * http://bbb3d.renderfarming.net/download.html
 * https://www.its.bldrdoc.gov/vqeg/video-datasets-and-organizations.aspx
 
-Miscellaneous:
+Miscelánea:
 
 * https://github.com/Eyevinn/streaming-onboarding
 * http://stackoverflow.com/a/24890903
