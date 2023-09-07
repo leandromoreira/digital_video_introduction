@@ -404,7 +404,7 @@ Nuestra **predicción puede ser incorrecta**, por esa razón necesitamos aplicar
 Existen muchos tipos diferentes de este tipo de predicción. La que se muestra aquí es una forma de predicción plana recta, donde los píxeles de la fila superior del bloque se copian fila por fila dentro del bloque. La predicción plana también puede tener una componente angular, donde se utilizan píxeles tanto de la izquierda como de la parte superior para ayudar a predecir el bloque actual. Y también existe la predicción DC, que implica tomar el promedio de las muestras justo arriba y a la izquierda del bloque.
 
 > #### Práctica: Observa las intra predictions
-> Puedes [generar con ffmpeg un vídeo con macrobloques y sus predicciones.](/encoding_pratical_examples.md#generate-debug-video) Por favor verifica la documentación de ffmpeg para comprender el [significado de cada bloque de color](https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors#AnalyzingMacroblockTypes).
+> Puedes [generar con ffmpeg un vídeo con macrobloques y sus predicciones.](/encoding_pratical_examples.md#generate-debug-video) Por favor verifica la documentación de ffmpeg para comprender el [significado de cada bloque de color](https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors?version=7#AnalyzingMacroblockTypes).
 >
 > ![intra prediction (macro blocks) with ffmpeg](/i/macro_blocks_ffmpeg.png "inter prediction (motion vectors) with ffmpeg")
 >
