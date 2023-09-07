@@ -1,3 +1,12 @@
+[🇺🇸](/README.md "English")
+[🇨🇳](/README-cn.md "Simplified Chinese")
+[🇯🇵](/README-ja.md "Japanese")
+[🇮🇹](/README-it.md "Italian")
+[🇰🇷](/README-ko.md "Korean")
+[🇷🇺](/README-ru.md "Russian")
+[🇧🇷](/README-pt.md "Portuguese")
+[🇪🇸](/README-es.md "Spanish")
+
 [![license](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)
 
 # Introdução
