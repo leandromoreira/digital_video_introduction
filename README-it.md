@@ -329,7 +329,7 @@ E se ti dicessi che esiste un **metodo migliore**, che consente di utilizzare an
 
 ![Differenza tra fotogrammi](/i/original_frames_motion_estimation.png "Differenza tra fotogrammi")
 
-Possiamo stimare che la palla si è spostata dalla posizione `x=0, y=25` alla posizione `x=6, y=26`. I valori di **x** e **y** determinano i **vettori del moto**. Un passo aggiuntivo che possiamo fare per risparmiare spazio è **codificare soltanto il vettore di spostamento ottenuto dalla differenza** tra l'ultima posizione del blocco e quella predetta. Nell'esempio sopra il vettore del moto sarebbe quindi `x=6 (6-0), y=1 (26-25)`.
+Possiamo stimare che la palla si è spostata dalla posizione `x=0, y=25` alla posizione `x=7, y=26`. I valori di **x** e **y** determinano i **vettori del moto**. Un passo aggiuntivo che possiamo fare per risparmiare spazio è **codificare soltanto il vettore di spostamento ottenuto dalla differenza** tra l'ultima posizione del blocco e quella predetta. Nell'esempio sopra il vettore del moto sarebbe quindi `x=7 (7-0), y=1 (26-25)`.
 
 > In una situazione di codifica reale, **la palla sarebbe divisa tra più partizioni**, ma il procedimento è lo stesso.
 

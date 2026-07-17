@@ -351,7 +351,7 @@ Pero, ¿qué pasa si te digo que hay un **método mejor** que utiliza incluso me
 
 ![delta frames](/i/original_frames_motion_estimation.png "delta frames")
 
-Podríamos estimar que la pelota se movió de `x=0, y=25` a `x=6, y=26`, los valores de **x** e **y** son los **vectores de movimiento**. Un **paso adicional** que podemos dar para ahorrar bits es **codificar solo la diferencia del vector de movimiento** entre la última posición del bloque y la predicción, por lo que el vector de movimiento final sería `x=6 (6-0), y=1 (26-25)`.
+Podríamos estimar que la pelota se movió de `x=0, y=25` a `x=7, y=26`, los valores de **x** e **y** son los **vectores de movimiento**. Un **paso adicional** que podemos dar para ahorrar bits es **codificar solo la diferencia del vector de movimiento** entre la última posición del bloque y la predicción, por lo que el vector de movimiento final sería `x=7 (7-0), y=1 (26-25)`.
 
 > En una situación del mundo real, esta **pelota se dividiría en n particiones**, pero el proceso es el mismo.
 
