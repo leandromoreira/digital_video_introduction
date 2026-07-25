@@ -354,7 +354,7 @@ Mas e se eu te disser que há um **método melhor** que usa ainda menos bits?! P
 
 ![delta frames](/i/original_frames_motion_estimation.png "delta frames")
 
-Nós poderíamos estimar que a bola se moveu de `x=0, y=25` para `x=6, y=26`, os valores **x** e **y** são os **vetores de movimento**. Um **passo adicional** que podemos fazer para economizar bits é **codificar apenas a diferença** do vetor de movimento entre a última posição do bloco e a prevista, então o vetor de movimento final seria `x=6 (6-0), y=1 (26-25)`.
+Nós poderíamos estimar que a bola se moveu de `x=0, y=25` para `x=7, y=26`, os valores **x** e **y** são os **vetores de movimento**. Um **passo adicional** que podemos fazer para economizar bits é **codificar apenas a diferença** do vetor de movimento entre a última posição do bloco e a prevista, então o vetor de movimento final seria `x=7 (7-0), y=1 (26-25)`.
 
 > Em uma situação do mundo real, essa **bola seria dividida em n partições** mas o processo é o mesmo.
 
