@@ -179,7 +179,7 @@ Our eyes are [more sensitive to brightness than colors](http://vanseodesign.com/
 If you are unable to see that the colors of the **squares A and B are identical** on the left side, that's fine, it's our brain playing tricks on us to **pay more attention to light and dark than color**. There is a connector, with the same color, on the right side so we (our brain) can easily spot that in fact, they're the same color.
 
 > **Simplistic explanation of how our eyes work**
-> The [eye is a complex organ](http://www.biologymad.com/nervoussystem/eyenotes.htm), it is composed of many parts but we are mostly interested in the cones and rods cells. The eye [contains about 120 million rod cells and 6 million cone cells](https://en.wikipedia.org/wiki/Photoreceptor_cell).
+> The [eye is a complex organ](https://web.archive.org/web/20191205162955/http://www.biologymad.com/NervousSystem/eyenotes.htm), it is composed of many parts but we are mostly interested in the cones and rods cells. The eye [contains about 120 million rod cells and 6 million cone cells](https://en.wikipedia.org/wiki/Photoreceptor_cell).
 >
 > To **oversimplify**, let's try to put colors and brightness in the eye's parts function. The **[rod cells](https://en.wikipedia.org/wiki/Rod_cell) are mostly responsible for brightness** while the **[cone cells](https://en.wikipedia.org/wiki/Cone_cell) are responsible for color**, there are three types of cones, each with different pigment, namely: [S-cones (Blue), M-cones (Green) and L-cones (Red)](https://upload.wikimedia.org/wikipedia/commons/1/1e/Cones_SMJ2_E.svg).
 >
@@ -450,7 +450,7 @@ In 2003 the first version of **H.264/AVC** was completed. In the same year, **On
 >
 > The companies had a common goal, a royalty-free video codec and then AV1 was born with a much [simpler patent license](http://aomedia.org/license/patent/). **Timothy B. Terriberry** did an awesome presentation, which is the source of this section, about the [AV1 conception, license model and its current state](https://www.youtube.com/watch?v=lzPaldsmJbk).
 >
-> You'll be surprised to know that you can **analyze the AV1 codec through your browser**, go to https://arewecompressedyet.com/analyzer/
+> You'll be surprised to know that you can **analyze the AV1 codec through your browser**, go to https://web.archive.org/web/20210707131425/https://arewecompressedyet.com/analyzer/
 >
 > ![av1 browser analyzer](/i/av1_browser_analyzer.png "av1 browser analyzer")
 >
@@ -928,7 +928,7 @@ Miscellaneous:
 * http://stackoverflow.com/questions/38094302/how-to-understand-header-of-h264
 * http://techblog.netflix.com/2016/08/a-large-scale-comparison-of-x264-x265.html
 * http://vanseodesign.com/web-design/color-luminance/
-* http://www.biologymad.com/nervoussystem/eyenotes.htm
+* https://web.archive.org/web/20191205162955/http://www.biologymad.com/NervousSystem/eyenotes.htm
 * http://www.compression.ru/video/codec_comparison/h264_2012/mpeg4_avc_h264_video_codecs_comparison.pdf
 * https://web.archive.org/web/20100728070421/http://www.csc.villanova.edu/~rschumey/csc4800/dct.html (was: http://www.csc.villanova.edu/~rschumey/csc4800/dct.html)
 * http://www.explainthatstuff.com/digitalcameras.html
@@ -965,7 +965,7 @@ Miscellaneous:
 * https://softwaredevelopmentperestroika.wordpress.com/2014/02/11/image-processing-with-python-numpy-scipy-image-convolution/
 * https://tools.ietf.org/html/draft-fuldseth-netvc-thor-03
 * https://www.encoding.com/android/
-* https://www.encoding.com/http-live-streaming-hls/
+* https://web.archive.org/web/20190127092024/https://www.encoding.com/http-live-streaming-hls/
 * https://web.archive.org/web/20150129171151/https://www.iem.thm.de/telekom-labor/zinke/mk/mpeg2beg/whatisit.htm
 * https://www.lifewire.com/cmos-image-sensor-493271
 * https://www.linkedin.com/pulse/brief-history-video-codecs-yoav-nativ
